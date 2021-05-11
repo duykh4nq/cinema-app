@@ -11,29 +11,11 @@ import {
 import { loginReducer, registerReducer } from "./reducers/authReducers";
 import { oderReducers } from "./reducers/orderReduces";
 
-const reducer = combineReducers({
-  cart: cartReducer,
-  order: oderReducers,
-  getProducts: getProductsReducer,
-  getProductDetails: getProductsDetailReducer,
-  users: loginReducer,
-  register: registerReducer,
-});
+const reducer = combineReducers({});
 
 const middleware = [thunk];
 
-const cartFromLocalStorage = localStorage.getItem("cart")
-  ? JSON.parse(localStorage.getItem("cart"))
-  : [];
-
-const INITIAL_STATE = {
-  cart: {
-    cartItem: cartFromLocalStorage,
-  },
-  users: {
-    loggedIn: false,
-  },
-};
+const INITIAL_STATE = {};
 
 const store = createStore(
   reducer,
