@@ -5,6 +5,7 @@ module.exports = new Sequelize(
     "postgres://postgres:123@localhost:5432/cinema-app",
   {
     dialect: "postgres",
+    protocol: "postgres",
     // dialectOptions: {
     //   ssl: {
     //     rejectUnauthorized: false,

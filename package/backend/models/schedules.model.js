@@ -1,23 +1,28 @@
 const Sequelize = require("sequelize");
 const db = require("../configs/db");
+const { Bookings } = require("./bookings.model");
 
-const Bookings = db.define(
-  "bookings",
+const Schedules = db.define(
+  "schedules",
   {
     id: {
       type: Sequelize.INTEGER,
       primaryKey: true,
       autoIncrement: true,
     },
-    id_user: {
+    id_movie: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    id_schedule: {
+    id_cineplex: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    total: {
+    id_time: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    price: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
@@ -27,4 +32,7 @@ const Bookings = db.define(
   }
 );
 
-module.exports = { Bookings };
+Schedules.hasMany(Bookings, { foreignKey: "id_schedule" });
+Bookings.belongsTo(Schedules, { foreignKey: "id_schedule" });
+
+module.exports = { Schedules };

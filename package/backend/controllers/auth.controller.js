@@ -1,7 +1,8 @@
 const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
+const e = require("express");
 const jwt = require("jsonwebtoken");
-
+require("dotenv").config();
 // Model
 const { Users } = require("../models/users.model");
 
@@ -70,13 +71,14 @@ exports.postSignin = async (req, res, next) => {
   });
   if (!user) {
     return res.status(401).send({
-      error: "Email does not exist",
+      message: "Email does not exist",
     });
   }
   await bcrypt.compare(password, user.password, (err, result) => {
     if (result) {
       const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
       const { id, email, name, phone, active } = user;
+      req.session.email = email;
       return res.status(200).send({
         accessToken: token,
         user: { id, email, name, phone, active },
@@ -85,4 +87,69 @@ exports.postSignin = async (req, res, next) => {
       return res.status(401).send({ message: "Password wrong!" });
     }
   });
+};
+
+exports.postLogout = async (req, res, next) => {
+  req.session = null;
+  return res.status(200).send({ message: "Logout success" });
+};
+
+exports.postForgotPassword = async (req, res, next) => {
+  const { email } = req.body;
+  const code = Math.floor(100000 + Math.random() * 900000);
+  try {
+    const userExists = await Users.findOne({ where: { email: email } });
+    // check exists user
+    if (!userExists)
+      return res.status(403).send({
+        error: "Email is not exists",
+      });
+    await MailService.sendMail(email, code);
+    req.session.codeverify = code.toString();
+    req.session.email = newUser.email;
+    return res
+      .status(200)
+      .send({ message: "Success", codeverify: code.toString() });
+  } catch (error) {
+    return res.status(400).send({ error: "Fail" });
+  }
+};
+
+exports.postVerifyCodeResetPass = async (req, res, next) => {
+  const { code } = req.body;
+  const email = req.session.email;
+  const codeverify = req.session.codeverify;
+
+  if (code != codeverify) {
+    return res.status(403).send({ message: "Code not match" });
+  } else {
+    return res.status(200).send({ message: "OK" });
+  }
+};
+
+exports.postResetPassword = async (req, res, next) => {
+  const email = req.session.email;
+  const { password } = req.body;
+
+  const user = await User.findOne({ where: { email: email } });
+  user.password = bcrypt.hashSync(password, 12);
+  await user.save();
+  return res.status(200).send({ message: "Change password successfully" });
+};
+
+exports.postChangeProfile = async (req, res, next) => {
+  const { password, name, phone } = req.body;
+  const email = req.session.email;
+  console.log(email);
+  const user = await Users.findOne({
+    where: {
+      email: email,
+    },
+  });
+
+  user.password = bcrypt.hashSync(password, 12);
+  user.name = name;
+  user.phone = phone;
+  await user.save();
+  return res.status(200).send({ message: "Update success" });
 };
