@@ -2,9 +2,15 @@ const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const e = require("express");
 const jwt = require("jsonwebtoken");
+const { Op, QueryTypes } = require("sequelize");
 require("dotenv").config();
 // Model
 const { Users } = require("../models/users.model");
+const { Bookings } = require("../models/bookings.model");
+const { Movies } = require("../models/movies.model");
+const { Schedules } = require("../models/schedules.model");
+const { Tickets } = require("../models/ticket.model");
+const { Cineplexs, Rooms } = require("../models/cineplex_room.model");
 
 // Mail
 const MailService = require("../services/mail");
@@ -153,3 +159,63 @@ exports.postChangeProfile = async (req, res, next) => {
   await user.save();
   return res.status(200).send({ message: "Update success" });
 };
+
+exports.getHistoryBooking = async (req, res, next) => {
+  const email = req.session.email;
+  const user = await Users.findOne({ where: { email } });
+  const test = await Bookings.findAll({
+    where: {
+      id_user: {
+        [Op.eq]: user.id,
+      },
+    },
+    include: [
+      {
+        model: Tickets,
+        attributes: ["seat", "price_ticket"],
+      },
+      {
+        model: Schedules,
+        attributes: ["id_movie", "id_cineplex"],
+        include: [
+          {
+            model: Movies,
+            attributes: ["name_movie", "poster", "time"],
+          },
+          {
+            model: Cineplexs,
+            attributes: ["name", "address"],
+            include: [
+              {
+                model: Rooms,
+                attributes: ["name_room"],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+
+  return res.status(200).send(test);
+  // // convert to date
+  // const date = new Date(test[0].createdAt);
+  // console.log(
+  //   "Date: " +
+  //     date.getDate() +
+  //     "/" +
+  //     (date.getMonth() + 1) +
+  //     "/" +
+  //     date.getFullYear() +
+  //     " " +
+  //     date.getHours() +
+  //     ":" +
+  //     date.getMinutes() +
+  //     ":" +
+  //     date.getSeconds()
+  // );
+};
+
+function getDateWithoutTime(date) {
+  return require("moment")(date).format("YYYY-MM-DD");
+}

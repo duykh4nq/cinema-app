@@ -11,5 +11,9 @@ module.exports = new Sequelize(
     //     rejectUnauthorized: false,
     //   },
     // },
+    dialectOptions: {
+      useUTC: false, //for reading from database
+    },
+    timezone: "+07:00", //for writing to database
   }
 );

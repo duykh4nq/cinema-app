@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const db = require("../configs/db");
+const { Schedules } = require("./schedules.model");
 
 const Movies = db.define("movies", {
   id: {
@@ -32,5 +33,8 @@ const Movies = db.define("movies", {
     type: Sequelize.DATE,
   },
 });
+
+Movies.hasMany(Schedules, { foreignKey: "id_movie" });
+Schedules.belongsTo(Movies, { foreignKey: "id_movie" });
 
 module.exports = { Movies };
