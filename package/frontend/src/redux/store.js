@@ -11,6 +11,7 @@ import {
 import { loginReducer, registerReducer } from "./reducers/authReducers";
 import { oderReducers } from "./reducers/orderReduces";
 
+
 const reducer = combineReducers({
   cart: cartReducer,
   order: oderReducers,
@@ -19,7 +20,6 @@ const reducer = combineReducers({
   users: loginReducer,
   register: registerReducer,
 });
-
 const middleware = [thunk];
 
 const cartFromLocalStorage = localStorage.getItem("cart")
