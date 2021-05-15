@@ -1,0 +1,31 @@
+.date_picker {
+    background-color: #1d8cf8;
+    border: 1px solid #1d8cf8;
+    border-radius: 5px;
+    outline: none;
+    color: #fff;
+}
+
+.row_header {
+    margin-bottom: 20px;
+}
+
+.dropdown {
+    margin-top: 0px;
+}
+
+.date_picker_CGUD {
+    background-color: transparent;
+    border: 1px solid #32325d;
+    height: 30px;
+    font-size: 12px;
+    padding: 18px 10px;
+    border-radius: 7px;
+    outline: none;
+    color: #6c757d;
+}
+
+#TabPane {
+    cursor: pointer;
+    background-color: transparent;
+}
