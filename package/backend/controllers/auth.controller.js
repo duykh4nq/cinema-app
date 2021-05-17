@@ -121,7 +121,7 @@ exports.postForgotPassword = async (req, res, next) => {
       });
     await MailService.sendMail(email, code);
     req.session.codeverify = code.toString();
-    req.session.email = newUser.email;
+    req.session.email = email;
     return res
       .status(200)
       .send({ message: "Success", codeverify: code.toString() });
@@ -146,7 +146,7 @@ exports.postResetPassword = async (req, res, next) => {
   const email = req.session.email;
   const { password } = req.body;
 
-  const user = await User.findOne({ where: { email: email } });
+  const user = await Users.findOne({ where: { email: email } });
   user.password = bcrypt.hashSync(password, 12);
   await user.save();
   return res.status(200).send({ message: "Change password successfully" });
