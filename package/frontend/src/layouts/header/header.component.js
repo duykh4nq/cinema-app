@@ -96,7 +96,7 @@ function HeaderComponent() {
 							</ul>
 						</li>                
 						<li><a href="#">Help</a></li>
-						<li class="loginLink"><a href="#">LOG In</a></li>
+						<li class="loginLink"><a href="http://localhost:3000/admin/statistical" _target="blank">LOG In</a></li>
 						<li class="btn signupLink"><a href="#">sign up</a></li>
 					</ul>
 				</div>

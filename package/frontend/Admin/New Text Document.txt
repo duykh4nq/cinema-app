@@ -1,0 +1,3 @@
+Cinema: chọn cụm rạm,
+Movie: chọn cụm rạp
+Showtime: chọn cụm rạp

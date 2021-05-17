@@ -75,7 +75,7 @@ function Dashboard(props) {
           placeholder="date placeholder"
         />
           </Col>
-          <Col xs="4">
+          <Col xs="3">
           <label>Chọn rạp</label>
           <Input type="select" name="select" id="exampleSelect">
           <option>1</option>

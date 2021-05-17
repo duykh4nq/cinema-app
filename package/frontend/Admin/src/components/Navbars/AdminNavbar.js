@@ -164,7 +164,7 @@ function AdminNavbar(props) {
                     <DropdownItem className="nav-item">Profile</DropdownItem>
                   </NavLink>
                   <DropdownItem divider tag="li" />
-                  <NavLink tag="li">
+                  <NavLink href="http://localhost:3000/">
                     <DropdownItem className="nav-item">Log out</DropdownItem>
                   </NavLink>
                 </DropdownMenu>
