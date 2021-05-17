@@ -2,15 +2,24 @@ const bcrypt = require("bcryptjs");
 const crypto = require("crypto");
 const e = require("express");
 const jwt = require("jsonwebtoken");
-const { Op, QueryTypes } = require("sequelize");
+const { Op, QueryTypes, NOW, DATE } = require("sequelize");
+const sequelize = require("sequelize");
+const db = require("../configs/db");
 require("dotenv").config();
+const uuid = require("uuid");
+const QRCode = require("qrcode");
+
 // Model
 const { Users } = require("../models/users.model");
 const { Bookings } = require("../models/bookings.model");
 const { Movies } = require("../models/movies.model");
-const { Schedules } = require("../models/schedules.model");
+const { Schedules, Times } = require("../models/schedules.model");
 const { Tickets } = require("../models/ticket.model");
-const { Cineplexs, Rooms } = require("../models/cineplex_room.model");
+const {
+  Cineplexs,
+  Rooms,
+  Category_rooms,
+} = require("../models/cineplex_room.model");
 
 // Mail
 const MailService = require("../services/mail");
@@ -196,7 +205,6 @@ exports.getHistoryBooking = async (req, res, next) => {
       },
     ],
   });
-
   return res.status(200).send(test);
   // // convert to date
   // const date = new Date(test[0].createdAt);
@@ -214,6 +222,38 @@ exports.getHistoryBooking = async (req, res, next) => {
   //     ":" +
   //     date.getSeconds()
   // );
+};
+
+exports.postPayment = async (req, res, next) => {
+  const { id_schedule, total, seat } = req.body;
+  const email = req.session.email || "ducga079099@gmail.com";
+  const user = await Users.findOne({
+    where: {
+      email,
+    },
+    attributes: ["id"],
+  });
+
+  const uuidBooking = uuid.v4();
+  await Bookings.create({
+    id: uuidBooking,
+    id_user: user.id,
+    id_schedule: id_schedule,
+    total: total,
+  });
+
+  const price_ticket = parseInt(total) / seat.length;
+  for (let i = 0; i < seat.length; i++) {
+    const uuidTicket = uuid.v4();
+    await Tickets.create({
+      id: uuidTicket,
+      id_booking: uuidBooking,
+      seat: seat[i],
+      price_ticket: price_ticket,
+    });
+  }
+
+  res.status(200).send({ message: "success" });
 };
 
 function getDateWithoutTime(date) {

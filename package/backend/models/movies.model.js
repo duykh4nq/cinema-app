@@ -12,6 +12,10 @@ const Movies = db.define("movies", {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  slug: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
   release_date: {
     type: Sequelize.DATEONLY,
     allowNull: true,

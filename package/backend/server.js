@@ -27,8 +27,11 @@ app.use(
 
 const Home = require("./routes/homepage");
 const Auth = require("./routes/auth.route");
+const Admin = require("./routes/admin.route");
+
 app.use(Home);
 app.use(Auth);
+app.use(Admin);
 
 app.use("*", (req, res) => {
   res.status(404).json({

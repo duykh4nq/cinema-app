@@ -5,7 +5,6 @@ const Bookings = db.define("bookings", {
   id: {
     type: Sequelize.STRING,
     primaryKey: true,
-    autoIncrement: true,
   },
   id_user: {
     type: Sequelize.INTEGER,

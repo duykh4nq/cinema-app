@@ -14,7 +14,7 @@ const Schedules = db.define(
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    id_cineplex: {
+    id_room: {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
@@ -32,7 +32,32 @@ const Schedules = db.define(
   }
 );
 
+const Times = db.define(
+  "times",
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    start_point: {
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
+    end_point: {
+      type: Sequelize.DATE,
+      allowNull: false,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
+
 Schedules.hasMany(Bookings, { foreignKey: "id_schedule" });
 Bookings.belongsTo(Schedules, { foreignKey: "id_schedule" });
 
-module.exports = { Schedules };
+Times.hasOne(Schedules, { foreignKey: "id_time" });
+Schedules.belongsTo(Times, { foreignKey: "id_time" });
+
+module.exports = { Schedules, Times };
