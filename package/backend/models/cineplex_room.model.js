@@ -60,7 +60,7 @@ const Rooms = db.define(
 );
 
 const Category_rooms = db.define(
-  "category_room",
+  "category_rooms",
   {
     id: {
       type: Sequelize.INTEGER,
@@ -77,13 +77,13 @@ const Category_rooms = db.define(
   }
 );
 
-Cineplexs.hasMany(Schedules, { foreignKey: "id_cineplex" });
-Schedules.belongsTo(Cineplexs, { foreignKey: "id_cineplex" });
+Rooms.hasMany(Schedules, { foreignKey: "id_room" });
+Schedules.belongsTo(Rooms, { foreignKey: "id_room" });
 
 Cineplexs.hasMany(Rooms, { foreignKey: "id_cineplex" });
 Rooms.belongsTo(Cineplexs, { foreignKey: "id_cineplex" });
 
-Category_rooms.hasMany(Rooms, { foreignKey: "id_cineplex" });
-Rooms.belongsTo(Category_rooms, { foreignKey: "id_cineplex" });
+Category_rooms.hasMany(Rooms, { foreignKey: "id_category_room" });
+Rooms.belongsTo(Category_rooms, { foreignKey: "id_category_room" });
 
 module.exports = { Cineplexs, Rooms, Category_rooms };

@@ -9,10 +9,9 @@ const Tickets = db.define(
     id: {
       type: Sequelize.STRING,
       primaryKey: true,
-      autoIncrement: true,
     },
     id_booking: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       allowNull: false,
     },
     seat: {

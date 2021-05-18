@@ -31,3 +31,23 @@ exports.sendMail = (email, code) => {
     transporter.close();
   }
 };
+
+exports.sendMailQR = (email, img) => {
+  const transporter = nodemailer.createTransport(config);
+  try {
+    const msg = {
+      to: email, // Change to your recipient
+      from: process.env.EMAIL_ACCOUNT, // Change to your verified sender
+      subject: "CGV Cinemas",
+      text: `CGV Cinemas`,
+      html: `Halo ini barcodenya </br> <img src="${img}">`, // html body,
+    };
+    const info = transporter.sendMail(msg);
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  } finally {
+    transporter.close();
+  }
+};
