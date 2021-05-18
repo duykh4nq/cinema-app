@@ -41,3 +41,70 @@ exports.getSchedule = async (req, res, next) => {
   });
   res.status(200).send(schedule);
 };
+
+exports.postAddCineplex = async (req, res, next) => {
+  const { name, address } = req.body;
+  Cineplexs.create({
+    name: name,
+    address: address,
+  });
+  res.status(200).send("ok");
+};
+
+exports.getStatiscal = async (req, res, next) => {
+  console.log("ok");
+  const cineplex = await Cineplexs.findAll({
+    attributes: ["id", "name"],
+    include: [
+      {
+        model: Rooms,
+        attributes: ["id", "id_cineplex"],
+        include: [
+          {
+            model: Schedules,
+            attributes: ["id", "id_room"],
+            include: [
+              {
+                model: Bookings,
+                attributes: ["id", "id_schedule", "total", "createdAt"],
+                include: [
+                  {
+                    model: Tickets,
+                    attributes: ["id"],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+
+  console.log();
+
+  const movie = await Movies.findAll({
+    attributes: ["id", "name_movie"],
+    include: [
+      {
+        model: Schedules,
+        attributes: ["id", "id_room"],
+        include: [
+          {
+            model: Bookings,
+            attributes: ["id", "id_schedule", "total", "createdAt"],
+            include: [
+              {
+                model: Tickets,
+                attributes: ["id"],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+  res.status(200).send({
+    cineplex,
+  });
+};
