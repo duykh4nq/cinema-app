@@ -143,7 +143,7 @@ function Sidebar(props) {
               <li className="active-pro">
                 <ReactstrapNavLink href="#">
                   <i className="tim-icons icon-spaceship" />
-                  <p>Upgrade to PRO</p>
+                  <p>Lập trình Web 2</p>
                 </ReactstrapNavLink>
               </li>
             </Nav>

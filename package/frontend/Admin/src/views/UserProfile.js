@@ -35,6 +35,35 @@ import {
 function UserProfile() {
   return (
     <>
+    {/* id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    email: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    name: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    phone: {
+      type: Sequelize.STRING,
+      allowNull: false,
+    },
+    role: {
+      type: Sequelize.INTEGER, // admin = 0, customer = 1 (default)
+      allowNull: false,
+    },
+    active: {
+      type: Sequelize.STRING,
+      allowNull: true,
+    }, */}
       <div className="content">
         <Row>
           <Col md="8">
@@ -45,109 +74,54 @@ function UserProfile() {
               <CardBody>
                 <Form>
                   <Row>
-                    <Col className="pr-md-1" md="5">
+                    <Col className="pr-md-1" md="3">
                       <FormGroup>
-                        <label>Company (disabled)</label>
+                        <label>Id User (disabled)</label>
                         <Input
-                          defaultValue="Creative Code Inc."
+                          defaultValue="18600124"
                           disabled
                           placeholder="Company"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
-                    <Col className="px-md-1" md="3">
+                    </Row>
+                    <Row>
+                    <Col md="4">
                       <FormGroup>
-                        <label>Username</label>
-                        <Input
-                          defaultValue="michael23"
-                          placeholder="Username"
-                          type="text"
-                        />
+                        <label htmlFor="exampleInputEmail1">
+                          Email address
+                        </label>
+                        <Input placeholder="mike@gmail.com" type="email" />
                       </FormGroup>
                     </Col>
                     <Col className="pl-md-1" md="4">
                       <FormGroup>
                         <label htmlFor="exampleInputEmail1">
-                          Email address
+                          Password
                         </label>
-                        <Input placeholder="mike@email.com" type="email" />
+                        <Input placeholder="nguyenkhang1" type="password" />
                       </FormGroup>
                     </Col>
                   </Row>
                   <Row>
                     <Col className="pr-md-1" md="6">
                       <FormGroup>
-                        <label>First Name</label>
+                        <label>Full Name</label>
                         <Input
-                          defaultValue="Mike"
-                          placeholder="Company"
+                          defaultValue="Nguy Duy Khang"
+                          placeholder="Enter Name"
                           type="text"
                         />
                       </FormGroup>
                     </Col>
-                    <Col className="pl-md-1" md="6">
+                    <Col md="4">
                       <FormGroup>
-                        <label>Last Name</label>
+                        <label>Phone</label>
                         <Input
-                          defaultValue="Andrew"
-                          placeholder="Last Name"
+                          defaultValue="0941569575"
+                          placeholder="Enter Phone"
                           type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="12">
-                      <FormGroup>
-                        <label>Address</label>
-                        <Input
-                          defaultValue="Bld Mihail Kogalniceanu, nr. 8 Bl 1, Sc 1, Ap 09"
-                          placeholder="Home Address"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col className="pr-md-1" md="4">
-                      <FormGroup>
-                        <label>City</label>
-                        <Input
-                          defaultValue="Mike"
-                          placeholder="City"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="px-md-1" md="4">
-                      <FormGroup>
-                        <label>Country</label>
-                        <Input
-                          defaultValue="Andrew"
-                          placeholder="Country"
-                          type="text"
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col className="pl-md-1" md="4">
-                      <FormGroup>
-                        <label>Postal Code</label>
-                        <Input placeholder="ZIP Code" type="number" />
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                  <Row>
-                    <Col md="8">
-                      <FormGroup>
-                        <label>About Me</label>
-                        <Input
-                          cols="80"
-                          defaultValue="Lamborghini Mercy, Your chick she so thirsty, I'm in
-                            that two seat Lambo."
-                          placeholder="Here can be your description"
-                          rows="4"
-                          type="textarea"
                         />
                       </FormGroup>
                     </Col>

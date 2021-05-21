@@ -39,7 +39,7 @@ function CGUD() {
                     toggle("1");
                   }}
                 >
-                  Cinema
+                  Cineplex
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -49,7 +49,7 @@ function CGUD() {
                     toggle("2");
                   }}
                 >
-                  Cineplex
+                  Cinema
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -74,7 +74,7 @@ function CGUD() {
               </NavItem>
             </Nav>
             <TabContent activeTab={activeTab}>
-              <TabPane  tabId="1">
+              <TabPane  tabId="2">
                 <Card>
                   <CardHeader>
                     <h5 className="title">Add Cinema</h5>
@@ -82,7 +82,7 @@ function CGUD() {
                   <CardBody>
                     <Form>
                       <Row>
-                        <Col md="5">
+                        <Col md="4">
                           <FormGroup>
                             <label>Name</label>
                             <Input
@@ -98,6 +98,22 @@ function CGUD() {
                             <Input placeholder="Cấu hình ghế" type="text" />
                           </FormGroup>
                         </Col>
+                        <Col md="3">
+                        <FormGroup>
+                            <label>Choose Cineplex</label>
+                            <Input
+                              type="select"
+                              name="select"
+                              id="exampleSelect"
+                            >
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </Input>
+                          </FormGroup>
+                        </Col>
                       </Row>
                     </Form>
                   </CardBody>
@@ -108,7 +124,7 @@ function CGUD() {
                   </CardFooter>
                 </Card>
               </TabPane>
-              <TabPane tabId="2">
+              <TabPane tabId="1">
                 <Card>
                   <CardHeader>
                     <h5 className="title">Add Cineplex</h5>
@@ -160,6 +176,22 @@ function CGUD() {
                           <FormGroup>
                             <label>Name</label>
                             <Input placeholder="Name" type="text" />
+                          </FormGroup>
+                        </Col>
+                        <Col md="2">
+                        <FormGroup>
+                            <label>Choose Cineplex</label>
+                            <Input
+                              type="select"
+                              name="select"
+                              id="exampleSelect"
+                            >
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </Input>
                           </FormGroup>
                         </Col>
                         <Col md="3">
@@ -220,9 +252,25 @@ function CGUD() {
                   <CardBody>
                     <Form>
                       <Row>
-                        <Col md="3">
+                        <Col md="2">
                           <FormGroup>
                             <label>Cinema</label>
+                            <Input
+                              type="select"
+                              name="select"
+                              id="exampleSelect"
+                            >
+                              <option>1</option>
+                              <option>2</option>
+                              <option>3</option>
+                              <option>4</option>
+                              <option>5</option>
+                            </Input>
+                          </FormGroup>
+                        </Col>
+                        <Col md="2">
+                        <FormGroup>
+                            <label>Choose Cineplex</label>
                             <Input
                               type="select"
                               name="select"

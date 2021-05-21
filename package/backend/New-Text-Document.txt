@@ -1,0 +1,115 @@
+{
+    "cineplex": [
+        {
+            "id": 1,
+            "name": "Galaxy nhà làm",
+            "rooms": [
+                {
+                    "id": 1,
+                    "id_cineplex": 1,
+                    "schedules": [
+                        {
+                            "id": 1,
+                            "id_room": 1,
+                            "bookings": [
+                                {
+                                    "id": "1",
+                                    "id_schedule": 1,
+                                    "total": "1000",
+                                    "createdAt": "2021-01-24T16:59:59.000Z",
+                                    "tickets": [
+                                        {
+                                            "id": "1"
+                                        },
+                                        {
+                                            "id": "2"
+                                        },
+                                        {
+                                            "id": "3"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "id": 4,
+                            "id_room": 1,
+                            "bookings": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "CGV nhà làm",
+            "rooms": [
+                {
+                    "id": 2,
+                    "id_cineplex": 2,
+                    "schedules": [
+                        {
+                            "id": 2,
+                            "id_room": 2,
+                            "bookings": [
+                                {
+                                    "id": "4",
+                                    "id_schedule": 2,
+                                    "total": "5000",
+                                    "createdAt": "2021-10-12T16:59:59.000Z",
+                                    "tickets": [
+                                        {
+                                            "id": "4"
+                                        },
+                                        {
+                                            "id": "5"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "2785489a-8483-4b9a-8ae3-b86bce974270",
+                                    "id_schedule": 2,
+                                    "total": "10000",
+                                    "createdAt": "2021-05-17T04:11:15.815Z",
+                                    "tickets": [
+                                        {
+                                            "id": "519d4fce-6c05-4b84-8918-3431214a0573"
+                                        },
+                                        {
+                                            "id": "918f6076-288c-45fb-8fb1-67040a046c3b"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "id": "2",
+                                    "id_schedule": 2,
+                                    "total": "2000",
+                                    "createdAt": "2021-02-23T19:04:55.000Z",
+                                    "tickets": []
+                                }
+                            ]
+                        },
+                        {
+                            "id": 3,
+                            "id_room": 2,
+                            "bookings": [
+                                {
+                                    "id": "3",
+                                    "id_schedule": 3,
+                                    "total": "50000",
+                                    "createdAt": null,
+                                    "tickets": []
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "name": "CGV America",
+            "rooms": []
+        }
+    ]
+}
