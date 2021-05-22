@@ -2,6 +2,7 @@ const Sequelize = require("sequelize");
 const db = require("../configs/db");
 
 const { Schedules } = require("./schedules.model");
+const { Movies } = require("./movies.model");
 
 const Cineplexs = db.define(
   "cineplexs",
@@ -77,6 +78,28 @@ const Category_rooms = db.define(
   }
 );
 
+const Movies_Cineplex = db.define(
+  "movies_cineplexs",
+  {
+    id: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    id_movie: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+    },
+    id_cineplex: {
+      type: Sequelize.INTEGER,
+      primaryKey: true,
+    },
+  },
+  {
+    timestamps: false,
+  }
+);
+
 Rooms.hasMany(Schedules, { foreignKey: "id_room" });
 Schedules.belongsTo(Rooms, { foreignKey: "id_room" });
 
@@ -86,4 +109,13 @@ Rooms.belongsTo(Cineplexs, { foreignKey: "id_cineplex" });
 Category_rooms.hasMany(Rooms, { foreignKey: "id_category_room" });
 Rooms.belongsTo(Category_rooms, { foreignKey: "id_category_room" });
 
-module.exports = { Cineplexs, Rooms, Category_rooms };
+Movies.belongsToMany(Cineplexs, {
+  through: Movies_Cineplex,
+  foreignKey: "id_movie",
+});
+Cineplexs.belongsToMany(Movies, {
+  through: Movies_Cineplex,
+  foreignKey: "id_cineplex",
+});
+
+module.exports = { Cineplexs, Rooms, Category_rooms, Movies_Cineplex };
