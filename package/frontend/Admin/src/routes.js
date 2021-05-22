@@ -15,7 +15,7 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import CGUD from "views/CGUD.js";
+import CGUD from "views/CGUD.jsx";
 import Dashboard from "views/Dashboard.js";
 import TableList from "views/TableList.js";
 import UserProfile from "views/UserProfile.js";
