@@ -25,6 +25,9 @@ app.use(
   })
 );
 
+const { Movies } = require("./models/movies.model");
+const { Cineplexs, Movies_Cineplex } = require("./models/cineplex_room.model");
+
 const Home = require("./routes/homepage");
 const Auth = require("./routes/auth.route");
 const Admin = require("./routes/admin.route");

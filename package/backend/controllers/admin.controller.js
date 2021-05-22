@@ -19,6 +19,7 @@ const {
   Cineplexs,
   Rooms,
   Category_rooms,
+  Movies_Cineplex,
 } = require("../models/cineplex_room.model");
 
 exports.getCinema = async (req, res, next) => {
@@ -36,6 +37,9 @@ exports.getSchedule = async (req, res, next) => {
             model: Category_rooms,
           },
         ],
+      },
+      {
+        model: Movies,
       },
     ],
   });
