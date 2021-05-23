@@ -15,8 +15,8 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
-import CGUD from "views/CGUD.jsx";
-import Dashboard from "views/Dashboard.js";
+import CGUD from "views/CGUD.js";
+import Statistical from "views/Statistical.js";
 import TableList from "views/TableList.js";
 import UserProfile from "views/UserProfile.js";
 
@@ -26,7 +26,7 @@ var routes = [
     name: "Statistical",
     rtlName: "لوحة القيادة",
     icon: "tim-icons icon-chart-bar-32",
-    component: Dashboard,
+    component: Statistical,
     layout: "/admin",
   },
   {

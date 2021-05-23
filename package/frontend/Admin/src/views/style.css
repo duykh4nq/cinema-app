@@ -29,3 +29,17 @@
     cursor: pointer;
     background-color: transparent;
 }
+
+.input_size {
+    display: flex;
+    flex-direction: row;
+}
+
+#size_select {
+    border-left: none;
+    border-radius: 0 5px 5px 0px;
+}
+
+#size_disabled {
+    border-radius: 5px 0px 0px 5px;
+}

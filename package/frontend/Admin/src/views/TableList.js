@@ -16,6 +16,8 @@
 
 */
 import React,{ useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -30,15 +32,40 @@ import {
   Nav,
   NavItem,
   NavLink,
+  FormGroup,
+  Input
 } from "reactstrap";
 import classnames from "classnames";
 import "./style.css";
+import { getCinema, getRooms ,getAddCineplex,getMovies } from "../redux/actions/adminActions";
 
 function Tables() {
-  const [activeTab, setActiveTab] = useState("1");
+  console.log("chạy List");
+  let history = useHistory();
+  const dispatch = useDispatch();
+  const [name_cineplex, setCineplex] = React.useState("");
+  const [address_cineplex, setAddressCineplex] = React.useState("");
+  const [activeTab, setActiveTab] = React.useState("1");
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
+
+  //cineplex
+  const _cineplex = useSelector((state) => state.getCinema);
+  const { loadingCineplex, errorCineplex, cinema } = _cineplex;
+  React.useEffect(() => {
+    dispatch(getCinema());
+  }, [dispatch]);
+
+  //schedule
+  const _schedule = useSelector((state) => state.getSchedule);
+  const { loadingSchedule, errorSchedule, schedule } = _schedule;
+  
+  const setValueCineplex = (e) => {
+    dispatch(getRooms(e));
+    dispatch(getMovies(e));
+  };
+
   return (
     <>
       <div className="content">
@@ -52,7 +79,7 @@ function Tables() {
                     toggle("1");
                   }}
                 >
-                  Cinema
+                  Cineplex
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -62,7 +89,7 @@ function Tables() {
                     toggle("2");
                   }}
                 >
-                  Cineplex
+                Cinema
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -87,48 +114,51 @@ function Tables() {
               </NavItem>
             </Nav>
             <TabContent activeTab={activeTab}>
-              <TabPane tabId="1">
+              <TabPane tabId="2">
                 <Card>
                   <CardHeader>
                     <CardTitle tag="h4">Cinema List</CardTitle>
+                    <Col md="3">
+                          <FormGroup>
+                            <label>Choose Cineplex</label>
+                            {loadingCineplex ? (
+                              <h2>Loading...</h2>
+                            ) : errorCineplex ? (
+                              <h2>{errorCineplex}</h2>
+                            ) : (<Input
+                              type="select"
+                              name="select"
+                              id="exampleSelect" onChange={(e) => setValueCineplex(e.target.value)} 
+                            >
+                              {cinema.map((item) => (
+                                <option value={item.id}>{item.name}</option>
+                              ))}</Input>)}
+                          </FormGroup>
+                        </Col>
                   </CardHeader>
                   <CardBody>
-                    <Table className="tablesorter" responsive>
+                    <Table className="tablesorter">
                       <thead className="text-primary">
                         <tr>
                           <th>Name</th>
-                          <th>Seat configuration</th>
+                          <th>Vertical size</th>
+                          <th>Horizontal size</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Dakota Rice</td>
-                          <td>Niger</td>
-                        </tr>
-                        <tr>
-                          <td>Minerva Hooper</td>
-                          <td>Curaçao</td>
-                        </tr>
-                        <tr>
-                          <td>Sage Rodriguez</td>
-                          <td>Netherlands</td>
-                        </tr>
-                        <tr>
-                          <td>Philip Chaney</td>
-                          <td>Korea, South</td>
-                        </tr>
-                        <tr>
-                          <td>Doris Greene</td>
-                          <td>Malawi</td>
-                        </tr>
-                        <tr>
-                          <td>Mason Porter</td>
-                          <td>Chile</td>
-                        </tr>
-                        <tr>
-                          <td>Jon Porter</td>
-                          <td>Portugal</td>
-                        </tr>
+                      {loadingSchedule ? (
+                              <h2>Loading...</h2>
+                            ) : errorSchedule ? (
+                              <h2>{errorSchedule}</h2>
+                            ) : (
+                              schedule.map((item) => (
+                                <tr>
+                                <td>{item.name_room}</td>
+                                <td>{item.vertical_size}</td>
+                                <td>{item.horizontal_size}</td>
+                                </tr>
+                              ))
+                            )}
                       </tbody>
                     </Table>
                   </CardBody>
@@ -197,48 +227,34 @@ function Tables() {
                   </CardBody>
                 </Card>
               </TabPane>
-              <TabPane tabId="2">
+              <TabPane tabId="1">
                 <Card>
                   <CardHeader>
                     <CardTitle tag="h4">Cineplex List</CardTitle>
                   </CardHeader>
                   <CardBody>
-                    <Table className="tablesorter" responsive>
+                    <Table className="tablesorter">
                       <thead className="text-primary">
                         <tr>
                           <th>Name</th>
                           <th>Address</th>
+                          <th className="text-center">Remove</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Dakota Rice</td>
-                          <td>Niger</td>
-                        </tr>
-                        <tr>
-                          <td>Minerva Hooper</td>
-                          <td>Curaçao</td>
-                        </tr>
-                        <tr>
-                          <td>Sage Rodriguez</td>
-                          <td>Netherlands</td>
-                        </tr>
-                        <tr>
-                          <td>Philip Chaney</td>
-                          <td>Korea, South</td>
-                        </tr>
-                        <tr>
-                          <td>Doris Greene</td>
-                          <td>Malawi</td>
-                        </tr>
-                        <tr>
-                          <td>Mason Porter</td>
-                          <td>Chile</td>
-                        </tr>
-                        <tr>
-                          <td>Jon Porter</td>
-                          <td>Portugal</td>
-                        </tr>
+                        {loadingCineplex ? (
+                              <h2>Loading...</h2>
+                            ) : errorCineplex ? (
+                              <h2>{errorCineplex}</h2>
+                            ) : (
+                              cinema.map((item) => (
+                                <tr>
+                                <td>{item.name}</td>
+                                <td>{item.address}</td>
+                                <td className="text-center"><i className="tim-icons icon-simple-remove" /></td>
+                                </tr>
+                              ))
+                            )}
                       </tbody>
                     </Table>
                   </CardBody>
