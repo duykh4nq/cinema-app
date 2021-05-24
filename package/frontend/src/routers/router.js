@@ -5,6 +5,7 @@ import Footer from "../layouts/footer/footer.component";
 import DetailRoute from './detail.router';
 import BookingRoute from './booking.router';
 import HomeRoute from './home.router';
+import CheckoutRoute from './checkout.router';
 
 function Routes() {
     return (
@@ -13,6 +14,7 @@ function Routes() {
             <HomeRoute/>
             <DetailRoute/>
             <BookingRoute/>
+            <CheckoutRoute/>
             <Footer />
         </Router>
     );

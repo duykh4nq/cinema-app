@@ -440,7 +440,7 @@ function BookingPage() {
               <h3 class="title">$150</h3>
             </div>
             <div class="book-item">
-              <a href="movie-checkout.html" class="custom-button">proceed</a>
+              <a href="/checkout" class="custom-button">proceed</a>
             </div>
           </div>
         </div>
