@@ -1,0 +1,16 @@
+.info {
+    margin: 20px 0px;
+}
+
+input[type=text] {
+    background: #032055;
+    color: #fff;
+}
+
+.check-group {
+    align-items: center;
+}
+
+.payment-card-form .custom-button {
+    margin-top: 30px;
+}
