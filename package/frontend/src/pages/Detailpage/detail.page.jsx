@@ -4,8 +4,8 @@ import img from '../../assets/images/uploads/movie-single.jpg';
 
 DetailScreen.propTypes = {};
 
-function DetailScreen(props) {
-    return <div>
+function DetailScreen() {
+    return( <div>
         <div className="hero mv-single-hero">
             <div className="container">
                 <div className="row">
@@ -103,7 +103,7 @@ function DetailScreen(props) {
                                                     <div className="title-hd-sm">
                                                         <h4>User reviews</h4>
                                                         <a href="#" className="time">See All 56 Reviews <i className="ion-ios-arrow-right" /></a>
-                                                    </div> */}
+                                                    </div>
                                                     {/* movie user review */}
                                                     <div className="mv-user-review-item">
                                                         <h3>Best Marvel movie in my opinion</h3>
@@ -553,7 +553,7 @@ function DetailScreen(props) {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> */}
+                                        </div> 
                                         <div id="media" className="tab">
                                             <div className="row">
                                                 <div className="rv-hd">
@@ -769,7 +769,7 @@ function DetailScreen(props) {
                 </div>
             </div>
         </div>
-    </div>;
+    </div>);
 }
 
 export default DetailScreen;

@@ -3,15 +3,14 @@ import PropTypes from "prop-types";
 import { Route, Switch } from "react-router-dom";
 
 import { PATH } from "../constants/PATH";
-// import HomeScreen from "../pages/Homepage/home.page";
 import DetailScreen from "../pages/Detailpage/detail.page";
 
-function HomeRoute(props) {
+function DetailRoute(props) {
   return (
     <Switch>
-      <Route exact path={PATH.HOME} component={() => <DetailScreen />} />
+      <Route exact path={PATH.DETAIL} component={() => <DetailScreen />} />
     </Switch>
   );
 }
 
-export default HomeRoute;
+export default DetailRoute;

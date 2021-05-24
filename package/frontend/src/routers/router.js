@@ -2,13 +2,17 @@ import React from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
 import Header from "../layouts/header/header.component";
 import Footer from "../layouts/footer/footer.component";
-import Detail from "../pages/Detailpage/detail.page";
+import DetailRoute from './detail.router';
+import BookingRoute from './booking.router';
+import HomeRoute from './home.router';
 
-function Routes(props) {
+function Routes() {
     return (
         <Router>
             <Header />
-            <Detail />
+            <HomeRoute/>
+            <DetailRoute/>
+            <BookingRoute/>
             <Footer />
         </Router>
     );

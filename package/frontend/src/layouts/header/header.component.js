@@ -17,10 +17,9 @@ function HeaderComponent() {
 								<span></span>
 							</div>
 						</div>
-<<<<<<< HEAD
 				    </div>
 				    <a href="index-2.html"><img class="logo" src="images/logo1.png" alt="" width="119" height="58"></img></a>
-			    </div>
+			    
 				<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav flex-child-menu menu-left">
 						<li class="hidden">
@@ -101,45 +100,8 @@ function HeaderComponent() {
 						<li class="loginLink"><a href="http://localhost:3000/admin/statistical" _target="blank">LOG In</a></li>
 						<li class="btn signupLink"><a href="#">sign up</a></li>
 					</ul>
-=======
-						<a href="index-2.html"><img class="logo" src={logo} alt="" width="119" height="58"></img></a>
-					</div>
-					<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav flex-child-menu menu-left">
-							<li class="hidden">
-								<a href="#page-top"></a>
-							</li>
-							<li><a href="#">MOVIES</a></li>
-							<li><a href="#">MOVIES SCHEDULE</a></li>
-							<li><a href="#">THEATERS ADN PRICES</a></li>
-							<li><a href="#">PROMOTION</a></li>
-						</ul>
-						<ul class="nav navbar-nav flex-child-menu menu-right">
-							{/* <li class="dropdown first">
-								<a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-									pages <i class="fa fa-angle-down" aria-hidden="true"></i>
-								</a>
-								<ul class="dropdown-menu level1">
-									<li><a href="landing.html">Landing</a></li>
-									<li><a href="404.html">404 Page</a></li>
-									<li class="it-last"><a href="comingsoon.html">Coming soon</a></li>
-								</ul>
-							</li> */}
-							<li><a href="#">Help</a></li>
-							<li class="loginLink"><a href="#">LOG In</a></li>
-							<li class="btn signupLink"><a href="#">sign up</a></li>
-						</ul>
-					</div>
-				</nav>
-
-				<div class="top-search">
-					<select>
-						<option value="united">MOVIES SHOWING</option>
-						<option value="saab">MOVIES MOST WATCHED</option>
-					</select>
-					<input type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for"></input>
->>>>>>> 891d5e8e577f94be4e485223e4afcf90fb144c7c
 				</div>
+				</nav>
 			</div>
 		</header>
 	);
