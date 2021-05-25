@@ -4,18 +4,12 @@ import img from '../../assets/images/uploads/movie-single.jpg';
 
 DetailScreen.propTypes = {};
 
-function DetailScreen() {
-    return( <div>
+function DetailScreen(props) {
+    return <div>
         <div className="hero mv-single-hero">
             <div className="container">
                 <div className="row">
-                    <div className="col-md-12">
-                        {/* <h1> movie listing - list</h1>
-				<ul class="breadcumb">
-					<li class="active"><a href="#">Home</a></li>
-					<li> <span class="ion-ios-arrow-right"></span> movie listing</li>
-				</ul> */}
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -35,8 +29,8 @@ function DetailScreen() {
                                 <div className="btn-transform transform-vertical">
                                     <div>
                                         <a href="#" className="item item-1 yellowbtn"> <i className="ion-card" /> Buy ticket</a>
-                                    </div>
-                                    <div><a href="#" className="item item-2 yellowbtn"><i className="ion-card" /></a></div>
+                                    </div>  
+                                    <div><a href="/" className="item item-2 yellowbtn"><i className="ion-card" /></a></div>
                                 </div>
                             </div>
                         </div>
@@ -44,18 +38,6 @@ function DetailScreen() {
                     <div className="col-md-8 col-sm-12 col-xs-12">
                         <div className="movie-single-ct main-content">
                             <h1 className="bd-hd">Skyfall: Quantum of Spectre <span>2015</span></h1>
-                            <div className="social-btn">
-                                <a href="#" className="parent-btn"><i className="ion-heart" /> Add to Favorite</a>
-                                <div className="hover-bnt">
-                                    <a href="#" className="parent-btn"><i className="ion-android-share-alt" />share</a>
-                                    <div className="hvr-item">
-                                        <a href="#" className="hvr-grow"><i className="ion-social-facebook" /></a>
-                                        <a href="#" className="hvr-grow"><i className="ion-social-twitter" /></a>
-                                        <a href="#" className="hvr-grow"><i className="ion-social-googleplus" /></a>
-                                        <a href="#" className="hvr-grow"><i className="ion-social-youtube" /></a>
-                                    </div>
-                                </div>
-                            </div>
                             <div className="movie-rate">
                                 <div className="rate">
                                     <i className="ion-android-star" />
@@ -104,7 +86,6 @@ function DetailScreen() {
                                                         <h4>User reviews</h4>
                                                         <a href="#" className="time">See All 56 Reviews <i className="ion-ios-arrow-right" /></a>
                                                     </div>
-                                                    {/* movie user review */}
                                                     <div className="mv-user-review-item">
                                                         <h3>Best Marvel movie in my opinion</h3>
                                                         <div className="no-star">
@@ -428,69 +409,7 @@ function DetailScreen() {
                                                         <p>... (character created by: Ultron, Vision)</p>
                                                     </div>
                                                 </div>
-                                                {/* //== */}
-                                                {/* <div className="title-hd-sm">
-                                                    <h4>Cast</h4>
-                                                </div>
-                                                <div className="mvcast-item">
-                                                    <div className="cast-it">
-                                                        <div className="cast-left">
-                                                            <img src="images/uploads/cast1.jpg" alt="" />
-                                                            <a href="#">Robert Downey Jr.</a>
-                                                        </div>
-                                                        <p>... Robert Downey Jr.</p>
-                                                    </div>
-                                                    <div className="cast-it">
-                                                        <div className="cast-left">
-                                                            <img src="images/uploads/cast2.jpg" alt="" />
-                                                            <a href="#">Chris Hemsworth</a>
-                                                        </div>
-                                                        <p>... Thor</p>
-                                                    </div>
-                                                    <div className="cast-it">
-                                                        <div className="cast-left">
-                                                            <img src="images/uploads/cast3.jpg" alt="" />
-                                                            <a href="#">Mark Ruffalo</a>
-                                                        </div>
-                                                        <p>... Bruce Banner/ Hulk</p>
-                                                    </div>
-                                                    <div className="cast-it">
-                                                        <div className="cast-left">
-                                                            <img src="images/uploads/cast4.jpg" alt="" />
-                                                            <a href="#">Chris Evans</a>
-                                                        </div>
-                                                        <p>... Steve Rogers/ Captain America</p>
-                                                    </div>
-                                                    <div className="cast-it">
-                                                        <div className="cast-left">
-                                                            <img src="images/uploads/cast5.jpg" alt="" />
-                                                            <a href="#">Scarlett Johansson</a>
-                                                        </div>
-                                                        <p>... Natasha Romanoff/ Black Widow</p>
-                                                    </div>
-                                                    <div className="cast-it">
-                                                        <div className="cast-left">
-                                                            <img src="images/uploads/cast6.jpg" alt="" />
-                                                            <a href="#">Jeremy Renner</a>
-                                                        </div>
-                                                        <p>... Clint Barton/ Hawkeye</p>
-                                                    </div>
-                                                    <div className="cast-it">
-                                                        <div className="cast-left">
-                                                            <img src="images/uploads/cast7.jpg" alt="" />
-                                                            <a href="#">James Spader</a>
-                                                        </div>
-                                                        <p>... Ultron</p>
-                                                    </div>
-                                                    <div className="cast-it">
-                                                        <div className="cast-left">
-                                                            <img src="images/uploads/cast9.jpg" alt="" />
-                                                            <a href="#">Don Cheadle</a>
-                                                        </div>
-                                                        <p>... James Rhodes/ War Machine</p>
-                                                    </div>
-                                                </div>
-                                                {/* //== */}
+
                                                 <div className="title-hd-sm">
                                                     <h4>Produced by</h4>
                                                 </div>
@@ -553,7 +472,7 @@ function DetailScreen() {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div> 
+                                        </div>
                                         <div id="media" className="tab">
                                             <div className="row">
                                                 <div className="rv-hd">
@@ -769,7 +688,7 @@ function DetailScreen() {
                 </div>
             </div>
         </div>
-    </div>);
+    </div>;
 }
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 export default DetailScreen;

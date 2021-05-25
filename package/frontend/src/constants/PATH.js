@@ -4,5 +4,4 @@ exports.PATH = {
     DETAIL: "/detail",
     BOOKING: "/booking",
     CHECKOUT: "/checkout",
-    DIALOG: "/dialog"
 };
