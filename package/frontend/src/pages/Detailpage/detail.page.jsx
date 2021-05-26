@@ -1,8 +1,6 @@
 import React from "react";
-import PropTypes from "prop-types";
 import img from '../../assets/images/uploads/movie-single.jpg';
 
-DetailScreen.propTypes = {};
 
 function DetailScreen(props) {
     return <div>

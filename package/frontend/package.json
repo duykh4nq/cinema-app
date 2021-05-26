@@ -9,6 +9,7 @@
     "ajax-request": "^1.2.3",
     "antd": "^4.14.0",
     "axios": "^0.21.0",
+    "jquery": "^3.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.4",
@@ -24,7 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev":"yarn start && cd ./Admin && yarn start"
+    "dev": "yarn start && cd ./Admin && yarn start"
   },
   "eslintConfig": {
     "extends": [
