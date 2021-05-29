@@ -27,7 +27,7 @@ function HeaderComponent() {
 							<li><a href="#">MOVIES</a></li>
 							<li><a href="#">MOVIES SCHEDULE</a></li>
 							<li><a href="#">THEATERS ADN PRICES</a></li>
-							<li><a href="#">PROMOTION</a></li>
+							<li><a href="#">ABOUT US</a></li>
 						</ul>
 						<ul class="nav navbar-nav flex-child-menu menu-right">
 							<li><a href="#">Help</a></li>
@@ -37,7 +37,6 @@ function HeaderComponent() {
 					</div>
 				</nav>
 
-<<<<<<< HEAD
           <div
             class="collapse navbar-collapse flex-parent"
             id="bs-example-navbar-collapse-1"
@@ -203,7 +202,6 @@ function HeaderComponent() {
               </li>
             </ul>
           </div>
-        </nav>
 
         <div class="top-search">
           <select>
@@ -218,18 +216,6 @@ function HeaderComponent() {
       </div>
     </header>
   );
-=======
-				<div class="top-search">
-					<select>
-						<option value="united">MOVIES SHOWING</option>
-						<option value="saab">MOVIES MOST WATCHED</option>
-					</select>
-					<input type="text" placeholder="Search for a movie, TV Show or celebrity that you are looking for"></input>
-				</div>
-			</div>
-		</header>
-	);
->>>>>>> ea2d6d726700f533af004b351059cdf3a353d425
 }
 
 export default HeaderComponent;

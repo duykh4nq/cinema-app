@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./style.css";
@@ -18,15 +18,14 @@ import {
   TabPane,
   Nav,
   NavItem,
-  NavLink,
-  FormText,
+  NavLink
 } from "reactstrap";
 import classnames from "classnames";
 
 //import Actions
 import {
   getCinema,
-  getRooms,
+  getRooms ,
   getAddCineplex,
   getMovies,
 } from "../redux/actions/adminActions";
@@ -60,21 +59,18 @@ function CGUD(props) {
     "Z",
   ];
 
-  const myArrCreatedFromMap = myArr.map((item, i) => (<li key={item + i}>{item}</li>)); // `.map()` creates/returns a new array from calling a function on every element in the array it's called on
-
-  let history = useHistory();
   const dispatch = useDispatch();
   const [name_cineplex, setCineplex] = React.useState("");
   const [address_cineplex, setAddressCineplex] = React.useState("");
-  const horizontal = 2;
   const [activeTab, setActiveTab] = React.useState("1");
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
 
   //cineplex
-  const _cineplex = useSelector((state) => state.getCinema);
+  const  _cineplex = useSelector((state) => state.getCinema);
   const { loadingCineplex, errorCineplex, cinema } = _cineplex;
+
   React.useEffect(() => {
     dispatch(getCinema());
   }, [dispatch]);
@@ -88,14 +84,19 @@ function CGUD(props) {
     dispatch(getMovies(e));
   };
 
+
   //add cineplex
   const addCineplexHandler = (e) => {
+    e.preventDefault();
     setAddressCineplex(e.target.reset());
     setCineplex(e.target.reset());
-    e.preventDefault();
     dispatch(getAddCineplex(name_cineplex, address_cineplex));
+    dispatch(getCinema());
+  console.log(`🚀 => file: CGUD.js => line 94 => _cineplex`, _cineplex)
   };
 
+  //add Img
+  
   return (
     <>
       <div className="content">
@@ -107,6 +108,7 @@ function CGUD(props) {
                   id="TabPane"
                   className={classnames({ active: activeTab === "1" })}
                   onClick={() => {
+    console.log(`🚀 => file: CGUD.js => line 108 => _cineplex`, _cineplex)
                     toggle("1");
                   }}
                 >
@@ -191,29 +193,6 @@ function CGUD(props) {
                         </Col>
                       </Row>
                       <Row>
-                      <Col md="3">
-                          <FormGroup>
-                            <label>Choose Category Cinema</label>
-                            {loadingCineplex ? (
-                              <h2>Loading...</h2>
-                            ) : errorCineplex ? (
-                              <h2>{errorCineplex}</h2>
-                            ) : (
-                              <Input
-                                type="select"
-                                name="select"
-                                id="exampleSelect"
-                                // onChange={(e) =>
-                                //   setValueCineplex(e.target.value)
-                                // }
-                              >
-                                  <option>2D</option>
-                                  <option>3D</option>
-                                  <option>4DMAX</option>
-                              </Input>
-                            )}
-                          </FormGroup>
-                        </Col>
                         <Col md="2">
                           <FormGroup>
                             <label>Horizontal Size</label>
@@ -359,8 +338,6 @@ function CGUD(props) {
                             )}
                           </FormGroup>
                         </Col>
-                        </Row>
-                        <Row>
                         <Col md="3">
                           <FormGroup>
                             <label>Choose Cinema</label>
@@ -375,31 +352,8 @@ function CGUD(props) {
                                 id="exampleSelect"
                               >
                                 {schedule.map((item) => (
-                                  <option>{item.name_room}</option>
+                                  <option value={item.id}>{item.name_room}</option>
                                 ))}
-                              </Input>
-                            )}
-                          </FormGroup>
-                        </Col>
-                        <Col md="3">
-                          <FormGroup>
-                            <label>Choose Category Cinema</label>
-                            {loadingCineplex ? (
-                              <h2>Loading...</h2>
-                            ) : errorCineplex ? (
-                              <h2>{errorCineplex}</h2>
-                            ) : (
-                              <Input
-                                type="select"
-                                name="select"
-                                id="exampleSelect"
-                                // onChange={(e) =>
-                                //   setValueCineplex(e.target.value)
-                                // }
-                              >
-                                  <option>2D</option>
-                                  <option>3D</option>
-                                  <option>4DMAX</option>
                               </Input>
                             )}
                           </FormGroup>
@@ -436,14 +390,9 @@ function CGUD(props) {
                             <Input
                               type="file"
                               name="file"
-                              id="exampleFile"
+                              id="fileupload" 
                               placeholder="date placeholder"
                             />
-                            <FormText color="muted">
-                              This is some placeholder block-level help text for
-                              the above input. It's a bit lighter and easily
-                              wraps to a new line.
-                            </FormText>
                           </FormGroup>
                         </Col>
                       </Row>
@@ -501,31 +450,8 @@ function CGUD(props) {
                                 id="exampleSelect"
                               >
                                 {schedule.map((item) => (
-                                  <option>{item.name_room}</option>
+                                  <option value={item.id}>{item.name_room}</option>
                                 ))}
-                              </Input>
-                            )}
-                          </FormGroup>
-                        </Col>
-                        <Col md="3">
-                          <FormGroup>
-                            <label>Choose Category Cinema</label>
-                            {loadingCineplex ? (
-                              <h2>Loading...</h2>
-                            ) : errorCineplex ? (
-                              <h2>{errorCineplex}</h2>
-                            ) : (
-                              <Input
-                                type="select"
-                                name="select"
-                                id="exampleSelect"
-                                // onChange={(e) =>
-                                //   setValueCineplex(e.target.value)
-                                // }
-                              >
-                                  <option>2D</option>
-                                  <option>3D</option>
-                                  <option>4DMAX</option>
                               </Input>
                             )}
                           </FormGroup>
@@ -554,6 +480,17 @@ function CGUD(props) {
                         </Col>
                       </Row>
                       <Row>
+                      <Col md="3">
+                          <FormGroup>
+                            <label>Premiere date</label>
+                            <Input
+                              type="date"
+                              name="date"
+                              id="exampleDate"
+                              placeholder="date placeholder"
+                            />
+                          </FormGroup>
+                        </Col>
                         <Col md="3">
                           <FormGroup>
                             <label>Start Time</label>
@@ -565,17 +502,7 @@ function CGUD(props) {
                             />
                           </FormGroup>
                         </Col>
-                        <Col md="3">
-                          <FormGroup>
-                            <label>End Time</label>
-                            <Input
-                              type="time"
-                              name="time"
-                              id="exampleTime"
-                              placeholder="time placeholder"
-                            />
-                          </FormGroup>
-                        </Col>
+
                       </Row>
                     </Form>
                   </CardBody>

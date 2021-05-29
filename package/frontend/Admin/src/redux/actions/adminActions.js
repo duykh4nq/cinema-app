@@ -1,6 +1,28 @@
 import * as actionTypes from "../constants/adminConstants";
 import axios from "../configAxios";
 
+// export const getStatiscal = () => async (dispatch) => {
+//   try {
+//     dispatch({
+//       type: actionTypes.GET_CINEMA_REQUEST,
+//     });
+//     const { data } = await axios.get("/admin/statiscal");
+//     console.log(`🚀 => file: adminActions.js => line 10 => data`, data)
+//     dispatch({
+//       type: actionTypes.GET_CINEMA_SUCCESS,
+//       payload: data,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: actionTypes.GET_CINEMA_FAIL,
+//       payload:
+//         error.response && error.response.data.message
+//           ? error.response.data.message
+//           : error.message,
+//     });
+//   }
+// };
+
 export const getCinema = () => async (dispatch) => {
   try {
     dispatch({
@@ -35,6 +57,7 @@ export const getRooms = (id) => async (dispatch) => {
       }
     }
 
+    console.log(`🚀 => file: adminActions.js => line 42 => data[index].rooms`, data[index].rooms)
     dispatch({
       type: actionTypes.GET_SCHEDULE_SUCCESS,
       payload: data[index].rooms,

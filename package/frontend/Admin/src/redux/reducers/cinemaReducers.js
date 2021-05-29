@@ -48,3 +48,27 @@ export const getScheduleReducer = (state = { schedule: [] }, action) => {
   }
 };
 
+// export const getStatiscalReducer = (state = { statiscal: [] }, action) => {
+
+//   switch (action.type) {
+//     case actionTypes.GET_SCHEDULE_REQUEST:
+//       return {
+//         loading: true,
+//         statiscal: [],
+//       };
+//     case actionTypes.GET_SCHEDULE_SUCCESS:
+    
+//       return {
+//         statiscal: action.payload,
+//         loading: false,
+//       };
+//     case actionTypes.GET_SCHEDULE_FAIL:
+//       return {
+//         loading: false,
+//         error: null,
+//       };
+//     default:
+//       return state;
+//   }
+// };
+
