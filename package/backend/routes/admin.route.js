@@ -7,6 +7,9 @@ router.get("/admin/cinema", Admin.getCinema); // use for cineplex, movie
 router.get("/admin/schedule", Admin.getSchedule); // use for showtime
 
 router.post("/admin/addcineplex", Admin.postAddCineplex);
+router.post("/admin/addroom", Admin.postAddRoom);
+router.post("/admin/addmovie", Admin.postAddMovie);
+router.post("/admin/addshedule", Admin.postAddShedule);
 
 router.get("/admin/statiscal", Admin.getStatiscal);
 
