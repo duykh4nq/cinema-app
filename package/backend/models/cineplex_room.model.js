@@ -51,7 +51,7 @@ const Rooms = db.define(
       allowNull: true,
     },
     vertical_size: {
-      type: Sequelize.INTEGER,
+      type: Sequelize.STRING,
       allowNull: true,
     },
   },

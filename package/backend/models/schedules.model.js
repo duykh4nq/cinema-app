@@ -12,19 +12,15 @@ const Schedules = db.define(
     },
     id_movie: {
       type: Sequelize.INTEGER,
-      allowNull: false,
     },
     id_room: {
       type: Sequelize.INTEGER,
-      allowNull: false,
     },
     id_time: {
       type: Sequelize.INTEGER,
-      allowNull: false,
     },
     price: {
       type: Sequelize.INTEGER,
-      allowNull: false,
     },
   },
   {
