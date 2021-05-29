@@ -4,12 +4,13 @@ import { Route, Switch } from "react-router-dom";
 
 import { PATH } from "../constants/PATH";
 // import HomeScreen from "../pages/Homepage/home.page";
-import DetailScreen from "../pages/Detailpage/detail.page";
+//import DetailScreen from "../pages/Detailpage/detail.page";
+import HomeScreen from "../pages/Homepage/home.page";
 
 function HomeRoute(props) {
   return (
     <Switch>
-      <Route exact path={PATH.HOME} component={() => <DetailScreen />} />
+      <Route exact path={PATH.HOME} component={() => <HomeScreen />} />
     </Switch>
   );
 }

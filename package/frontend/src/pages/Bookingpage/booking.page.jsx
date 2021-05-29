@@ -1,5 +1,6 @@
 import React from 'react';
 import "../../assets/css/main.css";
+import "./booking.style.css";
 import screen_thumb from '../../assets/img/screen-thumb.png';
 import seat01 from "../../assets/img/seat01.png";
 import seat01_free from "../../assets/img/seat01-free.png";
@@ -11,7 +12,6 @@ function BookingPage() {
         <>
     <section
       class="details-banner hero-area bg_img seat-plan-banner hero mv-single-hero"
-     
     >
       <div >
         <div class="details-banner-wrapper">
@@ -30,11 +30,9 @@ function BookingPage() {
             </a>
           </div>
           <div class="item" > 
-          {/* style="text-align: left" */}
             <h5 class="title">BÀN TAY DIỆT QUỶ (2D)</h5>
           </div>
-          <div class="item" >
-          {/* style="text-align: right" */}
+          <div class="item-right" >
             <p>26/05/2021 14:10 ~ 26/05/2021 16:37</p>
             <p>CGV Vincom Trà Vinh | Cinema 3 | Số ghế (141/141)</p>
           </div>
@@ -53,10 +51,8 @@ function BookingPage() {
               <li class="seat-line">
                 <ul class="seat--area">
                   <li class="front-seat">
-                    <ul >
-                    {/* style="margin-left: 80px" */}
+                    <ul class="list-seat">
                       <li class="single-seat" >1</li>
-                      {/* style="width: 62px" */}
                       <li class="single-seat" >2</li>
                       <li class="single-seat" >3</li>
                       <li class="single-seat" >4</li>
@@ -79,7 +75,7 @@ function BookingPage() {
                 </ul>
               </li>
               <li class="seat-line">
-                <span>e</span>
+                <span>A</span>
                 <ul class="seat--area">
                   <li class="front-seat">
                     <ul>
@@ -140,10 +136,10 @@ function BookingPage() {
                     </ul>
                   </li>
                 </ul>
-                <span>e</span>
+                <span>A</span>
               </li>
               <li class="seat-line">
-                <span>e</span>
+                <span>B</span>
                 <ul class="seat--area">
                   <li class="front-seat">
                     <ul>
@@ -204,10 +200,10 @@ function BookingPage() {
                     </ul>
                   </li>
                 </ul>
-                <span>e</span>
+                <span>b</span>
               </li>
               <li class="seat-line">
-                <span>e</span>
+                <span>c</span>
                 <ul class="seat--area">
                   <li class="front-seat">
                     <ul>
@@ -268,10 +264,10 @@ function BookingPage() {
                     </ul>
                   </li>
                 </ul>
-                <span>e</span>
+                <span>c</span>
               </li>
               <li class="seat-line">
-                <span>e</span>
+                <span>d</span>
                 <ul class="seat--area">
                   <li class="front-seat">
                     <ul>
@@ -332,7 +328,7 @@ function BookingPage() {
                     </ul>
                   </li>
                 </ul>
-                <span>e</span>
+                <span>d</span>
               </li>
               <li class="seat-line">
                 <span>e</span>
@@ -407,27 +403,21 @@ function BookingPage() {
           <div class="proceed-to-book">
             <div class="book-item">
               <ul>
-                <li>
-                {/* style="
-                    display: flex;
-                    flex-direction: row;
-                    align-items: center;
-                  " */}
+                <li class="item-book">
                   <img src={seat01} alt="seat" />
-                  <p >
-                  {/* style="padding-left: 5px" */}
+                  <p class="book-info">
                       Chưa chọn</p>
                 </li>
                 <li
-                  
+                  class="item-book"
                 >
                   <img src={seat01_free} alt="seat" />
-                  <p >Đã chọn</p>
+                  <p class="book-info">Đã chọn</p>
                 </li>
-                <li
+                <li class="item-book"
                 >
                   <img src={seat01_booked} alt="seat" />
-                  <p >Checked</p>
+                  <p class="book-info">Checked</p>
                 </li>
               </ul>
             </div>

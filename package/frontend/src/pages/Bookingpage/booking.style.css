@@ -1,0 +1,21 @@
+.list-seat {
+    margin-left: 80px;
+}
+
+.single-seat {
+    width: 62px;
+}
+
+.item-book {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.book-info {
+    padding-left: 5px;
+}
+
+.item-right {
+    text-align: right;
+}

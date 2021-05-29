@@ -1,5 +1,9 @@
 import React from 'react';
+import "./checkout.style.css";
 import "../../assets/css/main.css";
+import card from "../../assets/img/card.png";
+import paypal from "../../assets/img/paypal.png";
+
 
 function CheckoutPage(props) {
     return (
@@ -48,19 +52,19 @@ function CheckoutPage(props) {
               <ul class="payment-option">
                 <li class="active">
                   <a href="#0">
-                    <img src="../img/card.png" alt="payment" />
+                    <img src={card} alt="payment" />
                     <span>Credit Card</span>
                   </a>
                 </li>
                 <li>
                   <a href="#0">
-                    <img src="../img/card.png" alt="payment" />
+                    <img src={card} alt="payment" />
                     <span>Debit Card</span>
                   </a>
                 </li>
                 <li>
                   <a href="#0">
-                    <img src="../img/paypal.png" alt="payment" />
+                    <img src={paypal} alt="payment" />
                     <span>paypal</span>
                   </a>
                 </li>
@@ -68,11 +72,9 @@ function CheckoutPage(props) {
               <form class="payment-card-form">
                 <div class="form-group check-group">
                   <input id="card5" type="checkbox" checked />
-                  <label for="card5">
-                    <span class="info"
-                      >Tôi đồng ý với điều khoản và mua vé với người có độ tuổi
-                      phù hợp.</span
-                    >
+                  <label>
+                    <span class="info">Tôi đồng ý với điều khoản và mua vé với người có độ tuổi
+                      phù hợp.</span>
                   </label>
                 </div>
                 <div class="form-group">
@@ -111,7 +113,7 @@ function CheckoutPage(props) {
             </div>
             <div class="proceed-area text-center">
               <h6 class="info">
-                <span>Tổng tiền thanh toán</span>
+                <h5>TỔNG TIỀN THANH TOÁN</h5>
               </h6>
               <div class="info"><span>98.000.000đ</span></div>
               <a href="#0" class="custom-button back-button">proceed</a>
