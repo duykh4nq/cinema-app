@@ -2,13 +2,39 @@ import React, { useState } from "react";
 import "../../assets/css/plugins.css";
 import "../../assets/css/style.css";
 import LoginScreen from "../../pages/Loginpage/login.page";
+import Register from "../../pages/Registerpage/register.page";
 import "./header.component.css";
 
 function HeadersComponent() {
+  const [openformLogin, setOpenformLogin] = useState(false);
+
+  const ClickOpenformLogin = () => {
+    setOpenformLogin(true);
+  };
+
+  const BackOpenformLogin = () => {
+    setOpenformLogin(false);
+  };
+
+  const [openformRegister, setOpenformRegister] = useState(false);
+
+  const ClickOpenformRegister = () => {
+    setOpenformRegister(true);
+  };
+
+  const BackOpenformRegister = () => {
+    setOpenformRegister(false);
+  };
   return (
     <>
-      <LoginScreen />
-
+      <LoginScreen
+        openformLogin={openformLogin}
+        BackOpenformLogin={BackOpenformLogin}
+      />
+      <Register
+        openformRegister={openformRegister}
+        BackOpenformRegister={BackOpenformRegister}
+      />
       <header class="ht-header">
         <div class="container">
           <nav class="navbar navbar-default navbar-custom">
@@ -192,10 +218,10 @@ function HeadersComponent() {
                 <li>
                   <a href="#">Help</a>
                 </li>
-                <li class="loginLink">
+                <li class="loginLink" onClick={ClickOpenformLogin}>
                   <a href="#">LOG In</a>
                 </li>
-                <li class="btn signupLink">
+                <li class="btn signupLink" onClick={ClickOpenformRegister}>
                   <a href="#">sign up</a>
                 </li>
               </ul>
