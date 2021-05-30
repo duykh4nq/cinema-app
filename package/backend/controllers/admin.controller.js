@@ -254,59 +254,43 @@ exports.postAddShedule = async (req, res, next) => {
   return res.status(200).send("ok");
 };
 
-exports.getStatiscal = async (req, res, next) => {
-  const cineplex = await Cineplexs.findAll({
-    attributes: ["id", "name"],
-    include: [
-      {
-        model: Rooms,
-        attributes: ["id", "id_cineplex"],
-        include: [
-          {
-            model: Schedules,
-            attributes: ["id", "id_room"],
-            include: [
-              {
-                model: Bookings,
-                attributes: ["id", "id_schedule", "total", "createdAt"],
-                include: [
-                  {
-                    model: Tickets,
-                    attributes: ["id"],
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  });
+exports.postStatiscalForCineplex = async (req, res, next) => {
+  const { start, end } = req.body;
 
-  const movie = await Movies.findAll({
-    attributes: ["id", "name_movie"],
-    include: [
-      {
-        model: Schedules,
-        attributes: ["id", "id_room"],
-        include: [
-          {
-            model: Bookings,
-            attributes: ["id", "id_schedule", "total", "createdAt"],
-            include: [
-              {
-                model: Tickets,
-                attributes: ["id"],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  });
-  console.log("hello");
+  const statiscalForCineplex = await db.query(
+    `
+    select cine.name, Sum(bk.total), Count(*)
+    from cineplexs as cine join rooms as ro on cine.id = ro.id_cineplex
+    join schedules as sche on ro.id = sche.id_room
+    join bookings as bk on bk.id_schedule = sche.id
+    join tickets as tk on tk.id_booking = bk.id
+    where bk.created_at::date >= '${start}' and bk.created_at::date <= '${end}'
+    group by cine.name
+  `,
+    { type: QueryTypes.SELECT }
+  );
 
   res.status(200).send({
-    cineplex,
+    statiscalForCineplex,
+  });
+};
+
+exports.postStatiscalForMovie = async (req, res, next) => {
+  const { start, end } = req.body;
+
+  const statiscalForMovie = await db.query(
+    `
+    select mo.name_movie, sum(bk.total), count(*)
+    from movies as mo join schedules as sche on mo.id = sche.id_movie
+    join bookings as bk on bk.id_schedule = sche.id
+    join tickets as tk on tk.id_booking = bk.id
+    where bk.created_at::date >= '${start}' and bk.created_at::date <= '${end}'
+    group by mo.name_movie
+  `,
+    { type: QueryTypes.SELECT }
+  );
+
+  res.status(200).send({
+    statiscalForMovie,
   });
 };
