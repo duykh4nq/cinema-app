@@ -1,5 +1,4 @@
 const e = require("express");
-const jwt = require("jsonwebtoken");
 const { Op, QueryTypes, NOW, DATE } = require("sequelize");
 const sequelize = require("sequelize");
 const db = require("../configs/db");
