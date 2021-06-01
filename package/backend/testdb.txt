@@ -1,0 +1,7 @@
+select cine.name, Sum(bk.total), Count(*)
+from cineplexs as cine join rooms as ro on cine.id = ro.id_cineplex
+join schedules as sche on ro.id = sche.id_room
+join bookings as bk on bk.id_schedule = sche.id
+join tickets as tk on tk.id_booking = bk.id
+where bk.created_at::date >= '01/24/2021' and bk.created_at::date <= '02/24/2021'
+group by cine.name

@@ -43,7 +43,7 @@ exports.getHome = async (req, res, next) => {
   const bestSelling = await db.query(
     // best selling movie
     `
-    SELECT *
+    SELECT MOVIES.*
     FROM MOVIES
     WHERE MOVIES.ID IN (SELECT Schedules.id_movie
                         FROM Bookings AS bookings, Schedules as schedules

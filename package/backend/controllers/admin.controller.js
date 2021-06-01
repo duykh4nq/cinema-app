@@ -176,10 +176,12 @@ function timeConvertMinutesToHours(timeInput, flag, movieTime) {
 
   var num = minutesInput;
   var hours = num / 60;
+  console.log(flag, hours);
   var rhours = Math.floor(hours);
   var minutes = (hours - rhours) * 60;
   var rminutes = Math.round(minutes);
   let fa = false;
+
   if (rhours >= 24) {
     fa = true;
     rhours %= 24;
@@ -208,7 +210,6 @@ exports.postAddShedule = async (req, res, next) => {
 
   // get end_point
   const end_time = timeConverter(times[0].end_point);
-
   // compare
   if (!compareTime(start_time, end_time, start_time_last)) {
     return res.status(200).send({
@@ -225,7 +226,7 @@ exports.postAddShedule = async (req, res, next) => {
   );
 
   // convert start time to time exact
-  let time1 = start_time.slice(0, 6).split(":");
+  let time1 = start_time.slice(0, 5).split(":");
   let minutesInput = parseInt(time1[0] * 60) + parseInt(time1[1]);
   if (start_time_last === "PM") minutesInput += 12 * 60;
 
@@ -235,9 +236,10 @@ exports.postAddShedule = async (req, res, next) => {
   const dateTimeEnd = datee + " " + time;
   let end_time_db = new Date(dateTimeEnd);
   if (flagg === true) {
-    end_time_db = new Date(end_time_db.getTime() + 24 * 60 * 60 * 1000);
+    end_time_db = new Date(end_time_db.getTime() + 2 * 24 * 60 * 60 * 1000);
   }
 
+  console.log(start_time_db, end_time_db);
   let tt = await Times.create({
     start_point: start_time_db,
     end_point: end_time_db,
