@@ -1,5 +1,3 @@
-const bcrypt = require("bcryptjs");
-const crypto = require("crypto");
 const e = require("express");
 const jwt = require("jsonwebtoken");
 const { Op, QueryTypes, NOW, DATE } = require("sequelize");
@@ -7,7 +5,6 @@ const sequelize = require("sequelize");
 const db = require("../configs/db");
 require("dotenv").config();
 const uuid = require("uuid");
-const QRCode = require("qrcode");
 const moment = require("moment");
 
 // Model
@@ -22,8 +19,6 @@ const {
   Category_rooms,
   Movies_Cineplex,
 } = require("../models/cineplex_room.model");
-const { mode } = require("crypto-js");
-const { time } = require("console");
 
 exports.getCinema = async (req, res, next) => {
   const cineplex = await Cineplexs.findAll();
@@ -102,9 +97,10 @@ function nonAccentVietnamese(str) {
 
 exports.postAddMovie = async (req, res, next) => {
   let { id_cineplex, name_movie, time, release_date, poster } = req.body;
-  if (id_cineplex === undefined) return res.status(200).send("All");
-  name_movie = name_movie.replace(/\s+/g, " ").trim();
+  name_movie = name_movie.toString().replace(/\s+/g, " ").trim();
   let slug = nonAccentVietnamese(name_movie).split(" ").join("-");
+  const movieExists = await Movies.findOne({ where: { slug: slug } });
+  if (movieExists) return res.status(200).send({ message: "movie is exists" });
   let tt = await Movies.create({
     name_movie: name_movie,
     slug: slug,
@@ -113,13 +109,14 @@ exports.postAddMovie = async (req, res, next) => {
     time: time,
   });
   tt = JSON.parse(JSON.stringify(tt));
+  console.log(tt);
   const id_movie = tt["id"];
 
   await Movies_Cineplex.create({
     id_cineplex: id_cineplex,
     id_movie: id_movie,
   });
-  return res.status(200).send("ok");
+  return res.status(200).send({ message: "ok" });
 };
 
 function timeConverter(UNIX_timestamp) {

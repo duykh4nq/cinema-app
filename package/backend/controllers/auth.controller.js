@@ -78,7 +78,7 @@ exports.postVerify = async (req, res, next) => {
 };
 
 exports.postSignin = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
   const user = await Users.findOne({
     where: {
       email: email,
