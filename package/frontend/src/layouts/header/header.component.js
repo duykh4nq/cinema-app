@@ -1,42 +1,34 @@
-import React from 'react';
-import '../../assets/css/plugins.css';
-import '../../assets/css/style.css';
-import logo from '../../assets/images/logo1.png';
+import React, { useState } from "react";
+import "../../assets/css/plugins.css";
+import "../../assets/css/style.css";
+import LoginScreen from "../../pages/Loginpage/login.page";
+import "./header.component.css";
+import logo from "../../assets/images/logo2.png";
 
 function HeaderComponent() {
-	return (
-		<header>
-			<div class="container">
-				<nav class=" navbar navbar-default navbar-custom">
-					<div class="navbar-header logo">
-						<div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-							<span class="sr-only">Toggle navigation</span>
-							<div id="nav-icon1">
-								<span></span>
-								<span></span>
-								<span></span>
-							</div>
-						</div>
-						<a href="index-2.html"><img class="logo" src={logo} alt="" width="119" height="58"></img></a>
-					</div>
-					<div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
-						<ul class="nav navbar-nav flex-child-menu menu-left">
-							<li class="hidden">
-								<a href="#page-top"></a>
-							</li>
-							<li><a href="#">MOVIES</a></li>
-							<li><a href="#">MOVIES SCHEDULE</a></li>
-							<li><a href="#">THEATERS ADN PRICES</a></li>
-							<li><a href="#">ABOUT US</a></li>
-						</ul>
-						<ul class="nav navbar-nav flex-child-menu menu-right">
-							<li><a href="#">Help</a></li>
-							<li class="loginLink"><a href="#">LOG In</a></li>
-							<li class="btn signupLink"><a href="#">sign up</a></li>
-						</ul>
-					</div>
-				</nav>
-
+  return (
+    <header>
+      <div class="container">
+        <nav class="navbar navbar-default navbar-custom">
+          {/* <!-- Brand and toggle get grouped for better mobile display --> */}
+          <div class="navbar-header logo">
+            <div
+              class="navbar-toggle"
+              data-toggle="collapse"
+              data-target="#bs-example-navbar-collapse-1"
+            >
+              <span class="sr-only">Toggle navigation</span>
+              <div id="nav-icon1">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+            <a href="index-2.html">
+              <img class="logo" src={logo} alt="" width="119" height="58" />
+            </a>
+          </div>
+          {/* <!-- Collect the nav links, forms, and other content for toggling --> */}
           <div
             class="collapse navbar-collapse flex-parent"
             id="bs-example-navbar-collapse-1"
@@ -103,7 +95,7 @@ function HeaderComponent() {
                   data-toggle="dropdown"
                   data-hover="dropdown"
                 >
-                  celebrities{" "}
+                  celebrities
                   <i class="fa fa-angle-down" aria-hidden="true"></i>
                 </a>
                 <ul class="dropdown-menu level1">
@@ -190,19 +182,17 @@ function HeaderComponent() {
                 <a href="#">Help</a>
               </li>
               <li class="loginLink">
-                <a
-                  href="http://localhost:3000/admin/statistical"
-                  _target="blank"
-                >
-                  LOG In
-                </a>
+                <a href="#">LOG In</a>
               </li>
               <li class="btn signupLink">
                 <a href="#">sign up</a>
               </li>
             </ul>
           </div>
+          {/* <!-- /.navbar-collapse --> */}
+        </nav>
 
+        {/* <!-- top search form --> */}
         <div class="top-search">
           <select>
             <option value="united">TV show</option>

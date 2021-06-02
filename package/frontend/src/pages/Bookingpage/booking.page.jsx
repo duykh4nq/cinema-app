@@ -11,7 +11,7 @@ function BookingPage() {
     return (
         <>
     <section
-      class="details-banner hero-area bg_img seat-plan-banner hero mv-single-hero"
+      class="details-banner hero-area bg_img seat-plan-banner"
     >
       <div >
         <div class="details-banner-wrapper">

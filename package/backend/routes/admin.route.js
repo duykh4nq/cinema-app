@@ -11,6 +11,7 @@ router.post("/admin/addroom", Admin.postAddRoom);
 router.post("/admin/addmovie", Admin.postAddMovie);
 router.post("/admin/addshedule", Admin.postAddShedule);
 
-router.get("/admin/statiscal", Admin.getStatiscal);
+router.post("/admin/statiscalCineplex", Admin.postStatiscalForCineplex);
+router.post("/admin/statiscalMovie", Admin.postStatiscalForMovie);
 
 module.exports = router;

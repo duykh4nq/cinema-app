@@ -14,9 +14,9 @@ function Routes() {
       <Header />
       <HomeRoute />
       <DetailRoute />
-      <AboutUsRoute/>
-      {/* <BookingRoute /> */}
-      {/* <CheckoutRoute /> */}
+      <AboutUsRoute />
+      <BookingRoute />
+      <CheckoutRoute />
       <Footer />
     </Router>
   );

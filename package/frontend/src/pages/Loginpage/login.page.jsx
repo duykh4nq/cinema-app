@@ -1,11 +1,81 @@
-import React from "react";
-import PropTypes from "prop-types";
-import "./login.style.css";
+import React, { useState } from "react";
+import "./login.style.scss";
 
 LoginScreen.propTypes = {};
 
-function LoginScreen(props) {
-  return <div>Login Page</div>;
+function LoginScreen({ openformLogin, BackOpenformLogin }) {
+  return (
+    <div
+      class="loginpage"
+      {...(openformLogin === true
+        ? { className: "loginpage openform" }
+        : { className: "loginpage" })}
+    >
+      <div class="login-wrapper" id="login-content">
+        <div class="login-content">
+          <div class="login-close" onClick={BackOpenformLogin}>
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </div>
+          <a href="#" class="close">
+            x
+          </a>
+          <h3>Login</h3>
+          <form method="post" action="#">
+            <div class="row">
+              <label for="username">
+                Username:
+                <input
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="Hugh Jackman"
+                  pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$"
+                  required="required"
+                />
+              </label>
+            </div>
+
+            <div class="row">
+              <label for="password">
+                Password:
+                <input
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="******"
+                  pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                  required="required"
+                />
+              </label>
+            </div>
+            <div class="row">
+              <div class="remember">
+                <div>
+                  <input type="checkbox" name="remember" value="Remember me" />
+                  <span>Remember me</span>
+                </div>
+                <a href="#">Forget password ?</a>
+              </div>
+            </div>
+            <div class="row">
+              <button type="submit">Login</button>
+            </div>
+          </form>
+          <div class="row">
+            <p>Or via social</p>
+            <div class="social-btn-2">
+              <a class="fb" href="#">
+                <i class="ion-social-facebook"></i>Facebook
+              </a>
+              <a class="tw" href="#">
+                <i class="ion-social-twitter"></i>twitter
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default LoginScreen;
