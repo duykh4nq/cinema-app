@@ -205,13 +205,16 @@ exports.postAddShedule = async (req, res, next) => {
   );
 
   // get end_point
-  const end_time = timeConverter(times[0].end_point);
-  // compare
-  if (!compareTime(start_time, end_time, start_time_last)) {
-    return res.status(200).send({
-      message:
-        "Time Start of schedule greater time of schedule previous 15 minutes",
-    });
+  if (Object.keys(times).length !== 0) {
+    const end_time = timeConverter(times[0].end_point);
+    // compare
+
+    if (!compareTime(start_time, end_time, start_time_last)) {
+      return res.status(200).send({
+        message:
+          "Time Start of schedule greater time of schedule previous 15 minutes",
+      });
+    }
   }
 
   // plus time start with time of movie => end_time
@@ -235,7 +238,6 @@ exports.postAddShedule = async (req, res, next) => {
     end_time_db = new Date(end_time_db.getTime() + 2 * 24 * 60 * 60 * 1000);
   }
 
-  console.log(start_time_db, end_time_db);
   let tt = await Times.create({
     start_point: start_time_db,
     end_point: end_time_db,
