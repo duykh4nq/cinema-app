@@ -5,6 +5,9 @@ import Register from "../../pages/Registerpage/register.page";
 
 //import css
 import "./header.component.css";
+
+//import css
+import "./header.component.css";
 function HeadersComponent() {
   const [openformLogin, setOpenformLogin] = useState(false);
 
