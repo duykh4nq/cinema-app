@@ -1,212 +1,345 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getProducts as listProducts } from "../../redux/actions/productActions";
-import "./home.style.scss";
-import "swiper/swiper.min.css";
-import SwiperComponent from "../../components/Swiper/SwiperComponent";
-import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, { Navigation, Pagination } from "swiper/core";
-SwiperCore.use([Navigation, Pagination]);
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
-//import "../../assets/js/custom";
+import "./home.style.css";
+import "../../assets/css/plugins.css";
+import "../../assets/css/style.css";
 
-//Actions
+import { getMovieDetails } from "../../redux/actions/movieActions";
 
-HomeScreen.propTypes = {};
-
-function HomeScreen(props) {
-  //home
-  const dispatch = useDispatch();
-
-  const getProducts = useSelector((state) => state.getProducts);
-  const { products } = getProducts;
-  console.log("🚀 ~ file: home.page.jsx ~ line 25 ~ products", products);
-  var arrData = [];
-  if (products) {
-    arrData = [
-      products["commingsoon"],
-      products["commingsoon"],
-      products["commingsoon"],
-      products["commingsoon"],
-      products["commingsoon"],
-      products["commingsoon"],
-    ];
-  }
-  console.log("🚀 ~ file: home.page.jsx ~ line 35 ~ arrData", arrData);
-
-  useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
-
+const HomeScreen = ({ match, history }) => {
   return (
     <>
       <div class="homepage">
-        <section class="movie-section padding-top padding-bottom bg-two">
-          <div class="container">
-            <div class="row flex-wrap-reverse justify-content-center">
-              <div class="col-lg-3 col-sm-10  mt-50 mt-lg-0">
-                <div class="widget-1 widget-facility">
-                  <div class="widget-1-body">
-                    <ul>
-                      <li>
+          <section class="movie-section padding-top padding-bottom bg-two">
+            <div class="container">
+              <div class="row flex-wrap-reverse justify-content-center">
+                <div class="col-lg-3 col-sm-10  mt-50 mt-lg-0">
+                  <div class="widget-1 widget-facility">
+                    <div class="widget-1-body">
+                      <ul>
+                        <li>
                         <a href="#0">
-                          <span class="img">
-                            <img src="./images/sidebar01.png" alt="sidebar" />
-                          </span>
-                          <span class="cate">24X7 Care</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#0">
-                          <span class="img">
-                            <img src="./images/sidebar02.png" alt="sidebar" />
-                          </span>
-                          <span class="cate">100% Assurance</span>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#0">
-                          <span class="img">
-                            <img src="./images/sidebar03.png" alt="sidebar" />
-                          </span>
-                          <span class="cate">Our Promise</span>
-                        </a>
-                      </li>
-                    </ul>
+                            <span class="img">
+                              <img src="./images/sidebar01.png" alt="sidebar" />
+                            </span>
+                            <span class="cate">24X7 Care</span>
+                            </a>
+                        </li>
+                        <li>
+                          <a href="#0">
+                            <span class="img">
+                              <img src="./images/sidebar02.png" alt="sidebar" />
+                            </span>
+                            <span class="cate">100% Assurance</span>
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#0">
+                            <span class="img">
+                              <img src="./images/sidebar03.png" alt="sidebar" />
+                            </span>
+                            <span class="cate">Our Promise</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="widget-1 widget-banner">
+                    <div class="widget-1-body">
+                      <a href="#0">
+                        <img src="./images/banner01.jpg" alt="banner" />
+                      </a>
+                    </div>
+                  </div>
+                  <div class="widget-1 widget-trending-search">
+                    <h3 class="title">Trending Searches</h3>
+                    <div class="widget-1-body">
+                      <ul>
+                        <li>
+                          <h6 class="sub-title">
+                            <a href="#0">mars</a>
+                          </h6>
+                          <p>Movies</p>
+                        </li>
+                        <li>
+                          <h6 class="sub-title">
+                            <a href="#0">alone</a>
+                          </h6>
+                          <p>Movies</p>
+                        </li>
+                        <li>
+                          <h6 class="sub-title">
+                            <a href="#0">music event</a>
+                          </h6>
+                          <p>event</p>
+                        </li>
+                        <li>
+                          <h6 class="sub-title">
+                            <a href="#0">NBA Games 2020</a>
+                          </h6>
+                          <p>Sports</p>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="widget-1 widget-banner">
+                    <div class="widget-1-body">
+                      <a href="#0">
+                        <img src="./images/banner02.jpg" alt="banner" />
+                      </a>
+                    </div>
                   </div>
                 </div>
-                <div class="widget-1 widget-banner">
-                  <div class="widget-1-body">
-                    <a href="#0">
-                      <img src="./images/banner01.jpg" alt="banner" />
+                <div class="col-lg-9">
+                  <div class="article-section padding-bottom">
+                    <div class="section-header-1">
+                      <h2 class="title">movies</h2>
+                      <a class="view-all" href="movie-grid.html">
+                        View All
                     </a>
+                    </div>
+                    <div class="row mb-30-none justify-content-center">
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="movie-grid">
+                          <div class="movie-thumb c-thumb">
+                            <a href="#0">
+                              <img src="./images/movie01.jpg" alt="movie" />
+                            </a>
+                          </div>
+                          <div class="movie-content bg-one">
+                            <h5 class="title m-0">
+                            <Link to={`/detail/duc-tam-long`} className="info__button">alone</Link>
+                            </h5>
+                            <Link to={`/detail/duc-tam-long`} className="info__button">
+                            <ul class="movie-rating-percent">
+                              <li>
+                                <div class="thumb">
+                                  <img src="./images/tomato.png" alt="movie" />
+                                </div>
+                                <span class="content">88%</span>
+                              </li>
+                              <li>
+                                <div class="thumb">
+                                  <img src="./images/cake.png" alt="movie" />
+                                </div>
+                                <span class="content">88%</span>
+                              </li>
+                            </ul></Link>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="movie-grid">
+                          <div class="movie-thumb c-thumb">
+                            <a href="#0">
+                              <img src="./images/movie02.jpg" alt="movie" />
+                            </a>
+                          </div>
+                          <div class="movie-content bg-one">
+                            <h5 class="title m-0">
+                              <a href="#0">mars</a>
+                            </h5>
+                            <ul class="movie-rating-percent">
+                              <li>
+                                <div class="thumb">
+                                  <img src="./images/tomato.png" alt="movie" />
+                                </div>
+                                <span class="content">88%</span>
+                              </li>
+                              <li>
+                                <div class="thumb">
+                                  <img src="./images/cake.png" alt="movie" />
+                                </div>
+                                <span class="content">88%</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="movie-grid">
+                          <div class="movie-thumb c-thumb">
+                            <a href="#0">
+                              <img src="./images/movie03.jpg" alt="movie" />
+                            </a>
+                          </div>
+                          <div class="movie-content bg-one">
+                            <h5 class="title m-0">
+                              <a href="#0">venus</a>
+                            </h5>
+                            <ul class="movie-rating-percent">
+                              <li>
+                                <div class="thumb">
+                                  <img src="./images/tomato.png" alt="movie" />
+                                </div>
+                                <span class="content">88%</span>
+                              </li>
+                              <li>
+                                <div class="thumb">
+                                  <img src="./images/cake.png" alt="movie" />
+                                </div>
+                                <span class="content">88%</span>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div class="widget-1 widget-trending-search">
-                  <h3 class="title">Trending Searches</h3>
-                  <div class="widget-1-body">
-                    <ul>
-                      <li>
-                        <h6 class="sub-title">
-                          <a href="#0">mars</a>
-                        </h6>
-                        <p>Movies</p>
-                      </li>
-                      <li>
-                        <h6 class="sub-title">
-                          <a href="#0">alone</a>
-                        </h6>
-                        <p>Movies</p>
-                      </li>
-                      <li>
-                        <h6 class="sub-title">
-                          <a href="#0">music event</a>
-                        </h6>
-                        <p>event</p>
-                      </li>
-                      <li>
-                        <h6 class="sub-title">
-                          <a href="#0">NBA Games 2020</a>
-                        </h6>
-                        <p>Sports</p>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <div class="widget-1 widget-banner">
-                  <div class="widget-1-body">
-                    <a href="#0">
-                      <img src="./images/banner02.jpg" alt="banner" />
+                  <div class="article-section padding-bottom">
+                    <div class="section-header-1">
+                      <h2 class="title">events</h2>
+                      <a class="view-all" href="events.html">
+                        View All
                     </a>
+                    </div>
+                    <div class="row mb-30-none justify-content-center">
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="event-grid">
+                          <div class="movie-thumb c-thumb">
+                            <a href="#0">
+                              <img src="./images/event01.jpg" alt="event" />
+                            </a>
+                            <div class="event-date">
+                              <h6 class="date-title">28</h6>
+                              <span>Dec</span>
+                            </div>
+                          </div>
+                          <div class="movie-content bg-one">
+                            <h5 class="title m-0">
+                              <a href="#0">Digital Economy Conference 2020</a>
+                            </h5>
+                            <div class="movie-rating-percent">
+                              <span>327 Montague Street</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="event-grid">
+                          <div class="movie-thumb c-thumb">
+                            <a href="#0">
+                              <img src="./images/event02.jpg" alt="event" />
+                            </a>
+                            <div class="event-date">
+                              <h6 class="date-title">28</h6>
+                              <span>Dec</span>
+                            </div>
+                          </div>
+                          <div class="movie-content bg-one">
+                            <h5 class="title m-0">
+                              <a href="#0">web design conference 2020</a>
+                            </h5>
+                            <div class="movie-rating-percent">
+                              <span>327 Montague Street</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="event-grid">
+                          <div class="movie-thumb c-thumb">
+                            <a href="#0">
+                              <img src="./images/event03.jpg" alt="event" />
+                            </a>
+                            <div class="event-date">
+                              <h6 class="date-title">28</h6>
+                              <span>Dec</span>
+                            </div>
+                          </div>
+                          <div class="movie-content bg-one">
+                            <h5 class="title m-0">
+                              <a href="#0">digital thinkers meetup</a>
+                            </h5>
+                            <div class="movie-rating-percent">
+                              <span>327 Montague Street</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="col-lg-9">
-                <div class="article-section padding-bottom">
-                  <div class="section-header-1">
-                    <h2 class="title">movies</h2>
-                    <a class="view-all" href="movie-grid.html">
-                      View All
+                  <div class="article-section">
+                    <div class="section-header-1">
+                      <h2 class="title">sports</h2>
+                      <a class="view-all" href="sports.html">
+                        View All
                     </a>
+                    </div>
+                    <div class="row mb-30-none justify-content-center">
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="sports-grid">
+                          <div class="movie-thumb c-thumb">
+                            <a href="#0">
+                              <img src="./images/sports01.jpg" alt="sports" />
+                            </a>
+                            <div class="event-date">
+                              <h6 class="date-title">28</h6>
+                              <span>Dec</span>
+                            </div>
+                          </div>
+                          <div class="movie-content bg-one">
+                            <h5 class="title m-0">
+                              <a href="#0">football league tournament</a>
+                            </h5>
+                            <div class="movie-rating-percent">
+                              <span>327 Montague Street</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="sports-grid">
+                          <div class="movie-thumb c-thumb">
+                            <a href="#0">
+                              <img src="./images/sports02.jpg" alt="sports" />
+                            </a>
+                            <div class="event-date">
+                              <h6 class="date-title">28</h6>
+                              <span>Dec</span>
+                            </div>
+                          </div>
+                          <div class="movie-content bg-one">
+                            <h5 class="title m-0">
+                              <a href="#0">world cricket league 2020</a>
+                            </h5>
+                            <div class="movie-rating-percent">
+                              <span>327 Montague Street</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-6 col-lg-4">
+                        <div class="sports-grid">
+                          <div class="movie-thumb c-thumb">
+                            <a href="#0">
+                              <img src="./images/sports03.jpg" alt="sports" />
+                            </a>
+                            <div class="event-date">
+                              <h6 class="date-title">28</h6>
+                              <span>Dec</span>
+                            </div>
+                          </div>
+                          <div class="movie-content bg-one">
+                            <h5 class="title m-0">
+                              <a href="#0">basket ball tournament 2020</a>
+                            </h5>
+                            <div class="movie-rating-percent">
+                              <span>327 Montague Street</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  {arrData ? (
-                    <Swiper
-                      pagination={true}
-                      slidesPerView={3}
-                      spaceBetween={20}
-                      allowTouchMove={true}
-                      lazy={true}
-                      slidesPerGroup={3}
-                      loop={true}
-                    >
-                      {arrData.map((item, index) => (
-                        <SwiperSlide key={index}>
-                          <SwiperComponent item={item} />
-                        </SwiperSlide>
-                      ))}
-                    </Swiper>
-                  ) : null}
-                  {/*  */}
-                  <div class="row mb-30-none justify-content-center"></div>
-                </div>
-
-                <div class="article-section padding-bottom">
-                  <div class="section-header-1">
-                    <h2 class="title">movies</h2>
-                    <a class="view-all" href="movie-grid.html">
-                      View All
-                    </a>
-                  </div>
-                  <Swiper
-                    pagination={true}
-                    slidesPerView={3}
-                    spaceBetween={20}
-                    allowTouchMove={true}
-                    lazy={true}
-                    slidesPerGroup={3}
-                    loop={true}
-                  >
-                    {arrData.map((item, index) => (
-                      <SwiperSlide key={index}>
-                        <SwiperComponent item={item} />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                  {/*  */}
-                  <div class="row mb-30-none justify-content-center"></div>
-                </div>
-
-                <div class="article-section padding-bottom">
-                  <div class="section-header-1">
-                    <h2 class="title">movies</h2>
-                    <a class="view-all" href="movie-grid.html">
-                      View All
-                    </a>
-                  </div>
-                  <Swiper
-                    pagination={true}
-                    slidesPerView={3}
-                    spaceBetween={20}
-                    allowTouchMove={true}
-                    lazy={true}
-                    slidesPerGroup={3}
-                    loop={true}
-                  >
-                    {arrData.map((item, index) => (
-                      <SwiperSlide key={index}>
-                        <SwiperComponent item={item} />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                  {/*  */}
-                  <div class="row mb-30-none justify-content-center"></div>
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>)))}
       </div>
     </>
   );

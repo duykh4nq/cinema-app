@@ -5,9 +5,9 @@ import Register from "../../pages/Registerpage/register.page";
 
 //import css
 import "./header.component.css";
+import "../../assets/css/plugins.css";
+import "../../assets/css/style.css";
 
-//import css
-import "./header.component.css";
 function HeadersComponent() {
   const [openformLogin, setOpenformLogin] = useState(false);
 
@@ -38,7 +38,6 @@ function HeadersComponent() {
         openformRegister={openformRegister}
         BackOpenformRegister={BackOpenformRegister}
       />
-
       <header class="ht-header">
         <div class="container">
           <nav class="navbar navbar-default navbar-custom">
@@ -74,7 +73,7 @@ function HeadersComponent() {
                   <a href="#page-top"></a>
                 </li>
                 <li>
-                  <Link to="/">Home</Link>
+                <Link to="/">Home</Link>
                 </li>
                 <li class="dropdown first">
                   <a
@@ -86,7 +85,11 @@ function HeadersComponent() {
                   </a>
                   <ul class="dropdown-menu level1">
                     <li>
-                      <a href="#">Movie grid</a>
+                      <a
+                        href="#"
+                      >
+                        Movie grid
+                      </a>
                     </li>
                     <li>
                       <a href="movielist.html">Movie list</a>

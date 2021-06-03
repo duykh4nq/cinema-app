@@ -5,6 +5,17 @@ import "./register.page.scss";
 Register.propTypes = {};
 
 function Register({ openformRegister, BackOpenformRegister }) {
+  console.log(
+    "🚀 -------------------------------------------------------------------------"
+  );
+  console.log(
+    "🚀 ~ file: register.page.jsx ~ line 8 ~ openformRegister",
+    openformRegister
+  );
+  console.log(
+    "🚀 -------------------------------------------------------------------------"
+  );
+
   return (
     <div
       class="register"
