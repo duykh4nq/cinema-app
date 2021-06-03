@@ -156,59 +156,19 @@ INSERT INTO "public"."cineplexs" ("id", "name", "address", "id_movie") VALUES
 (2, 'CGV nhà làm', 'Như trên', 1);
 
 INSERT INTO "public"."movies" ("id", "name_movie", "release_date", "poster", "time", "created_at", "updated_at", "slug") VALUES
-(1, 'BAD SEEDS - NHỮNG ĐỨA TRẺ HƯ HỎNG', '2021-03-09', '1.jpg', 105, '2021-05-29', '2021-05-29', 'bad-seeds-nhung-dua-tre-hu-hong');
+(1, 'BÀN TAY DIỆT QUỶ', '2021-04-09', '2.jpg', 128, '2021-05-29', '2021-05-29', 'ban-tay-diet-quy');
 INSERT INTO "public"."movies" ("id", "name_movie", "release_date", "poster", "time", "created_at", "updated_at", "slug") VALUES
-(2, 'BÀN TAY DIỆT QUỶ', '2021-04-09', '2.jpg', 128, '2021-05-29', '2021-05-29', 'ban-tay-diet-quy');
-INSERT INTO "public"."movies" ("id", "name_movie", "release_date", "poster", "time", "created_at", "updated_at", "slug") VALUES
-(3, 'BỘ ĐÔI SẤM SÉT - THUNDER FORCE', '2021-04-14', '3.jpg', 105, '2021-05-29', '2021-05-29', 'bo-doi-sam-set-thunder-force');
-INSERT INTO "public"."movies" ("id", "name_movie", "release_date", "poster", "time", "created_at", "updated_at", "slug") VALUES
-(4, 'BỐN NGƯỜI BẠN HỌC - CLASSMATES MINUS', '2021-02-22', '4.jpg', 91, '2021-05-29', '2021-05-29', 'bon-nguoi-ban-hoc-classmates-minus'),
-(5, 'CHIẾN BINH CUỐI CÙNG CỘI NGUỒN CỦA QUỶ', '2021-04-30', '5.jpg', 122, '2021-05-29', '2021-05-29', 'chien-binh-cuoi-cung-coi-nguon-cua-quy'),
-(7, 'GODZILLA VS. KONG', '2021-03-26', '7.jpg', 113, '2021-05-29', '2021-05-29', 'godzilla-vs-kong'),
-(8, 'MORTAL KOMBAT CUỘC CHIẾN SINH TỬ', '2021-04-09', '8.jpg', 110, '2021-05-29', '2021-05-29', 'mortal-kombat-cuoc-chien-sinh-tu'),
-(9, 'NGƯỜI NHÂN BẢN', '2021-04-15', '9.jpg', 114, '2021-05-29', '2021-05-29', 'nguoi-nhan-ban'),
-(10, 'ONG NHÍ PHIÊU LƯU KÝ GIẢI CỨU CÔNG CHÚA KIẾN', '2021-04-23', '10.jpg', 88, '2021-05-29', '2021-05-29', 'ong-nhi-phieu-luu-ky-giai-cuu-cong-chua-kien'),
-(11, 'PALM SPRINGS: MỞ MẮT THẤY HÔM QUA', '2021-03-05', '11.jpg', 89, '2021-05-29', '2021-05-29', 'palm-springs-mo-mat-thay-hom-qua'),
-(12, 'THÁM TỬ LỪNG DANH CONAN VIÊN ĐẠN ĐỎ', '2021-04-23', '12.jpg', 111, '2021-05-29', '2021-05-29', 'tham-tu-lung-danh-connan-vien-dan-do'),
-(13, 'TRÙM CUỐI SIÊU ĐẲNG', '2021-04-23', '13.jpg', 101, '2021-05-29', '2021-05-29', 'trum-cuoi-sieu-dang'),
-(14, 'ĐẤU TRƯỞNG ẢO READY PLAYER ONE', '2020-12-23', '14.jpg', 139, '2021-05-29', '2021-05-29', 'dau-truong-ao-ready-player-one'),
-(15, 'KỲ TÍCH BIỂN XANH - BLUE MIRACLE (2021)', '2021-05-28', '15.jpg', 95, '2021-05-29', '2021-05-29', 'ky-tich-bien-xanh-blue-miracle-(2021)'),
-(16, 'MẬT VỤ KINGSMAN : TỔ CHỨC HOÀNG KIM - KINGSMAN : THE GOLDEN CIRCLE', '2020-12-23', '16.jpg', 114, '2021-05-29', '2021-05-29', 'mat-vu-kingsman-to-chuc-hoang-kim'),
-(17, 'NGƯỜI ĐÀN ÔNG THÉP - MAN OF STEEL', '2020-12-23', '17.jpg', 148, '2021-05-29', '2021-05-29', 'nguoi-dan-ong-thep'),
-(18, 'NGƯỜI TIÊN PHONG - VANGUARD', '2020-12-23', '18.jpg', 108, '2021-05-29', '2021-05-29', 'nguoi-tien-phong'),
-(19, 'NỮ THẦN CHIẾN MINH - WONDER WOMAN 1984 (WW84)', '2021-01-27', '19.jpg', 155, '2021-05-29', '2021-05-29', 'nu-than-chien-binh'),
-(20, 'OHANA BÁU VẬT QUÝ GIÁ NHẤT - FINDING "OHANA', '2021-03-23', '20.jpg', 123, '2021-05-29', '2021-05-29', 'ohana-bau-vat-quy-gia-nhat-finding-ohana'),
-(21, 'SÁT THỦ TỬ THẦN - 492: A MAN CALLED DEATH', '2021-05-24', '21.jpg', 95, '2021-05-29', '2021-05-29', 'sat-thu-tu-than-492-a-man-called-death'),
-(22, 'SONG SINH SÁT THỦ - LEGEND', '2021-05-11', '22.jpg', 132, '2021-05-29', '2021-05-29', 'song-sinh-sat-thu-legend'),
-(23, 'VŨ HỘI TỐT NGHIỆP - THE PROM', '2020-12-23', '23.jpg', 132, '2021-05-29', '2021-05-29', 'vu-hoi-tot-nghiep-the-prom'),
-(24, 'CỤC NỢ HÓA CỤC CƯNG', '2020-10-09', '24.jpg', 113, '2021-05-29', '2021-05-29', 'cuc-no-hoa-cung'),
-(25, 'BỐ GIÀ', '2021-03-12', '25.jpg', 128, '2021-05-29', '2021-05-29', 'bo-gia'),
-(26, 'LẬT MẶT 48H', '2021-04-16', '26.jpg', 110, '2021-05-29', '2021-05-29', 'lat-mat-48h'),
-(27, 'THE LAST WARRIOR: ROOT OF EVIL', '2021-04-30', '27.jpg', 122, '2021-05-29', '2021-05-29', 'the-last-warrior:-root-of-evil'),
-(28, 'THE HYPNOSIS CON LẮC TÀ THUẬT', '2021-04-21', '28.jpg', 86, '2021-05-29', '2021-05-29', 'the-hypnosis-con-lac-ta-thuat'),
-(29, 'NGƯỜI ĐƯA TIN - The COURIER (2021)', '2021-05-29', '29.jpg', 112, '2021-05-29', '2021-05-29', 'nguoi-dua-tin-the-courier-(2021)'),
-(30, 'KẺ THẾ MẠNG - SELF/LESS', '2021-05-19', '30.jpg', 117, '2021-05-29', '2021-05-29', 'ke-the-mang-self/less'),
-(32, 'HUNG THẦN TRẮNG -GREAT WHITE', '2021-05-25', '32.jpg', 91, '2021-05-29', '2021-05-29', 'hung-than-trang'),
-(33, 'ẤN QUỶ - THE UNHOLY', '2021-05-29', '33.jpg', 99, '2021-05-29', '2021-05-29', 'an-quy'),
-(34, 'KẺ VÔ DANH - NOBODY', '2021-04-17', '34.jpg', 95, '2021-05-29', '2021-05-29', 'ke-vo-danh'),
-(35, 'ĐỒI TUYẾT MÁU - LET IT SNOW', '2021-04-11', '35.jpg', 86, '2021-05-29', '2021-05-29', 'doi-tuyet-mau'),
-(36, 'QUÁI VẬT SĂN ĐÊM - SPUTNIK', '2021-04-08', '36.jpg', 114, '2021-05-29', '2021-05-29', 'quai-vat-san-dem'),
-(37, 'HÀNH TINH HỖN LOẠN - CHAOS WALKING', '2021-04-05', '37.jpg', 110, '2021-05-29', '2021-05-29', 'hanh-tinh-hon-loan'),
-(38, 'ÁM SÁT TIỂU THUYẾT GIA', '2021-04-15', '38.jpg', 130, '2021-05-29', '2021-05-29', 'am-sat-tieu-thuyet-gia'),
-(39, 'SIÊU TRỘM - WAY DOWN', '2021-03-28', '39.jpg', 118, '2021-05-29', '2021-05-29', 'sieu-trom'),
-(40, 'ÂM DƯƠNG SƯ: THỊ THẦN LỆNH - THE YIN YANG MASTER', '2021-03-19', '40.jpg', 132, '2021-05-29', '2021-05-29', 'am-duong-su'),
-(41, 'TÂN PHONG THẦN: NA TRA TRÙNG SINH', '2021-04-11', '41.jpg', 117, '2021-05-29', '2021-05-29', 'tan-phong-than-na-tra-trung-sinh'),
-(31, 'VỆ BINH GIẢI NGÂN HÀ 2 - Guardians Of The Galaxy Vol. 2', '2020-12-23', '31.jpg', 138, '2021-05-29', '2021-05-29', 've-binh-giai-ngan-ha-2'),
-(6, 'ĐIỆP VIÊN SIÊU LẦY', '2020-08-14', '6.png', 101, '2021-05-29', '2021-05-29', 'diep-vien-sieu-lay'),
-(42, 'LỪA ĐỂU GẶP LỪA ĐẢO - THE CON-HEARTIST', '2021-03-10', '42.jpg', 130, '2021-05-29', '2021-05-29', 'lua-deu-gap-lua-dao'),
-(43, 'CƠN THỊNH NỘ CHẾT NGƯỜI - WRATH OF MAN (2021)', '2021-05-28', '43.jpg', 119, '2021-05-29', '2021-05-29', 'con-thinh-no-chet-nguoi'),
-(44, 'TÔI LÀ VỢ CỦA ANH', '2021-04-21', '44.jpg', 120, '2021-01-10', '2021-05-29', 'toi-la-vo-cua-anh'),
-(45, 'ĐIỂM MÙ CHẾT CHÓC - SIGHTLESS', '2021-01-20', '45.jpg', 89, '2021-05-29', '2021-05-29', 'diem-mu-chet-choc'),
-(46, 'DORAEMON: ĐÔI BẠN THÂN 2 - STAND BY ME DORAEMON 2', '2021-04-21', '46.jpg', 96, '2021-05-29', '2021-05-29', 'doraemon-doi-ban-than-2'),
-(47, 'TÂY DU KÍ - TÁI THẾ YÊU VƯƠNG', '2021-04-04', '47.jpg', 110, '2021-05-29', '2021-05-29', 'tay-du-ki-tai-the-yeu-vuong'),
-(48, 'TOM & JERRY QUẬY TUNG NEW YORK', '2021-03-17', '48.jpg', 101, '2021-05-29', '2021-05-29', 'tom-va-jerry'),
-(49, 'LỐI THOÁT Ở PHÁP - FRENCH EXIT', '2021-05-11', '49.jpg', 113, '2021-05-29', '2021-05-29', 'loi-thoat-o-phap'),
-(50, 'THẢM SÁT Ở KATYN - KATYN', '2021-05-10', '50.jpg', 125, '2021-05-29', '2021-05-29', 'tham-sat-o-katyn');
+(2, 'CHIẾN BINH CUỐI CÙNG CỘI NGUỒN CỦA QUỶ', '2021-04-30', '5.jpg', 122, '2021-05-29', '2021-05-29', 'chien-binh-cuoi-cung-coi-nguon-cua-quy'),
+(3, 'GODZILLA VS. KONG', '2021-03-26', '7.jpg', 113, '2021-05-29', '2021-05-29', 'godzilla-vs-kong'),
+(4, 'MORTAL KOMBAT CUỘC CHIẾN SINH TỬ', '2021-04-09', '8.jpg', 110, '2021-05-29', '2021-05-29', 'mortal-kombat-cuoc-chien-sinh-tu'),
+(5, 'NGƯỜI NHÂN BẢN', '2021-04-15', '9.jpg', 114, '2021-05-29', '2021-05-29', 'nguoi-nhan-ban'),
+(6, 'ONG NHÍ PHIÊU LƯU KÝ GIẢI CỨU CÔNG CHÚA KIẾN', '2021-04-23', '10.jpg', 88, '2021-05-29', '2021-05-29', 'ong-nhi-phieu-luu-ky-giai-cuu-cong-chua-kien'),
+(7, 'PALM SPRINGS: MỞ MẮT THẤY HÔM QUA', '2021-03-05', '11.jpg', 89, '2021-05-29', '2021-05-29', 'palm-springs-mo-mat-thay-hom-qua'),
+(8, 'THÁM TỬ LỪNG DANH CONAN VIÊN ĐẠN ĐỎ', '2021-04-23', '12.jpg', 111, '2021-05-29', '2021-05-29', 'tham-tu-lung-danh-connan-vien-dan-do'),
+(9, 'TRÙM CUỐI SIÊU ĐẲNG', '2021-04-23', '13.jpg', 101, '2021-05-29', '2021-05-29', 'trum-cuoi-sieu-dang'),
+(10, 'CỤC NỢ HÓA CỤC CƯNG', '2020-10-09', '24.jpg', 113, '2021-05-29', '2021-05-29', 'cuc-no-hoa-cung'),
+(11, 'BỐ GIÀ', '2021-03-12', '25.jpg', 128, '2021-05-29', '2021-05-29', 'bo-gia'),
+(12, 'LẬT MẶT 48H', '2021-04-16', '26.jpg', 110, '2021-05-29', '2021-05-29', 'lat-mat-48h');
 
 INSERT INTO "public"."movies_cineplexs" ("id", "id_movie", "id_cineplex") VALUES
 (1, 1, 1);

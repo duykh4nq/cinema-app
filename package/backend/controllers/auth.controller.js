@@ -34,7 +34,6 @@ exports.postSignup = async (req, res, next) => {
       return res.status(403).send({
         error: "Email is taken by another account.",
       });
-    if (role === undefined) role = 1;
     const newUser = await Users.create({
       email: email,
       password: bcrypt.hashSync(password, 12),
@@ -78,10 +77,11 @@ exports.postVerify = async (req, res, next) => {
 };
 
 exports.postSignin = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, password, role } = req.body;
   const user = await Users.findOne({
     where: {
       email: email,
+      role: role,
     },
   });
   if (!user) {
@@ -92,11 +92,11 @@ exports.postSignin = async (req, res, next) => {
   await bcrypt.compare(password, user.password, (err, result) => {
     if (result) {
       const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
-      const { id, email, name, phone, active } = user;
+      const { id, email, name, phone, active, role } = user;
       req.session.email = email;
       return res.status(200).send({
         accessToken: token,
-        user: { id, email, name, phone, active },
+        user: { id, email, name, phone, active, role },
       });
     } else {
       return res.status(401).send({ message: "Password wrong!" });

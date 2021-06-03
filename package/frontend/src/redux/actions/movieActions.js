@@ -1,58 +1,36 @@
-import * as actionTypes from "../constants/productConstants";
+import * as actionTypes from "../constants/movieConstants";
 import axios from "../configAxios";
 
-export const getProducts = () => async (dispatch) => {
+export const getMovieDetails = (slug) => async (dispatch) => {
   try {
-    dispatch({ type: actionTypes.GET_PRODUCTS_REQUEST });
-    const { data } = await axios.get("/");
-    dispatch({
-      type: actionTypes.GET_PRODUCTS_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: actionTypes.GET_PRODUCTS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
-
-export const getPhone = (p) => async (dispatch) => {
-  try {
-    dispatch({ type: actionTypes.GET_PRODUCTS_REQUEST });
-    const { data } = await axios.get(`/phone?p=`, { params: { p } });
-
-    dispatch({
-      type: actionTypes.GET_PRODUCTS_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: actionTypes.GET_PRODUCTS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
-
-export const getProductDetails = (slug) => async (dispatch) => {
-  try {
-    dispatch({ type: actionTypes.GET_PRODUCT_DETAILS_REQUEST });
+    dispatch({ type: actionTypes.GET_MOVIE_DETAILS_REQUEST });
     const { data } = await axios.get(`detail/${slug}`);
     dispatch({
-      type: actionTypes.GET_PRODUCT_DETAILS_SUCCESS,
+      type: actionTypes.GET_MOVIE_DETAILS_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: actionTypes.GET_PRODUCT_DETAILS_FAIL,
+      type: actionTypes.GET_MOVIE_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const postBookingShow = (id_mov) => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.GET_MOVIE_DETAILS_REQUEST });
+    const { data } = await axios.post(`booking/now-showing`);
+    dispatch({
+      type: actionTypes.GET_MOVIE_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_MOVIE_DETAILS_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

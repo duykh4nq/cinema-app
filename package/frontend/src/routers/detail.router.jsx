@@ -8,7 +8,11 @@ import DetailScreen from "../pages/Detailpage/detail.page";
 function DetailRoute(props) {
   return (
     <Switch>
-      <Route exact path={PATH.DETAIL} component={() => <DetailScreen />} />
+      <Route exact path={PATH.DETAIL} component={(props) => (
+                    <DetailScreen {
+                        ...props
+                    } />
+                )} />
     </Switch>
   );
 }

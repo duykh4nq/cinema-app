@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import Header from "../layouts/header/header.component";
+import Header from "../layouts/header/headers.component";
 import Footer from "../layouts/footer/footer.component";
 import DetailRoute from "./detail.router";
 import BookingRoute from "./booking.router";

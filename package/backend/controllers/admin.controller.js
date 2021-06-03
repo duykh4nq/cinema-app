@@ -1,13 +1,9 @@
-const bcrypt = require("bcryptjs");
-const crypto = require("crypto");
 const e = require("express");
-const jwt = require("jsonwebtoken");
 const { Op, QueryTypes, NOW, DATE } = require("sequelize");
 const sequelize = require("sequelize");
 const db = require("../configs/db");
 require("dotenv").config();
 const uuid = require("uuid");
-const QRCode = require("qrcode");
 const moment = require("moment");
 
 // Model
@@ -22,8 +18,6 @@ const {
   Category_rooms,
   Movies_Cineplex,
 } = require("../models/cineplex_room.model");
-const { mode } = require("crypto-js");
-const { time } = require("console");
 
 exports.getCinema = async (req, res, next) => {
   const cineplex = await Cineplexs.findAll();
@@ -187,10 +181,12 @@ function timeConvertMinutesToHours(timeInput, flag, movieTime) {
 
   var num = minutesInput;
   var hours = num / 60;
+  console.log(flag, hours);
   var rhours = Math.floor(hours);
   var minutes = (hours - rhours) * 60;
   var rminutes = Math.round(minutes);
   let fa = false;
+
   if (rhours >= 24) {
     fa = true;
     rhours %= 24;
