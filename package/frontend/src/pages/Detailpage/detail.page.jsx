@@ -7,7 +7,7 @@ import Modal from 'react-modal';
 // Actions
 import { getMovieDetails } from "../../redux/actions/movieActions";
 
-import DialogBookingScreen from "../../components/Detailpage/Dialogpage/dialog.page"
+import DialogBookingScreen from "../../components/dialog.component"
 
 const customStyles = {
   content: {
@@ -19,7 +19,6 @@ const customStyles = {
     transform: 'translate(-50%, -50%)'
   }
 };
-
 
 const DetailScreen = ({ match, history }) => {
   history = useHistory();
@@ -34,7 +33,6 @@ const DetailScreen = ({ match, history }) => {
     }
   }, [dispatch, movie, match]);
 
-  var subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
   function openModal() {
     setIsOpen(true);

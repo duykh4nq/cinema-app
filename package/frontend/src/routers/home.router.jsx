@@ -7,7 +7,11 @@ import HomeScreen from "../pages/Homepage/home.page";
 function HomeRoute(props) {
   return (
     <Switch>
-      <Route exact path={PATH.HOME} component={() => <HomeScreen />} />
+      <Route exact path={PATH.HOME} component={(props) => (
+                    <HomeScreen {
+                        ...props
+                    } />
+                )}/>
     </Switch>
   );
 }
