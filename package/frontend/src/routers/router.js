@@ -13,11 +13,11 @@ function Routes() {
     <Router>
       <Header />
       <HomeRoute />
-      <DetailRoute />
+      {/* <DetailRoute />
       <AboutUsRoute />
       <BookingRoute />
       <CheckoutRoute />
-      <Footer />
+      <Footer /> */}
     </Router>
   );
 }
