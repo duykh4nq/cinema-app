@@ -1,39 +1,56 @@
 import React from "react";
 import PropTypes from "prop-types";
-//import "./style.css";
+import "./style.css";
 DialogBookingScreen.propTypes = {};
 
 function DialogBookingScreen(props) {
     return <div className="containerdialog">
         <div className="bookingscreen">
             <div className="date">
-                <button className="btncalendar">
-                    <div className="day"><h2>25</h2></div>
-                    <h3>05 TUE</h3>
+                <button className="btncalendar" >
+                    <div className="day">
+                        <p>25</p>
+                       
+                    </div>
+                    <div className="month">
+                        <p>05 TUE</p>
+                    </div>
                 </button>
                 <button className="btncalendar">
-                    <div className="day"><h2>26</h2></div>
-                    <h3>05 TUE</h3>
+                    <div className="day"><p>26</p></div>
+                    <div className="month">
+                        <p>05 TUE</p>
+                    </div>
                 </button>
                 <button className="btncalendar">
-                    <div className="day"><h2>27</h2></div>
-                    <h3>05 TUE</h3>
+                    <div className="day"><p>27</p></div>
+                    <div className="month">
+                        <p>05 TUE</p>
+                    </div>
                 </button>
                 <button className="btncalendar">
-                    <div className="day"><h2>28</h2></div>
-                    <h3>05 TUE</h3>
+                    <div className="day"><p>28</p></div>
+                    <div className="month">
+                        <p>05 TUE</p>
+                    </div>
                 </button>
                 <button className="btncalendar">
-                    <div className="day"><h2>29</h2></div>
-                    <h3>05 TUE</h3>
+                    <div className="day"><p>29</p></div>
+                    <div className="month">
+                        <p>05 TUE</p>
+                    </div>
                 </button>
                 <button className="btncalendar">
-                    <div className="day"><h2>30</h2></div>
-                    <h3>05 TUE</h3>
+                    <div className="day"><p>30</p></div>
+                    <div className="month">
+                        <p>05 TUE</p>
+                    </div>
                 </button>
                 <button className="btncalendar">
-                    <div className="day"><h2>31</h2></div>
-                    <h3>05 TUE</h3>
+                    <div className="day"><p>31</p></div>
+                    <div className="month">
+                        <p>05 TUE</p>
+                    </div>
                 </button>
             </div>
             <div className="theater-cluster">
