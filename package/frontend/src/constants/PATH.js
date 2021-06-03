@@ -1,8 +1,8 @@
 exports.PATH = {
   HOME: "/",
-  HEADER: "/header",
   LOGIN: "/login",
-  DETAIL: "/detail",
-  BOOKING: "/booking",
+  DETAIL: "/detail/:slug",
+  BOOKING: "/booking/now-showing",
   CHECKOUT: "/checkout",
+  ABOUT: "/aboutUs",
 };

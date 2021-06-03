@@ -9,14 +9,17 @@
     "ajax-request": "^1.2.3",
     "antd": "^4.14.0",
     "axios": "^0.21.0",
+    "jquery": "^3.6.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-modal": "^3.14.2",
     "react-redux": "^7.2.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "redux-thunk": "^2.3.0",
+    "sass": "^1.34.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -24,7 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev":"yarn start && cd ./Admin && yarn start"
+    "dev": "yarn start && cd ./Admin && yarn start"
   },
   "eslintConfig": {
     "extends": [

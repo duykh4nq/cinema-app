@@ -1,13 +1,45 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "./home.style.css";
-import "../../assets/css/plugins.css";
-import "../../assets/css/style.css";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getProducts as listProducts } from "../../redux/actions/productActions";
+import "./home.style.scss";
+import "swiper/swiper.min.css";
+import SwiperComponent from "../../components/Swiper/SwiperComponent";
+import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperCore, { Navigation, Pagination } from "swiper/core";
+SwiperCore.use([Navigation, Pagination]);
+
 //import "../../assets/js/custom";
+
+//Actions
 
 HomeScreen.propTypes = {};
 
 function HomeScreen(props) {
+  //home
+  const dispatch = useDispatch();
+
+  const getProducts = useSelector((state) => state.getProducts);
+  const { products } = getProducts;
+  console.log("🚀 ~ file: home.page.jsx ~ line 25 ~ products", products);
+  var arrData = [];
+  if (products) {
+    arrData = [
+      products["commingsoon"],
+      products["commingsoon"],
+      products["commingsoon"],
+      products["commingsoon"],
+      products["commingsoon"],
+      products["commingsoon"],
+    ];
+  }
+  console.log("🚀 ~ file: home.page.jsx ~ line 35 ~ arrData", arrData);
+
+  useEffect(() => {
+    dispatch(listProducts());
+  }, [dispatch]);
+
   return (
     <>
       <div class="homepage">
@@ -99,238 +131,77 @@ function HomeScreen(props) {
                       View All
                     </a>
                   </div>
-                  <div class="row mb-30-none justify-content-center">
-                    <div class="col-sm-6 col-lg-4">
-                      <div class="movie-grid">
-                        <div class="movie-thumb c-thumb">
-                          <a href="#0">
-                            <img src="./images/movie01.jpg" alt="movie" />
-                          </a>
-                        </div>
-                        <div class="movie-content bg-one">
-                          <h5 class="title m-0">
-                            <a href="#0">alone</a>
-                          </h5>
-                          <ul class="movie-rating-percent">
-                            <li>
-                              <div class="thumb">
-                                <img src="./images/tomato.png" alt="movie" />
-                              </div>
-                              <span class="content">88%</span>
-                            </li>
-                            <li>
-                              <div class="thumb">
-                                <img src="./images/cake.png" alt="movie" />
-                              </div>
-                              <span class="content">88%</span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                      <div class="movie-grid">
-                        <div class="movie-thumb c-thumb">
-                          <a href="#0">
-                            <img src="./images/movie02.jpg" alt="movie" />
-                          </a>
-                        </div>
-                        <div class="movie-content bg-one">
-                          <h5 class="title m-0">
-                            <a href="#0">mars</a>
-                          </h5>
-                          <ul class="movie-rating-percent">
-                            <li>
-                              <div class="thumb">
-                                <img src="./images/tomato.png" alt="movie" />
-                              </div>
-                              <span class="content">88%</span>
-                            </li>
-                            <li>
-                              <div class="thumb">
-                                <img src="./images/cake.png" alt="movie" />
-                              </div>
-                              <span class="content">88%</span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                      <div class="movie-grid">
-                        <div class="movie-thumb c-thumb">
-                          <a href="#0">
-                            <img src="./images/movie03.jpg" alt="movie" />
-                          </a>
-                        </div>
-                        <div class="movie-content bg-one">
-                          <h5 class="title m-0">
-                            <a href="#0">venus</a>
-                          </h5>
-                          <ul class="movie-rating-percent">
-                            <li>
-                              <div class="thumb">
-                                <img src="./images/tomato.png" alt="movie" />
-                              </div>
-                              <span class="content">88%</span>
-                            </li>
-                            <li>
-                              <div class="thumb">
-                                <img src="./images/cake.png" alt="movie" />
-                              </div>
-                              <span class="content">88%</span>
-                            </li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  {arrData ? (
+                    <Swiper
+                      pagination={true}
+                      slidesPerView={3}
+                      spaceBetween={20}
+                      allowTouchMove={true}
+                      lazy={true}
+                      slidesPerGroup={3}
+                      loop={true}
+                    >
+                      {arrData.map((item, index) => (
+                        <SwiperSlide key={index}>
+                          <SwiperComponent item={item} />
+                        </SwiperSlide>
+                      ))}
+                    </Swiper>
+                  ) : null}
+                  {/*  */}
+                  <div class="row mb-30-none justify-content-center"></div>
                 </div>
+
                 <div class="article-section padding-bottom">
                   <div class="section-header-1">
-                    <h2 class="title">events</h2>
-                    <a class="view-all" href="events.html">
+                    <h2 class="title">movies</h2>
+                    <a class="view-all" href="movie-grid.html">
                       View All
                     </a>
                   </div>
-                  <div class="row mb-30-none justify-content-center">
-                    <div class="col-sm-6 col-lg-4">
-                      <div class="event-grid">
-                        <div class="movie-thumb c-thumb">
-                          <a href="#0">
-                            <img src="./images/event01.jpg" alt="event" />
-                          </a>
-                          <div class="event-date">
-                            <h6 class="date-title">28</h6>
-                            <span>Dec</span>
-                          </div>
-                        </div>
-                        <div class="movie-content bg-one">
-                          <h5 class="title m-0">
-                            <a href="#0">Digital Economy Conference 2020</a>
-                          </h5>
-                          <div class="movie-rating-percent">
-                            <span>327 Montague Street</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                      <div class="event-grid">
-                        <div class="movie-thumb c-thumb">
-                          <a href="#0">
-                            <img src="./images/event02.jpg" alt="event" />
-                          </a>
-                          <div class="event-date">
-                            <h6 class="date-title">28</h6>
-                            <span>Dec</span>
-                          </div>
-                        </div>
-                        <div class="movie-content bg-one">
-                          <h5 class="title m-0">
-                            <a href="#0">web design conference 2020</a>
-                          </h5>
-                          <div class="movie-rating-percent">
-                            <span>327 Montague Street</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                      <div class="event-grid">
-                        <div class="movie-thumb c-thumb">
-                          <a href="#0">
-                            <img src="./images/event03.jpg" alt="event" />
-                          </a>
-                          <div class="event-date">
-                            <h6 class="date-title">28</h6>
-                            <span>Dec</span>
-                          </div>
-                        </div>
-                        <div class="movie-content bg-one">
-                          <h5 class="title m-0">
-                            <a href="#0">digital thinkers meetup</a>
-                          </h5>
-                          <div class="movie-rating-percent">
-                            <span>327 Montague Street</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <Swiper
+                    pagination={true}
+                    slidesPerView={3}
+                    spaceBetween={20}
+                    allowTouchMove={true}
+                    lazy={true}
+                    slidesPerGroup={3}
+                    loop={true}
+                  >
+                    {arrData.map((item, index) => (
+                      <SwiperSlide key={index}>
+                        <SwiperComponent item={item} />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                  {/*  */}
+                  <div class="row mb-30-none justify-content-center"></div>
                 </div>
-                <div class="article-section">
+
+                <div class="article-section padding-bottom">
                   <div class="section-header-1">
-                    <h2 class="title">sports</h2>
-                    <a class="view-all" href="sports.html">
+                    <h2 class="title">movies</h2>
+                    <a class="view-all" href="movie-grid.html">
                       View All
                     </a>
                   </div>
-                  <div class="row mb-30-none justify-content-center">
-                    <div class="col-sm-6 col-lg-4">
-                      <div class="sports-grid">
-                        <div class="movie-thumb c-thumb">
-                          <a href="#0">
-                            <img src="./images/sports01.jpg" alt="sports" />
-                          </a>
-                          <div class="event-date">
-                            <h6 class="date-title">28</h6>
-                            <span>Dec</span>
-                          </div>
-                        </div>
-                        <div class="movie-content bg-one">
-                          <h5 class="title m-0">
-                            <a href="#0">football league tournament</a>
-                          </h5>
-                          <div class="movie-rating-percent">
-                            <span>327 Montague Street</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                      <div class="sports-grid">
-                        <div class="movie-thumb c-thumb">
-                          <a href="#0">
-                            <img src="./images/sports02.jpg" alt="sports" />
-                          </a>
-                          <div class="event-date">
-                            <h6 class="date-title">28</h6>
-                            <span>Dec</span>
-                          </div>
-                        </div>
-                        <div class="movie-content bg-one">
-                          <h5 class="title m-0">
-                            <a href="#0">world cricket league 2020</a>
-                          </h5>
-                          <div class="movie-rating-percent">
-                            <span>327 Montague Street</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-sm-6 col-lg-4">
-                      <div class="sports-grid">
-                        <div class="movie-thumb c-thumb">
-                          <a href="#0">
-                            <img src="./images/sports03.jpg" alt="sports" />
-                          </a>
-                          <div class="event-date">
-                            <h6 class="date-title">28</h6>
-                            <span>Dec</span>
-                          </div>
-                        </div>
-                        <div class="movie-content bg-one">
-                          <h5 class="title m-0">
-                            <a href="#0">basket ball tournament 2020</a>
-                          </h5>
-                          <div class="movie-rating-percent">
-                            <span>327 Montague Street</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <Swiper
+                    pagination={true}
+                    slidesPerView={3}
+                    spaceBetween={20}
+                    allowTouchMove={true}
+                    lazy={true}
+                    slidesPerGroup={3}
+                    loop={true}
+                  >
+                    {arrData.map((item, index) => (
+                      <SwiperSlide key={index}>
+                        <SwiperComponent item={item} />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
+                  {/*  */}
+                  <div class="row mb-30-none justify-content-center"></div>
                 </div>
               </div>
             </div>

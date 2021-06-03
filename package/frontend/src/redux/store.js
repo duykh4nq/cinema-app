@@ -5,18 +5,17 @@ import { composeWithDevTools } from "redux-devtools-extension";
 // Reducers
 import { cartReducer } from "./reducers/cartReducers";
 import {
-  getProductsReducer,
-  getProductsDetailReducer,
-} from "./reducers/productReducers";
+  getMovieDetailReducer,
+  postBookingShowReducer,
+} from "./reducers/movieReducers";
 import { loginReducer, registerReducer } from "./reducers/authReducers";
 import { oderReducers } from "./reducers/orderReduces";
-
 
 const reducer = combineReducers({
   cart: cartReducer,
   order: oderReducers,
-  getProducts: getProductsReducer,
-  getProductDetails: getProductsDetailReducer,
+  getMovieDetails: getMovieDetailReducer,
+  postBookingShow: postBookingShowReducer,
   users: loginReducer,
   register: registerReducer,
 });

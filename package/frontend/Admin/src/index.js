@@ -41,6 +41,7 @@ ReactDOM.render(
               path="/admin"
               render={(props) => <AdminLayout {...props} />}
             />
+            <Redirect to="/admin/statistical" />
           </Provider>
         </Switch>
       </BrowserRouter>

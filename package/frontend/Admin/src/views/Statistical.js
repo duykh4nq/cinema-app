@@ -1,21 +1,5 @@
-/*!
-
-=========================================================
-* Black Statistical React v1.2.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-Statistical-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/black-Statistical-react/blob/master/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react plugin used to create charts
@@ -35,51 +19,189 @@ import {
 } from "reactstrap";
 
 // core components
-import {
-  chartExample1,
-  chartExample2,
-  chartExample3,
-  chartExample4,
-} from "variables/charts.js";
+import { revenue } from "variables/charts.js";
+//import Actions
+import { getCinema } from "../redux/actions/adminActions";
 
 function Statistical(props) {
+  //cineplex
+  const _cineplex = useSelector((state) => state.getCinema);
+  const { cinema } = _cineplex;
+  React.useEffect(() => {
+    dispatch(getCinema());
+  }, [dispatch]);
+
+  let chart1_2_options = {
+    maintainAspectRatio: false,
+    legend: {
+      display: false,
+    },
+    tooltips: {
+      backgroundColor: "#f5f5f5",
+      titleFontColor: "#333",
+      bodyFontColor: "#666",
+      bodySpacing: 4,
+      xPadding: 12,
+      mode: "nearest",
+      intersect: 0,
+      position: "nearest",
+    },
+    responsive: true,
+    scales: {
+      yAxes: [
+        {
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(29,140,248,0.0)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            suggestedMin: 60,
+            suggestedMax: 125,
+            padding: 20,
+            fontColor: "#9a9a9a",
+          },
+        },
+      ],
+      xAxes: [
+        {
+          barPercentage: 1.6,
+          gridLines: {
+            drawBorder: false,
+            color: "rgba(29,140,248,0.1)",
+            zeroLineColor: "transparent",
+          },
+          ticks: {
+            padding: 20,
+            fontColor: "#9a9a9a",
+          },
+        },
+      ],
+    },
+  };
+
+  let revenue = {
+    cineplex: (canvas) => {
+      let ctx = canvas.getContext("2d");
+
+      let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+
+      gradientStroke.addColorStop(1, "rgba(29,140,248,0.2)");
+      gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
+      gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
+
+      return {
+        labels: cinema.map((item) => item.name),
+        datasets: [
+          {
+            label: "Total",
+            fill: true,
+            backgroundColor: gradientStroke,
+            borderColor: "#1f8ef1",
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: "#1f8ef1",
+            pointBorderColor: "rgba(255,255,255,0)",
+            pointHoverBackgroundColor: "#1f8ef1",
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 4,
+            data: [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
+          },
+        ],
+      };
+    },
+    movie: (canvas) => {
+      let ctx = canvas.getContext("2d");
+
+      let gradientStroke = ctx.createLinearGradient(0, 230, 0, 50);
+
+      gradientStroke.addColorStop(1, "rgba(29,140,248,0.2)");
+      gradientStroke.addColorStop(0.4, "rgba(29,140,248,0.0)");
+      gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
+
+      return {
+        labels: [
+          "JAN",
+          "FEB",
+          "MAR",
+          "APR",
+          "MAY",
+          "JUN",
+          "JUL",
+          "AUG",
+          "SEP",
+          "OCT",
+          "NOV",
+          "DEC",
+        ],
+        datasets: [
+          {
+            label: "Total",
+            fill: true,
+            backgroundColor: gradientStroke,
+            borderColor: "#1f8ef1",
+            borderWidth: 2,
+            borderDash: [],
+            borderDashOffset: 0.0,
+            pointBackgroundColor: "#1f8ef1",
+            pointBorderColor: "rgba(255,255,255,0)",
+            pointHoverBackgroundColor: "#1f8ef1",
+            pointBorderWidth: 20,
+            pointHoverRadius: 4,
+            pointHoverBorderWidth: 15,
+            pointRadius: 4,
+            data: [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 150],
+          },
+        ],
+      };
+    },
+
+    options: chart1_2_options,
+  };
+  const dispatch = useDispatch();
+
   const toggle = () => setDropdownOpen((prevState) => !prevState);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [bigChartData, setbigChartData] = React.useState("data1");
+  const [bigChartData, setbigChartData] = React.useState("cineplex");
   const setBgChartData = (name) => {
     setbigChartData(name);
   };
+
   return (
     <>
       <div className="content">
         <Row className="row_header">
           <Col xs="3">
             <label>Từ ngày</label>
-          <Input
-          type="date"
-          name="date"
-          id="exampleDate"
-          placeholder="date placeholder"
-        />
+            <Input
+              type="date"
+              name="date"
+              id="exampleDate"
+              placeholder="date placeholder"
+            />
           </Col>
           <Col xs="3">
             <label>đến</label>
-          <Input
-          type="date"
-          name="date"
-          id="exampleDate"
-          placeholder="date placeholder"
-        />
+            <Input
+              type="date"
+              name="date"
+              id="exampleDate"
+              placeholder="date placeholder"
+            />
           </Col>
           <Col xs="3">
-          <label>Chọn cụm rạp</label>
-          <Input type="select" name="select" id="exampleSelect">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </Input>
+            <label>Chọn cụm rạp</label>
+            <Input type="select" name="select" id="exampleSelect">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+            </Input>
           </Col>
         </Row>
         <Row>
@@ -99,12 +221,12 @@ function Statistical(props) {
                       <Button
                         tag="label"
                         className={classNames("btn-simple", {
-                          active: bigChartData === "data1",
+                          active: bigChartData === "cineplex",
                         })}
                         color="info"
                         id="0"
                         size="sm"
-                        onClick={() => setBgChartData("data1")}
+                        onClick={() => setBgChartData("cineplex")}
                       >
                         <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
                           Cineplex
@@ -119,9 +241,9 @@ function Statistical(props) {
                         size="sm"
                         tag="label"
                         className={classNames("btn-simple", {
-                          active: bigChartData === "data2",
+                          active: bigChartData === "movie",
                         })}
-                        onClick={() => setBgChartData("data2")}
+                        onClick={() => setBgChartData("movie")}
                       >
                         <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
                           Movie
@@ -137,8 +259,8 @@ function Statistical(props) {
               <CardBody>
                 <div className="chart-area">
                   <Line
-                    data={chartExample1[bigChartData]}
-                    options={chartExample1.options}
+                    data={revenue[bigChartData]}
+                    options={revenue.options}
                   />
                 </div>
               </CardBody>
@@ -155,49 +277,7 @@ function Statistical(props) {
                 </CardTitle>
               </CardHeader>
               <CardBody>
-                <div className="chart-area">
-                  <Line
-                    data={chartExample2.data}
-                    options={chartExample2.options}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col lg="4">
-            <Card className="card-chart">
-              <CardHeader>
-                <h5 className="card-category">Daily Sales</h5>
-                <CardTitle tag="h3">
-                  <i className="tim-icons icon-delivery-fast text-primary" />{" "}
-                  3,500€
-                </CardTitle>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-area">
-                  <Bar
-                    data={chartExample3.data}
-                    options={chartExample3.options}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-          <Col lg="4">
-            <Card className="card-chart">
-              <CardHeader>
-                <h5 className="card-category">Completed Tasks</h5>
-                <CardTitle tag="h3">
-                  <i className="tim-icons icon-send text-success" /> 12,100K
-                </CardTitle>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-area">
-                  <Line
-                    data={chartExample4.data}
-                    options={chartExample4.options}
-                  />
-                </div>
+                <div className="chart-area"></div>
               </CardBody>
             </Card>
           </Col>

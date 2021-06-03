@@ -29,10 +29,12 @@ import {
   Form,
   Input,
   Row,
-  Col,
+  Col
 } from "reactstrap";
 
 function UserProfile() {
+  
+  
   return (
     <>
     {/* id: {
