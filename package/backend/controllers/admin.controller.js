@@ -45,23 +45,23 @@ exports.getSchedule = async (req, res, next) => {
 };
 
 exports.postAddCineplex = async (req, res, next) => {
-  const { name, address } = req.body;
-  Cineplexs.create({
+  let { name, address } = req.body;
+  await Cineplexs.create({
     name: name,
     address: address,
   });
-  res.status(200).send("ok");
+  res.status(200).send({ message: "Ok" });
 };
 
 exports.postAddRoom = async (req, res, next) => {
   try {
     let { id_cineplex, name_room, horizontal, vertical, id_categoryRoom } =
       req.body;
-    name_room = name_room.replace(/\s+/g, " ").trim();
+    name_room = name_room.toString().replace(/\s+/g, " ").trim();
     const roomExists = await Rooms.findOne({
       where: { name_room: name_room },
     });
-    if (roomExists) return res.status(200).send("Room is exist");
+    if (roomExists) return res.status(200).send({ message: "Room is exist" });
     await Rooms.create({
       name_room: name_room,
       id_cineplex: id_cineplex,
@@ -70,7 +70,7 @@ exports.postAddRoom = async (req, res, next) => {
       vertical_size: vertical,
     });
 
-    return res.status(200).send("ok");
+    return res.status(200).send({ message: "OK" });
   } catch (err) {
     console.log(err);
     return res.status(404).send("er");
@@ -104,8 +104,22 @@ exports.postAddMovie = async (req, res, next) => {
   try {
     let { id_cineplex, name_movie, time, release_date, poster } = req.body;
     if (id_cineplex === undefined) return res.status(200).send("All");
-    name_movie = name_movie.replace(/\s+/g, " ").trim();
+    name_movie = name_movie.toString().replace(/\s+/g, " ").trim();
     let slug = nonAccentVietnamese(name_movie).split(" ").join("-");
+
+    const existsMovie = await db.query(
+      `
+    select mo.*
+    from movies as mo join movies_cineplexs mc on mo.id = mc.id_movie
+    where mo.name_movie = '${name_movie}' and mc.id_cineplex = ${id_cineplex}
+  `,
+      { type: QueryTypes.SELECT }
+    );
+
+    if (Object.keys(existsMovie).length !== 0) {
+      return res.send({ message: "Movie is exists" });
+    }
+
     let tt = await Movies.create({
       name_movie: name_movie,
       slug: slug,
@@ -120,7 +134,7 @@ exports.postAddMovie = async (req, res, next) => {
       id_cineplex: id_cineplex,
       id_movie: id_movie,
     });
-    return res.status(200).send("ok");
+    return res.status(200).send({ message: "Ok" });
   } catch (err) {
     console.log(err);
     return res.status(404).send("er");
