@@ -160,6 +160,8 @@ function compareTime(timeInput, timeDB, flag) {
   let minutesInput = parseInt(time1[0] * 60) + parseInt(time1[1]);
   if (flag === "PM") minutesInput += 12 * 60;
   let minutesDb = parseInt(time2[0] * 60) + parseInt(time2[1]);
+  console.log(minutesInput);
+  console.log(minutesDb + 15);
   return minutesInput >= minutesDb + 15;
 }
 
@@ -194,76 +196,83 @@ function timeConvertMinutesToHours(timeInput, flag, movieTime) {
   return { flagg: fa, time: rhours + ":" + rminutes };
 }
 
+function getDateWithoutTime(date) {
+  return require("moment")(date).format("MM/DD/YYYY");
+}
+
 exports.postAddShedule = async (req, res, next) => {
-  try {
-    let { id_room, id_movie, date, start_time, price } = req.body;
-    const start_time_last = start_time.slice(6, 8); // cut last AM or PM
+  let { id_room, id_movie, date, start_time, price } = req.body;
+  const start_time_last = start_time.slice(6, 8); // cut last AM or PM
 
-    const movie = await Movies.findOne({ where: { id: id_movie } });
+  const movie = await Movies.findOne({ where: { id: id_movie } });
 
-    const datee = moment(date, "DD/MM/YYYY").format("L"); // conver date
+  const datee = moment(date, "DD/MM/YYYY").format("L"); // conver date
 
-    const times = await db.query(
-      `
+  const times = await db.query(
+    `
     select time.end_point
     from schedules sch join times time on sch.id_time = time.id
-    where sch.id_movie = 1 and sch.id_room = 1  and time.end_point::date = '${datee}'
-    order by time.start_point DESC
+    where sch.id_movie = 1 and sch.id_room = 1  and time.start_point::date = '${date}'
+    order by time.end_point DESC
     limit 1
   `,
-      { type: QueryTypes.SELECT }
-    );
+    { type: QueryTypes.SELECT }
+  );
 
-    // get end_point
+  // get end_point
+  if (Object.keys(times).length !== 0) {
+    if (date < getDateWithoutTime(times[0].end_point)) {
+      return res.status(200).send({
+        message: "Invalid",
+      });
+    }
+
     const end_time = timeConverter(times[0].end_point);
-
     // compare
+
     if (!compareTime(start_time, end_time, start_time_last)) {
       return res.status(200).send({
         message:
           "Time Start of schedule greater time of schedule previous 15 minutes",
       });
     }
-
-    // plus time start with time of movie => end_time
-    const { flagg, time } = timeConvertMinutesToHours(
-      start_time,
-      start_time_last,
-      movie.time
-    );
-
-    // convert start time to time exact
-    let time1 = start_time.slice(0, 6).split(":");
-    let minutesInput = parseInt(time1[0] * 60) + parseInt(time1[1]);
-    if (start_time_last === "PM") minutesInput += 12 * 60;
-
-    const dateTimeStart = datee + " " + timeConvert(minutesInput);
-    let start_time_db = new Date(dateTimeStart);
-    // end_time
-    const dateTimeEnd = datee + " " + time;
-    let end_time_db = new Date(dateTimeEnd);
-    if (flagg === true) {
-      end_time_db = new Date(end_time_db.getTime() + 24 * 60 * 60 * 1000);
-    }
-
-    let tt = await Times.create({
-      start_point: start_time_db,
-      end_point: end_time_db,
-    });
-
-    tt = JSON.parse(JSON.stringify(tt));
-    const id_time = tt["id"];
-    await Schedules.create({
-      id_movie: id_movie,
-      id_room: id_room,
-      id_time: id_time,
-      price: price,
-    });
-    return res.status(200).send("ok");
-  } catch (err) {
-    console.log(err);
-    return res.status(404).send("er");
   }
+
+  // plus time start with time of movie => end_time
+  const { flagg, time } = timeConvertMinutesToHours(
+    start_time,
+    start_time_last,
+    movie.time
+  );
+
+  // convert start time to time exact
+  let time1 = start_time.slice(0, 5).split(":");
+  let minutesInput = parseInt(time1[0] * 60) + parseInt(time1[1]);
+  if (start_time_last === "PM") minutesInput += 12 * 60;
+
+  const dateTimeStart = date + " " + timeConvert(minutesInput);
+  let start_time_db = new Date(dateTimeStart);
+  // end_time
+  const dateTimeEnd = date + " " + time;
+  let end_time_db = new Date(dateTimeEnd);
+  if (flagg === true) {
+    end_time_db = new Date(end_time_db.getTime() + 24 * 60 * 60 * 1000);
+  }
+
+  let tt = await Times.create({
+    start_point: start_time_db,
+    end_point: end_time_db,
+  });
+
+  tt = JSON.parse(JSON.stringify(tt));
+  const id_time = tt["id"];
+  await Schedules.create({
+    id_movie: id_movie,
+    id_room: id_room,
+    id_time: id_time,
+    price: price,
+  });
+  return res.status(200).send("ok");
 };
 
 exports.postStatiscalForCineplex = async (req, res, next) => {
