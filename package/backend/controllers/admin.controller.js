@@ -54,27 +54,21 @@ exports.postAddCineplex = async (req, res, next) => {
 };
 
 exports.postAddRoom = async (req, res, next) => {
-  try {
-    let { id_cineplex, name_room, horizontal, vertical, id_categoryRoom } =
-      req.body;
-    name_room = name_room.replace(/\s+/g, " ").trim();
-    const roomExists = await Rooms.findOne({
-      where: { name_room: name_room },
-    });
-    if (roomExists) return res.status(200).send("Room is exist");
-    await Rooms.create({
-      name_room: name_room,
-      id_cineplex: id_cineplex,
-      id_category_room: id_categoryRoom,
-      horizontal_size: horizontal,
-      vertical_size: vertical,
-    });
-
-    return res.status(200).send("ok");
-  } catch (err) {
-    console.log(err);
-    return res.status(404).send("er");
-  }
+  let { id_cineplex, name_room, horizontal, vertical, id_categoryRoom } =
+    req.body;
+  name_room = name_room.replace(/\s+/g, " ").trim();
+  const roomExists = await Rooms.findOne({
+    where: { name_room: name_room },
+  });
+  if (roomExists) return res.status(200).send("Room is exist");
+  await Rooms.create({
+    name_room: name_room,
+    id_cineplex: id_cineplex,
+    id_category_room: id_categoryRoom,
+    horizontal_size: horizontal,
+    vertical_size: vertical,
+  });
+  return res.status(200).send("ok");
 };
 
 function nonAccentVietnamese(str) {
@@ -101,30 +95,27 @@ function nonAccentVietnamese(str) {
 }
 
 exports.postAddMovie = async (req, res, next) => {
-  try {
-    let { id_cineplex, name_movie, time, release_date, poster } = req.body;
-    if (id_cineplex === undefined) return res.status(200).send("All");
-    name_movie = name_movie.replace(/\s+/g, " ").trim();
-    let slug = nonAccentVietnamese(name_movie).split(" ").join("-");
-    let tt = await Movies.create({
-      name_movie: name_movie,
-      slug: slug,
-      release_date: Date.parse(release_date),
-      poster: poster,
-      time: time,
-    });
-    tt = JSON.parse(JSON.stringify(tt));
-    const id_movie = tt["id"];
+  let { id_cineplex, name_movie, time, release_date, poster } = req.body;
+  name_movie = name_movie.toString().replace(/\s+/g, " ").trim();
+  let slug = nonAccentVietnamese(name_movie).split(" ").join("-");
+  const movieExists = await Movies.findOne({ where: { slug: slug } });
+  if (movieExists) return res.status(200).send({ message: "movie is exists" });
+  let tt = await Movies.create({
+    name_movie: name_movie,
+    slug: slug,
+    release_date: Date.parse(release_date),
+    poster: poster,
+    time: time,
+  });
+  tt = JSON.parse(JSON.stringify(tt));
+  console.log(tt);
+  const id_movie = tt["id"];
 
-    await Movies_Cineplex.create({
-      id_cineplex: id_cineplex,
-      id_movie: id_movie,
-    });
-    return res.status(200).send("ok");
-  } catch (err) {
-    console.log(err);
-    return res.status(404).send("er");
-  }
+  await Movies_Cineplex.create({
+    id_cineplex: id_cineplex,
+    id_movie: id_movie,
+  });
+  return res.status(200).send({ message: "ok" });
 };
 
 function timeConverter(UNIX_timestamp) {
@@ -195,75 +186,72 @@ function timeConvertMinutesToHours(timeInput, flag, movieTime) {
 }
 
 exports.postAddShedule = async (req, res, next) => {
-  try {
-    let { id_room, id_movie, date, start_time, price } = req.body;
-    const start_time_last = start_time.slice(6, 8); // cut last AM or PM
+  let { id_room, id_movie, date, start_time, price } = req.body;
+  const start_time_last = start_time.slice(6, 8); // cut last AM or PM
 
-    const movie = await Movies.findOne({ where: { id: id_movie } });
+  const movie = await Movies.findOne({ where: { id: id_movie } });
 
-    const datee = moment(date, "DD/MM/YYYY").format("L"); // conver date
+  const datee = moment(date, "DD/MM/YYYY").format("L"); // conver date
 
-    const times = await db.query(
-      `
+  const times = await db.query(
+    `
     select time.end_point
     from schedules sch join times time on sch.id_time = time.id
     where sch.id_movie = 1 and sch.id_room = 1  and time.end_point::date = '${datee}'
     order by time.start_point DESC
     limit 1
   `,
-      { type: QueryTypes.SELECT }
-    );
+    { type: QueryTypes.SELECT }
+  );
 
-    // get end_point
+  // get end_point
+  if (Object.keys(times).length !== 0) {
     const end_time = timeConverter(times[0].end_point);
-
     // compare
+
     if (!compareTime(start_time, end_time, start_time_last)) {
       return res.status(200).send({
         message:
           "Time Start of schedule greater time of schedule previous 15 minutes",
       });
     }
-
-    // plus time start with time of movie => end_time
-    const { flagg, time } = timeConvertMinutesToHours(
-      start_time,
-      start_time_last,
-      movie.time
-    );
-
-    // convert start time to time exact
-    let time1 = start_time.slice(0, 6).split(":");
-    let minutesInput = parseInt(time1[0] * 60) + parseInt(time1[1]);
-    if (start_time_last === "PM") minutesInput += 12 * 60;
-
-    const dateTimeStart = datee + " " + timeConvert(minutesInput);
-    let start_time_db = new Date(dateTimeStart);
-    // end_time
-    const dateTimeEnd = datee + " " + time;
-    let end_time_db = new Date(dateTimeEnd);
-    if (flagg === true) {
-      end_time_db = new Date(end_time_db.getTime() + 24 * 60 * 60 * 1000);
-    }
-
-    let tt = await Times.create({
-      start_point: start_time_db,
-      end_point: end_time_db,
-    });
-
-    tt = JSON.parse(JSON.stringify(tt));
-    const id_time = tt["id"];
-    await Schedules.create({
-      id_movie: id_movie,
-      id_room: id_room,
-      id_time: id_time,
-      price: price,
-    });
-    return res.status(200).send("ok");
-  } catch (err) {
-    console.log(err);
-    return res.status(404).send("er");
   }
+
+  // plus time start with time of movie => end_time
+  const { flagg, time } = timeConvertMinutesToHours(
+    start_time,
+    start_time_last,
+    movie.time
+  );
+
+  // convert start time to time exact
+  let time1 = start_time.slice(0, 5).split(":");
+  let minutesInput = parseInt(time1[0] * 60) + parseInt(time1[1]);
+  if (start_time_last === "PM") minutesInput += 12 * 60;
+
+  const dateTimeStart = datee + " " + timeConvert(minutesInput);
+  let start_time_db = new Date(dateTimeStart);
+  // end_time
+  const dateTimeEnd = datee + " " + time;
+  let end_time_db = new Date(dateTimeEnd);
+  if (flagg === true) {
+    end_time_db = new Date(end_time_db.getTime() + 2 * 24 * 60 * 60 * 1000);
+  }
+
+  let tt = await Times.create({
+    start_point: start_time_db,
+    end_point: end_time_db,
+  });
+
+  tt = JSON.parse(JSON.stringify(tt));
+  const id_time = tt["id"];
+  await Schedules.create({
+    id_movie: id_movie,
+    id_room: id_room,
+    id_time: id_time,
+    price: price,
+  });
+  return res.status(200).send("ok");
 };
 
 exports.postStatiscalForCineplex = async (req, res, next) => {

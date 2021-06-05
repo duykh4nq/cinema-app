@@ -32,6 +32,7 @@ import {
   getAddMovie,
   getAddShowtime,
 } from "../redux/actions/adminActions";
+import SkeletonImage from "antd/lib/skeleton/Image";
 
 function CGUD(props) {
   const myArr = [
@@ -116,26 +117,27 @@ function CGUD(props) {
 
   //add movie
   //add Img
-  const [picture, setPicture] = React.useState(null);
   const [imgData, setImgData] = React.useState(null);
   const onChangePicture = (e) => {
     if (e.target.files[0]) {
-      console.log("picture: ", e.target.files);
-      setPicture(e.target.files[0]);
-      const reader = new FileReader();
-      reader.addEventListener("load", () => {
-        setImgData(reader.result);
-      });
-      reader.readAsDataURL(e.target.files[0]);
+      const file = e.target.files[0];
+      const check = file.name.match(/\.(jpg|jepg|png|gif)$/);
+      if (check) {
+        setImgData(URL.createObjectURL(file));
+      }
     }
   };
+
   const [name_movie, setName_movie] = React.useState("");
   const [time, setTime] = React.useState("");
   const [release_date, setRelease_date] = React.useState("");
 
   const addMovieHandler = (e) => {
     e.preventDefault();
-
+    setId_cineplex(e.target.reset());
+    setImgData(e.target.reset());
+    setTime(e.target.reset());
+    setRelease_date(e.target.reset());
     setName_movie(e.target.reset());
     dispatch(getAddMovie(id_cineplex, name_movie, time, release_date, imgData));
   };
@@ -149,11 +151,12 @@ function CGUD(props) {
 
   const addShowtimeHandler = (e) => {
     e.preventDefault();
-
-    setName_movie(e.target.reset());
-    dispatch(
-      getAddShowtime(id_cineplex, name_movie, time, release_date, imgData)
-    );
+    setId_room(e.target.reset());
+    setId_movie(e.target.reset());
+    setDate(e.target.reset());
+    setStart_time(e.target.reset());
+    setPrice(e.target.reset());
+    dispatch(getAddShowtime(id_room, id_movie, date, start_time, price));
   };
 
   return (
@@ -167,6 +170,10 @@ function CGUD(props) {
                   id="TabPane"
                   className={classnames({ active: activeTab === "1" })}
                   onClick={() => {
+                    console.log(
+                      `🚀 => file: CGUD.js => line 181 => time`,
+                      time
+                    );
                     toggle("1");
                   }}
                 >
@@ -313,12 +320,12 @@ function CGUD(props) {
                                 value={vertical}
                                 onChange={(e) => setVertical(e.target.value)}
                               >
-                                {(function (rows, i, len) {
-                                  while (++i <= len) {
-                                    rows.push(<option>{i}</option>);
+                                {(function (rows) {
+                                  for (let i = 0; i < myArr.length; i++) {
+                                    rows.push(<option>{myArr[i]}</option>);
                                   }
                                   return rows;
-                                })([], 1, 9)}
+                                })([])}
                               </Input>
                             </div>
                           </FormGroup>
@@ -468,6 +475,8 @@ function CGUD(props) {
                                 name="file"
                                 id="fileupload"
                                 placeholder="date placeholder"
+                                // value={imgData}
+                                // onChange={(e) => console.log(e.target.value)}
                                 onChange={onChangePicture}
                               ></Input>
                               Add image
@@ -511,7 +520,9 @@ function CGUD(props) {
                                 type="select"
                                 name="select"
                                 id="exampleSelect"
-                                onChange={(e) => setId_cineplex(e.target.value)}
+                                onChange={(e) =>
+                                  setValueCineplex(e.target.value)
+                                }
                               >
                                 {cinema.map((item) => (
                                   <option value={item.id}>{item.name}</option>

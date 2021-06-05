@@ -1,5 +1,6 @@
 import * as actionTypes from "../constants/adminConstants";
 import axios from "../configAxios";
+import Moment from "moment";
 
 export const getCinema = () => async (dispatch) => {
   try {
@@ -164,6 +165,13 @@ export const getAddMovie =
 
 export const getAddShowtime =
   (id_room, id_movie, date, start_time, price) => async (dispatch) => {
+    var [h, m] = start_time.split(":");
+    var meridian =
+      ((h % 12) + 12 * (h % 12 === 0) + ":" + m, h >= 12 ? "PM" : "AM");
+    if (h > 12) {
+      h = h - 12;
+    }
+
     try {
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_REQUEST,
@@ -171,11 +179,12 @@ export const getAddShowtime =
       const { data } = await axios.post("/admin/addshedule", {
         id_room: id_room,
         id_movie: id_movie,
-        date: date,
-        start_time: start_time,
+        date: Moment(date).format("DD-MM-YYYY"),
+        start_time: h + ":" + m + " " + meridian,
         price: price,
       });
-
+      console.log(`🚀 => file: adminActions.js => line 198 => data`, data);
+      if (data === "ok") dispatch(getCinema());
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
         payload: data,
@@ -197,7 +206,6 @@ export const postStatiscalForCineplex = () => async (dispatch) => {
       type: actionTypes.GET_CINEMA_REQUEST,
     });
     const { data } = await axios.post("/admin/statiscalCineplex");
-    console.log(`🚀 => file: adminActions.js => line 10 => data`, data);
     dispatch({
       type: actionTypes.GET_CINEMA_SUCCESS,
       payload: data,
