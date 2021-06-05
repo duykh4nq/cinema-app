@@ -223,7 +223,6 @@ exports.postAddShedule = async (req, res, next) => {
 
   const movie = await Movies.findOne({ where: { id: id_movie } });
 
-  const datee = moment(date, "DD/MM/YYYY").format("L"); // conver date
   const times = await db.query(
     `
     select time.end_point
@@ -242,9 +241,9 @@ exports.postAddShedule = async (req, res, next) => {
         message: "Invalid",
       });
     }
-
     const end_time = timeConverter(times[0].end_point);
     // compare
+    console.log(end_time);
 
     if (!compareTime(start_time, end_time, start_time_last)) {
       return res.status(200).send({
@@ -289,6 +288,7 @@ exports.postAddShedule = async (req, res, next) => {
     id_time: id_time,
     price: price,
   });
+
   return res.status(200).send("ok");
 };
 
