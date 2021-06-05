@@ -7,6 +7,7 @@ import { cartReducer } from "./reducers/cartReducers";
 import {
   getMovieDetailReducer,
   postBookingShowReducer,
+  getMoviesReducer,
 } from "./reducers/movieReducers";
 import { loginReducer, registerReducer } from "./reducers/authReducers";
 import { oderReducers } from "./reducers/orderReduces";
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   postBookingShow: postBookingShowReducer,
   users: loginReducer,
   register: registerReducer,
+  getMovies: getMoviesReducer,
 });
 const middleware = [thunk];
 

@@ -1,6 +1,25 @@
 import * as actionTypes from "../constants/movieConstants";
 import axios from "../configAxios";
 
+export const getMovies = () => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.GET_MOVIES_REQUEST });
+    const { data } = await axios.get("http://localhost:4000/");
+    dispatch({
+      type: actionTypes.GET_MOVIES_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_MOVIES_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 export const getMovieDetails = (slug) => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_MOVIE_DETAILS_REQUEST });

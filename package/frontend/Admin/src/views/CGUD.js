@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 import "./style.css";
 // reactstrap components
 import {
@@ -12,7 +11,6 @@ import {
   Input,
   Row,
   Col,
-  CardFooter,
   Form,
   TabContent,
   TabPane,
@@ -32,9 +30,8 @@ import {
   getAddMovie,
   getAddShowtime,
 } from "../redux/actions/adminActions";
-import SkeletonImage from "antd/lib/skeleton/Image";
 
-function CGUD(props) {
+function CGUD() {
   const myArr = [
     "B",
     "C",
@@ -93,26 +90,41 @@ function CGUD(props) {
 
   const addCineplexHandler = (e) => {
     e.preventDefault();
-    setAddressCineplex(e.target.reset());
-    setCineplex(e.target.reset());
-    dispatch(getAddCineplex(name_cineplex, address_cineplex));
+    if (name_cineplex == null || address_cineplex == null) {
+      alert("Please complete all information!!!");
+    } else {
+      setAddressCineplex(e.target.reset());
+      setCineplex(e.target.reset());
+      dispatch(getAddCineplex(name_cineplex, address_cineplex));
+    }
   };
 
   //add cinema
   const [name_room, setNameRoom] = React.useState("");
-  const [horizontal, setHorizontal] = React.useState("");
-  const [vertical, setVertical] = React.useState("");
+  const [horizontal, setHorizontal] = React.useState(2);
+  const [vertical, setVertical] = React.useState("B");
   const [id_cineplex, setId_cineplex] = React.useState("");
-  const [id_categoryRoom, setId_categoryRoom] = React.useState("");
+  const [id_categoryRoom, setId_categoryRoom] = React.useState(1);
 
   const addCinemaHandler = (e) => {
     e.preventDefault();
-    setNameRoom(e.target.reset());
-    setHorizontal(e.target.reset());
-    setVertical(e.target.reset());
-    dispatch(
-      getAddRoom(id_cineplex, name_room, horizontal, vertical, id_categoryRoom)
-    );
+    if (name_room == null) alert("Please enter the cinema name!!!");
+    else if (horizontal == null) alert("Please choose the horizontal!!!");
+    else if (vertical == null) alert("Please choose the vertical!!!");
+    else {
+      setNameRoom(e.target.reset());
+      setHorizontal(e.target.reset());
+      setVertical(e.target.reset());
+      dispatch(
+        getAddRoom(
+          id_cineplex,
+          name_room,
+          horizontal,
+          vertical,
+          id_categoryRoom
+        )
+      );
+    }
   };
 
   //add movie
@@ -134,12 +146,20 @@ function CGUD(props) {
 
   const addMovieHandler = (e) => {
     e.preventDefault();
-    setId_cineplex(e.target.reset());
-    setImgData(e.target.reset());
-    setTime(e.target.reset());
-    setRelease_date(e.target.reset());
-    setName_movie(e.target.reset());
-    dispatch(getAddMovie(id_cineplex, name_movie, time, release_date, imgData));
+    if (name_movie == null) alert("Please enter the cinema name!!!");
+    else if (time == null) alert("Please enter time!!!");
+    else if (release_date == null) alert("Please enter release date!!!");
+    else if (imgData == null) alert("Please choose a picture for the movie!!!");
+    else {
+      setId_cineplex(e.target.reset());
+      setImgData(e.target.reset());
+      setTime(e.target.reset());
+      setRelease_date(e.target.reset());
+      setName_movie(e.target.reset());
+      dispatch(
+        getAddMovie(id_cineplex, name_movie, time, release_date, imgData)
+      );
+    }
   };
 
   //add showtime
@@ -151,12 +171,19 @@ function CGUD(props) {
 
   const addShowtimeHandler = (e) => {
     e.preventDefault();
-    setId_room(e.target.reset());
-    setId_movie(e.target.reset());
-    setDate(e.target.reset());
-    setStart_time(e.target.reset());
-    setPrice(e.target.reset());
-    dispatch(getAddShowtime(id_room, id_movie, date, start_time, price));
+    if (id_room == null) alert("Please choose the cinema!!!");
+    else if (id_movie == null) alert("Please choose the movie!!!");
+    else if (date == null) alert("Please enter the date!!!");
+    else if (start_time == null) alert("Please enter the start time!!!");
+    else if (price == null) alert("Please enter the price!!!");
+    else {
+      setId_room(e.target.reset());
+      setId_movie(e.target.reset());
+      setDate(e.target.reset());
+      setStart_time(e.target.reset());
+      setPrice(e.target.reset());
+      dispatch(getAddShowtime(id_room, id_movie, date, start_time, price));
+    }
   };
 
   return (
@@ -215,6 +242,57 @@ function CGUD(props) {
               </NavItem>
             </Nav>
             <TabContent activeTab={activeTab}>
+              <TabPane tabId="1">
+                <Card>
+                  <CardHeader>
+                    <h5 className="title">Add Cineplex</h5>
+                  </CardHeader>
+                  <CardBody>
+                    <Form onSubmit={(e) => addCineplexHandler(e)}>
+                      <Row>
+                        <Col md="6">
+                          <FormGroup>
+                            <label>Name</label>
+                            <Input
+                              // disabled
+                              placeholder="Cineplex"
+                              type="text"
+                              value={name_cineplex}
+                              onChange={(e) => setCineplex(e.target.value)}
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md="10">
+                          <FormGroup>
+                            <label>Address</label>
+                            <Input
+                              type="text"
+                              placeholder="Address Cineplex"
+                              value={address_cineplex}
+                              onChange={(e) =>
+                                setAddressCineplex(e.target.value)
+                              }
+                            />
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                      <Row>
+                        <Col md="3">
+                          <Button
+                            className="btn-fill"
+                            color="primary"
+                            type="submit"
+                          >
+                            Add Cineplex
+                          </Button>
+                        </Col>
+                      </Row>
+                    </Form>
+                  </CardBody>
+                </Card>
+              </TabPane>
               <TabPane tabId="2">
                 <Card>
                   <CardHeader>
@@ -339,57 +417,6 @@ function CGUD(props) {
                             type="submit"
                           >
                             Add Cinema
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Form>
-                  </CardBody>
-                </Card>
-              </TabPane>
-              <TabPane tabId="1">
-                <Card>
-                  <CardHeader>
-                    <h5 className="title">Add Cineplex</h5>
-                  </CardHeader>
-                  <CardBody>
-                    <Form onSubmit={(e) => addCineplexHandler(e)}>
-                      <Row>
-                        <Col md="6">
-                          <FormGroup>
-                            <label>Name</label>
-                            <Input
-                              // disabled
-                              placeholder="Cineplex"
-                              type="text"
-                              value={name_cineplex}
-                              onChange={(e) => setCineplex(e.target.value)}
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md="10">
-                          <FormGroup>
-                            <label>Address</label>
-                            <Input
-                              type="text"
-                              placeholder="Address Cineplex"
-                              value={address_cineplex}
-                              onChange={(e) =>
-                                setAddressCineplex(e.target.value)
-                              }
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md="3">
-                          <Button
-                            className="btn-fill"
-                            color="primary"
-                            type="submit"
-                          >
-                            Add Cineplex
                           </Button>
                         </Col>
                       </Row>

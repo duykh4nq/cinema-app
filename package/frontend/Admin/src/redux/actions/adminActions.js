@@ -179,7 +179,7 @@ export const getAddShowtime =
       const { data } = await axios.post("/admin/addshedule", {
         id_room: id_room,
         id_movie: id_movie,
-        date: Moment(date).format("DD-MM-YYYY"),
+        date: Moment(date).format("MM-DD-YYYY"),
         start_time: h + ":" + m + " " + meridian,
         price: price,
       });
