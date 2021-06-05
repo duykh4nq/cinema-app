@@ -186,18 +186,20 @@ function timeConvert(timeInput) {
   var minutes = (hours - rhours) * 60;
   var rminutes = Math.round(minutes);
 
+  if (rminutes === 0) rminutes = "00";
   return rhours + ":" + rminutes;
 }
 
 function timeConvertMinutesToHours(timeInput, flag, movieTime) {
-  let time1 = timeInput.slice(0, 6).split(":");
+  let time1 = timeInput.slice(0, 5).split(":");
+  console.log(time1);
 
   let minutesInput = parseInt(time1[0] * 60) + parseInt(time1[1]) + movieTime;
   if (flag === "PM") minutesInput += 12 * 60;
 
   var num = minutesInput;
   var hours = num / 60;
-  console.log(flag, hours);
+
   var rhours = Math.floor(hours);
   var minutes = (hours - rhours) * 60;
   var rminutes = Math.round(minutes);
@@ -207,6 +209,7 @@ function timeConvertMinutesToHours(timeInput, flag, movieTime) {
     fa = true;
     rhours %= 24;
   }
+  if (rminutes === 0) rminutes = "00";
   return { flagg: fa, time: rhours + ":" + rminutes };
 }
 
@@ -221,12 +224,11 @@ exports.postAddShedule = async (req, res, next) => {
   const movie = await Movies.findOne({ where: { id: id_movie } });
 
   const datee = moment(date, "DD/MM/YYYY").format("L"); // conver date
-
   const times = await db.query(
     `
     select time.end_point
     from schedules sch join times time on sch.id_time = time.id
-    where sch.id_movie = 1 and sch.id_room = 1  and time.start_point::date = '${date}'
+    where sch.id_movie = ${id_movie} and sch.id_room = ${id_room}  and time.start_point::date = '${date}'
     order by time.end_point DESC
     limit 1
   `,
@@ -268,14 +270,15 @@ exports.postAddShedule = async (req, res, next) => {
   let start_time_db = new Date(dateTimeStart);
   // end_time
   const dateTimeEnd = date + " " + time;
+
   let end_time_db = new Date(dateTimeEnd);
   if (flagg === true) {
     end_time_db = new Date(end_time_db.getTime() + 24 * 60 * 60 * 1000);
   }
 
   let tt = await Times.create({
-    start_point: start_time_db,
-    end_point: end_time_db,
+    start_point: start_time_db.toISOString(),
+    end_point: end_time_db.toISOString(),
   });
 
   tt = JSON.parse(JSON.stringify(tt));

@@ -13,6 +13,36 @@ const {
   Category_rooms,
 } = require("../models/cineplex_room.model");
 
+function getDateWithoutTime(date) {
+  return require("moment")(date).format("YYYY-MM-DD");
+}
+
+function timeConverter(UNIX_timestamp) {
+  var a = new Date(UNIX_timestamp);
+  var months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time = hour + ":" + min;
+  return time;
+}
+
 exports.getHome = async (req, res, next) => {
   const end = new Date();
   const start = new Date(new Date() - 7 * 24 * 60 * 60 * 1000);
@@ -73,48 +103,104 @@ exports.getDetailMovie = async (req, res, next) => {
   res.status(200).send(mov);
 };
 
-exports.postBookingShow = async (req, res, next) => {
-  const { id_mov } = req.body;
-  const start = new Date();
-  const end = new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000);
+async function qery(id_mov, datee) {
+  const test1 = await db.query(
+    `
+    select sch.id, cine.name, cr.name_cat, ti.start_point
+    from cineplexs cine join rooms ro on ro.id_cineplex = cine.id
+    join category_rooms cr on cr.id = ro.id_category_room
+    join schedules sch on sch.id_room = ro.id
+    join times ti on ti.id = sch.id_time
+    where sch.id_movie = ${id_mov} and ti.start_point::date = '${getDateWithoutTime(
+      datee
+    )}'
+    group by sch.id, cine.name, cr.name_cat, ti.start_point
+    order by cine.name
+    `,
+    { type: QueryTypes.SELECT }
+  );
+  return test1;
+}
 
-  const test1 = await Schedules.findAll({
-    where: {
-      id_movie: id_mov,
-    },
-    include: [
+function detailsCat(name_cat, id, start_point) {
+  const res = {
+    cate_room: name_cat,
+    schedule: [
       {
-        model: Rooms,
-        include: [
-          {
-            model: Cineplexs,
-          },
-          {
-            model: Category_rooms,
-          },
-        ],
-      },
-      {
-        model: Times,
-        where: {
-          [Op.and]: [
-            sequelize.where(
-              sequelize.fn("date", sequelize.col("start_point")),
-              ">=",
-              start.toISOString().slice(0, 10)
-            ),
-            sequelize.where(
-              sequelize.fn("date", sequelize.col("start_point")),
-              "<=",
-              end.toISOString().slice(0, 10)
-            ),
-          ],
-        },
+        id_schedule: id,
+        time: timeConverter(start_point),
       },
     ],
-  });
+  };
+  return res;
+}
 
-  return res.status(200).send(test1);
+function converData(arr) {
+  let details = [];
+  for (let ko of arr) {
+    const existsCineplex = details.find((de) => de.cineplex === ko.name);
+    // if not exists
+    if (existsCineplex === undefined) {
+      const ttkk = {
+        cineplex: ko.name,
+        detailsCat: [
+          {
+            cate_room: ko.name_cat,
+            schedule: [
+              {
+                id_schedule: ko.id,
+                time: timeConverter(ko.start_point),
+              },
+            ],
+          },
+        ],
+      };
+      details.push(ttkk);
+    } else {
+      const existsDetailsCat = existsCineplex.detailsCat.find(
+        (de) => de.cate_room === ko.name_cat
+      );
+
+      const indexCine = details.findIndex(
+        (e) => e.cineplex === existsCineplex.cineplex
+      );
+      if (existsDetailsCat === undefined) {
+        // cate_room undefined
+        details[indexCine].detailsCat.push(
+          detailsCat(ko.name_cat, ko.id, ko.start_point)
+        );
+      } else {
+        // cate_room not undefined
+        const indexSche = details[indexCine].detailsCat.findIndex(
+          (e) => e.cate_room === ko.name_cat
+        );
+        details[indexCine].detailsCat[indexSche].schedule.push({
+          id_schedule: ko.id,
+          time: timeConverter(ko.start_point),
+        });
+      }
+    }
+  }
+  return details;
+}
+
+exports.postBookingShow = async (req, res, next) => {
+  const { id_mov } = req.body;
+  let booking = [];
+  let i = 0;
+  for (; i < 7; i++) {
+    const start = new Date(new Date().getTime() + i * 24 * 60 * 60 * 1000);
+    const arr = await qery(id_mov, start);
+
+    const details = await converData(arr);
+    await booking.push([
+      {
+        date: getDateWithoutTime(start),
+        details: details,
+      },
+    ]);
+  }
+  return res.status(200).send(booking);
 };
 
 exports.postBookingSeat = async (req, res, next) => {
