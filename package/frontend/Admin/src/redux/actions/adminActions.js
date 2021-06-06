@@ -87,7 +87,9 @@ export const getAddCineplex = (name, address) => async (dispatch) => {
       name: name,
       address: address,
     });
-    if (data === "ok") dispatch(getCinema());
+    if (data === "ok") {
+      dispatch(getCinema());
+    }
     dispatch({
       type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
       payload: data,
@@ -117,7 +119,9 @@ export const getAddRoom =
         vertical: vertical,
         id_categoryRoom: id_categoryRoom,
       });
-      if (data === "ok") dispatch(getCinema());
+      if (data === "ok") {
+        dispatch(getCinema());
+      }
       console.log(`🚀 => file: adminActions.js => line 142 => data`, data);
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
@@ -147,7 +151,10 @@ export const getAddMovie =
         release_date: release_date,
         poster: poster,
       });
-      if (data === "ok") dispatch(getCinema());
+      if (data === "ok") {
+        dispatch(getCinema());
+        alert("Succes");
+      }
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
         payload: data,
@@ -184,7 +191,10 @@ export const getAddShowtime =
         price: price,
       });
       console.log(`🚀 => file: adminActions.js => line 198 => data`, data);
-      if (data === "ok") dispatch(getCinema());
+      if (data === "ok") {
+        dispatch(getCinema());
+        alert("Succes");
+      }
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
         payload: data,

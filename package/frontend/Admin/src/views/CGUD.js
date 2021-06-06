@@ -90,41 +90,28 @@ function CGUD() {
 
   const addCineplexHandler = (e) => {
     e.preventDefault();
-    if (name_cineplex == null || address_cineplex == null) {
-      alert("Please complete all information!!!");
-    } else {
-      setAddressCineplex(e.target.reset());
-      setCineplex(e.target.reset());
-      dispatch(getAddCineplex(name_cineplex, address_cineplex));
-    }
+    setAddressCineplex(e.target.reset());
+    setCineplex(e.target.reset());
+    dispatch(getAddCineplex(name_cineplex, address_cineplex));
+    alert("Succes");
   };
 
   //add cinema
   const [name_room, setNameRoom] = React.useState("");
   const [horizontal, setHorizontal] = React.useState(2);
   const [vertical, setVertical] = React.useState("B");
-  const [id_cineplex, setId_cineplex] = React.useState("");
+  const [id_cineplex, setId_cineplex] = React.useState(1);
   const [id_categoryRoom, setId_categoryRoom] = React.useState(1);
 
   const addCinemaHandler = (e) => {
     e.preventDefault();
-    if (name_room == null) alert("Please enter the cinema name!!!");
-    else if (horizontal == null) alert("Please choose the horizontal!!!");
-    else if (vertical == null) alert("Please choose the vertical!!!");
-    else {
-      setNameRoom(e.target.reset());
-      setHorizontal(e.target.reset());
-      setVertical(e.target.reset());
-      dispatch(
-        getAddRoom(
-          id_cineplex,
-          name_room,
-          horizontal,
-          vertical,
-          id_categoryRoom
-        )
-      );
-    }
+    setNameRoom(e.target.reset());
+    setHorizontal(e.target.reset());
+    setVertical(e.target.reset());
+    dispatch(
+      getAddRoom(id_cineplex, name_room, horizontal, vertical, id_categoryRoom)
+    );
+    alert("Succes");
   };
 
   //add movie
@@ -146,20 +133,13 @@ function CGUD() {
 
   const addMovieHandler = (e) => {
     e.preventDefault();
-    if (name_movie == null) alert("Please enter the cinema name!!!");
-    else if (time == null) alert("Please enter time!!!");
-    else if (release_date == null) alert("Please enter release date!!!");
-    else if (imgData == null) alert("Please choose a picture for the movie!!!");
-    else {
-      setId_cineplex(e.target.reset());
-      setImgData(e.target.reset());
-      setTime(e.target.reset());
-      setRelease_date(e.target.reset());
-      setName_movie(e.target.reset());
-      dispatch(
-        getAddMovie(id_cineplex, name_movie, time, release_date, imgData)
-      );
-    }
+    setId_cineplex(e.target.reset());
+    setImgData(e.target.reset());
+    setTime(e.target.reset());
+    setRelease_date(e.target.reset());
+    setName_movie(e.target.reset());
+    dispatch(getAddMovie(id_cineplex, name_movie, time, release_date, imgData));
+    alert("Succes");
   };
 
   //add showtime
@@ -171,19 +151,13 @@ function CGUD() {
 
   const addShowtimeHandler = (e) => {
     e.preventDefault();
-    if (id_room == null) alert("Please choose the cinema!!!");
-    else if (id_movie == null) alert("Please choose the movie!!!");
-    else if (date == null) alert("Please enter the date!!!");
-    else if (start_time == null) alert("Please enter the start time!!!");
-    else if (price == null) alert("Please enter the price!!!");
-    else {
-      setId_room(e.target.reset());
-      setId_movie(e.target.reset());
-      setDate(e.target.reset());
-      setStart_time(e.target.reset());
-      setPrice(e.target.reset());
-      dispatch(getAddShowtime(id_room, id_movie, date, start_time, price));
-    }
+    setId_room(e.target.reset());
+    setId_movie(e.target.reset());
+    setDate(e.target.reset());
+    setStart_time(e.target.reset());
+    setPrice(e.target.reset());
+    dispatch(getAddShowtime(id_room, id_movie, date, start_time, price));
+    alert("Succes");
   };
 
   return (
@@ -259,6 +233,7 @@ function CGUD() {
                               type="text"
                               value={name_cineplex}
                               onChange={(e) => setCineplex(e.target.value)}
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -274,6 +249,7 @@ function CGUD() {
                               onChange={(e) =>
                                 setAddressCineplex(e.target.value)
                               }
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -314,6 +290,7 @@ function CGUD() {
                                 name="select"
                                 id="exampleSelect"
                                 onChange={(e) => setId_cineplex(e.target.value)}
+                                required
                               >
                                 {cinema.map((item) => (
                                   <option value={item.id}>{item.name}</option>
@@ -330,6 +307,7 @@ function CGUD() {
                               onChange={(e) => setNameRoom(e.target.value)}
                               placeholder="Cinema"
                               type="text"
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -345,6 +323,7 @@ function CGUD() {
                               onChange={(e) =>
                                 setId_categoryRoom(e.target.value)
                               }
+                              required
                             >
                               <option value="1">2D</option>
                               <option value="2">3D</option>
@@ -440,6 +419,7 @@ function CGUD() {
                               type="text"
                               value={name_movie}
                               onChange={(e) => setName_movie(e.target.value)}
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -476,6 +456,7 @@ function CGUD() {
                               placeholder="time placeholder"
                               value={time}
                               onChange={(e) => setTime(e.target.value)}
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -489,6 +470,7 @@ function CGUD() {
                               placeholder="date placeholder"
                               value={release_date}
                               onChange={(e) => setRelease_date(e.target.value)}
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -502,9 +484,8 @@ function CGUD() {
                                 name="file"
                                 id="fileupload"
                                 placeholder="date placeholder"
-                                // value={imgData}
-                                // onChange={(e) => console.log(e.target.value)}
                                 onChange={onChangePicture}
+                                required
                               ></Input>
                               Add image
                             </Button>
@@ -571,6 +552,7 @@ function CGUD() {
                                 name="select"
                                 id="exampleSelect"
                                 onChange={(e) => setId_room(e.target.value)}
+                                required
                               >
                                 {schedule.map((item) => (
                                   <option value={item.id}>
@@ -596,6 +578,7 @@ function CGUD() {
                                 name="select"
                                 id="exampleSelect"
                                 onChange={(e) => setId_movie(e.target.value)}
+                                required
                               >
                                 {schedule.map((item) => (
                                   <option value={item.id}>
@@ -618,6 +601,7 @@ function CGUD() {
                               placeholder="date placeholder"
                               value={date}
                               onChange={(e) => setDate(e.target.value)}
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -631,6 +615,7 @@ function CGUD() {
                               placeholder="time placeholder"
                               value={start_time}
                               onChange={(e) => setStart_time(e.target.value)}
+                              required
                             />
                           </FormGroup>
                         </Col>
@@ -643,6 +628,7 @@ function CGUD() {
                               placeholder="300000"
                               value={price}
                               onChange={(e) => setPrice(e.target.value)}
+                              required
                             />
                           </FormGroup>
                         </Col>
