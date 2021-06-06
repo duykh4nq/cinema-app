@@ -1,139 +1,160 @@
 .containerdialog {
-    /* //min-height: 50vh; */
     align-items: center;
     justify-content: center;
     display: flex;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .bookingscreen {
-    background-color: #455B62;
+    background-color: #032055;
     justify-content: center;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    /* height: 100vh; */
-    width: 640px;
-    top: 200px;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .date {
-    height: 130px;
-    width: 93%;
-    background: #1c3d5d;
-    text-align: center;
-    justify-content: center;
-    padding: 1rem;
-    margin: 0.5rem 1.5rem;
+    width: 90%;
+    height: 150%;
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    background: #001232;
 }
 
 .day {
-    top: 20px;
-    width: 60px;
-    height: 40px;
-    left: 21px;
-    background: #1c3d5d;
+    background-color: #032055;
     font-style: normal;
-    color: black;
     font-weight: bold;
-    font-size: 1px;
     justify-content: center;
     display: flex;
     flex-direction: column;
     text-align: center;
     align-items: center;
+    border-radius: 1rem;
+    width: 120%;
+    height: 60%;
 }
 
 .month p {
-    color: black;
+    font-size: 100%;
+    color: white;
     font-weight: bold;
-    font-size: 15px;
 }
 
-.day p {
-    font-size: 35px;
+.texture {
     text-align: center;
+    font-size: 160%;
+    color: white;
+    font-weight: bold;
 }
 
 .btncalendar {
-    width: 70px;
-    height: 100px;
-    /* font-family: 'Source Sans Pro', sans-serif; */
-    background: #C4C4C4;
-    z-index: 3px;
-    border-radius: 10px;
-    margin: 0.2rem 0.2rem;
-    margin-top: 1px;
+    width: 12%;
+    background: none;
+    border-radius: 1rem;
+    padding: 0rem 1rem;
+    margin-left: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid #000;
 }
 
 .theater-cluster {
-    height: 90px;
-    width: 93%;
-    background: #1c3d5d;
+    width: 90%;
+    height: 7rem;
+    background: #001232;
     justify-content: center;
-    padding: 1rem;
-    margin: 0.5rem 1.5rem;
+    margin: 1rem;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    font-weight: bold;
 }
 
 .btncinema-complex {
-    /* font-family: 'Source Sans Pro', sans-serif; */
-    background: #C4C4C4;
-    z-index: 3px;
-    border-radius: 10px;
-    height: 50px;
+    background: none;
+    border-radius: 1rem;
+    border: 1px solid #000;
     justify-content: center;
-    color: black;
-    font-size: 20px;
-    width: 15%;
-    margin-left: 0.5rem;
-    margin-top: 3px;
+    width: 9%;
+    height: 50%;
+    margin-left: 1rem;
 }
 
 .movie-genre {
-    height: 80px;
-    width: 93%;
-    background: #1c3d5d;
+    height: 100px;
+    width: 90%;
+    background: #001232;
     justify-content: center;
-    padding: 1rem;
-    margin: 0.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 20px;
 }
 
 .btncategory {
-    /* font-family: 'Source Sans Pro', sans-serif; */
-    background: #C4C4C4;
+    background: none;
     z-index: 1px;
     border-radius: 10px;
-    height: 30px;
-    width: 45%;
+    height: 60%;
+    width: 20%;
     justify-content: center;
-    color: black;
-    font-size: 20px;
-    margin: 0.5rem 0.5rem;
-    margin-top: 4px;
+    margin-left: 1rem;
+    border: 1px solid #000;
+    font-weight: bold;
 }
 
 .time {
-    height: 150px;
-    width: 93%;
-    background: #1c3d5d;
+    width: 90%;
+    background: #001232;
     justify-content: center;
-    padding: 1rem;
-    margin: 0.5rem 1.5rem;
+    margin: 1rem 0rem 2rem;
+    display: flex;
+    justify-content: left;
+}
+
+.item {
+    text-align: center;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+}
+
+.list-time {
+    display: flex;
+    justify-content: left;
 }
 
 .theater-name {
-    font-size: 25px;
-    /* font-family: 'Source Sans Pro', sans-serif; */
+    font-size: 1.5rem;
 }
 
 .showtime {
-    /* font-family: 'Source Sans Pro', sans-serif; */
-    background: #C4C4C4;
-    z-index: 3px;
-    border-radius: 10px;
-    height: 30px;
-    justify-content: center;
-    color: black;
-    font-size: 20px;
-    margin: 0.5rem 1.5rem;
-    width: 20%;
-    margin-top: 20px;
+    background: none;
+    width: 80%;
+    margin-top: 1rem;
+    border: 1px solid #000;
+    margin-left: 0.5rem;
+    margin-bottom: 1rem;
+    margin-left: 1rem;
+}
+
+.showtime p {
+    font-weight: bold;
+    color: white;
+}
+
+.btncalendar:hover,
+.btncinema-complex:hover,
+.btncategory:hover,
+.showtime:hover {
+    background: #31d7a9;
 }
