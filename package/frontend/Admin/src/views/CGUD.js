@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./style.css";
+import { storage, fire } from "../firebase";
 // reactstrap components
 import {
   Button,
@@ -117,11 +118,15 @@ function CGUD() {
   //add movie
   //add Img
   const [imgData, setImgData] = React.useState(null);
+  const [image, setImage] = React.useState(null);
   const onChangePicture = (e) => {
+    //cos c
+
     if (e.target.files[0]) {
       const file = e.target.files[0];
       const check = file.name.match(/\.(jpg|jepg|png|gif)$/);
       if (check) {
+        setImage(file);
         setImgData(URL.createObjectURL(file));
       }
     }
@@ -130,15 +135,39 @@ function CGUD() {
   const [name_movie, setName_movie] = React.useState("");
   const [time, setTime] = React.useState("");
   const [release_date, setRelease_date] = React.useState("");
+  const refImg = React.useRef(null);
+  const upLoad = () => {
+    if (image === null) {
+      console.log(image);
+      return;
+    }
+    const updateTask = storage.ref(`ImageMovie/${image.name}`).put(image);
+    updateTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => console.log("firebase", error),
+      async () => {
+        const res = await storage
+          .ref("ImageMovie")
+          .child(image.name)
+          .getDownloadURL();
+        console.log(res);
+        refImg.current = res;
+      }
+    );
+  };
 
   const addMovieHandler = (e) => {
     e.preventDefault();
+    upLoad();
     setId_cineplex(e.target.reset());
     setImgData(e.target.reset());
     setTime(e.target.reset());
     setRelease_date(e.target.reset());
     setName_movie(e.target.reset());
-    dispatch(getAddMovie(id_cineplex, name_movie, time, release_date, imgData));
+    dispatch(
+      getAddMovie(id_cineplex, name_movie, time, release_date, refImg.current)
+    );
     alert("Succes");
   };
 
@@ -290,6 +319,7 @@ function CGUD() {
                                 name="select"
                                 id="exampleSelect"
                                 onChange={(e) => setId_cineplex(e.target.value)}
+                                color="primary"
                                 required
                               >
                                 {cinema.map((item) => (

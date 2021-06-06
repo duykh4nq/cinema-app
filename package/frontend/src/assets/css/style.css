@@ -1,3 +1,40 @@
+/* ---------------- TABLE OF CONTENT ----------------------
+	-----------------------------------------------------------
+	-----------------------------------------------------------
+
+
+	0. FRAMEWORK
+
+	1. BASE
+	   1.1. BASE
+	   1.2. TYPOGRAPHY
+
+	2. COMPONENT
+	   2.1. PLUGINS
+	   2.2. COMMON
+	   2.3. MODULES
+
+	3. SKELETON
+	   3.1. PAGE
+	   3.2. HEADER
+	   3.3. FOOTER
+
+
+	-----------------------------------------------------------
+	-----------------------------------------------------------
+------------------- END TABLE OF CONTENT ------------------*/
+
+/* I. FRAMEWORK
+***********************/
+
+/*!
+ * Bootstrap v3.3.5 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+/*! Source: https://github.com/h5bp/html5-boilerplate/blob/master/src/css/main.css */
+
 @media print {
   *, *:before, *:after {
     background: transparent !important;
@@ -62,7 +99,6 @@
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
-  display: block;
 }
 
 @media (min-width: 768px) {
@@ -1018,13 +1054,13 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
   background-color: #fff;
   background-image: none;
   border: 1px solid #aaa;
-  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
-  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s 0.3s ease-out;
-  -moz-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s 0.3s ease-out;
-  -o-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s 0.3s ease-out;
-  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s 0.3s ease-out;
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+  -webkit-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s 0.3s ease-out;
+  -moz-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s 0.3s ease-out;
+  -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s 0.3s ease-out;
+  transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s 0.3s ease-out;
 }
 
 select:focus, textarea:focus, input[type="text"]:focus, input[type="password"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="date"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, input[type="number"]:focus, input[type="email"]:focus, input[type="url"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="color"]:focus, .form-control:focus {
@@ -1592,7 +1628,7 @@ tbody.collapse.in {
   text-decoration: none;
   background-color: transparent;
   background-image: none;
-  filter: progid: DXImageTransform.Microsoft.gradient(enabled=false);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
   cursor: not-allowed;
 }
 
@@ -2527,7 +2563,7 @@ tbody.collapse.in {
   -khtml-opacity: 0.2;
   -webkit-opacity: 0.2;
   opacity: 0.2;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=20);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=20);
   filter: alpha(opacity=20);
 }
 
@@ -2539,7 +2575,7 @@ tbody.collapse.in {
   -khtml-opacity: 0.5;
   -webkit-opacity: 0.5;
   opacity: 0.5;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=50);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
   filter: alpha(opacity=50);
 }
 
@@ -2626,7 +2662,7 @@ button.close {
   -khtml-opacity: 0;
   -webkit-opacity: 0;
   opacity: 0;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=0);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
   filter: alpha(opacity=0);
 }
 
@@ -2635,7 +2671,7 @@ button.close {
   -khtml-opacity: 0.5;
   -webkit-opacity: 0.5;
   opacity: 0.5;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=50);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
   filter: alpha(opacity=50);
 }
 
@@ -2731,7 +2767,7 @@ button.close {
   -khtml-opacity: 0;
   -webkit-opacity: 0;
   opacity: 0;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=0);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
   filter: alpha(opacity=0);
 }
 
@@ -2740,7 +2776,7 @@ button.close {
   -khtml-opacity: 0.9;
   -webkit-opacity: 0.9;
   opacity: 0.9;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=90);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=90);
   filter: alpha(opacity=90);
 }
 
@@ -3403,12 +3439,12 @@ body {
 }
 
 body, button, input, select, textarea {
-  font-family: "OpenSans", sans-serif;
+  font-family: 'OpenSans', sans-serif;
   line-height: 1.5;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "OpenSans", sans-serif;
+  font-family: 'OpenSans', sans-serif;
   font-weight: 700;
   clear: both;
   line-height: 1;
@@ -3552,7 +3588,7 @@ sup {
 }
 
 sub {
-  top: 0.5ex;
+  top: .5ex;
 }
 
 small {
@@ -3769,7 +3805,7 @@ select {
 }
 
 p {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: 300;
@@ -3785,7 +3821,7 @@ ul {
 /*flex box*/
 
 .bd-hd {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 36px;
   color: #ffffff;
   font-weight: 700;
@@ -3794,7 +3830,7 @@ ul {
 }
 
 .bd-hd span {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 24px;
   color: #4f5b68;
   font-weight: 300;
@@ -3889,7 +3925,7 @@ ul {
 }
 
 .movie-items .movie-item .title-in h6 a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
@@ -3935,7 +3971,7 @@ ul {
 }
 
 .movie-items .movie-item .hvr-inner a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: bold;
@@ -3952,7 +3988,7 @@ ul {
   -khtml-opacity: 1;
   -webkit-opacity: 1;
   opacity: 1;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=100);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
   filter: alpha(opacity=100);
   -webkit-transition: all 0.5s ease-out;
   -moz-transition: all 0.5s ease-out;
@@ -3969,7 +4005,7 @@ ul {
   -khtml-opacity: 0.25;
   -webkit-opacity: 0.25;
   opacity: 0.25;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=25);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=25);
   filter: alpha(opacity=25);
 }
 
@@ -3989,7 +4025,7 @@ ul {
 }
 
 .cate span a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 12px;
   color: #ffffff;
   font-weight: 700;
@@ -4070,7 +4106,7 @@ ul {
 }
 
 .movie-item-style-2 .mv-item-infor h6 a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
@@ -4154,7 +4190,7 @@ ul {
   -khtml-opacity: 0;
   -webkit-opacity: 0;
   opacity: 0;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=0);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
   filter: alpha(opacity=0);
   -webkit-transition: all 0.5s ease-out;
   -moz-transition: all 0.5s ease-out;
@@ -4169,7 +4205,7 @@ ul {
 }
 
 .movie-item-style-1 .hvr-inner a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: bold;
@@ -4186,7 +4222,7 @@ ul {
   -khtml-opacity: 0.5;
   -webkit-opacity: 0.5;
   opacity: 0.5;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=50);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
   filter: alpha(opacity=50);
 }
 
@@ -4195,7 +4231,7 @@ ul {
   -khtml-opacity: 1;
   -webkit-opacity: 1;
   opacity: 1;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=100);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
   filter: alpha(opacity=100);
 }
 
@@ -4371,7 +4407,7 @@ ul {
 }
 
 .topbar-filter label, .topbar-filter select {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: 300;
@@ -4383,7 +4419,7 @@ ul {
   -webkit-appearance: none;
   -moz-appearance: none;
   /* Firefox */
-  background: url("../images/uploads/drop-icon.png") no-repeat right 20px center;
+  background: url('../images/uploads/drop-icon.png') no-repeat right 20px center;
   border-left: 1px solid #405266;
   border-right: 1px solid #405266;
   border-top: none;
@@ -4449,7 +4485,7 @@ ul {
 }
 
 .topbar-filter .pagination2 span, .topbar-filter .pagination2 a {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: 300;
@@ -4497,7 +4533,7 @@ ul {
 }
 
 .title-hd h2 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 24px;
   color: #ffffff;
   font-weight: bold;
@@ -4511,7 +4547,7 @@ ul {
 }
 
 .title-hd a.viewall {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: bold;
@@ -4528,7 +4564,7 @@ ul {
 }
 
 .title-hd h3 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 18px;
   color: #ffffff;
   font-weight: bold;
@@ -4549,7 +4585,7 @@ ul {
 }
 
 .title-hd-sm h4 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
@@ -4607,7 +4643,7 @@ ul {
 }
 
 .tabs ul.tab-links li a, .tabs ul.tab-links-2 li a, .tabs ul.tab-links-3 li a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: bold;
@@ -4732,7 +4768,7 @@ ul {
 }
 
 .trailers .trailer-infor .desc {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
@@ -4741,7 +4777,7 @@ ul {
 }
 
 .trailers .trailer-infor p {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 12px;
   color: #abb7c4;
   font-weight: 300;
@@ -4809,13 +4845,13 @@ ul {
 }
 
 .trailers .videos .thumb-ft .slick-prev::before {
-  content: "\f126";
+  content: '\f126';
   font-family: "Ionicons";
   font-size: 24px;
 }
 
 .trailers .videos .thumb-ft .slick-next::before {
-  content: "\f123";
+  content: '\f123';
   font-family: "Ionicons";
   font-size: 24px;
 }
@@ -4895,13 +4931,13 @@ ul {
 }
 
 .trailers .video-style-2 .slider-nav .slick-prev::before {
-  content: "\f124";
+  content: '\f124';
   font-family: "Ionicons";
   font-size: 24px;
 }
 
 .trailers .video-style-2 .slider-nav .slick-next::before {
-  content: "\f125";
+  content: '\f125';
   font-family: "Ionicons";
   font-size: 24px;
 }
@@ -4946,7 +4982,7 @@ ul {
 }
 
 .sidebar .sb-title {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 18px;
   color: #ffffff;
   font-weight: bold;
@@ -4971,7 +5007,7 @@ ul {
 }
 
 .sidebar .celebrities .celeb-item .celeb-author h6 a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
@@ -4979,7 +5015,7 @@ ul {
 }
 
 .sidebar .celebrities .celeb-item .celeb-author span {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: bold;
@@ -4992,7 +5028,7 @@ ul {
 }
 
 .sidebar .celebrities a.btn {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: bold;
@@ -5008,14 +5044,14 @@ ul {
 }
 
 .sidebar .sb-search input {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 12px;
   color: #abb7c4;
   font-weight: 300;
   text-transform: none;
   border: none;
   height: 40px;
-  background: url("../images/uploads/search-bgsb.png") no-repeat right 20px center;
+  background: url('../images/uploads/search-bgsb.png') no-repeat right 20px center;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
@@ -5027,7 +5063,7 @@ ul {
 }
 
 .sidebar .sb-cate ul li a {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: 300;
@@ -5049,7 +5085,7 @@ ul {
 }
 
 .sidebar .sb-recentpost .recent-item span {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 48px;
   color: #4f5b68;
   font-weight: 300;
@@ -5062,7 +5098,7 @@ ul {
 }
 
 .sidebar .sb-recentpost .recent-item h6 a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #4280bf;
   font-weight: bold;
@@ -5091,7 +5127,7 @@ ul {
 }
 
 .sidebar .sb-tags .tag-items a {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: 300;
@@ -5125,7 +5161,7 @@ ul {
 }
 
 .time {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 12px;
   color: #abb7c4;
   font-weight: 300;
@@ -5267,7 +5303,7 @@ ul {
 }
 
 .pagination li a {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: 300;
@@ -5298,7 +5334,7 @@ ul {
 }
 
 .blog-it-infor h3 a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 18px;
   color: #4280bf;
   font-weight: bold;
@@ -5349,7 +5385,7 @@ ul {
 }
 
 .blog-detail-ct h1 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 36px;
   color: #ffffff;
   font-weight: 700;
@@ -5370,7 +5406,7 @@ ul {
 }
 
 .blog-detail-ct h4 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 18px;
   color: #ffffff;
   font-weight: bold;
@@ -5436,7 +5472,7 @@ ul {
 }
 
 .blog-detail-ct .share-tag .right-it a {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: 300;
@@ -5483,7 +5519,7 @@ ul {
 }
 
 .blog-detail-ct .cmt-item h6 a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
@@ -5522,7 +5558,7 @@ ul {
 }
 
 .blog-detail-ct .comment-form form input, .blog-detail-ct .comment-form form textarea {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 12px;
   color: #abb7c4;
   font-weight: 300;
@@ -5552,7 +5588,7 @@ ul {
   -webkit-border-radius: 30px;
   -moz-border-radius: 30px;
   border-radius: 30px;
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
@@ -5579,7 +5615,7 @@ ul {
 }
 
 .latestnew .morenew .more-items .more-it h6 a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #4280bf;
   font-weight: bold;
@@ -5629,7 +5665,7 @@ ul {
 }
 
 .hero h1 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 36px;
   color: #ffffff;
   font-weight: 700;
@@ -5647,7 +5683,7 @@ ul {
 
 .hero ul.breadcumb li, .hero ul.breadcumb a {
   display: inline-block;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: 300;
@@ -5661,7 +5697,7 @@ ul {
 
 .hero:before {
   position: absolute;
-  content: "";
+  content: '';
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.75);
@@ -5670,25 +5706,25 @@ ul {
 /*movie single hero*/
 
 .mv-single-hero {
-  background: url("../images/uploads/hero-bg.jpg") no-repeat;
+  background: url('../images/uploads/hero-bg.jpg') no-repeat;
   height: 598px;
 }
 
 /*series single hero*/
 
 .sr-single-hero {
-  background: url("../images/uploads/sr-single.jpg") no-repeat;
+  background: url('../images/uploads/sr-single.jpg') no-repeat;
   height: 598px;
 }
 
 .hero3 {
-  background: url("../images/uploads/celeb-hero-single.jpg") no-repeat;
+  background: url('../images/uploads/celeb-hero-single.jpg') no-repeat;
   height: 538px;
 }
 
 .common-hero {
   height: 385px;
-  background: url("../images/uploads/user-hero-bg.jpg") no-repeat;
+  background: url('../images/uploads/user-hero-bg.jpg') no-repeat;
 }
 
 .common-hero:before {
@@ -5697,7 +5733,7 @@ ul {
 
 .user-hero {
   height: 385px;
-  background: url("../images/uploads/user-hero-bg.jpg") no-repeat;
+  background: url('../images/uploads/user-hero-bg.jpg') no-repeat;
 }
 
 .user-hero .hero-ct {
@@ -5735,7 +5771,7 @@ ul {
 }
 
 .landing-hero {
-  background-image: url("../images/uploads/user-hero-bg.jpg");
+  background-image: url('../images/uploads/user-hero-bg.jpg');
   box-shadow: inset 0 0 1000px rgba(0, 0, 0, 0.5);
   text-align: center;
   padding: 110px 0;
@@ -5748,7 +5784,7 @@ ul {
 
 .landing-hero h2 {
   color: #fff;
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 48px;
   line-height: 56px;
 }
@@ -5779,7 +5815,7 @@ ul {
 }
 
 .landing-version h2 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   margin: 90px 0 15px;
 }
 
@@ -5797,7 +5833,7 @@ ul {
 }
 
 .redbtn {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: bold;
@@ -5815,7 +5851,7 @@ ul {
 }
 
 .yellowbtn {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #020d18;
   font-weight: bold;
@@ -5874,7 +5910,7 @@ ul {
 }
 
 .user-information ul li a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
@@ -5921,8 +5957,8 @@ ul {
   }
 }
 
-.social-btn .parent-btn {
-  font-family: "Dosis", sans-serif;
+.social-btn a.parent-btn {
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #dd003f;
   font-weight: bold;
@@ -5931,12 +5967,12 @@ ul {
 }
 
 @media (max-width: 767px) {
-  .social-btn .parent-btn {
+  .social-btn a.parent-btn {
     margin-bottom: 40px;
   }
 }
 
-.social-btn .parent-btn i {
+.social-btn a.parent-btn i {
   padding: 10px 14px;
   text-align: center;
   -webkit-border-radius: 50%;
@@ -5964,7 +6000,7 @@ ul {
   -khtml-opacity: 0;
   -webkit-opacity: 0;
   opacity: 0;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=0);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
   filter: alpha(opacity=0);
   -webkit-transition: all 0.5s ease-out;
   -moz-transition: all 0.5s ease-out;
@@ -5977,12 +6013,12 @@ ul {
   border-radius: 3px;
 }
 
-.social-btn .hover-bnt .hvr-item {
+.social-btn .hover-bnt .hvr-item a {
   margin-right: 10px;
   cursor: pointer;
 }
 
-.social-btn .hover-bnt .hvr-item i {
+.social-btn .hover-bnt .hvr-item a i {
   color: #ffffff;
   font-size: 16px;
 }
@@ -6004,7 +6040,7 @@ ul {
   -khtml-opacity: 1;
   -webkit-opacity: 1;
   opacity: 1;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=100);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
   filter: alpha(opacity=100);
   -webkit-transition: all 0.5s ease-out;
   -moz-transition: all 0.5s ease-out;
@@ -6157,7 +6193,7 @@ ul {
 }
 
 .movie-single .movie-single-ct .tab h3 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 18px;
   color: #abb7c4;
   font-weight: bold;
@@ -6166,7 +6202,7 @@ ul {
 }
 
 .movie-single .movie-single-ct .tab h2 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 18px;
   color: #4280bf;
   font-weight: bold;
@@ -6264,7 +6300,7 @@ ul {
   -khtml-opacity: 0.7;
   -webkit-opacity: 0.7;
   opacity: 0.7;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=70);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
   filter: alpha(opacity=70);
   -webkit-transition: all 0.5s ease-out;
   -moz-transition: all 0.5s ease-out;
@@ -6304,7 +6340,7 @@ ul {
 }
 
 .movie-single .movie-single-ct .mvsingle-item .vd-infor h6 a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
@@ -6312,7 +6348,7 @@ ul {
 }
 
 .movie-single .movie-single-ct .mvsingle-item .vd-infor p.time {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 12px;
   color: #abb7c4;
   font-weight: 400;
@@ -6367,7 +6403,7 @@ ul {
 }
 
 .movie-single .movie-single-ct .mvcast-item .cast-it .cast-left h4 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: bold;
@@ -6397,7 +6433,7 @@ ul {
 }
 
 .movie-single .movie-single-ct .mvcast-item .cast-it .series-it a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 18px;
   color: #ffffff;
   font-weight: bold;
@@ -6470,7 +6506,7 @@ ul {
 }
 
 .movie-single .sb-it h6 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: bold;
@@ -6527,7 +6563,7 @@ ul {
 }
 
 .form-style-1 label {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: bold;
@@ -6536,7 +6572,7 @@ ul {
 }
 
 .form-style-1 input, .form-style-1 select {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 12px;
   color: #abb7c4;
   font-weight: 300;
@@ -6557,7 +6593,7 @@ ul {
   -webkit-appearance: none;
   -moz-appearance: none;
   /* Firefox */
-  background: url("../images/uploads/drop-icon.png") no-repeat right 20px center;
+  background: url('../images/uploads/drop-icon.png') no-repeat right 20px center;
   background-color: #233a50;
 }
 
@@ -6568,7 +6604,7 @@ ul {
 }
 
 .form-style-1 input.submit {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
@@ -6591,7 +6627,7 @@ ul {
 }
 
 .form-style-1 .group-ip .ui.multiple.dropdown>.text {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 12px;
   color: #abb7c4;
   font-weight: 300;
@@ -6600,7 +6636,7 @@ ul {
 }
 
 .form-style-1 .group-ip .ui.multiple.dropdown .menu>.item {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 12px;
   color: #abb7c4;
   font-weight: 300;
@@ -6609,7 +6645,7 @@ ul {
 }
 
 .form-style-1 .group-ip .ui.multiple.dropdown>.label {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 12px;
   color: #ffffff;
   font-weight: 300;
@@ -6628,7 +6664,7 @@ ul {
   -khtml-opacity: 1;
   -webkit-opacity: 1;
   opacity: 1;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=100);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
   filter: alpha(opacity=100);
 }
 
@@ -6656,7 +6692,7 @@ ul {
 }
 
 .user-pro h4 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
@@ -6708,7 +6744,7 @@ ul {
 }
 
 .userrate h6 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: bold;
@@ -6758,7 +6794,7 @@ ul {
 }
 
 .celebrity-items .ceb-item h2 a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 24px;
   color: #ffffff;
   font-weight: 700;
@@ -6766,7 +6802,7 @@ ul {
 }
 
 .celebrity-items .ceb-item span {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: #abb7c4;
   color: #abb7c4;
   font-weight: 300;
@@ -6782,7 +6818,7 @@ ul {
   -khtml-opacity: 0.6;
   -webkit-opacity: 0.6;
   opacity: 0.6;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=60);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
   filter: alpha(opacity=60);
   -webkit-transition: all 0.5s ease-out;
   -moz-transition: all 0.5s ease-out;
@@ -6820,7 +6856,7 @@ ul {
 }
 
 .ceb-item-style-2 h2 a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 18px;
   color: #ffffff;
   font-weight: 700;
@@ -6828,7 +6864,7 @@ ul {
 }
 
 .ceb-item-style-2 span {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 12px;
   color: #abb7c4;
   font-weight: 300;
@@ -6858,7 +6894,7 @@ p.ceb-single {
 }
 
 .page-single-2 {
-  background: url("../images/uploads/error-bg.jpg") no-repeat;
+  background: url('../images/uploads/error-bg.jpg') no-repeat;
   background-position: center;
   text-align: center;
   background-size: cover;
@@ -6880,7 +6916,7 @@ p.ceb-single {
 }
 
 .middle-content h1 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 60px;
   color: #ffffff;
   font-weight: 400;
@@ -6905,7 +6941,7 @@ p.ceb-single {
 }
 
 .left-content h1 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 48px;
   color: #ffffff;
   font-weight: 700;
@@ -6922,7 +6958,7 @@ p.ceb-single {
 }
 
 .left-content h3 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 20px;
   color: #ffffff;
   font-weight: 700;
@@ -6950,7 +6986,7 @@ p.ceb-single {
 }
 
 .left-content form .email {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 12px;
   color: #abb7c4;
   font-weight: 300;
@@ -7022,7 +7058,7 @@ p.ceb-single {
 }
 
 .left-content .coming-ct .it-time span {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 60px;
   color: #dcf836;
   font-weight: 500;
@@ -7032,7 +7068,7 @@ p.ceb-single {
 }
 
 .left-content .coming-ct .it-time p {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 20px;
   color: #ffffff;
   font-weight: 400;
@@ -7052,7 +7088,7 @@ p.ceb-single {
   -khtml-opacity: 0;
   -webkit-opacity: 0;
   opacity: 0;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=0);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
   filter: alpha(opacity=0);
   display: -webkit-flex;
   display: -moz-box;
@@ -7072,7 +7108,7 @@ p.ceb-single {
   -khtml-opacity: 1;
   -webkit-opacity: 1;
   opacity: 1;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=100);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
   filter: alpha(opacity=100);
   -webkit-transition: all 0.35s ease-out;
   -moz-transition: all 0.35s ease-out;
@@ -7113,7 +7149,7 @@ p.ceb-single {
 }
 
 .overlay .login-content h3 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 36px;
   color: #222222;
   font-weight: 700;
@@ -7136,7 +7172,7 @@ p.ceb-single {
   align-items: center;
   justify-content: space-between;
   margin-bottom: 25px;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: #abb7c4;
   color: #222222;
   font-weight: 600;
@@ -7163,7 +7199,7 @@ p.ceb-single {
 }
 
 .overlay .login-content label {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #222222;
   font-weight: bold;
@@ -7179,7 +7215,7 @@ p.ceb-single {
 }
 
 .overlay .login-content label input {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #222222;
   font-weight: bold;
@@ -7190,7 +7226,7 @@ p.ceb-single {
 }
 
 .overlay .login-content label input::-webkit-input-placeholder {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #222222;
   font-weight: bold;
@@ -7198,7 +7234,7 @@ p.ceb-single {
 }
 
 .overlay .login-content button {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
@@ -7232,7 +7268,7 @@ p.ceb-single {
   justify-content: space-between;
 }
 
-.overlay .login-content .social-btn-2 {
+.overlay .login-content .social-btn-2 a {
   width: 50%;
   height: 42px;
   display: -webkit-flex;
@@ -7241,7 +7277,7 @@ p.ceb-single {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 16px;
   color: #ffffff;
   font-weight: 700;
@@ -7252,7 +7288,7 @@ p.ceb-single {
   border-radius: 3px;
 }
 
-.overlay .login-content .social-btn-2 i {
+.overlay .login-content .social-btn-2 a i {
   margin-right: 10px;
 }
 
@@ -7266,7 +7302,7 @@ p.ceb-single {
 }
 
 .slider {
-  background: url("../images/uploads/slider-bg.jpg") no-repeat;
+  background: url('../images/uploads/slider-bg.jpg') no-repeat;
   background-position: center;
   text-align: center;
   background-size: cover;
@@ -7302,7 +7338,7 @@ p.ceb-single {
   -khtml-opacity: 1;
   -webkit-opacity: 1;
   opacity: 1;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=100);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
   filter: alpha(opacity=100);
 }
 
@@ -7320,7 +7356,7 @@ p.ceb-single {
 }
 
 .slider .social-link p {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #ffffff;
   font-weight: bold;
@@ -7364,7 +7400,7 @@ p.ceb-single {
 }
 
 .sliderv2 {
-  background: url("../images/uploads/slider-bg2.jpg") no-repeat;
+  background: url('../images/uploads/slider-bg2.jpg') no-repeat;
   padding-bottom: 0;
   padding-top: 180px;
   overflow: hidden;
@@ -7381,7 +7417,7 @@ p.ceb-single {
 }
 
 .sliderv2 .movie-item .title-in h1 a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 60px;
   color: #ffffff;
   font-weight: 700;
@@ -7390,7 +7426,7 @@ p.ceb-single {
 }
 
 .sliderv2 .movie-item .title-in h1 a span {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 36px;
   color: #abb7c4;
   font-weight: 300;
@@ -7504,13 +7540,13 @@ p.ceb-single {
 }
 
 .slider-single-item .slick-prev:before {
-  content: "\f124";
+  content: '\f124';
   font-family: "Ionicons";
   font-size: 40px;
 }
 
 .slider-single-item .slick-next:before {
-  content: "\f125";
+  content: '\f125';
   font-family: "Ionicons";
   font-size: 40px;
 }
@@ -8154,8 +8190,8 @@ p.ceb-single {
 }
 
 header {
+  position: absolute;
   z-index: 100;
-  top: 0;
   width: 100%;
   background-color: transparent;
   -webkit-transition: all 0.5s ease-out;
@@ -8200,6 +8236,7 @@ header .navbar-default .flex-parent {
 @media (min-width: 992px) {
   header .navbar-default .flex-parent {
     display: flex !important;
+    jutify-content: flex-start;
   }
 }
 
@@ -8219,7 +8256,7 @@ header .navbar-default .navbar-nav {
 }
 
 header .navbar-default .navbar-nav li a {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: bold;
@@ -8315,7 +8352,7 @@ header .top-search select, header .top-search input {
   height: 46px;
   border: none;
   background-color: #233a50 !important;
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: #abb7c4;
   color: #abb7c4;
   font-weight: 300;
@@ -8328,7 +8365,7 @@ header .top-search select {
   -webkit-appearance: none;
   -moz-appearance: none;
   /* Firefox */
-  background: url("../images/uploads/drop-icon.png") no-repeat right 20px center;
+  background: url('../images/uploads/drop-icon.png') no-repeat right 20px center;
   text-transform: uppercase;
   color: #ffffff;
 }
@@ -8338,7 +8375,7 @@ header .top-search input::-webkit-input-placeholder {
 }
 
 header .top-search input {
-  background: url("../images/uploads/topsearch.png") no-repeat right 20px center;
+  background: url('../images/uploads/topsearch.png') no-repeat right 20px center;
 }
 
 header #nav-icon1 {
@@ -8442,7 +8479,7 @@ header#headerv3-light {
   -khtml-opacity: 1;
   -webkit-opacity: 1;
   opacity: 1;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=100);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=100);
   filter: alpha(opacity=100);
   top: 0;
   left: 0;
@@ -8546,7 +8583,7 @@ header#headerv3-light {
 }
 
 footer {
-  background: url("../images/uploads/ft-bg.jpg") no-repeat;
+  background: url('../images/uploads/ft-bg.jpg') no-repeat;
   background-position: center;
   background-size: cover;
 }
@@ -8591,7 +8628,7 @@ footer .flex-parent-ft .flex-child-ft p a {
 }
 
 footer .flex-parent-ft .flex-child-ft h4 {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 18px;
   color: #ffffff;
   font-weight: bold;
@@ -8609,7 +8646,7 @@ footer .flex-parent-ft .flex-child-ft ul li {
 }
 
 footer .flex-parent-ft .flex-child-ft ul li a {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 14px;
   color: #abb7c4;
   font-weight: regular;
@@ -8621,7 +8658,7 @@ footer .flex-parent-ft .flex-child-ft ul li a:hover {
 }
 
 footer .flex-parent-ft .flex-child-ft a.btn {
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #dd003f;
   font-weight: bold;
@@ -8633,7 +8670,7 @@ footer .flex-parent-ft .flex-child-ft form {
 }
 
 footer .flex-parent-ft .flex-child-ft form input {
-  font-family: "Nunito", sans-serif;
+  font-family: 'Nunito', sans-serif;
   font-size: 12px;
   color: #abb7c4;
   font-weight: 300;
@@ -8643,7 +8680,7 @@ footer .flex-parent-ft .flex-child-ft form input {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  background: url("../images/uploads/search-bg.png") no-repeat right 20px center;
+  background: url('../images/uploads/search-bg.png') no-repeat right 20px center;
 }
 
 footer .ft-copyright {
@@ -8661,7 +8698,7 @@ footer .ft-copyright {
   -khtml-opacity: 0.7;
   -webkit-opacity: 0.7;
   opacity: 0.7;
-  -ms-filter: progid: DXImageTransform.Microsoft.Alpha(opacity=70);
+  -ms-filter: progid:DXImageTransform.Microsoft.Alpha(opacity=70);
   filter: alpha(opacity=70);
   padding-left: 380px;
   padding-right: 380px;
@@ -8710,6 +8747,6 @@ footer.full-width-ft .ft-copyright {
   text-transform: uppercase;
   margin-bottom: 0;
   color: #8c9296;
-  font-family: "Dosis", sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-weight: 700;
 }

@@ -28,6 +28,7 @@ export const getMovieDetails = (slug) => async (dispatch) => {
       type: actionTypes.GET_MOVIE_DETAILS_SUCCESS,
       payload: data,
     });
+    console.log(`🚀 => file: movieActions.js => line 31 => data`, data);
   } catch (error) {
     dispatch({
       type: actionTypes.GET_MOVIE_DETAILS_FAIL,
