@@ -9,6 +9,7 @@ LoginScreen.propTypes = {};
 function LoginScreen({ openformLogin, BackOpenformLogin, onSubmit }) {
   const typingTimeoutRef = useRef("");
   const user = useSelector((state) => state.users);
+  console.log("🚀 ~ file: login.page.jsx ~ line 12 ~ user", user);
 
   const error = user.error;
   const dispatch = useDispatch();
