@@ -31,7 +31,6 @@ const HomeScreen = ({ match, history }) => {
       movies["commingsoon"],
     ];
   }
-  console.log("🚀 ~ file: home.page.jsx ~ line 35 ~ arrData", arrData);
 
   useEffect(() => {
     dispatch(listMovies());

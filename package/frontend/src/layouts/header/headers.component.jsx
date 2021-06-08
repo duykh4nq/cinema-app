@@ -7,8 +7,16 @@ import Register from "../../pages/Registerpage/register.page";
 import "./header.component.css";
 import "../../assets/css/plugins.css";
 import "../../assets/css/style.css";
+import { useDispatch, useSelector } from "react-redux";
+import { PostLogout } from "../../redux/actions/authActions";
 
 function HeadersComponent() {
+  const userLoggedIn = useSelector((state) => state.users.loggedIn);
+  const dispatch = useDispatch();
+  console.log(
+    "🚀 ~ file: headers.component.jsx ~ line 15 ~ user",
+    userLoggedIn
+  );
   const [openformLogin, setOpenformLogin] = useState(false);
 
   const ClickOpenformLogin = () => {
@@ -28,9 +36,16 @@ function HeadersComponent() {
   const BackOpenformRegister = () => {
     setOpenformRegister(false);
   };
+  const HandleSucess = () => {
+    setOpenformLogin(false);
+  };
+  const HandleLogOut = () => {
+    dispatch(PostLogout());
+  };
   return (
     <>
       <LoginScreen
+        onSubmit={HandleSucess}
         openformLogin={openformLogin}
         BackOpenformLogin={BackOpenformLogin}
       />
@@ -73,7 +88,7 @@ function HeadersComponent() {
                   <a href="#page-top"></a>
                 </li>
                 <li>
-                <Link to="/">Home</Link>
+                  <Link to="/">Home</Link>
                 </li>
                 <li class="dropdown first">
                   <a
@@ -85,11 +100,7 @@ function HeadersComponent() {
                   </a>
                   <ul class="dropdown-menu level1">
                     <li>
-                      <a
-                        href="#"
-                      >
-                        Movie grid
-                      </a>
+                      <a href="#">Movie grid</a>
                     </li>
                     <li>
                       <a href="movielist.html">Movie list</a>
@@ -101,9 +112,16 @@ function HeadersComponent() {
                 </li>
               </ul>
               <ul class="nav navbar-nav flex-child-menu menu-right">
-                <li class="loginLink" onClick={ClickOpenformLogin}>
-                  <a href="#">LOG In</a>
-                </li>
+                {userLoggedIn === true ? (
+                  <li class="loginLink" onClick={HandleLogOut}>
+                    {" "}
+                    <a href="#">LOG OUT</a>
+                  </li>
+                ) : (
+                  <li class="loginLink" onClick={ClickOpenformLogin}>
+                    <a href="#">LOG In</a>
+                  </li>
+                )}
                 <li class="btn signupLink" onClick={ClickOpenformRegister}>
                   <a href="#">sign up</a>
                 </li>
