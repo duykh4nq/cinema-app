@@ -210,12 +210,17 @@ export const getAddShowtime =
     }
   };
 
-export const postStatiscalForCineplex = () => async (dispatch) => {
+export const postStatiscalForCineplex = (start, end) => async (dispatch) => {
+  console.log(`🚀 => file: adminActions.js => line 214 => end`, end);
+  console.log(`🚀 => file: adminActions.js => line 214 => start`, start);
   try {
     dispatch({
       type: actionTypes.GET_CINEMA_REQUEST,
     });
-    const { data } = await axios.post("/admin/statiscalCineplex");
+    const { data } = await axios.post("/admin/statiscalCineplex", {
+      start: start,
+      end: end,
+    });
     dispatch({
       type: actionTypes.GET_CINEMA_SUCCESS,
       payload: data,

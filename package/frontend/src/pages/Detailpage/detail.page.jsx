@@ -6,20 +6,18 @@ import Modal from "react-modal";
 
 // Actions
 import { getMovieDetails } from "../../redux/actions/movieActions";
-
+import { Button, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import DialogBookingScreen from "../../components/dialog.component";
 
-const customStyles = {
-  content: {
-    backgroundColor: "gray",
-    // top: '50%',
-    // left: '50%',
-    // right: 'auto',
-    // bottom: 'auto',
-  },
-};
 
-const DetailScreen = ({ match, history }) => {
+const DetailScreen = ({ match, history },props) => {
+  const {
+    className
+  } = props;
+
+  const [modal, setModal] = React.useState(false);
+
+  const toggle = () => setModal(!modal);
   history = useHistory();
   const dispatch = useDispatch();
 
@@ -32,24 +30,16 @@ const DetailScreen = ({ match, history }) => {
     }
   }, [dispatch, movie, match]);
 
-  const [modalIsOpen, setIsOpen] = React.useState(false);
-  function openModal() {
-    setIsOpen(true);
-  }
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
   return (
     <div>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        style={customStyles}
-        contentLabel="Example Modal"
-      >
-        <DialogBookingScreen />
+      <Modal isOpen={modal} toggle={toggle} className={className}>
+        <ModalBody>
+        <DialogBookingScreen/>
+        </ModalBody>
+        <ModalFooter>
+          <button  onClick={toggle}>Do Something</button>
+          <button onClick={toggle}>Cancel</button>
+        </ModalFooter>
       </Modal>
       <div className="hero mv-single-hero">
         <div className="container">
@@ -70,13 +60,9 @@ const DetailScreen = ({ match, history }) => {
 				<div class="movie-img sticky-sb">
 					<img src="images/uploads/movie-single.jpg" alt=""></img>
 					<div class="movie-btn">	
-						<div class="btn-transform transform-vertical red">
-							<div><a href="#" class="item item-1 redbtn"> <i class="ion-play"></i> Watch Trailer</a></div>
-							<div><a href="https://www.youtube.com/embed/o-0hcF97wy0" class="item item-2 redbtn fancybox-media hvr-grow"><i class="ion-play"></i></a></div>
-						</div>
 						<div class="btn-transform transform-vertical">
-							<div><a href="#" class="item item-1 yellowbtn"> <i class="ion-card"></i> Buy ticket</a></div>
-							<div><a href="#" class="item item-2 yellowbtn"><i class="ion-card"></i></a></div>
+							<div><button class="item item-1 yellowbtn"> <i class="ion-card"></i> Buy ticket</button></div>
+							<div><button class="item item-2 yellowbtn" onClick={toggle}><i class="ion-card"></i></button></div>
 						</div>
 					</div>
 				</div>
@@ -86,7 +72,7 @@ const DetailScreen = ({ match, history }) => {
                   <h1 className="bd-hd">{movie.name_movie}</h1>
                   <div className="social-btn">
                     <div className="parent-btn">
-                      <i className="ion-clock" /> {movie.time}{" "}
+                      <i className="ion-clock" /> {movie.time}
                       <span>minutes</span>
                     </div>
                     <div className="parent-btn">

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 SwiperComponent.propTypes = {};
 
@@ -19,7 +20,7 @@ function SwiperComponent(props) {
           </div>
           <div class="movie-content bg-one">
             <h5 class="title m-0">
-              <a href="#0">{product.name_movie}</a>
+              <Link to={`detail/${product.slug}`}>{product.name_movie}</Link>
             </h5>
             <ul class="movie-rating-percent">
               <li>

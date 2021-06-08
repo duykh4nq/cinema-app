@@ -5957,7 +5957,7 @@ ul {
   }
 }
 
-.social-btn a.parent-btn {
+.social-btn .parent-btn {
   font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #dd003f;
@@ -5967,12 +5967,12 @@ ul {
 }
 
 @media (max-width: 767px) {
-  .social-btn a.parent-btn {
+  .social-btn .parent-btn {
     margin-bottom: 40px;
   }
 }
 
-.social-btn a.parent-btn i {
+.social-btn .parent-btn i {
   padding: 10px 14px;
   text-align: center;
   -webkit-border-radius: 50%;
@@ -6013,12 +6013,12 @@ ul {
   border-radius: 3px;
 }
 
-.social-btn .hover-bnt .hvr-item a {
+.social-btn .hover-bnt .hvr-item {
   margin-right: 10px;
   cursor: pointer;
 }
 
-.social-btn .hover-bnt .hvr-item a i {
+.social-btn .hover-bnt .hvr-item i {
   color: #ffffff;
   font-size: 16px;
 }
@@ -7268,7 +7268,7 @@ p.ceb-single {
   justify-content: space-between;
 }
 
-.overlay .login-content .social-btn-2 a {
+.overlay .login-content .social-btn-2 {
   width: 50%;
   height: 42px;
   display: -webkit-flex;
@@ -7288,7 +7288,7 @@ p.ceb-single {
   border-radius: 3px;
 }
 
-.overlay .login-content .social-btn-2 a i {
+.overlay .login-content .social-btn-2 i {
   margin-right: 10px;
 }
 
@@ -7703,14 +7703,18 @@ p.ceb-single {
 .btn-transform .item {
   position: absolute;
   display: inline-block;
-  left: 0;
-  right: 0;
+  width: 100%;
   text-align: center;
+  padding-left: 90px;
   display: block;
   backface-visibility: hidden;
   transition: transform 0.5s ease;
   -webkit-transition: -webkit-transform 0.5s ease;
   text-transform: uppercase;
+}
+
+.btn-transform .item-2 {
+  padding-left: 145px;
 }
 
 .btn-transform.transform-vertical .item-1 {

@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 
 import "./home.style.css";
 import { getMovies as listMovies } from "../../redux/actions/movieActions";
