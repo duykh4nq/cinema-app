@@ -38,11 +38,9 @@ const Times = db.define(
     },
     start_point: {
       type: Sequelize.DATE,
-      allowNull: false,
     },
     end_point: {
       type: Sequelize.DATE,
-      allowNull: false,
     },
   },
   {
