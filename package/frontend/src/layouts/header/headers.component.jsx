@@ -10,6 +10,8 @@ import "../../assets/css/style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { PostLogout } from "../../redux/actions/authActions";
 
+import logo from "../../assets/images/logo1.png"
+
 function HeadersComponent() {
   const userLoggedIn = useSelector((state) => state.users.loggedIn);
   const dispatch = useDispatch();
@@ -72,7 +74,7 @@ function HeadersComponent() {
               <a href="index-2.html">
                 <img
                   class="logo"
-                  src="images/logo1.png"
+                  src={logo}
                   alt=""
                   width="119"
                   height="58"
