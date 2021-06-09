@@ -140,7 +140,9 @@
     margin-bottom: 15px;
   }
 }
-
+.register .login-content label input[type="text"] {
+  background: white !important;
+}
 .register .login-content .remember input[type="checkbox"] {
   width: 20px;
   height: 20px;

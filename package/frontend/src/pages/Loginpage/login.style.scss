@@ -180,6 +180,9 @@
   height: 42px;
   border: 1px solid #e1e1e1;
 }
+.loginpage .login-content label input[type="text"] {
+  background: white;
+}
 
 .loginpage .login-content label input::-webkit-input-placeholder {
   font-family: "Dosis", sans-serif;
@@ -255,4 +258,8 @@
 
 .loginpage .login-content .social-btn-2 .tw {
   background-color: #00b9ef;
+}
+.error {
+  font-size: 11px;
+  color: red;
 }

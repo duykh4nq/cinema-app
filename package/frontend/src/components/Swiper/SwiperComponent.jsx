@@ -5,10 +5,6 @@ import { Link } from "react-router-dom";
 SwiperComponent.propTypes = {};
 
 function SwiperComponent(props) {
-  console.log(
-    "🚀 ~ file: SwiperComponent.jsx ~ line 7 ~ props",
-    props.item[0].poster
-  );
   return (
     <div className="swipercomponent">
       {props.item.map((product) => (

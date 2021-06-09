@@ -1,10 +1,33 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "./register.page.scss";
+import { PostRegister } from "../../redux/actions/authActions";
+import { useDispatch } from "react-redux";
 
 Register.propTypes = {};
 
 function Register({ openformRegister, BackOpenformRegister }) {
+  const [user, setUser] = useState("");
+  const { email, password, name, phone } = user;
+  //const typingTimeoutRef = useRef("");
+  const dispatch = useDispatch();
+
+  const handleOnChange = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+    setUser({ ...user, [name]: value });
+
+    // if (typingTimeoutRef.current) {
+    //   clearTimeout(typingTimeoutRef.current);
+    // }
+    // typingTimeoutRef.current = setTimeout(() => {
+
+    // }, 400);
+  };
+  const HandleSubmit = async (e) => {
+    await dispatch(PostRegister(email, password, name, phone));
+    console.log("succes");
+  };
   return (
     <div
       class="register"
@@ -21,57 +44,61 @@ function Register({ openformRegister, BackOpenformRegister }) {
             x
           </a>
           <h3>sign up</h3>
-          <form method="post" action="#">
+          <form onSubmit={HandleSubmit}>
             <div class="row">
-              <label for="username-2">
+              <label for="username">
                 Username:
                 <input
+                  value={name}
                   type="text"
-                  name="username"
-                  id="username-2"
+                  name="name"
+                  id="username"
                   placeholder="Hugh Jackman"
-                  pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{8,20}$"
                   required="required"
+                  onChange={handleOnChange}
                 />
               </label>
             </div>
 
             <div class="row">
-              <label for="email-2">
+              <label for="email">
                 your email:
                 <input
-                  type="password"
+                  value={email}
+                  type="text"
                   name="email"
-                  id="email-2"
+                  id="email"
                   placeholder=""
-                  pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                   required="required"
+                  onChange={handleOnChange}
                 />
               </label>
             </div>
             <div class="row">
-              <label for="password-2">
+              <label for="password">
                 Password:
                 <input
+                  value={password}
                   type="password"
                   name="password"
-                  id="password-2"
+                  id="password"
                   placeholder=""
-                  pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                   required="required"
+                  onChange={handleOnChange}
                 />
               </label>
             </div>
             <div class="row">
-              <label for="repassword-2">
-                re-type Password:
+              <label for="phone">
+                Your phone:
                 <input
-                  type="password"
-                  name="password"
-                  id="repassword-2"
+                  value={phone}
+                  type="text"
+                  name="phone"
+                  id="phone"
                   placeholder=""
-                  pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
                   required="required"
+                  onChange={handleOnChange}
                 />
               </label>
             </div>

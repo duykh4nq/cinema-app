@@ -2,14 +2,14 @@ import * as actionTypes from "../constants/authConstants";
 import axios from "../configAxios";
 // import { getSession, setSession } from "../../constants/function";
 
-export const getLogin = (email, password) => async (dispatch, getState) => {
+export const PostLogin = (email, password) => async (dispatch, getState) => {
   try {
     dispatch({ type: actionTypes.LOGIN_REQUEST });
     const { data } = await axios.post("/signin", {
       email: email,
-      password: password
+      password: password,
+      role: 1,
     });
-
     dispatch({
       type: actionTypes.LOGIN_SUCCESS,
       payload: {
@@ -29,7 +29,7 @@ export const getLogin = (email, password) => async (dispatch, getState) => {
   }
 };
 
-export const getLogout = () => async (dispatch) => {
+export const PostLogout = () => async (dispatch) => {
   dispatch({ type: actionTypes.LOGOUT_REQUEST });
   dispatch({
     type: actionTypes.LOGOUT_SUCCESS,
@@ -40,14 +40,25 @@ export const getLogout = () => async (dispatch) => {
   });
 };
 
-export const getRegister = (email, password,fullname) => async (dispatch,getState) => {
+export const PostRegister = (email, password, name, phone) => async (
+  dispatch,
+  getState
+) => {
+  console.log(
+    "🚀 ~ file: authActions.js ~ line 49 ~ email",
+    email,
+    password,
+    name,
+    phone
+  );
   try {
     dispatch({ type: actionTypes.REGISTER_REQUEST });
     const { data } = await axios.post("/signup", {
-      url: "http://localhost:3000",
-      email:email ,
+      url: "http://localhost:4000",
+      email: email,
       password: password,
-      fullname:fullname,
+      name: name,
+      phone: phone,
     });
 
     dispatch({
@@ -69,18 +80,23 @@ export const getRegister = (email, password,fullname) => async (dispatch,getStat
   }
 };
 
-
-export const getVerifyEmail = (activation_token) => async (dispatch,getState) => {
+export const getVerifyEmail = (activation_token) => async (
+  dispatch,
+  getState
+) => {
   try {
-    console.log(`🚀 => file: authActions.js => line 82 => activation_token`, activation_token)
+    console.log(
+      `🚀 => file: authActions.js => line 82 => activation_token`,
+      activation_token
+    );
     dispatch({ type: actionTypes.LOGIN_REQUEST });
     const { data } = await axios.post("/verify-email/activation_token", {
-       token: activation_token 
+      token: activation_token,
     });
-    
+
     dispatch({
       type: actionTypes.LOGIN_SUCCESS,
-      payload: data
+      payload: data,
     });
   } catch (error) {
     dispatch({
@@ -131,8 +147,7 @@ export const getForgotPassword = (email) => async (dispatch, getState) => {
         user: data,
       },
     });
-    sessionStorage.setItem("users", JSON.stringify(getState().users));     
-    
+    sessionStorage.setItem("users", JSON.stringify(getState().users));
   } catch (error) {
     dispatch({
       type: actionTypes.LOGIN_FAIL,
@@ -144,16 +159,21 @@ export const getForgotPassword = (email) => async (dispatch, getState) => {
   }
 };
 
-export const getChangePassword = (password,comfirmPassword) => async (dispatch, getState) => {
+export const getChangePassword = (password, comfirmPassword) => async (
+  dispatch,
+  getState
+) => {
   try {
     const { data } = await axios.post("/changepassword", {
       password: password,
       comfirmPassword: comfirmPassword,
-      email:getState().users.user.email
+      email: getState().users.user.email,
     });
-    
-    console.log(`🚀 => file: authActions.js => line 161 => getState().users`, getState().users)
-    
+
+    console.log(
+      `🚀 => file: authActions.js => line 161 => getState().users`,
+      getState().users
+    );
 
     dispatch({
       type: actionTypes.LOGIN_SUCCESS,
@@ -161,7 +181,6 @@ export const getChangePassword = (password,comfirmPassword) => async (dispatch, 
         user: data,
       },
     });
-    
   } catch (error) {
     dispatch({
       type: actionTypes.LOGIN_FAIL,
