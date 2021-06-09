@@ -7,68 +7,74 @@ function DialogBookingScreen(props) {
     return <div className="containerdialog">
         <div className="bookingscreen">
             <div className="date">
-                <button className="btncalendar" >
+                <button className="btncalendar">
                     <div className="day">
-                        <p>25</p>
-                       
+                        <p className="texture">25</p>
                     </div>
                     <div className="month">
-                        <p>05 TUE</p>
-                    </div>
-                </button>
-                <button className="btncalendar">
-                    <div className="day"><p>26</p></div>
-                    <div className="month">
-                        <p>05 TUE</p>
+                        <p >05 TUE</p>
                     </div>
                 </button>
                 <button className="btncalendar">
-                    <div className="day"><p>27</p></div>
+                    <div className="day"><p className="texture">26</p></div>
                     <div className="month">
-                        <p>05 TUE</p>
+                        <p >05 TUE</p>
                     </div>
                 </button>
                 <button className="btncalendar">
-                    <div className="day"><p>28</p></div>
+                    <div className="day"><p className="texture">27</p></div>
                     <div className="month">
-                        <p>05 TUE</p>
+                        <p >05 TUE</p>
                     </div>
                 </button>
                 <button className="btncalendar">
-                    <div className="day"><p>29</p></div>
+                    <div className="day"><p className="texture">28</p></div>
                     <div className="month">
-                        <p>05 TUE</p>
+                        <p >05 TUE</p>
                     </div>
                 </button>
                 <button className="btncalendar">
-                    <div className="day"><p>30</p></div>
+                    <div className="day"><p className="texture">29</p></div>
                     <div className="month">
-                        <p>05 TUE</p>
+                        <p >05 TUE</p>
                     </div>
                 </button>
                 <button className="btncalendar">
-                    <div className="day"><p>31</p></div>
+                    <div className="day"><p className="texture">30</p></div>
                     <div className="month">
-                        <p>05 TUE</p>
+                        <p >05 TUE</p>
+                    </div>
+                </button>
+                <button className="btncalendar">
+                    <div className="day"><p className="texture">31</p></div>
+                    <div className="month">
+                        <p >05 TUE</p>
                     </div>
                 </button>
             </div>
             <div className="theater-cluster">
                 <button className="btncinema-complex">
-                    <div>Hà Tĩnh</div>
+                    <div >Hà Tĩnh</div>
                 </button>
                 <button className="btncinema-complex">
-                    <div>An Giang</div>
+                    <div >An Giang</div>
                 </button>
             </div>
             <div className="movie-genre ">
                 <button className="btncategory">
-                    <div>2D Phụ đề tiếng Việt</div>
+                    <div >2D Phụ đề tiếng Việt</div>
                 </button>
             </div>
-            <div className="time ">
-                <div className="theater-name">CGV Vincom Hà Tĩnh</div>
-                <button className="showtime"><div>14:00PM</div></button>
+            <div className="time">
+                <div className="item">
+                    <div className="theater-name"><h4>CGV Vincom Hà Tĩnh</h4></div>
+                    <div className="list-time">
+                        <button className="showtime"><p>14:00PM</p></button>
+                        <button className="showtime"><p >14:00PM</p></button>
+                    </div>
+                   
+                    
+                </div>
             </div>
         </div>
     </div>;

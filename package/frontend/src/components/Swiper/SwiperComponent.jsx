@@ -14,7 +14,7 @@ function SwiperComponent(props) {
         <div class="movie-grid">
           <div class="movie-thumb c-thumb">
             <a href="#0">
-              <img src={`./images/${product.poster}.jpg`} alt="movie" />
+              <img src={product.poster} alt="movie" />
             </a>
           </div>
           <div class="movie-content bg-one">
