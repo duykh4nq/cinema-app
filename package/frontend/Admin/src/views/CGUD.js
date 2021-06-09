@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./style.css";
 import { storage, fire } from "../firebase";
+import { storage } from "../firebase";
 // reactstrap components
 import {
   Button,
@@ -169,6 +170,43 @@ function CGUD() {
       getAddMovie(id_cineplex, name_movie, time, release_date, refImg.current)
     );
     alert("Succes");
+
+  const addMovieHandler = (e) => {
+    e.preventDefault();
+    if (image === null) {
+      console.log(image);
+      return;
+    }
+    const updateTask = storage.ref(`ImageMovie/${image.name}`).put(image);
+    updateTask.on(
+      "state_changed",
+      (snapshot) => {},
+      (error) => console.log("firebase", error),
+      async () => {
+        const res = await storage
+          .ref("ImageMovie")
+          .child(image.name)
+          .getDownloadURL();
+        console.log("123", res);
+        refImg.current = res;
+
+        setId_cineplex(e.target.reset());
+        setImgData(e.target.reset());
+        setTime(e.target.reset());
+        setRelease_date(e.target.reset());
+        setName_movie(e.target.reset());
+        dispatch(
+          getAddMovie(
+            id_cineplex,
+            name_movie,
+            time,
+            release_date,
+            refImg.current
+          )
+        );
+        alert("Succes");
+      }
+    );
   };
 
   //add showtime
@@ -200,10 +238,6 @@ function CGUD() {
                   id="TabPane"
                   className={classnames({ active: activeTab === "1" })}
                   onClick={() => {
-                    console.log(
-                      `🚀 => file: CGUD.js => line 181 => time`,
-                      time
-                    );
                     toggle("1");
                   }}
                 >
@@ -561,6 +595,7 @@ function CGUD() {
                                 onChange={(e) =>
                                   setValueCineplex(e.target.value)
                                 }
+                                required
                               >
                                 {cinema.map((item) => (
                                   <option value={item.id}>{item.name}</option>
@@ -686,4 +721,4 @@ function CGUD() {
   );
 }
 
-export default CGUD;
+export default CGUD

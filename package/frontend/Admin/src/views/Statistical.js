@@ -21,14 +21,38 @@ import {
 // core components
 import { revenue } from "variables/charts.js";
 //import Actions
-import { getCinema } from "../redux/actions/adminActions";
+//import Actions
+import {
+  getCinema,
+  getMovies,
+  postStatiscalForCineplex,
+} from "../redux/actions/adminActions";
 
 function Statistical(props) {
+  const dispatch = useDispatch();
   //cineplex
   const _cineplex = useSelector((state) => state.getCinema);
   const { cinema } = _cineplex;
+
+  //schedule
+  const _schedule = useSelector((state) => state.getSchedule);
+  const { loadingSchedule, errorSchedule, schedule } = _schedule;
+
+  const setValueCineplex = (e) => {
+    dispatch(getMovies(e));
+  };
+
+  const [start, setStart] = useState("");
+  const [end, setEnd] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [bigChartData, setbigChartData] = React.useState("cineplex");
+  const setBgChartData = (name) => {
+    setbigChartData(name);
+  };
+
   React.useEffect(() => {
     dispatch(getCinema());
+    dispatch(postStatiscalForCineplex(start, end));
   }, [dispatch]);
 
   let chart1_2_options = {
@@ -124,20 +148,7 @@ function Statistical(props) {
       gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
       return {
-        labels: [
-          "JAN",
-          "FEB",
-          "MAR",
-          "APR",
-          "MAY",
-          "JUN",
-          "JUL",
-          "AUG",
-          "SEP",
-          "OCT",
-          "NOV",
-          "DEC",
-        ],
+        labels: schedule.map((item) => item.name),
         datasets: [
           {
             label: "Total",
@@ -162,14 +173,6 @@ function Statistical(props) {
 
     options: chart1_2_options,
   };
-  const dispatch = useDispatch();
-
-  const toggle = () => setDropdownOpen((prevState) => !prevState);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [bigChartData, setbigChartData] = React.useState("cineplex");
-  const setBgChartData = (name) => {
-    setbigChartData(name);
-  };
 
   return (
     <>
@@ -182,6 +185,8 @@ function Statistical(props) {
               name="date"
               id="exampleDate"
               placeholder="date placeholder"
+              value={start}
+              onChange={(e) => setStart(e.target.value)}
             />
           </Col>
           <Col xs="3">
@@ -191,6 +196,8 @@ function Statistical(props) {
               name="date"
               id="exampleDate"
               placeholder="date placeholder"
+              value={end}
+              onChange={(e) => setEnd(e.target.value)}
             />
           </Col>
           <Col xs="3">

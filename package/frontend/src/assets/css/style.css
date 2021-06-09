@@ -5958,6 +5958,7 @@ ul {
 }
 
 .social-btn a.parent-btn {
+
   font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #dd003f;
@@ -7703,14 +7704,18 @@ p.ceb-single {
 .btn-transform .item {
   position: absolute;
   display: inline-block;
-  left: 0;
-  right: 0;
+  width: 100%;
   text-align: center;
+  padding-left: 90px;
   display: block;
   backface-visibility: hidden;
   transition: transform 0.5s ease;
   -webkit-transition: -webkit-transform 0.5s ease;
   text-transform: uppercase;
+}
+
+.btn-transform .item-2 {
+  padding-left: 145px;
 }
 
 .btn-transform.transform-vertical .item-1 {

@@ -25,7 +25,15 @@ const {
 const MailService = require("../services/mail");
 
 exports.postSignup = async (req, res, next) => {
-  let { password, email, name, phone, role } = req.body;
+  let { password, email, name, phone } = req.body;
+  console.log(
+    "🚀 ~ file: auth.controller.js ~ line 29 ~ password",
+    password,
+    email,
+    name,
+    phone
+  );
+
   const code = Math.floor(100000 + Math.random() * 900000);
   try {
     const userExists = await Users.findOne({ where: { email: email } });
@@ -39,7 +47,7 @@ exports.postSignup = async (req, res, next) => {
       password: bcrypt.hashSync(password, 12),
       name: name,
       phone: phone,
-      role: role,
+      role: 1,
       active: code,
     });
     if (newUser) {

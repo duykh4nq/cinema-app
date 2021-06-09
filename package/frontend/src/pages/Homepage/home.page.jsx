@@ -1,8 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 
 import "./home.style.css";
 import { getMovies as listMovies } from "../../redux/actions/movieActions";
@@ -30,7 +28,6 @@ const HomeScreen = ({ match, history }) => {
       movies["commingsoon"],
     ];
   }
-  console.log("🚀 ~ file: home.page.jsx ~ line 35 ~ arrData", arrData);
 
   useEffect(() => {
     dispatch(listMovies());
@@ -47,7 +44,11 @@ const HomeScreen = ({ match, history }) => {
                     <li>
                       <a href="#0">
                         <span class="img">
+<<<<<<< HEAD
                         <img src={`https://firebasestorage.googleapis.com/v0/b/cinema-app-ea4a7.appspot.com/o/ImageMovie%2F3.png?alt=media&token=11c2351d-21d1-477a-89bb-d12779e275b8`} alt="movie" />
+=======
+                        <img src="./images/sidebar01.png" alt="movie" />
+>>>>>>> 3bcaf4ce5b1a7a2f0843dce0ae326d79b5cb92ab
             
                         </span>
                         <span class="cate">24X7 Care</span>
