@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./style.css";
-import { storage, fire } from "../firebase";
+import { storage } from "../firebase";
 // reactstrap components
 import {
   Button,
@@ -120,8 +120,6 @@ function CGUD() {
   const [imgData, setImgData] = React.useState(null);
   const [image, setImage] = React.useState(null);
   const onChangePicture = (e) => {
-    //cos c
-
     if (e.target.files[0]) {
       const file = e.target.files[0];
       const check = file.name.match(/\.(jpg|jepg|png|gif)$/);
@@ -136,7 +134,9 @@ function CGUD() {
   const [time, setTime] = React.useState("");
   const [release_date, setRelease_date] = React.useState("");
   const refImg = React.useRef(null);
-  const upLoad = () => {
+
+  const addMovieHandler = (e) => {
+    e.preventDefault();
     if (image === null) {
       console.log(image);
       return;
@@ -151,24 +151,26 @@ function CGUD() {
           .ref("ImageMovie")
           .child(image.name)
           .getDownloadURL();
-        console.log(res);
+        console.log("123", res);
         refImg.current = res;
+
+        setId_cineplex(e.target.reset());
+        setImgData(e.target.reset());
+        setTime(e.target.reset());
+        setRelease_date(e.target.reset());
+        setName_movie(e.target.reset());
+        dispatch(
+          getAddMovie(
+            id_cineplex,
+            name_movie,
+            time,
+            release_date,
+            refImg.current
+          )
+        );
+        alert("Succes");
       }
     );
-  };
-
-  const addMovieHandler = (e) => {
-    e.preventDefault();
-    upLoad();
-    setId_cineplex(e.target.reset());
-    setImgData(e.target.reset());
-    setTime(e.target.reset());
-    setRelease_date(e.target.reset());
-    setName_movie(e.target.reset());
-    dispatch(
-      getAddMovie(id_cineplex, name_movie, time, release_date, refImg.current)
-    );
-    alert("Succes");
   };
 
   //add showtime
@@ -200,10 +202,6 @@ function CGUD() {
                   id="TabPane"
                   className={classnames({ active: activeTab === "1" })}
                   onClick={() => {
-                    console.log(
-                      `🚀 => file: CGUD.js => line 181 => time`,
-                      time
-                    );
                     toggle("1");
                   }}
                 >
@@ -561,6 +559,7 @@ function CGUD() {
                                 onChange={(e) =>
                                   setValueCineplex(e.target.value)
                                 }
+                                required
                               >
                                 {cinema.map((item) => (
                                   <option value={item.id}>{item.name}</option>
