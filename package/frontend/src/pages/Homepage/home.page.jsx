@@ -44,7 +44,7 @@ const HomeScreen = ({ match, history }) => {
                     <li>
                       <a href="#0">
                         <span class="img">
-                        <img src="./images/sidebar01.png" alt="movie" />
+                        <img src={`https://firebasestorage.googleapis.com/v0/b/cinema-app-ea4a7.appspot.com/o/ImageMovie%2F3.png?alt=media&token=11c2351d-21d1-477a-89bb-d12779e275b8`} alt="movie" />
             
                         </span>
                         <span class="cate">24X7 Care</span>

@@ -29,7 +29,7 @@ const DetailScreen = ({ match, history }) => {
   const dispatch = useDispatch();
 
   const movieDetails = useSelector((state) => state.getMovieDetails);
-    const { loading, error, movie } = movieDetails;
+  const { loading, error, movie } = movieDetails;
 
   useEffect(() => {
     if (movie && match.params.slug !== movie.slug ) {

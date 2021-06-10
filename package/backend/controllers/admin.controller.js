@@ -59,9 +59,10 @@ exports.postAddRoom = async (req, res, next) => {
       req.body;
     name_room = name_room.toString().replace(/\s+/g, " ").trim();
     const roomExists = await Rooms.findOne({
-      where: { name_room: name_room },
+      where: { id_cineplex: id_cineplex, name_room: name_room },
     });
-    if (roomExists) return res.status(200).send({ message: "Room is exist" });
+    if (roomExists !== null)
+      return res.status(200).send({ message: "Room is exist" });
     await Rooms.create({
       name_room: name_room,
       id_cineplex: id_cineplex,
@@ -221,6 +222,7 @@ exports.postAddShedule = async (req, res, next) => {
   let { id_room, id_movie, date, start_time, price } = req.body;
   const start_time_last = start_time.slice(6, 8); // cut last AM or PM
 
+  console.log(id_movie);
   const movie = await Movies.findOne({ where: { id: id_movie } });
 
   const times = await db.query(

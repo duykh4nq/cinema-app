@@ -108,6 +108,26 @@ export const getAddCineplex = (name, address) => async (dispatch) => {
 export const getAddRoom =
   (id_cineplex, name_room, horizontal, vertical, id_categoryRoom) =>
   async (dispatch) => {
+    console.log(
+      `🚀 => file: adminActions.js => line 111 => id_categoryRoom`,
+      id_categoryRoom
+    );
+    console.log(
+      `🚀 => file: adminActions.js => line 111 => vertical`,
+      vertical
+    );
+    console.log(
+      `🚀 => file: adminActions.js => line 111 => horizontal`,
+      horizontal
+    );
+    console.log(
+      `🚀 => file: adminActions.js => line 111 => name_room`,
+      name_room
+    );
+    console.log(
+      `🚀 => file: adminActions.js => line 111 => id_cineplex`,
+      id_cineplex
+    );
     try {
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_REQUEST,
@@ -119,7 +139,7 @@ export const getAddRoom =
         vertical: vertical,
         id_categoryRoom: id_categoryRoom,
       });
-      if (data === "OK") {
+      if (data === "ok") {
         dispatch(getCinema());
       }
       console.log(`🚀 => file: adminActions.js => line 142 => data`, data);
@@ -152,8 +172,8 @@ export const getAddMovie =
         poster: poster,
       });
       if (data === "ok") {
-        alert("success");
         dispatch(getCinema());
+        alert("Succes");
       }
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
@@ -193,6 +213,7 @@ export const getAddShowtime =
       console.log(`🚀 => file: adminActions.js => line 198 => data`, data);
       if (data === "ok") {
         dispatch(getCinema());
+        alert("Succes");
       }
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,

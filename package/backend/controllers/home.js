@@ -106,7 +106,7 @@ exports.getDetailMovie = async (req, res, next) => {
 async function qery(id_mov, datee) {
   const test1 = await db.query(
     `
-    select sch.id, cine.name, cr.name_cat, ti.start_point
+    select sch.id, cine.name, cr.name_cat, ti.start_point, ti.end_point
     from cineplexs cine join rooms ro on ro.id_cineplex = cine.id
     join category_rooms cr on cr.id = ro.id_category_room
     join schedules sch on sch.id_room = ro.id
@@ -122,13 +122,14 @@ async function qery(id_mov, datee) {
   return test1;
 }
 
-function detailsCat(name_cat, id, start_point) {
+function detailsCat(name_cat, id, start_point, end_point) {
   const res = {
     cate_room: name_cat,
     schedule: [
       {
         id_schedule: id,
-        time: timeConverter(start_point),
+        time_start: timeConverter(start_point),
+        time_end: timeConverter(end_point),
       },
     ],
   };
@@ -149,7 +150,8 @@ function converData(arr) {
             schedule: [
               {
                 id_schedule: ko.id,
-                time: timeConverter(ko.start_point),
+                time_start: timeConverter(ko.start_point),
+                time_end: timeConverter(ko.end_point),
               },
             ],
           },
@@ -176,7 +178,8 @@ function converData(arr) {
         );
         details[indexCine].detailsCat[indexSche].schedule.push({
           id_schedule: ko.id,
-          time: timeConverter(ko.start_point),
+          time_start: timeConverter(ko.start_point),
+          time_end: timeConverter(ko.end_point),
         });
       }
     }
@@ -185,12 +188,12 @@ function converData(arr) {
 }
 
 exports.postBookingShow = async (req, res, next) => {
-  const { id_mov } = req.body;
+  const { id_movie } = req.body;
   let booking = [];
   let i = 0;
   for (; i < 7; i++) {
     const start = new Date(new Date().getTime() + i * 24 * 60 * 60 * 1000);
-    const arr = await qery(id_mov, start);
+    const arr = await qery(id_movie, start);
 
     const details = await converData(arr);
     await booking.push([
@@ -205,15 +208,33 @@ exports.postBookingShow = async (req, res, next) => {
 
 exports.postBookingSeat = async (req, res, next) => {
   const { id_schedule } = req.body;
-  const booking = await Bookings.findAll({
-    where: {
-      id_schedule: id_schedule,
-    },
-    include: [
-      {
-        model: Tickets,
-      },
-    ],
-  });
-  res.status(200).send(booking);
+  const bookings = await db.query(
+    `select sch.id, ro.horizontal_size, ro.vertical_size, ti.seat
+    from schedules sch join rooms ro on ro.id = sch.id_room
+    join bookings bo on sch.id = bo.id_schedule
+    join tickets ti on ti.id_booking = bo.id
+    where sch.id = ${id_schedule}`,
+    { type: QueryTypes.SELECT }
+  );
+
+  let result = {
+    id_schedule: bookings[0].id,
+    horizontal_size: bookings[0].horizontal_size,
+    vertical_size: bookings[0].vertical_size,
+    sum_of_seat:
+      (bookings[0].vertical_size.charCodeAt(0) - 96) *
+      bookings[0].horizontal_size,
+    empty_seat:
+      (bookings[0].vertical_size.charCodeAt(0) - 96) *
+        bookings[0].horizontal_size -
+      bookings.length,
+    exists_seat: bookings.length,
+    seats: [],
+  };
+
+  for (let item of bookings) {
+    result.seats.push(item.seat.toString());
+  }
+
+  res.status(200).send(result);
 };

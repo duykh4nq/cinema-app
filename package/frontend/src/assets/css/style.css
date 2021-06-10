@@ -5957,7 +5957,8 @@ ul {
   }
 }
 
-.social-btn .parent-btn {
+.social-btn a.parent-btn {
+
   font-family: 'Dosis', sans-serif;
   font-size: 14px;
   color: #dd003f;
@@ -5967,12 +5968,12 @@ ul {
 }
 
 @media (max-width: 767px) {
-  .social-btn .parent-btn {
+  .social-btn a.parent-btn {
     margin-bottom: 40px;
   }
 }
 
-.social-btn .parent-btn i {
+.social-btn a.parent-btn i {
   padding: 10px 14px;
   text-align: center;
   -webkit-border-radius: 50%;
@@ -6013,12 +6014,12 @@ ul {
   border-radius: 3px;
 }
 
-.social-btn .hover-bnt .hvr-item {
+.social-btn .hover-bnt .hvr-item a {
   margin-right: 10px;
   cursor: pointer;
 }
 
-.social-btn .hover-bnt .hvr-item i {
+.social-btn .hover-bnt .hvr-item a i {
   color: #ffffff;
   font-size: 16px;
 }
@@ -7268,7 +7269,7 @@ p.ceb-single {
   justify-content: space-between;
 }
 
-.overlay .login-content .social-btn-2 {
+.overlay .login-content .social-btn-2 a {
   width: 50%;
   height: 42px;
   display: -webkit-flex;
@@ -7288,7 +7289,7 @@ p.ceb-single {
   border-radius: 3px;
 }
 
-.overlay .login-content .social-btn-2 i {
+.overlay .login-content .social-btn-2 a i {
   margin-right: 10px;
 }
 
