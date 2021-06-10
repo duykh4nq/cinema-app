@@ -20,10 +20,7 @@ import image11 from "../../assets/images/uploads/image11.jpg"
 import play_vd from "../../assets/images/uploads/play-vd.png"
 
 
-const DetailScreen = ({ match, history }, props) => {
-  const {
-    className
-  } = props;
+const DetailScreen = ({ match, history }) => {
 
   const [modal, setModal] = React.useState(false);
 
@@ -32,17 +29,17 @@ const DetailScreen = ({ match, history }, props) => {
   const dispatch = useDispatch();
 
   const movieDetails = useSelector((state) => state.getMovieDetails);
-  const { loading, error, movie } = movieDetails;
+    const { loading, error, movie } = movieDetails;
 
   useEffect(() => {
-    if (movie && match.params.slug !== movie.slug) {
+    if (movie && match.params.slug !== movie.slug ) {
       dispatch(getMovieDetails(match.params.slug));
     }
-  }, [dispatch, movie, match]);
+  }, [modal]);
 
   return (
     <>
-    <Modal isOpen={modal} toggle={toggle} className={className}>
+    <Modal isOpen={modal} toggle={toggle}>
       <ModalBody>
         <DialogBookingScreen posts={movie} />
       </ModalBody>

@@ -44,7 +44,6 @@ function Statistical(props) {
 
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [bigChartData, setbigChartData] = React.useState("cineplex");
   const setBgChartData = (name) => {
     setbigChartData(name);
@@ -53,7 +52,7 @@ function Statistical(props) {
   React.useEffect(() => {
     dispatch(getCinema());
     dispatch(postStatiscalForCineplex(start, end));
-  }, [dispatch]);
+  }, [dispatch, start, end]);
 
   let chart1_2_options = {
     maintainAspectRatio: false,

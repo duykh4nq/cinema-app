@@ -172,17 +172,6 @@ export const getAddMovie =
 
 export const getAddShowtime =
   (id_room, id_movie, date, start_time, price) => async (dispatch) => {
-    console.log(`🚀 => file: adminActions.js => line 189 => price`, price);
-    console.log(
-      `🚀 => file: adminActions.js => line 189 => start_time`,
-      start_time
-    );
-    console.log(`🚀 => file: adminActions.js => line 189 => date`, date);
-    console.log(
-      `🚀 => file: adminActions.js => line 189 => id_movie`,
-      id_movie
-    );
-    console.log(`🚀 => file: adminActions.js => line 189 => id_room`, id_room);
     var [h, m] = start_time.split(":");
     var meridian =
       ((h % 12) + 12 * (h % 12 === 0) + ":" + m, h >= 12 ? "PM" : "AM");
@@ -231,6 +220,7 @@ export const postStatiscalForCineplex = (start, end) => async (dispatch) => {
       start: start,
       end: end,
     });
+    console.log(`🚀 => file: adminActions.js => line 223 => data`, data);
     dispatch({
       type: actionTypes.GET_CINEMA_SUCCESS,
       payload: data,

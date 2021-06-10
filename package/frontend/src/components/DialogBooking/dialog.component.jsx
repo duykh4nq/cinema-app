@@ -16,11 +16,6 @@ const DialogBookingScreen = ({ posts }) => {
 
     
     return <div className="containerdialog">
-        {loading ? (
-            <h2>Loading...</h2>
-        ) : error ? (
-            <h2>{error}</h2>
-        ) : (
             <div className="bookingscreen">
                 <div className="date">
                     <button className="btncalendar">
@@ -56,7 +51,7 @@ const DialogBookingScreen = ({ posts }) => {
 
                     </div>
                 </div>
-            </div>)}
+            </div>
     </div>;
 }
 
