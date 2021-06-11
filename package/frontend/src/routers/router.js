@@ -12,11 +12,11 @@ function Routes() {
   return (
     <Router>
       <Header />
-      <HomeRoute />
+       <HomeRoute /> 
       <DetailRoute />
       <AboutUsRoute />
       <BookingRoute />
-      <CheckoutRoute />
+      <CheckoutRoute /> 
       <Footer />
     </Router>
   );
