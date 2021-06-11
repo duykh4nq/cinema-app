@@ -43,3 +43,41 @@
 #size_disabled {
     border-radius: 5px 0px 0px 5px;
 }
+
+.text-total {
+    margin-top: 6px;
+}
+
+.poster_movie {
+    width: 120px;
+    height: 160px;
+    object-fit: cover;
+}
+
+.content {
+    height: 670px;
+}
+
+.content .row_header {
+    height: 10%;
+}
+
+.content .row_chart {
+    height: 80%;
+}
+
+.content .row_chart .card-chart {
+    height: 94%;
+}
+
+.content .row_chart .card-chart .chart-area {
+    height: 400px;
+}
+
+.icon-simple-remove {
+    cursor: pointer;
+}
+
+.icon-simple-remove:hover {
+    color: #e14eca;
+}

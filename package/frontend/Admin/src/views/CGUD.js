@@ -382,7 +382,7 @@ function CGUD() {
                                     rows.push(<option>{i}</option>);
                                   }
                                   return rows;
-                                })([], 1, 9)}
+                                })([], 1, 18)}
                               </Input>
                             </div>
                           </FormGroup>

@@ -32,9 +32,7 @@ const DetailScreen = ({ match, history }) => {
   const { loading, error, movie } = movieDetails;
 
   useEffect(() => {
-    if (movie && match.params.slug !== movie.slug ) {
       dispatch(getMovieDetails(match.params.slug));
-    }
   }, [modal]);
 
   return (
@@ -80,7 +78,7 @@ const DetailScreen = ({ match, history }) => {
                     <div className="social-btn">
                       <div className="parent-btn">
                         <i className="ion-clock" /> {movie.time}
-                        <span>minutes</span>
+                        <span> minutes</span>
                       </div>
                       <div className="parent-btn">
                         <i className="ion-calendar" />

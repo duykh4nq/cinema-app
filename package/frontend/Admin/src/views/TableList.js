@@ -33,6 +33,7 @@ function Tables() {
   //cineplex
   const _cineplex = useSelector((state) => state.getCinema);
   const { loadingCineplex, errorCineplex, cinema } = _cineplex;
+  console.log(`🚀 => file: TableList.js => line 36 => cinema`, cinema);
   React.useEffect(() => {
     dispatch(getCinema());
   }, [dispatch]);
@@ -40,6 +41,7 @@ function Tables() {
   //schedule
   const _schedule = useSelector((state) => state.getSchedule);
   const { loadingSchedule, errorSchedule, schedule } = _schedule;
+  console.log(`🚀 => file: TableList.js => line 44 => schedule`, schedule);
 
   const setValueCineplex = (e) => {
     dispatch(getRooms(e));
@@ -115,7 +117,7 @@ function Tables() {
                       <thead className="text-primary">
                         <tr>
                           <th>Name</th>
-                          <th>Address</th>
+                          <th className="text-center">Address</th>
                           <th className="text-center">Remove</th>
                         </tr>
                       </thead>
@@ -128,7 +130,7 @@ function Tables() {
                           cinema.map((item) => (
                             <tr>
                               <td>{item.name}</td>
-                              <td>{item.address}</td>
+                              <td className="text-center">{item.address}</td>
                               <td className="text-center">
                                 <i className="tim-icons icon-simple-remove" />
                               </td>
@@ -175,8 +177,9 @@ function Tables() {
                       <thead className="text-primary">
                         <tr>
                           <th>Name</th>
-                          <th>Vertical size</th>
-                          <th>Horizontal size</th>
+                          <th className="text-center">Category</th>
+                          <th className="text-center">Vertical size</th>
+                          <th className="text-center">Horizontal size</th>
                           <th className="text-center">Remove</th>
                         </tr>
                       </thead>
@@ -189,8 +192,19 @@ function Tables() {
                           schedule.map((item) => (
                             <tr>
                               <td>{item.name_room}</td>
-                              <td>{item.vertical_size}</td>
-                              <td>{item.horizontal_size}</td>
+                              {item.id_category_room === 1 ? (
+                                <td className="text-center">2D</td>
+                              ) : item.id_category_room === 2 ? (
+                                <td className="text-center">3D</td>
+                              ) : (
+                                <td className="text-center">4DMAX</td>
+                              )}
+                              <td className="text-center">
+                                {item.vertical_size}
+                              </td>
+                              <td className="text-center">
+                                {item.horizontal_size}
+                              </td>
                               <td className="text-center">
                                 <i className="tim-icons icon-simple-remove" />
                               </td>
@@ -237,8 +251,9 @@ function Tables() {
                       <thead className="text-primary">
                         <tr>
                           <th>Name</th>
-                          <th>Time</th>
-                          <th>Release date</th>
+                          <th className="text-center">Time</th>
+                          <th className="text-center">Release date</th>
+                          <th className="text-center">Poster</th>
                           <th className="text-center">Remove</th>
                         </tr>
                       </thead>
@@ -251,8 +266,17 @@ function Tables() {
                           schedule.map((item) => (
                             <tr>
                               <td>{item.name_movie}</td>
-                              <td>{item.time}</td>
-                              <td>{item.release_date}</td>
+                              <td className="text-center">{item.time} phút</td>
+                              <td className="text-center">
+                                {item.release_date}
+                              </td>
+                              <td className="text-center">
+                                <img
+                                  className="poster_movie"
+                                  src={item.poster}
+                                  alt={item.slug}
+                                ></img>
+                              </td>
                               <td className="text-center">
                                 <i className="tim-icons icon-simple-remove" />
                               </td>
@@ -340,8 +364,10 @@ function Tables() {
                     <Table className="tablesorter">
                       <thead className="text-primary">
                         <tr>
-                          <th>Cinema</th>
-                          <th>Start time</th>
+                          <th>Id showtime</th>
+                          <th className="text-center">Premiere date</th>
+                          <th className="text-center">Start time</th>
+                          <th className="text-center">Price</th>
                           <th className="text-center">Remove</th>
                         </tr>
                       </thead>
@@ -354,7 +380,9 @@ function Tables() {
                           cinema.map((item) => (
                             <tr>
                               <td>{item.name}</td>
-                              <td>{item.address}</td>
+                              <td className="text-center">{item.name}</td>
+                              <td className="text-center">{item.name}</td>
+                              <td className="text-center">{item.address}</td>
                               <td className="text-center">
                                 <i className="tim-icons icon-simple-remove" />
                               </td>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import "./style.css";
 // reactstrap components
 import {
@@ -18,14 +18,12 @@ import {
   Col,
 } from "reactstrap";
 
-// core components
-import { revenue } from "variables/charts.js";
-//import Actions
 //import Actions
 import {
   getCinema,
   getMovies,
   postStatiscalForCineplex,
+  postStatiscalForMovie,
 } from "../redux/actions/adminActions";
 
 function Statistical(props) {
@@ -36,7 +34,7 @@ function Statistical(props) {
 
   //schedule
   const _schedule = useSelector((state) => state.getSchedule);
-  const { loadingSchedule, errorSchedule, schedule } = _schedule;
+  const { schedule } = _schedule;
 
   const setValueCineplex = (e) => {
     dispatch(getMovies(e));
@@ -49,10 +47,16 @@ function Statistical(props) {
     setbigChartData(name);
   };
 
+  console.log(`🚀 => file: Statistical.js => line 55 => schedule`, schedule);
   React.useEffect(() => {
     dispatch(getCinema());
-    dispatch(postStatiscalForCineplex(start, end));
-  }, [dispatch, start, end]);
+    if (start && end) {
+      dispatch(postStatiscalForCineplex(start, end));
+      if (schedule) {
+        dispatch(postStatiscalForMovie(start, end));
+      }
+    }
+  }, [dispatch, start, end, schedule]);
 
   let chart1_2_options = {
     maintainAspectRatio: false,
@@ -80,8 +84,11 @@ function Statistical(props) {
             zeroLineColor: "transparent",
           },
           ticks: {
-            suggestedMin: 60,
-            suggestedMax: 125,
+            suggestedMin: 0,
+            suggestedMax: 200,
+            // schedule
+            //   ? schedule.map((item) => Math.max(item.sum))
+            //   : cinema.map((item) => Math.max(item.sum)),
             padding: 20,
             fontColor: "#9a9a9a",
           },
@@ -132,7 +139,7 @@ function Statistical(props) {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: [100, 70, 90, 70, 85, 60, 75, 60, 90, 80, 110, 100],
+            data: cinema.map((item) => item.sum),
           },
         ],
       };
@@ -147,7 +154,7 @@ function Statistical(props) {
       gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
       return {
-        labels: schedule.map((item) => item.name),
+        labels: schedule.map((item) => item.name_movie),
         datasets: [
           {
             label: "Total",
@@ -164,7 +171,7 @@ function Statistical(props) {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: [80, 120, 105, 110, 95, 105, 90, 100, 80, 95, 70, 150],
+            data: schedule.map((item) => item.sum),
           },
         ],
       };
@@ -199,18 +206,47 @@ function Statistical(props) {
               onChange={(e) => setEnd(e.target.value)}
             />
           </Col>
+          {bigChartData === "movie" ? (
+            <Col xs="3">
+              <label>Choose cineplex</label>
+              <Input
+                type="select"
+                name="select"
+                id="exampleSelect"
+                onChange={(e) => setValueCineplex(e.target.value)}
+                required
+              >
+                {cinema.map((item) => (
+                  <option value={item.id}>{item.name}</option>
+                ))}
+              </Input>
+            </Col>
+          ) : (
+            <div></div>
+          )}
           <Col xs="3">
-            <label>Chọn cụm rạp</label>
-            <Input type="select" name="select" id="exampleSelect">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
-            </Input>
+            <label>Total revenue</label>
+            <CardTitle tag="h4" className="text-total">
+              <i className="tim-icons icon-wallet-43 text-info" />
+              {bigChartData === "movie"
+                ? function () {
+                    let sum = 0;
+                    for (let i = 0; i < schedule.length; i++) {
+                      sum += schedule[i].sum;
+                    }
+                    return <p>{sum}</p>;
+                  }
+                : function () {
+                    let sum = 0;
+                    for (let i = 0; i < cinema.length; i++) {
+                      sum += cinema[i].sum;
+                    }
+                    return <p>{sum}</p>;
+                  }}
+            </CardTitle>
           </Col>
         </Row>
-        <Row>
+        <Row className="row_chart">
           <Col xs="12">
             <Card className="card-chart">
               <CardHeader>
@@ -269,21 +305,6 @@ function Statistical(props) {
                     options={revenue.options}
                   />
                 </div>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg="4">
-            <Card className="card-chart">
-              <CardHeader>
-                <h5 className="card-category">Total Shipments</h5>
-                <CardTitle tag="h3">
-                  <i className="tim-icons icon-bell-55 text-info" /> 763,215
-                </CardTitle>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-area"></div>
               </CardBody>
             </Card>
           </Col>

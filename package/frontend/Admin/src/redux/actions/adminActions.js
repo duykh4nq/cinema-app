@@ -256,3 +256,30 @@ export const postStatiscalForCineplex = (start, end) => async (dispatch) => {
     });
   }
 };
+
+export const postStatiscalForMovie = (start, end) => async (dispatch) => {
+  console.log(`🚀 => file: adminActions.js => line 214 => end`, end);
+  console.log(`🚀 => file: adminActions.js => line 214 => start`, start);
+  try {
+    dispatch({
+      type: actionTypes.GET_CINEMA_REQUEST,
+    });
+    const { data } = await axios.post("/admin/statiscalMovie", {
+      start: start,
+      end: end,
+    });
+    console.log(`🚀 => file: adminActions.js => line 223 => data`, data);
+    dispatch({
+      type: actionTypes.GET_CINEMA_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_CINEMA_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
