@@ -1,12 +1,15 @@
 .dropdown:hover .dropdown-menu {
   display: block;
 }
-.dropdown:hover .level1 > .level1 > .level2 {
+
+.dropdown:hover .level1>.level1>.level2 {
   display: none;
 }
-.dropdown:hover .level1 > .level1:hover > .level2 {
+
+.dropdown:hover .level1>.level1:hover>.level2 {
   display: block;
 }
-.ht-header {
+
+header {
   position: unset !important;
 }

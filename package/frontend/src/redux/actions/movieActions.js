@@ -4,7 +4,8 @@ import axios from "../configAxios";
 export const getMovies = () => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_MOVIES_REQUEST });
-    const { data } = await axios.get("http://localhost:4000/");
+    const { data } = await axios.get("/");
+    console.log(`🚀 => file: movieActions.js => line 8 => data`, data);
     dispatch({
       type: actionTypes.GET_MOVIES_SUCCESS,
       payload: data,
@@ -20,7 +21,7 @@ export const getMovies = () => async (dispatch) => {
   }
 };
 
-export const getMovieDetails = (slug) => async (dispatch) => {
+export const getMovieDetails = (slug) => async (dispatch, getState) => {
   try {
     dispatch({ type: actionTypes.GET_MOVIE_DETAILS_REQUEST });
     const { data } = await axios.get(`detail/${slug}`);
@@ -28,7 +29,9 @@ export const getMovieDetails = (slug) => async (dispatch) => {
       type: actionTypes.GET_MOVIE_DETAILS_SUCCESS,
       payload: data,
     });
-    console.log(`🚀 => file: movieActions.js => line 31 => data`, data);
+    const movie = JSON.stringify(getState().getMovieDetails);
+    console.log(`🚀 => file: movieActions.js => line 33 => movie`, movie);
+    localStorage.setItem("movie", movie);
   } catch (error) {
     dispatch({
       type: actionTypes.GET_MOVIE_DETAILS_FAIL,
@@ -40,10 +43,42 @@ export const getMovieDetails = (slug) => async (dispatch) => {
   }
 };
 
-export const postBookingShow = (id_mov) => async (dispatch) => {
+export const postBookingShow = () => async (dispatch, getState) => {
+  console.log(
+    `🚀 => file: movieActions.js => line 63 => getState().getMovieDetails.movie`,
+    getState().getMovieDetails.movie.id
+  );
+
   try {
     dispatch({ type: actionTypes.GET_MOVIE_DETAILS_REQUEST });
-    const { data } = await axios.post(`booking/now-showing`);
+    const { data } = await axios.post(`booking/now-showing`, {
+      id_schedule: getState().getMovieDetails.movie.id,
+    });
+    dispatch({
+      type: actionTypes.GET_MOVIE_DETAILS_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_MOVIE_DETAILS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const postBookingSeat = () => async (dispatch, getState) => {
+  console.log(
+    `🚀 => file: movieActions.js => line 63 => getState().getMovieDetails.movie`,
+    getState().getMovieDetails.movie
+  );
+  try {
+    dispatch({ type: actionTypes.GET_MOVIE_DETAILS_REQUEST });
+    const { data } = await axios.post(`booking/seat`, {
+      id_schedule: getState().getMovieDetails.movie.id,
+    });
     dispatch({
       type: actionTypes.GET_MOVIE_DETAILS_SUCCESS,
       payload: data,

@@ -4,6 +4,7 @@
     display: flex;
     margin-top: 50px;
     margin-bottom: 50px;
+    z-index: inherit;
 }
 
 .bookingscreen {
@@ -152,9 +153,6 @@
     color: white;
 }
 
-.btncalendar:hover,
-.btncinema-complex:hover,
-.btncategory:hover,
-.showtime:hover {
+.btncalendar:hover, .btncinema-complex:hover, .btncategory:hover, .showtime:hover {
     background: #31d7a9;
 }

@@ -55,7 +55,7 @@ function HeadersComponent() {
         openformRegister={openformRegister}
         BackOpenformRegister={BackOpenformRegister}
       />
-      <header class="ht-header">
+      <header>
         <div class="container">
           <nav class="navbar navbar-default navbar-custom">
             <div class="navbar-header logo">

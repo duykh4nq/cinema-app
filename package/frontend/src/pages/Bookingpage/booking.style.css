@@ -19,3 +19,9 @@
 .item-right {
     text-align: right;
 }
+
+.seat-line {
+    display: flex !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+}

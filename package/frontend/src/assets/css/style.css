@@ -3326,6 +3326,7 @@ body {
 
 article, aside, details, figcaption, figure, footer, header, main, nav, section {
   display: block;
+  background-color: transparent;
 }
 
 ol, ul {
@@ -8158,7 +8159,7 @@ p.ceb-single {
 
 header {
   position: absolute;
-  z-index: 100;
+  z-index: 1;
   width: 100%;
   background-color: transparent;
   -webkit-transition: all 0.5s ease-out;

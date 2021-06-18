@@ -2,7 +2,7 @@ exports.PATH = {
   HOME: "/",
   LOGIN: "/login",
   DETAIL: "/detail/:slug",
-  BOOKING: "/booking/now-showing",
+  BOOKING: "/booking",
   CHECKOUT: "/checkout",
   ABOUT: "/aboutUs",
 };

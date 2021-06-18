@@ -5,6 +5,8 @@ import React from "react";
 import Modal from "react-modal";
 import { ModalBody, ModalFooter } from 'reactstrap';
 import DialogBookingScreen from "../../components/DialogBooking/dialog.component";
+import Bookingpage from "../../pages/Bookingpage/booking.page";
+
 
 // Actions
 import { getMovieDetails } from "../../redux/actions/movieActions";
@@ -21,6 +23,12 @@ import play_vd from "../../assets/images/uploads/play-vd.png"
 
 
 const DetailScreen = ({ match, history }) => {
+  // const customStyles = {
+  //   content: {
+  //     width: '90%',
+  //     zIndex:'99'
+  //   },
+  // };
 
   const [modal, setModal] = React.useState(false);
 
@@ -30,14 +38,14 @@ const DetailScreen = ({ match, history }) => {
 
   const movieDetails = useSelector((state) => state.getMovieDetails);
   const { loading, error, movie } = movieDetails;
+  console.log(`🚀 => file: detail.page.jsx => line 47 => movie`, movie)
 
   useEffect(() => {
-      dispatch(getMovieDetails(match.params.slug));
+    dispatch(getMovieDetails(match.params.slug));
   }, [modal]);
 
   return (
-    <>
-    <Modal isOpen={modal} toggle={toggle}>
+    <><Modal isOpen={modal} toggle={toggle}>
       <ModalBody>
         <DialogBookingScreen posts={movie} />
       </ModalBody>
@@ -45,6 +53,7 @@ const DetailScreen = ({ match, history }) => {
         <button onClick={toggle}>Cancel</button>
       </ModalFooter>
     </Modal>
+
       <div>
         <div className="hero mv-single-hero">
           <div className="container">
@@ -82,7 +91,7 @@ const DetailScreen = ({ match, history }) => {
                       </div>
                       <div className="parent-btn">
                         <i className="ion-calendar" />
-                      Release date: {movie.release_date}
+                        Release date: {movie.release_date}
                       </div>
                     </div>
                     <div className="movie-rate">
@@ -90,7 +99,7 @@ const DetailScreen = ({ match, history }) => {
                         <i className="ion-android-star" />
                         <p>
                           <span>8.1</span> /10
-                        <br />
+                          <br />
                           <span className="rv">56 Reviews</span>
                         </p>
                       </div>
@@ -126,7 +135,7 @@ const DetailScreen = ({ match, history }) => {
                                   together. Earth's mightiest heroes must come
                                   together once again to protect the world from
                                   global extinction.
-                              </p>
+                                </p>
                                 <div className="title-hd-sm">
                                   <h4>Videos &amp; Photos</h4>
                                   <a href="#" className="time">
@@ -215,7 +224,7 @@ const DetailScreen = ({ match, history }) => {
                                     Marvel), the plotting is splendid (they really
                                     do out do themselves in each film, there are
                                     no problems watching it more than once.
-                                </p>
+                                  </p>
                                 </div>
                               </div>
                               <div className="col-md-4 col-xs-12 col-sm-12">
@@ -296,30 +305,30 @@ const DetailScreen = ({ match, history }) => {
                                 </div>
                                 <a href="#" className="redbtn">
                                   Write Review
-                              </a>
+                                </a>
                               </div>
                               <div className="topbar-filter">
                                 <p>
                                   Found <span>56 reviews</span> in total
-                              </p>
+                                </p>
                                 <label>Filter by:</label>
                                 <select>
                                   <option value="popularity">
                                     Popularity Descending
-                                </option>
+                                  </option>
                                   <option value="popularity">
                                     Popularity Ascending
-                                </option>
+                                  </option>
                                   <option value="rating">
                                     Rating Descending
-                                </option>
+                                  </option>
                                   <option value="rating">Rating Ascending</option>
                                   <option value="date">
                                     Release date Descending
-                                </option>
+                                  </option>
                                   <option value="date">
                                     Release date Ascending
-                                </option>
+                                  </option>
                                 </select>
                               </div>
                               <div className="mv-user-review-item">
@@ -361,7 +370,7 @@ const DetailScreen = ({ match, history }) => {
                                   plotting is splendid (they really do out do
                                   themselves in each film, there are no problems
                                   watching it more than once.
-                              </p>
+                                </p>
                               </div>
                               <div className="mv-user-review-item">
                                 <div className="user-infor">
@@ -389,7 +398,7 @@ const DetailScreen = ({ match, history }) => {
                                 <p>
                                   Avengers Age of Ultron is an excellent sequel
                                   and a worthy MCU title! There are a lot of good
-                                and one thing that feels off in my opinion.{" "}
+                                  and one thing that feels off in my opinion.{" "}
                                 </p>
                                 <p>THE GOOD:</p>
                                 <p>
@@ -412,7 +421,7 @@ const DetailScreen = ({ match, history }) => {
                                   Quicksilver, Scarletwich, and Vision, they are
                                   pretty cool in my opinion. Vision in particular
                                   is pretty amazing in all his scenes.
-                              </p>
+                                </p>
                                 <p>THE BAD:</p>
                                 <p>
                                   The beginning of the film it's fine until
@@ -421,7 +430,7 @@ const DetailScreen = ({ match, history }) => {
                                   like there are scenes missing but there was talk
                                   of an extended version on Blu-Ray so that's
                                   cool.
-                              </p>
+                                </p>
                               </div>
                               <div className="mv-user-review-item">
                                 <div className="user-infor">
@@ -430,7 +439,7 @@ const DetailScreen = ({ match, history }) => {
                                     <h3>
                                       One of the most boring exepirences from
                                       watching a movie
-                                  </h3>
+                                    </h3>
                                     <div className="no-star">
                                       <i className="ion-android-star" />
                                       <i className="ion-android-star last" />
@@ -445,7 +454,7 @@ const DetailScreen = ({ match, history }) => {
                                     </div>
                                     <p className="time">
                                       26 March 2017 by
-                                    <a href="#"> christopherfreeman</a>
+                                      <a href="#"> christopherfreeman</a>
                                     </p>
                                   </div>
                                 </div>
@@ -462,7 +471,7 @@ const DetailScreen = ({ match, history }) => {
                                   watching it: I fall asleep. What woke me up is
                                   the next movie on Netflix when the movie was
                                   over.
-                              </p>
+                                </p>
                                 <p>Bottemline: It's boring...</p>
                                 <p>10/10 because I'm a Marvel Fanboy</p>
                               </div>
@@ -502,7 +511,7 @@ const DetailScreen = ({ match, history }) => {
                                   it's a lot of fun. If they didn't show that
                                   spirit of fun to the audience than these films
                                   would never be made.
-                              </p>
+                                </p>
                                 <p>
                                   So in that spirit of fun Avengers: Age Of Ultron
                                   comes before us and everyone looks like they're
@@ -517,7 +526,7 @@ const DetailScreen = ({ match, history }) => {
                                   Trek prime story. Wouldst Captain James T. Kirk
                                   of the Enterprise had a crew like Downey has at
                                   his command.
-                              </p>
+                                </p>
                                 <p>
                                   My favorite is always Chris Evans because of the
                                   whole cast he best gets into the spirit of being
@@ -526,11 +535,11 @@ const DetailScreen = ({ match, history }) => {
                                   Storm the Human Torch. I'll be before he's done
                                   Evans will play a couple of more as long as the
                                   money's good and he enjoys it.
-                              </p>
+                                </p>
                                 <p>
                                   Pretend you're a kid again and enjoy, don't take
                                   it so seriously.
-                              </p>
+                                </p>
                               </div>
                               <div className="mv-user-review-item last">
                                 <div className="user-infor">
@@ -576,7 +585,7 @@ const DetailScreen = ({ match, history }) => {
                                   Clinton Barton's house to recover, but out of
                                   the blue, Nick Fury (Samuel L. Jackson) arrives
                                   and convinces them to fight against Ultron. Will
-                                they succeed?{" "}
+                                  they succeed?{" "}
                                 </p>
                                 <p>
                                   "Avengers: Age of Ultron" is an entertaining
@@ -588,7 +597,7 @@ const DetailScreen = ({ match, history }) => {
                                   possible to be described in words. Why Pietro
                                   has to die is also not possible to be explained.
                                   My vote is eight.
-                              </p>
+                                </p>
                               </div>
                               <div className="topbar-filter">
                                 <label>Reviews per page:</label>
@@ -600,7 +609,7 @@ const DetailScreen = ({ match, history }) => {
                                   <span>Page 1 of 6:</span>
                                   <a className="active" href="#">
                                     1
-                                </a>
+                                  </a>
                                   <a href="#">2</a>
                                   <a href="#">3</a>
                                   <a href="#">4</a>
@@ -656,7 +665,7 @@ const DetailScreen = ({ match, history }) => {
                                   </div>
                                   <p>
                                     ... (character created by: Captain America)
-                                </p>
+                                  </p>
                                 </div>
                                 <div className="cast-it">
                                   <div className="cast-left">
@@ -672,7 +681,7 @@ const DetailScreen = ({ match, history }) => {
                                   </div>
                                   <p>
                                     ... (character created by: Ultron, Vision)
-                                </p>
+                                  </p>
                                 </div>
                                 <div className="cast-it">
                                   <div className="cast-left">
@@ -681,7 +690,7 @@ const DetailScreen = ({ match, history }) => {
                                   </div>
                                   <p>
                                     ... (character created by: Ultron, Vision)
-                                </p>
+                                  </p>
                                 </div>
                               </div>
                               {/* //== */}
@@ -871,7 +880,7 @@ const DetailScreen = ({ match, history }) => {
                                       {" "}
                                       <a href="#">
                                         Featurette: “Avengers Re-Assembled
-                                    </a>
+                                      </a>
                                     </h6>
                                     <p className="time"> 1: 03</p>
                                   </div>
@@ -923,7 +932,7 @@ const DetailScreen = ({ match, history }) => {
                                       {" "}
                                       <a href="#">
                                         Interview: Scarlett Johansson
-                                    </a>
+                                      </a>
                                     </h6>
                                     <p className="time"> 3:27</p>
                                   </div>
@@ -951,7 +960,7 @@ const DetailScreen = ({ match, history }) => {
                                       <a href="#">
                                         Featurette: Meet Quicksilver &amp; The
                                         Scarlet Witch
-                                    </a>
+                                      </a>
                                     </h6>
                                     <p className="time"> 1: 31</p>
                                   </div>
@@ -978,7 +987,7 @@ const DetailScreen = ({ match, history }) => {
                                       {" "}
                                       <a href="#">
                                         Interview: Director Joss Whedon
-                                    </a>
+                                      </a>
                                     </h6>
                                     <p className="time"> 1: 03</p>
                                   </div>
@@ -1197,25 +1206,25 @@ const DetailScreen = ({ match, history }) => {
                               <div className="topbar-filter">
                                 <p>
                                   Found <span>12 movies</span> in total
-                              </p>
+                                </p>
                                 <label>Sort by:</label>
                                 <select>
                                   <option value="popularity">
                                     Popularity Descending
-                                </option>
+                                  </option>
                                   <option value="popularity">
                                     Popularity Ascending
-                                </option>
+                                  </option>
                                   <option value="rating">
                                     Rating Descending
-                                </option>
+                                  </option>
                                   <option value="rating">Rating Ascending</option>
                                   <option value="date">
                                     Release date Descending
-                                </option>
+                                  </option>
                                   <option value="date">
                                     Release date Ascending
-                                </option>
+                                  </option>
                                 </select>
                               </div>
                               <div className="movie-item-style-2">
@@ -1229,16 +1238,16 @@ const DetailScreen = ({ match, history }) => {
                                   <p className="rate">
                                     <i className="ion-android-star" />
                                     <span>8.1</span> /10
-                                </p>
+                                  </p>
                                   <p className="describe">
                                     Earth's mightiest heroes must come together
                                     and learn to fight as a team if they are to
                                     stop the mischievous Loki and his alien army
                                     from enslaving humanity...
-                                </p>
+                                  </p>
                                   <p className="run-time">
                                     {" "}
-                                  Run Time: 2h21’ . <span>
+                                    Run Time: 2h21’ . <span>
                                       MMPA: PG-13{" "}
                                     </span> . <span>Release: 1 May 2015</span>
                                   </p>
@@ -1263,16 +1272,16 @@ const DetailScreen = ({ match, history }) => {
                                   <p className="rate">
                                     <i className="ion-android-star" />
                                     <span>7.8</span> /10
-                                </p>
+                                  </p>
                                   <p className="describe">
                                     As Steve Rogers struggles to embrace his role
                                     in the modern world, he teams up with a fellow
                                     Avenger and S.H.I.E.L.D agent, Black Widow, to
                                     battle a new threat...
-                                </p>
+                                  </p>
                                   <p className="run-time">
                                     {" "}
-                                  Run Time: 2h21’ . <span>
+                                    Run Time: 2h21’ . <span>
                                       MMPA: PG-13{" "}
                                     </span> . <span>Release: 1 May 2015</span>
                                   </p>
@@ -1298,16 +1307,16 @@ const DetailScreen = ({ match, history }) => {
                                   <p className="rate">
                                     <i className="ion-android-star" />
                                     <span>7.3</span> /10
-                                </p>
+                                  </p>
                                   <p className="describe">
                                     Armed with a super-suit with the astonishing
                                     ability to shrink in scale but increase in
                                     strength, cat burglar Scott Lang must embrace
                                     his inner hero and help...
-                                </p>
+                                  </p>
                                   <p className="run-time">
                                     {" "}
-                                  Run Time: 2h21’ . <span>
+                                    Run Time: 2h21’ . <span>
                                       MMPA: PG-13{" "}
                                     </span> . <span>Release: 1 May 2015</span>
                                   </p>
@@ -1331,16 +1340,16 @@ const DetailScreen = ({ match, history }) => {
                                   <p className="rate">
                                     <i className="ion-android-star" />
                                     <span>7.2</span> /10
-                                </p>
+                                  </p>
                                   <p className="describe">
                                     When Tony Stark's world is torn apart by a
                                     formidable terrorist called the Mandarin, he
                                     starts an odyssey of rebuilding and
                                     retribution.
-                                </p>
+                                  </p>
                                   <p className="run-time">
                                     {" "}
-                                  Run Time: 2h21’ . <span>
+                                    Run Time: 2h21’ . <span>
                                       MMPA: PG-13{" "}
                                     </span> . <span>Release: 1 May 2015</span>
                                   </p>
@@ -1365,16 +1374,16 @@ const DetailScreen = ({ match, history }) => {
                                   <p className="rate">
                                     <i className="ion-android-star" />
                                     <span>7.0</span> /10
-                                </p>
+                                  </p>
                                   <p className="describe">
                                     When Tony Stark's world is torn apart by a
                                     formidable terrorist called the Mandarin, he
                                     starts an odyssey of rebuilding and
                                     retribution.
-                                </p>
+                                  </p>
                                   <p className="run-time">
                                     {" "}
-                                  Run Time: 2h21’ . <span>
+                                    Run Time: 2h21’ . <span>
                                       MMPA: PG-13{" "}
                                     </span> . <span>Release: 1 May 2015</span>
                                   </p>
@@ -1398,7 +1407,7 @@ const DetailScreen = ({ match, history }) => {
                                   <span>Page 1 of 2:</span>
                                   <a className="active" href="#">
                                     1
-                                </a>
+                                  </a>
                                   <a href="#">2</a>
                                   <a href="#">
                                     <i className="ion-arrow-right-b" />

@@ -94,7 +94,6 @@ function CGUD() {
     setAddressCineplex(e.target.reset());
     setCineplex(e.target.reset());
     dispatch(getAddCineplex(name_cineplex, address_cineplex));
-    alert("Succes");
   };
 
   //add cinema
@@ -112,7 +111,6 @@ function CGUD() {
     dispatch(
       getAddRoom(id_cineplex, name_room, horizontal, vertical, id_categoryRoom)
     );
-    alert("Succes");
   };
 
   //add movie
@@ -168,7 +166,6 @@ function CGUD() {
             refImg.current
           )
         );
-        alert("Succes");
       }
     );
   };
@@ -188,7 +185,6 @@ function CGUD() {
     setStart_time(e.target.reset());
     setPrice(e.target.reset());
     dispatch(getAddShowtime(id_room, id_movie, date, start_time, price));
-    alert("Succes");
   };
 
   return (

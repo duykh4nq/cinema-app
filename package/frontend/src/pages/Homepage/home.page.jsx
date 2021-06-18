@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import "./home.style.css";
 import { getMovies as listMovies } from "../../redux/actions/movieActions";
 
 import "swiper/swiper.min.css";

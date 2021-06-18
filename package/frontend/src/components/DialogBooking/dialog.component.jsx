@@ -7,7 +7,6 @@ import "./style.css";
 import { postBookingShow } from "../../redux/actions/movieActions";
 
 const DialogBookingScreen = ({ posts }) => {
-console.log(`🚀 => file: dialog.component.jsx => line 10 => posts`, posts)
     const dispatch = useDispatch();
     const DialogBooking = useSelector((state) => state.postBookingShow);
     const { loading, error, movie } = DialogBooking;

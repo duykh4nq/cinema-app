@@ -8,6 +8,7 @@ import {
   getMovieDetailReducer,
   postBookingShowReducer,
   getMoviesReducer,
+  postBookingSeatReducer,
 } from "./reducers/movieReducers";
 import { loginReducer, registerReducer } from "./reducers/authReducers";
 import { oderReducers } from "./reducers/orderReduces";
@@ -17,14 +18,18 @@ const reducer = combineReducers({
   order: oderReducers,
   getMovieDetails: getMovieDetailReducer,
   postBookingShow: postBookingShowReducer,
+  postBookingSeat: postBookingSeatReducer,
   users: loginReducer,
   register: registerReducer,
   getMovies: getMoviesReducer,
 });
 const middleware = [thunk];
 
-const INITIAL_STATE = {};
-
+const INITIAL_STATE = {
+  users: {
+    loggedIn: false,
+  },
+};
 const store = createStore(
   reducer,
   INITIAL_STATE,

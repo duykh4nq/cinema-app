@@ -87,8 +87,11 @@ export const getAddCineplex = (name, address) => async (dispatch) => {
       name: name,
       address: address,
     });
-    if (data === "ok") {
+
+    console.log(`🚀 => file: adminActions.js => line 91 => data`, data);
+    if (data.message === "Ok") {
       dispatch(getCinema());
+      alert("Succes");
     }
     dispatch({
       type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
@@ -108,26 +111,6 @@ export const getAddCineplex = (name, address) => async (dispatch) => {
 export const getAddRoom =
   (id_cineplex, name_room, horizontal, vertical, id_categoryRoom) =>
   async (dispatch) => {
-    console.log(
-      `🚀 => file: adminActions.js => line 111 => id_categoryRoom`,
-      id_categoryRoom
-    );
-    console.log(
-      `🚀 => file: adminActions.js => line 111 => vertical`,
-      vertical
-    );
-    console.log(
-      `🚀 => file: adminActions.js => line 111 => horizontal`,
-      horizontal
-    );
-    console.log(
-      `🚀 => file: adminActions.js => line 111 => name_room`,
-      name_room
-    );
-    console.log(
-      `🚀 => file: adminActions.js => line 111 => id_cineplex`,
-      id_cineplex
-    );
     try {
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_REQUEST,
@@ -139,8 +122,9 @@ export const getAddRoom =
         vertical: vertical,
         id_categoryRoom: id_categoryRoom,
       });
-      if (data === "ok") {
+      if (data.message === "Ok") {
         dispatch(getCinema());
+        alert("Succes");
       }
       console.log(`🚀 => file: adminActions.js => line 142 => data`, data);
       dispatch({
@@ -171,7 +155,7 @@ export const getAddMovie =
         release_date: release_date,
         poster: poster,
       });
-      if (data === "ok") {
+      if (data.message === "Ok") {
         dispatch(getCinema());
         alert("Succes");
       }
@@ -198,7 +182,6 @@ export const getAddShowtime =
     if (h > 12) {
       h = h - 12;
     }
-
     try {
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_REQUEST,
@@ -210,7 +193,6 @@ export const getAddShowtime =
         start_time: h + ":" + m + " " + meridian,
         price: price,
       });
-      console.log(`🚀 => file: adminActions.js => line 198 => data`, data);
       if (data === "ok") {
         dispatch(getCinema());
         alert("Succes");
