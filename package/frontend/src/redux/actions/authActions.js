@@ -44,13 +44,6 @@ export const PostRegister = (email, password, name, phone) => async (
   dispatch,
   getState
 ) => {
-  console.log(
-    "🚀 ~ file: authActions.js ~ line 49 ~ email",
-    email,
-    password,
-    name,
-    phone
-  );
   try {
     dispatch({ type: actionTypes.REGISTER_REQUEST });
     const { data } = await axios.post("/signup", {
@@ -80,18 +73,11 @@ export const PostRegister = (email, password, name, phone) => async (
   }
 };
 
-export const getVerifyEmail = (activation_token) => async (
-  dispatch,
-  getState
-) => {
+export const postVerifyEmail = (code) => async (dispatch, getState) => {
   try {
-    console.log(
-      `🚀 => file: authActions.js => line 82 => activation_token`,
-      activation_token
-    );
     dispatch({ type: actionTypes.LOGIN_REQUEST });
-    const { data } = await axios.post("/verify-email/activation_token", {
-      token: activation_token,
+    const { data } = await axios.post("/verify", {
+      code: code,
     });
 
     dispatch({

@@ -13,6 +13,12 @@ export const loginReducer = (state = { user: {} }, action) => {
       return {
         error: action.payload,
       };
+    case actionTypes.LOGOUT_REQUEST:
+      return {
+        loading: true,
+      };
+    case actionTypes.LOGOUT_SUCCESS:
+      return action.payload;
     default:
       return state;
   }
