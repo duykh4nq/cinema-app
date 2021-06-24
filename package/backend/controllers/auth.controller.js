@@ -26,14 +26,6 @@ const MailService = require("../services/mail");
 
 exports.postSignup = async (req, res, next) => {
   let { password, email, name, phone } = req.body;
-  console.log(
-    "🚀 ~ file: auth.controller.js ~ line 29 ~ password",
-    password,
-    email,
-    name,
-    phone
-  );
-
   const code = Math.floor(100000 + Math.random() * 900000);
   try {
     const userExists = await Users.findOne({ where: { email: email } });
@@ -214,22 +206,6 @@ exports.getHistoryBooking = async (req, res, next) => {
     ],
   });
   return res.status(200).send(test);
-  // // convert to date
-  // const date = new Date(test[0].createdAt);
-  // console.log(
-  //   "Date: " +
-  //     date.getDate() +
-  //     "/" +
-  //     (date.getMonth() + 1) +
-  //     "/" +
-  //     date.getFullYear() +
-  //     " " +
-  //     date.getHours() +
-  //     ":" +
-  //     date.getMinutes() +
-  //     ":" +
-  //     date.getSeconds()
-  // );
 };
 
 exports.postPayment = async (req, res, next) => {
