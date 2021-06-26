@@ -3,7 +3,7 @@ import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 // Reducers
-import { cartReducer } from "./reducers/cartReducers";
+// import { cartReducer } from "./reducers/cartReducers";
 import {
   getMovieDetailReducer,
   postBookingShowReducer,
@@ -14,7 +14,7 @@ import { loginReducer, registerReducer } from "./reducers/authReducers";
 import { oderReducers } from "./reducers/orderReduces";
 
 const reducer = combineReducers({
-  cart: cartReducer,
+  // cart: cartReducer,
   order: oderReducers,
   getMovieDetails: getMovieDetailReducer,
   postBookingShow: postBookingShowReducer,

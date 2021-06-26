@@ -29,9 +29,10 @@ export const getMovieDetails = (slug) => async (dispatch, getState) => {
       type: actionTypes.GET_MOVIE_DETAILS_SUCCESS,
       payload: data,
     });
-    const movie = JSON.stringify(getState().getMovieDetails);
-    console.log(`🚀 => file: movieActions.js => line 33 => movie`, movie);
-    localStorage.setItem("movie", movie);
+    sessionStorage.setItem(
+      "movies",
+      JSON.stringify(getState().getMovieDetails.movie)
+    );
   } catch (error) {
     dispatch({
       type: actionTypes.GET_MOVIE_DETAILS_FAIL,
@@ -44,16 +45,14 @@ export const getMovieDetails = (slug) => async (dispatch, getState) => {
 };
 
 export const postBookingShow = () => async (dispatch, getState) => {
-  console.log(
-    `🚀 => file: movieActions.js => line 63 => getState().getMovieDetails.movie`,
-    getState().getMovieDetails.movie.id
-  );
-
   try {
     dispatch({ type: actionTypes.GET_MOVIE_DETAILS_REQUEST });
+    const seat = JSON.parse(sessionStorage.getItem("movies"));
+    console.log(`🚀 => file: movieActions.js => line 54 => seat.id`, seat.id);
     const { data } = await axios.post(`booking/now-showing`, {
-      id_schedule: getState().getMovieDetails.movie.id,
+      id_schedule: seat.id,
     });
+    console.log(`🚀 => file: movieActions.js => line 55 => data`, data);
     dispatch({
       type: actionTypes.GET_MOVIE_DETAILS_SUCCESS,
       payload: data,
@@ -70,14 +69,11 @@ export const postBookingShow = () => async (dispatch, getState) => {
 };
 
 export const postBookingSeat = () => async (dispatch, getState) => {
-  console.log(
-    `🚀 => file: movieActions.js => line 63 => getState().getMovieDetails.movie`,
-    getState().getMovieDetails.movie
-  );
   try {
     dispatch({ type: actionTypes.GET_MOVIE_DETAILS_REQUEST });
+    const seat = JSON.parse(sessionStorage.getItem("movies"));
     const { data } = await axios.post(`booking/seat`, {
-      id_schedule: getState().getMovieDetails.movie.id,
+      id_schedule: seat.id,
     });
     dispatch({
       type: actionTypes.GET_MOVIE_DETAILS_SUCCESS,

@@ -4594,6 +4594,17 @@ input[type="submit"] {
   margin-bottom: 25px;
 }
 
+.list-selected {
+  display: flex;
+  flex-wrap: wrap;
+  width: 300px;
+  align-items: center;
+}
+
+.list-selected h3:first-child {
+  margin-top: -10px;
+}
+
 .proceed-to-book .book-item span {
   color: #ffffff;
   text-transform: capitalize;
@@ -4608,6 +4619,10 @@ input[type="submit"] {
 
 .proceed-to-book .book-item .custom-button {
   padding: 8px 24px;
+}
+
+.proceed-to-book .book-item .item-book img {
+  width: 2.4rem;
 }
 
 .proceed-book {
@@ -4640,13 +4655,10 @@ input[type="submit"] {
   align-items: center;
 }
 
-.page-title-area .item {
-  margin: 0 15px 20px;
-}
-
 .page-title-area .item .title {
   font-size: 28px;
-  margin-bottom: 12px;
+  width: 500px;
+  text-align: left;
 }
 
 @media (max-width: 767px) {

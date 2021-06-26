@@ -122,6 +122,16 @@
     justify-content: left;
 }
 
+.close-dialog {
+    width: 30%;
+    background: #001232;
+    margin: 1rem 0rem 2rem;
+    border: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .item {
     text-align: center;
     width: 20%;

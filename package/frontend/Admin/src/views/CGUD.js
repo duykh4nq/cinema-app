@@ -379,7 +379,7 @@ function CGUD() {
                                   }
                                   return rows;
                                 })([], 1, 18)}
-                              </Input>
+                              </Input> 
                             </div>
                           </FormGroup>
                         </Col>

@@ -8,24 +8,6 @@ import paypal from "../../assets/img/paypal.png";
 function CheckoutPage(props) {
     return (
         <>
-    <section
-      class="
-        details-banner
-        hero-area
-        seat-plan-banner hero mv-single-hero
-      "
-    >
-      <div class="container">
-        <div class="details-banner-wrapper">
-          <div class="details-banner-content style-two">
-            <h3 class="title">
-              <span class="d-block">CHECKOUT</span>
-            </h3>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <div class="event-facility padding-bottom padding-top">
       <div class="container">
         <div class="row">
@@ -39,11 +21,8 @@ function CheckoutPage(props) {
                 <div class="form-group">
                   <input type="text" placeholder="Enter your Phone Number " />
                 </div>
-                <div class="form-group">
+                <div class="form-group form-address">
                   <input type="text" placeholder="Enter your Address" />
-                </div>
-                <div class="form-group">
-                  <input type="submit" value="Continue" class="custom-button" />
                 </div>
               </form>
             </div>
@@ -76,13 +55,6 @@ function CheckoutPage(props) {
                     <span class="info">Tôi đồng ý với điều khoản và mua vé với người có độ tuổi
                       phù hợp.</span>
                   </label>
-                </div>
-                <div class="form-group">
-                  <input
-                    type="submit"
-                    class="custom-button"
-                    value="make payment"
-                  />
                 </div>
               </form>
             </div>

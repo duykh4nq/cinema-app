@@ -1,57 +1,61 @@
 import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import Moment from "moment";
 import "../../assets/css/main.css";
 import "./booking.style.css";
 import screen_thumb from "../../assets/img/screen-thumb.png";
-import seat01 from "../../assets/img/seat01.png";
-import seat01_free from "../../assets/img/seat01-free.png";
-import seat01_booked from "../../assets/img/seat01-booked.png";
+import seat01 from "../../assets/img/seat.svg";
+import seat_checked from "../../assets/img/seat_checked.svg";
+import seat_booked from "../../assets/img/seat_booked.svg";
 
 // Actions
 import { postBookingSeat } from "../../redux/actions/movieActions";
-import { unstable_batchedUpdates } from "react-dom";
+import { getMovieDetails } from "../../redux/actions/movieActions";
 
-const BookingPage = (schedule) => {
-  console.log(`🚀 => file: booking.page.jsx => line 16 => schedule`, schedule);
+const BookingPage = () => { 
+  const seated=["A1","B5","C3"]
+  const  [arrSeat,setArrSeat]=React.useState([])
   const dispatch = useDispatch();
+  const _schedule = JSON.parse(sessionStorage.getItem("movies"));
+
   const seatBooking = useSelector((state) => state.postBookingSeat);
   const { loading, error, seat } = seatBooking;
-  console.log(`🚀 => file: booking.page.jsx => line 19 => seat`, seat);
+  console.log(`🚀 => file: booking.page.jsx => line 24 => seat`, seat)
+
   useEffect(() => {
-    dispatch(postBookingSeat(schedule.id)); // truyền id_schedule
-  }, []);
+    dispatch(postBookingSeat());
+  }, [dispatch]);
 
-  const [horizontal, setHorizontal] = React.useState(0);
-  const [vertical, setVertical] = React.useState("");
-
-  const setIndexSeat = (e) => {};
-
-  const clickconmegiday = (_seat) => {
-    console.log(_seat);
+  const setIndexSeat = (e,index) => {
+    e.target.setAttribute("src",seat_checked)
+    const abc=[...new Set([...arrSeat,index])]
+    setArrSeat(abc)
   };
-  const renderGhe = () => {
+  const renderSeatCode = () => {
     const arr = new Array(7 * 9).fill("");
     const newArr = arr.map((elem, index) => {
       const charI = String.fromCharCode(65 + ~~(index / 9));
       const number = ~~(index % 9) + 1;
-      return `${charI}${number}`;
+      return {seat: `${charI}${number}`, available:false};
     });
-    return newArr;
+    return newArr
   };
-  const renderGhe1 = () => {
-    
-  console.log(`🚀 => file: booking.page.jsx => line 52 => renderGhe1`, 222)
-    return renderGhe().map((elm,_index) => {
+
+  const renderSeat = () => {
+    return renderSeatCode().map((elm, _index) => {
       // const _widthSeat=100/9-2rem
-      return (<ul key={_index} style={{ width: "calc(100%/9 - 2rem)",margin: "1rem"}}>
-        <li class="single-seat" onClick={() => clickconmegiday(elm)}>
-          <img src={seat01} alt="seat" />
-          <span class="sit-num">{elm}</span>
+      const renderImg=seated.includes(elm.seat)?seat_booked:seat01
+
+      return (<ul key={_index} style={{ width: "calc(100%/9 - 2rem)", margin: "1rem" }}>
+        <li class="single-seat" onClick={(e) => setIndexSeat(e,elm.seat)}>
+        <img src={renderImg} alt="seat" />
+        <span class="sit-num">{elm.seat}</span>
         </li>
       </ul>)
     });
   };
+
   return (
     <>
       <section class="details-banner hero-area bg_img seat-plan-banner">
@@ -67,19 +71,11 @@ const BookingPage = (schedule) => {
       <section class="page-title bg-one">
         <div class="container">
           <div class="page-title-area">
-            <div class="item md-order-1">
-              <a
-                href="movie-ticket-plan.html"
-                class="custom-button back-button"
-              >
-                <i class="flaticon-double-right-arrows-angles"></i>back
-              </a>
-            </div>
             <div class="item">
-              <h5 class="title">{schedule.name_movie}</h5>
+              <h5 class="title">{_schedule.name_movie}</h5>
             </div>
             <div class="item-right">
-              <p>{schedule.release_date} 14:10 ~ 16:37</p>
+              <p>{Moment(_schedule.release_date).format("DD-MM-YYYY")} 14:10 ~ 16:37</p>
               <p>CGV Vincom Trà Vinh | Cinema 3 | Số ghế (141/141)</p>{" "}
               {/* ({seat.empty_seat}/{seat.sum_of_seat}) */}
             </div>
@@ -96,55 +92,8 @@ const BookingPage = (schedule) => {
             <div class="screen-wrapper">
               <ul class="seat-area couple">
                 <li class="seat-line">
-                  {/* {(function () {
-                    let chr;
-                    let seat_code;
-                    let cols = [];
-                    let rows = [];
-
-                    for (let i = 1; i <= 9; i++) {
-                      for (let j = 1; j <= 7; j++) {
-                        chr = String.fromCharCode(64 + j);
-                        seat_code = chr + i.toString();
-                        console.log(
-                          `🚀 => file: booking.page.jsx => line 89 => seat_code`,
-                          seat_code
-                        );
-                        cols.push(
-                          <ul>
-                            <li
-                              class="single-seat"
-                              onClick={() =>
-                                clickconmegiday(
-                                  String.fromCharCode(64 + j) + i.toString()
-                                )
-                              }
-                            >
-                              <img src={seat01} alt="seat" />
-                              <span class="sit-num">{seat_code}</span>
-                            </li>
-                          </ul>
-                        );
-                      }
-                      rows.push(
-                        <div key={chr}>
-                          {cols.map((col, i) => {
-                            // console.log(`🚀 => file: booking.page.jsx => line 102 => i`, i)
-                            return <div>{col}</div>;
-                          })}
-                        </div>
-                      );
-
-                      cols = [];
-                    }
-                    console.log(
-                      `🚀 => file: booking.page.jsx => line 153 => rows`,
-                      rows[3]
-                    );
-                    return rows;
-                  })([])} */}
-                  {renderGhe1()}
-                  </li>
+                  {renderSeat()}
+                </li>
               </ul>
             </div>
           </div>
@@ -157,18 +106,22 @@ const BookingPage = (schedule) => {
                     <p class="book-info">Chưa chọn</p>
                   </li>
                   <li class="item-book">
-                    <img src={seat01_free} alt="seat" />
+                    <img src={seat_booked} alt="seat" />
                     <p class="book-info">Đã chọn</p>
                   </li>
                   <li class="item-book">
-                    <img src={seat01_booked} alt="seat" />
+                    <img src={seat_checked} alt="seat" />
                     <p class="book-info">Checked</p>
                   </li>
                 </ul>
               </div>
               <div class="book-item">
                 <span>You have Choosed Seat</span>
-                <h3 class="title">d9, d10</h3>
+                <div className="list-selected">
+                {arrSeat.map(elm=>{
+                  return <h3 class="title">{elm}, </h3>
+                })}
+                </div>
               </div>
               <div class="book-item">
                 <span>total price</span>

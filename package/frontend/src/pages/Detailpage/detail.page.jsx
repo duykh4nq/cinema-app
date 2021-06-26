@@ -3,9 +3,10 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
 import Modal from "react-modal";
+import "./detail.style.css";
 import { ModalBody, ModalFooter } from 'reactstrap';
 import DialogBookingScreen from "../../components/DialogBooking/dialog.component";
-import Bookingpage from "../../pages/Bookingpage/booking.page";
+
 
 
 // Actions
@@ -23,16 +24,7 @@ import play_vd from "../../assets/images/uploads/play-vd.png"
 
 
 const DetailScreen = ({ match, history }) => {
-  // const customStyles = {
-  //   content: {
-  //     width: '90%',
-  //     zIndex:'99'
-  //   },
-  // };
-
-  const [modal, setModal] = React.useState(false);
-
-  const toggle = () => setModal(!modal);
+  const [openformLogin, setOpenformLogin] = React.useState(false);
   history = useHistory();
   const dispatch = useDispatch();
 
@@ -42,27 +34,28 @@ const DetailScreen = ({ match, history }) => {
 
   useEffect(() => {
     dispatch(getMovieDetails(match.params.slug));
-  }, [modal]);
+  }, [openformLogin]);
+
+
+  const ClickOpenformDialog = () => {
+    setOpenformLogin(true);
+  };
+
+  const BackOpenformDialog = () => {
+    setOpenformLogin(false);
+  };
 
   return (
-    <><Modal isOpen={modal} toggle={toggle}>
-      <ModalBody>
-        <DialogBookingScreen posts={movie} />
-      </ModalBody>
-      <ModalFooter>
-        <button onClick={toggle}>Cancel</button>
-      </ModalFooter>
-    </Modal>
-
+    <>
+    <DialogBookingScreen
+        openformLogin={openformLogin}
+        BackOpenformLogin={BackOpenformDialog}
+      />
       <div>
-        <div className="hero mv-single-hero">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12"></div>
-            </div>
-          </div>
+        <div className="row header-movie">
+          <div className="col-md-12"></div>
         </div>
-        <div class="page-single movie-single movie_single">
+        <div class="page-single movie-single">
           <div className="container">
             {loading ? (
               <h2>Loading...</h2>
@@ -76,7 +69,7 @@ const DetailScreen = ({ match, history }) => {
                     <div class="movie-btn">
                       <div class="btn-transform transform-vertical">
                         <div><button class="item item-1 yellowbtn"> <i class="ion-card"></i> Buy ticket</button></div>
-                        <div><button class="item item-2 yellowbtn" onClick={toggle}><i class="ion-card"></i></button></div>
+                        <div><button class="item item-2 yellowbtn" onClick={ClickOpenformDialog}><i class="ion-card"></i></button></div>
                       </div>
                     </div>
                   </div>
