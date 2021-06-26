@@ -1,14 +1,19 @@
 import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "./register.page.scss";
-import { PostRegister } from "../../redux/actions/authActions";
-import { useDispatch } from "react-redux";
+import { PostRegister, postVerifyEmail } from "../../redux/actions/authActions";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 Register.propTypes = {};
 
-function Register({ openformRegister, BackOpenformRegister }) {
+function Register({ openformRegister, BackOpenformRegister, onSubmit }) {
+  const history = useHistory();
   const [user, setUser] = useState("");
   const { email, password, name, phone } = user;
+  const register = useSelector((state) => state.register);
+  const [check, setCheck] = useState(false);
+  console.log("🚀 ~ file: register.page.jsx ~ line 13 ~ user", register);
   //const typingTimeoutRef = useRef("");
   const dispatch = useDispatch();
 
@@ -25,8 +30,12 @@ function Register({ openformRegister, BackOpenformRegister }) {
     // }, 400);
   };
   const HandleSubmit = async (e) => {
+    e.preventDefault();
     await dispatch(PostRegister(email, password, name, phone));
-    console.log("succes");
+    onSubmit();
+    history.push(history.location.pathname);
+    // dispatch(postVerifyEmail(register.message.user.code));
+    // console.log("succes");
   };
   return (
     <div

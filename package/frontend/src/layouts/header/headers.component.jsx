@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import LoginScreen from "../../pages/Loginpage/login.page";
 import Register from "../../pages/Registerpage/register.page";
 
@@ -10,15 +10,12 @@ import "../../assets/css/style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { PostLogout } from "../../redux/actions/authActions";
 
-import logo from "../../assets/images/logo1.png"
+import logo from "../../assets/images/logo1.png";
 
 function HeadersComponent() {
   const userLoggedIn = useSelector((state) => state.users.loggedIn);
   const dispatch = useDispatch();
-  console.log(
-    "🚀 ~ file: headers.component.jsx ~ line 15 ~ user",
-    userLoggedIn
-  );
+  const history = useHistory();
   const [openformLogin, setOpenformLogin] = useState(false);
 
   const ClickOpenformLogin = () => {
@@ -38,20 +35,26 @@ function HeadersComponent() {
   const BackOpenformRegister = () => {
     setOpenformRegister(false);
   };
-  const HandleSucess = () => {
+  const HandleLoginSucess = () => {
     setOpenformLogin(false);
+  };
+  const HandleRegisterSucess = () => {
+    setOpenformRegister(false);
+    history.push(history.location.pathname);
   };
   const HandleLogOut = () => {
     dispatch(PostLogout());
+    history.push(history.location.pathname);
   };
   return (
     <>
       <LoginScreen
-        onSubmit={HandleSucess}
+        onSubmit={HandleLoginSucess}
         openformLogin={openformLogin}
         BackOpenformLogin={BackOpenformLogin}
       />
       <Register
+        onSubmit={HandleRegisterSucess}
         openformRegister={openformRegister}
         BackOpenformRegister={BackOpenformRegister}
       />
@@ -72,13 +75,7 @@ function HeadersComponent() {
                 </div>
               </div>
               <a href="index-2.html">
-                <img
-                  class="logo"
-                  src={logo}
-                  alt=""
-                  width="119"
-                  height="58"
-                />
+                <img class="logo" src={logo} alt="" width="119" height="58" />
               </a>
             </div>
             <div
