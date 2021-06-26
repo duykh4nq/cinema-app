@@ -209,7 +209,7 @@ exports.postBookingShow = async (req, res, next) => {
 exports.postBookingSeat = async (req, res, next) => {
   const { id_schedule } = req.body;
   const bookings = await db.query(
-    `select sch.id, ro.horizontal_size, ro.vertical_size, ti.seat
+    `select sch.id, ro.horizontal_size, ro.vertical_size, ti.seat, sch.price
     from schedules sch join rooms ro on ro.id = sch.id_room
     join bookings bo on sch.id = bo.id_schedule
     join tickets ti on ti.id_booking = bo.id
@@ -221,6 +221,7 @@ exports.postBookingSeat = async (req, res, next) => {
     id_schedule: bookings[0].id,
     horizontal_size: bookings[0].horizontal_size,
     vertical_size: bookings[0].vertical_size,
+    price: bookings[0].price,
     sum_of_seat:
       (bookings[0].vertical_size.charCodeAt(0) - 96) *
       bookings[0].horizontal_size,
