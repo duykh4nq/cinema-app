@@ -28,6 +28,7 @@ export const registerReducer = (state = { message: {} }, action) => {
   switch (action.type) {
     case actionTypes.REGISTER_REQUEST:
       return {
+        message: {},
         loading: true,
       };
     case actionTypes.REGISTER_SUCCESS:
