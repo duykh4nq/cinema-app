@@ -33,6 +33,10 @@ const Users = db.define(
       type: Sequelize.STRING,
       allowNull: true,
     },
+    verifyCode: {
+      type: Sequelize.NUMBER,
+      allowNull: true,
+    },
   },
   {
     timestamps: false,

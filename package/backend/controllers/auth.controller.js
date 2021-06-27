@@ -43,8 +43,6 @@ exports.postSignup = async (req, res, next) => {
       active: code,
     });
     if (newUser) {
-      req.session.code = code.toString();
-      req.session.email = newUser.email;
       await MailService.sendMail(email, code);
       return res
         .status(200)
@@ -58,8 +56,7 @@ exports.postSignup = async (req, res, next) => {
 };
 
 exports.postVerify = async (req, res, next) => {
-  const { code } = req.body;
-  const email = req.session.email;
+  const { code, email } = req.body;
 
   const user = await Users.findOne({
     where: {
@@ -120,8 +117,8 @@ exports.postForgotPassword = async (req, res, next) => {
         error: "Email is not exists",
       });
     await MailService.sendMail(email, code);
-    req.session.codeverify = code.toString();
-    req.session.email = email;
+    userExists.verifyCode = code;
+    await userExists.save();
     return res
       .status(200)
       .send({ message: "Success", codeverify: code.toString() });
@@ -131,20 +128,25 @@ exports.postForgotPassword = async (req, res, next) => {
 };
 
 exports.postVerifyCodeResetPass = async (req, res, next) => {
-  const { code } = req.body;
-  const email = req.session.email;
-  const codeverify = req.session.codeverify;
+  const { code, email } = req.body;
+  const user = await Users.findOne({
+    where: {
+      email: email,
+      verifyCode: code,
+    },
+  });
 
-  if (code != codeverify) {
-    return res.status(403).send({ message: "Code not match" });
+  if (user !== null) {
+    user.verifyCode = null;
+    await user.save();
+    return res.status(200).send({ message: "Success" });
   } else {
-    return res.status(200).send({ message: "OK" });
+    return res.status(403).send({ message: "Code not match" });
   }
 };
 
 exports.postResetPassword = async (req, res, next) => {
-  const email = req.session.email;
-  const { password } = req.body;
+  const { email, password } = req.body;
 
   const user = await Users.findOne({ where: { email: email } });
   user.password = bcrypt.hashSync(password, 12);
@@ -153,16 +155,13 @@ exports.postResetPassword = async (req, res, next) => {
 };
 
 exports.postChangeProfile = async (req, res, next) => {
-  const { password, name, phone } = req.body;
-  const email = req.session.email;
-  console.log(email);
+  const { email, name, phone } = req.body;
   const user = await Users.findOne({
     where: {
       email: email,
     },
   });
 
-  user.password = bcrypt.hashSync(password, 12);
   user.name = name;
   user.phone = phone;
   await user.save();
@@ -170,7 +169,7 @@ exports.postChangeProfile = async (req, res, next) => {
 };
 
 exports.getHistoryBooking = async (req, res, next) => {
-  const email = req.session.email;
+  const { email } = req.body;
   const user = await Users.findOne({ where: { email } });
   const test = await Bookings.findAll({
     where: {
@@ -209,8 +208,7 @@ exports.getHistoryBooking = async (req, res, next) => {
 };
 
 exports.postPayment = async (req, res, next) => {
-  const { id_schedule, total, seat } = req.body;
-  const email = req.session.email || "ducga079099@gmail.com";
+  const { email, id_schedule, total, seat } = req.body;
   const user = await Users.findOne({
     where: {
       email,
@@ -226,20 +224,34 @@ exports.postPayment = async (req, res, next) => {
     total: total,
   });
 
+  const bookingInfo = await db.query(
+    `select mo.name_movie, r.name_room, cr.name_cat, ti.start_point, ti.end_point
+    from schedules sch join rooms r on sch.id_room = r.id
+    join category_rooms cr on r.id_category_room = cr.id
+    join times ti on sch.id_time = ti.id
+    join movies mo on mo.id = sch.id_movie
+    where sch.id = ${id_schedule}`,
+    { type: QueryTypes.SELECT }
+  );
+
   const price_ticket = parseInt(total) / seat.length;
+  const listIdTickets = [];
+  console.log(seat.length);
   for (let i = 0; i < seat.length; i++) {
     const uuidTicket = uuid.v4();
+    listIdTickets.push(uuidTicket);
     await Tickets.create({
       id: uuidTicket,
       id_booking: uuidBooking,
-      seat: seat[i],
+      seat: seat[i].toString(),
       price_ticket: price_ticket,
     });
   }
 
+  await MailService.sendMailBookingSuccess(email, {
+    listIdTickets,
+    info: bookingInfo[0],
+  });
+  //return res.send({ listIdTickets, info: bookingInfo[0] });
   res.status(200).send({ message: "success" });
 };
-
-function getDateWithoutTime(date) {
-  return require("moment")(date).format("YYYY-MM-DD");
-}
