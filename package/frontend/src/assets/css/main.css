@@ -8968,7 +8968,7 @@ aside {
 }
 
 .custom-button {
-  background-image: -webkit-linear-gradient(169deg, #5560ff 17%, #aa52a1 63%, #ff4343 100%);
+  background-color: #dd003f;
   padding: 11px 24px;
   font-weight: 600;
   color: #ffffff;
