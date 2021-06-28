@@ -7,8 +7,6 @@ import "./detail.style.css";
 import { ModalBody, ModalFooter } from 'reactstrap';
 import DialogBookingScreen from "../../components/DialogBooking/dialog.component";
 
-
-
 // Actions
 import { getMovieDetails } from "../../redux/actions/movieActions";
 

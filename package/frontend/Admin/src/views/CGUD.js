@@ -179,12 +179,16 @@ function CGUD() {
 
   const addShowtimeHandler = (e) => {
     e.preventDefault();
-    setId_room(e.target.reset());
-    setId_movie(e.target.reset());
-    setDate(e.target.reset());
-    setStart_time(e.target.reset());
-    setPrice(e.target.reset());
-    dispatch(getAddShowtime(id_room, id_movie, date, start_time, price));
+    if (start_time == null) {
+      alert("Time data not received, please re-enter ^^!");
+    } else {
+      setId_room(e.target.reset());
+      setId_movie(e.target.reset());
+      setDate(e.target.reset());
+      setStart_time(e.target.reset());
+      setPrice(e.target.reset());
+      dispatch(getAddShowtime(id_room, id_movie, date, start_time, price));
+    }
   };
 
   return (
@@ -379,7 +383,7 @@ function CGUD() {
                                   }
                                   return rows;
                                 })([], 1, 18)}
-                              </Input> 
+                              </Input>
                             </div>
                           </FormGroup>
                         </Col>

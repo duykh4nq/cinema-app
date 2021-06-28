@@ -1,7 +1,10 @@
 import React from "react";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 
+// import "./home.style.css";
 import { getMovies as listMovies } from "../../redux/actions/movieActions";
 
 import "swiper/swiper.min.css";
@@ -15,6 +18,7 @@ const HomeScreen = ({ match, history }) => {
 
   const getMovies = useSelector((state) => state.getMovies);
   const { movies } = getMovies;
+  console.log(`🚀 => file: home.page.jsx => line 21 => movies`, movies)
 
   var arrData = [];
   if (movies["commingsoon"]) {
@@ -43,7 +47,7 @@ const HomeScreen = ({ match, history }) => {
                     <li>
                       <a href="#0">
                         <span class="img">
-                        <img src="./images/sidebar01.png" alt="movie" />
+                        <img src='./images/sidebar01.png' alt="movie" />
             
                         </span>
                         <span class="cate">24X7 Care</span>

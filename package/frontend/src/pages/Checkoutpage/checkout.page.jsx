@@ -1,11 +1,22 @@
-import React from 'react';
+import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import React from "react";
 import "./checkout.style.css";
 import "../../assets/css/main.css";
 import card from "../../assets/img/card.png";
 import paypal from "../../assets/img/paypal.png";
 
+// Actions
+import { checkoutCart } from "../../redux/actions/movieActions";
 
 function CheckoutPage(props) {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkoutCart());
+  }, [dispatch]);
+
     return (
         <>
     <div class="event-facility padding-bottom padding-top">

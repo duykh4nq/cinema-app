@@ -30,18 +30,19 @@ function Statistical(props) {
   const dispatch = useDispatch();
   //cineplex
   const _cineplex = useSelector((state) => state.getCinema);
-  const { cinema } = _cineplex;
+  const { loadingCineplex, errorCineplex, cinema } = _cineplex;
+  console.log(`🚀 => file: Statistical.js => line 34 => cinema`, cinema.length);
 
   //schedule
   const _schedule = useSelector((state) => state.getSchedule);
-  const { schedule } = _schedule;
+  const { loadingSchedule, errorSchedule, schedule } = _schedule;
 
   const setValueCineplex = (e) => {
     dispatch(getMovies(e));
   };
 
-  const [start, setStart] = useState("");
-  const [end, setEnd] = useState("");
+  const [start, setStart] = useState(null);
+  const [end, setEnd] = useState(null);
   const [bigChartData, setbigChartData] = React.useState("cineplex");
   const setBgChartData = (name) => {
     setbigChartData(name);

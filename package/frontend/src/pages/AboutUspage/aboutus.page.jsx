@@ -1,39 +1,41 @@
 import React from 'react';
 import "../../assets/css/main.css";
+import "./aboutus.style.css";
 import about01 from "../../assets/img/about01.png";
 import icon1 from "../../assets/img/icon1.png";
 import icon2 from "../../assets/img/icon2.png";
 import icon3 from "../../assets/img/icon3.png";
-import client01 from "../../assets/img/client01.jpg";
-import client02 from "../../assets/img/client02.jpg";
-import client03 from "../../assets/img/client03.jpg";
-import client04 from "../../assets/img/client04.jpg";
-import speaker01 from "../../assets/img/speaker01.jpg";
-import speaker02 from "../../assets/img/speaker02.jpg";
-import speaker03 from "../../assets/img/speaker03.jpg";
-import speaker04 from "../../assets/img/speaker04.jpg";
+import icon01 from "../../assets/img/icon01.png";
+import icon02 from "../../assets/img/icon02.png";
+import tour from "../../assets/img/tour.png";
+import aboutCounter01 from "../../assets/img/about-counter01.png";
+import aboutCounter02 from "../../assets/img/about-counter02.png";
+import aboutCounter03 from "../../assets/img/about-counter03.png";
+import aboutCounter04 from "../../assets/img/about-counter04.png";
+import gallery05 from "../../assets/img/gallery05.jpg";
+import gallery06 from "../../assets/img/gallery06.jpg";
+import gallery07 from "../../assets/img/gallery07.jpg";
+import gallery08 from "../../assets/img/gallery08.jpg";
+import gallery09 from "../../assets/img/gallery09.jpg";
+import gallery10 from "../../assets/img/gallery10.jpg";
+import gallery11 from "../../assets/img/gallery11.jpg";
+import gallery12 from "../../assets/img/gallery12.jpg";
+import gallery13 from "../../assets/img/gallery13.jpg";
 
 function AboutUsPage() {
     return (
         <body>
     <section
-      class="main-page-header speaker-banner bg_img"
-      data-background="./assets/images/banner/banner07.jpg"
+      class="main-page-header bg_img"
     >
       <div class="container">
         <div class="speaker-banner-content">
           <h2 class="title">about us</h2>
-          <ul class="breadcrumb">
-            <li>
-              <a href="index.html"> Home </a>
-            </li>
-            <li>about us</li>
-          </ul>
         </div>
       </div>
     </section>
 
-    <section class="about-section padding-top padding-bottom">
+    <section class="about-section padding-top">
       <div class="container">
         <div class="row justify-content-between">
           <div class="col-lg-6">
@@ -71,7 +73,6 @@ function AboutUsPage() {
         padding-top padding-bottom
         bg-one bg_img bg_quater_img
       "
-      data-background="./assets/images/about/about-bg.jpg"
     >
       <div class="container">
         <div class="row">
@@ -130,7 +131,7 @@ function AboutUsPage() {
             <div class="about-counter">
               <div class="counter-item">
                 <div class="counter-thumb">
-                  <img src="../img/about-counter01.png" alt="about" />
+                  <img src={aboutCounter01} alt="about" />
                 </div>
                 <div class="counter-content">
                   <h3 class="title odometer" data-odometer-final="30"></h3>
@@ -140,7 +141,7 @@ function AboutUsPage() {
               </div>
               <div class="counter-item">
                 <div class="counter-thumb">
-                  <img src="../img/about-counter02.png" alt="about" />
+                  <img src={aboutCounter02} alt="about" />
                 </div>
                 <div class="counter-content">
                   <h3 class="title odometer" data-odometer-final="11"></h3>
@@ -149,7 +150,7 @@ function AboutUsPage() {
               </div>
               <div class="counter-item">
                 <div class="counter-thumb">
-                  <img src="../img/about-counter03.png" alt="about" />
+                  <img src={aboutCounter03} alt="about" />
                 </div>
                 <div class="counter-content">
                   <h3 class="title odometer" data-odometer-final="650"></h3>
@@ -159,7 +160,7 @@ function AboutUsPage() {
               </div>
               <div class="counter-item">
                 <div class="counter-thumb">
-                  <img src="../img/about-counter04.png" alt="about" />
+                  <img src={aboutCounter04} alt="about" />
                 </div>
                 <div class="counter-content">
                   <h3 class="title odometer" data-odometer-final="5000"></h3>
@@ -173,152 +174,7 @@ function AboutUsPage() {
       </div>
     </section>
     
-    <section
-      class="client-section padding-bottom padding-top bg_img"
-      data-background="./assets/images/client/client-bg.jpg"
-    >
-      <div class="container">
-        <div class="section-header-3">
-          <span class="cate">testimonials</span>
-          <h2 class="title">the fans have spoken</h2>
-        </div>
-        <div class="client-slider owl-carousel owl-theme">
-          <div class="client-item">
-            <div class="client-thumb">
-              <img src={client01} alt="client" />
-            </div>
-            <div class="client-content">
-              <h5 class="title">
-                <a href="#0">Rafuz</a>
-              </h5>
-              <span class="info"><i class="fas fa-check"></i> Verified</span>
-              <blockquote class="client-quote">
-                "Great prices and Cheaper than other sites! Easy to use."
-              </blockquote>
-            </div>
-          </div>
-          <div class="client-item">
-            <div class="client-thumb">
-              <img src={client03} alt="client" />
-            </div>
-            <div class="client-content">
-              <h5 class="title">
-                <a href="#0">Rudra</a>
-              </h5>
-              <span class="info"><i class="fas fa-check"></i> Verified</span>
-              <blockquote class="client-quote">
-                "Id iure est sint at illum ipsum non beatae cumque"
-              </blockquote>
-            </div>
-          </div>
-          <div class="client-item">
-            <div class="client-thumb">
-              <img src={client02} alt="client" />
-            </div>
-            <div class="client-content">
-              <h5 class="title">
-                <a href="#0">Raihan</a>
-              </h5>
-              <span class="info"><i class="fas fa-check"></i> Verified</span>
-              <blockquote class="client-quote">
-                "amet consectetur adipisicing elit. Animi, ut consequuntur"
-              </blockquote>
-            </div>
-          </div>
-          <div class="client-item">
-            <div class="client-thumb">
-              <img src={client04} alt="client" />
-            </div>
-            <div class="client-content">
-              <h5 class="title">
-                <a href="#0">Shahidul</a>
-              </h5>
-              <span class="info"><i class="fas fa-check"></i> Verified</span>
-              <blockquote class="client-quote">
-                "Quia voluptatum animi libero recusandae error."
-              </blockquote>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-   
-    <section class="speaker-section padding-bottom padding-top">
-      <div class="container">
-        <div class="section-header-3">
-          <span class="cate">meet our most valued</span>
-          <h2 class="title">expert team members</h2>
-          <p>
-            World is committed to making participation in the event a harassment
-            free experience for everyone, regardless of level of experience,
-            gender, gender identity and expression
-          </p>
-        </div>
-        <div class="speaker--slider">
-          <div class="speaker-slider owl-carousel owl-theme">
-            <div class="speaker-item">
-              <div class="speaker-thumb">
-                <a href="event-speaker.html">
-                  <img src={speaker01} alt="speaker" />
-                </a>
-              </div>
-              <div class="speaker-content">
-                <h5 class="title">
-                  <a href="event-speaker.html"> Gerard Bryan </a>
-                </h5>
-                <span>CO-FOUNDER, CEO</span>
-              </div>
-            </div>
-            <div class="speaker-item">
-              <div class="speaker-thumb">
-                <a href="event-speaker.html">
-                  <img src={speaker02} alt="speaker" />
-                </a>
-              </div>
-              <div class="speaker-content">
-                <h5 class="title">
-                  <a href="event-speaker.html"> Raihan Rafuj </a>
-                </h5>
-                <span>CO-FOUNDER, CEO</span>
-              </div>
-            </div>
-            <div class="speaker-item">
-              <div class="speaker-thumb">
-                <a href="event-speaker.html">
-                  <img src={speaker03} alt="speaker" />
-                </a>
-              </div>
-              <div class="speaker-content">
-                <h5 class="title">
-                  <a href="event-speaker.html"> Bela Bose </a>
-                </h5>
-                <span>CO-FOUNDER, CEO</span>
-              </div>
-            </div>
-            <div class="speaker-item">
-              <div class="speaker-thumb">
-                <a href="event-speaker.html">
-                  <img src={speaker04} alt="speaker" />
-                </a>
-              </div>
-              <div class="speaker-content">
-                <h5 class="title">
-                  <a href="event-speaker.html"> Grass Hopper </a>
-                </h5>
-                <span>CO-FOUNDER, CEO</span>
-              </div>
-            </div>
-          </div>
-          <div class="speaker-prev">
-            <i class="flaticon-double-right-arrows-angles"></i>
-          </div>
-          <div class="speaker-next">
-            <i class="flaticon-double-right-arrows-angles"></i>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    
     <section class="gallery-section padding-top padding-bottom bg-one">
       <div class="container">
         <div class="section-header-3">
@@ -337,7 +193,7 @@ function AboutUsPage() {
                 <a href="./assets/images/gallery/gallery05.jpg" class="img-pop">
                   <i class="flaticon-loupe"></i>
                 </a>
-                <img src="../img/gallery05.jpg" alt="gallery" />
+                <img src={gallery05} alt="gallery" />
               </div>
             </div>
             <div class="gallery-item two">
@@ -345,7 +201,7 @@ function AboutUsPage() {
                 <a href="./assets/images/gallery/gallery06.jpg" class="img-pop">
                   <i class="flaticon-loupe"></i>
                 </a>
-                <img src="../img/gallery06.jpg" alt="gallery" />
+                <img src={gallery06} alt="gallery" />
               </div>
             </div>
             <div class="gallery-item two">
@@ -353,7 +209,7 @@ function AboutUsPage() {
                 <a href="./assets/images/gallery/gallery07.jpg" class="img-pop">
                   <i class="flaticon-loupe"></i>
                 </a>
-                <img src="../img/gallery07.jpg" alt="gallery" />
+                <img src={gallery07} alt="gallery" />
               </div>
             </div>
           </div>
@@ -363,7 +219,7 @@ function AboutUsPage() {
                 <a href="./assets/images/gallery/gallery11.jpg" class="img-pop">
                   <i class="flaticon-loupe"></i>
                 </a>
-                <img src="../img/gallery11.jpg" alt="gallery" />
+                <img src={gallery11} alt="gallery" />
               </div>
             </div>
             <div class="gallery-item two">
@@ -371,7 +227,7 @@ function AboutUsPage() {
                 <a href="./assets/images/gallery/gallery12.jpg" class="img-pop">
                   <i class="flaticon-loupe"></i>
                 </a>
-                <img src="../img/gallery12.jpg" alt="gallery" />
+                <img src={gallery12} alt="gallery" />
               </div>
             </div>
             <div class="gallery-item two">
@@ -379,7 +235,7 @@ function AboutUsPage() {
                 <a href="./assets/images/gallery/gallery13.jpg" class="img-pop">
                   <i class="flaticon-loupe"></i>
                 </a>
-                <img src="../img/gallery13.jpg" alt="gallery" />
+                <img src={gallery13} alt="gallery" />
               </div>
             </div>
           </div>
@@ -389,7 +245,7 @@ function AboutUsPage() {
                 <a href="./assets/images/gallery/gallery08.jpg" class="img-pop">
                   <i class="flaticon-loupe"></i>
                 </a>
-                <img src="../img/gallery08.jpg" alt="gallery" />
+                <img src={gallery08} alt="gallery" />
               </div>
             </div>
             <div class="row">
@@ -402,7 +258,7 @@ function AboutUsPage() {
                     >
                       <i class="flaticon-loupe"></i>
                     </a>
-                    <img src="../img/gallery09.jpg" alt="gallery" />
+                    <img src={gallery09} alt="gallery" />
                   </div>
                 </div>
               </div>
@@ -415,7 +271,7 @@ function AboutUsPage() {
                     >
                       <i class="flaticon-loupe"></i>
                     </a>
-                    <img src="../img/gallery10.jpg" alt="gallery" />
+                    <img src={gallery10} alt="gallery" />
                   </div>
                 </div>
               </div>
@@ -440,7 +296,7 @@ function AboutUsPage() {
               <ul class="list-tour">
                 <li>
                   <div class="thumb">
-                    <img src="../img/icon01.png" alt="tour" />
+                    <img src={icon01} alt="tour" />
                   </div>
                   <div class="content">
                     <h5 class="title">Get In Guarantee</h5>
@@ -452,7 +308,7 @@ function AboutUsPage() {
                 </li>
                 <li>
                   <div class="thumb">
-                    <img src="../img/icon02.png" alt="tour" />
+                    <img src={icon02} alt="tour" />
                   </div>
                   <div class="content">
                     <h5 class="title">price match guarantee</h5>
@@ -467,7 +323,7 @@ function AboutUsPage() {
           </div>
           <div class="col-lg-6 d-none d-lg-block">
             <div class="tour-thumb">
-              <img src="../img/tour.png" alt="tour" />
+              <img src={tour} alt="tour" />
             </div>
           </div>
         </div>
