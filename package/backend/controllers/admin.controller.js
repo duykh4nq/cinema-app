@@ -102,25 +102,17 @@ function nonAccentVietnamese(str) {
 }
 
 exports.postAddMovie = async (req, res, next) => {
-  try {
-    let { id_cineplex, name_movie, time, release_date, poster } = req.body;
-    if (id_cineplex === undefined) return res.status(200).send("All");
-    name_movie = name_movie.toString().replace(/\s+/g, " ").trim();
-    let slug = nonAccentVietnamese(name_movie).split(" ").join("-");
+  let { listIdCineplexs, name_movie, time, release_date, poster } = req.body;
+  if (listIdCineplexs.length === 0)
+    return res.status(403).send({ message: "Without movie" });
+  name_movie = name_movie.toString().replace(/\s+/g, " ").trim();
+  let slug = nonAccentVietnamese(name_movie).split(" ").join("-");
 
-    const existsMovie = await db.query(
-      `
-    select mo.*
-    from movies as mo join movies_cineplexs mc on mo.id = mc.id_movie
-    where mo.name_movie = '${name_movie}' and mc.id_cineplex = ${id_cineplex}
-  `,
-      { type: QueryTypes.SELECT }
-    );
-
-    if (Object.keys(existsMovie).length !== 0) {
-      return res.send({ message: "Movie is exists" });
-    }
-
+  const existsMovie = await Movies.findAll({ where: { slug } });
+  // find exist movie
+  // if not exist movie in movies table
+  if (existsMovie.length === 0) {
+    // => then add movie and add movies_cineplex
     let tt = await Movies.create({
       name_movie: name_movie,
       slug: slug,
@@ -129,17 +121,35 @@ exports.postAddMovie = async (req, res, next) => {
       time: time,
     });
     tt = JSON.parse(JSON.stringify(tt));
-    const id_movie = tt["id"];
-
-    await Movies_Cineplex.create({
-      id_cineplex: id_cineplex,
-      id_movie: id_movie,
-    });
-    return res.status(200).send({ message: "Ok" });
-  } catch (err) {
-    console.log(err);
-    return res.status(404).send("er");
+    for (let i = 0; i < listIdCineplexs.length; i++) {
+      await Movies_Cineplex.create({
+        id_cineplex: parseInt(listIdCineplexs[i]),
+        id_movie: parseInt(tt["id"]),
+      });
+    }
   }
+  // else
+  else {
+    // get id_movie
+    const tt1 = JSON.parse(JSON.stringify(existsMovie[0]));
+    for (let i = 0; i < listIdCineplexs.length; i++) {
+      // check id_movie and id_cineplex in movies_cineplexs
+      const movie_cineplex_exists = await Movies_Cineplex.findAll({
+        where: {
+          id_movie: parseInt(tt1.id),
+          id_cineplex: parseInt(listIdCineplexs[i]),
+        },
+      });
+      if (movie_cineplex_exists.length === 0) {
+        // if not exists => add
+        await Movies_Cineplex.create({
+          id_movie: parseInt(tt1.id),
+          id_cineplex: parseInt(listIdCineplexs[i]),
+        });
+      }
+    }
+  }
+  return res.status(200).send({ message: "Ok" });
 };
 
 function timeConverter(UNIX_timestamp) {
