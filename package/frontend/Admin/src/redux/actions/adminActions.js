@@ -56,6 +56,7 @@ export const getMovies = (id) => async (dispatch) => {
       type: actionTypes.GET_SCHEDULE_REQUEST,
     });
     const { data } = await axios.get("/admin/schedule");
+    console.log(`🚀 => file: adminActions.js => line 59 => data`, data);
     let index = 0;
     for (let i = 0; i < data.length; i++) {
       if (id == data[i].id) {
@@ -91,9 +92,9 @@ export const getAddCineplex = (name, address) => async (dispatch) => {
     console.log(`🚀 => file: adminActions.js => line 91 => data`, data);
     if (data.message === "Ok") {
       dispatch(getCinema());
-      alert("Succes");
+      alert("Success👏");
     } else {
-      alert("Add cineplex failed!");
+      alert("Add cineplex failed 👐");
     }
     dispatch({
       type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
@@ -126,9 +127,9 @@ export const getAddRoom =
       });
       if (data.message === "Ok") {
         dispatch(getCinema());
-        alert("Succes");
+        alert("Success👏");
       } else {
-        alert("Add cinema failed!");
+        alert("Add cinema failed 👐");
       }
       console.log(`🚀 => file: adminActions.js => line 142 => data`, data);
       dispatch({
@@ -161,9 +162,9 @@ export const getAddMovie =
       });
       if (data.message === "Ok") {
         dispatch(getCinema());
-        alert("Succes");
+        alert("Success👏");
       } else {
-        alert("Add movie failed!");
+        alert("Add movie failed  👐");
       }
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
@@ -215,16 +216,16 @@ export const getAddShowtime =
       );
       if (data === "ok") {
         dispatch(getCinema());
-        alert("Succes!");
+        alert("Success👏");
       } else {
-        alert("Add showtime failed!");
+        alert("Add showtime failed  👐");
       }
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
         payload: data,
       });
     } catch (error) {
-      alert("Add showtime failed!");
+      alert("Add showtime failed  👐");
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_FAIL,
         payload:

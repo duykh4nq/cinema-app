@@ -190,7 +190,7 @@ function AboutUsPage() {
           <div class="col-lg-3 col-sm-6">
             <div class="gallery-item two">
               <div class="gallery-thumb">
-                <a href="./assets/images/gallery/gallery05.jpg" class="img-pop">
+                <a class="img-pop">
                   <i class="flaticon-loupe"></i>
                 </a>
                 <img src={gallery05} alt="gallery" />
@@ -198,7 +198,7 @@ function AboutUsPage() {
             </div>
             <div class="gallery-item two">
               <div class="gallery-thumb">
-                <a href="./assets/images/gallery/gallery06.jpg" class="img-pop">
+                <a class="img-pop">
                   <i class="flaticon-loupe"></i>
                 </a>
                 <img src={gallery06} alt="gallery" />
@@ -206,7 +206,7 @@ function AboutUsPage() {
             </div>
             <div class="gallery-item two">
               <div class="gallery-thumb">
-                <a href="./assets/images/gallery/gallery07.jpg" class="img-pop">
+                <a class="img-pop">
                   <i class="flaticon-loupe"></i>
                 </a>
                 <img src={gallery07} alt="gallery" />
@@ -216,7 +216,7 @@ function AboutUsPage() {
           <div class="col-sm-6 col-lg-3 order-lg-1">
             <div class="gallery-item two">
               <div class="gallery-thumb">
-                <a href="./assets/images/gallery/gallery11.jpg" class="img-pop">
+                <a class="img-pop">
                   <i class="flaticon-loupe"></i>
                 </a>
                 <img src={gallery11} alt="gallery" />
@@ -224,7 +224,7 @@ function AboutUsPage() {
             </div>
             <div class="gallery-item two">
               <div class="gallery-thumb">
-                <a href="./assets/images/gallery/gallery12.jpg" class="img-pop">
+                <a class="img-pop">
                   <i class="flaticon-loupe"></i>
                 </a>
                 <img src={gallery12} alt="gallery" />
@@ -232,7 +232,7 @@ function AboutUsPage() {
             </div>
             <div class="gallery-item two">
               <div class="gallery-thumb">
-                <a href="./assets/images/gallery/gallery13.jpg" class="img-pop">
+                <a class="img-pop">
                   <i class="flaticon-loupe"></i>
                 </a>
                 <img src={gallery13} alt="gallery" />
@@ -242,7 +242,7 @@ function AboutUsPage() {
           <div class="col-lg-6">
             <div class="gallery-item two">
               <div class="gallery-thumb">
-                <a href="./assets/images/gallery/gallery08.jpg" class="img-pop">
+                <a class="img-pop">
                   <i class="flaticon-loupe"></i>
                 </a>
                 <img src={gallery08} alt="gallery" />
@@ -253,7 +253,6 @@ function AboutUsPage() {
                 <div class="gallery-item two">
                   <div class="gallery-thumb">
                     <a
-                      href="./assets/images/gallery/gallery09.jpg"
                       class="img-pop"
                     >
                       <i class="flaticon-loupe"></i>
@@ -266,7 +265,6 @@ function AboutUsPage() {
                 <div class="gallery-item two">
                   <div class="gallery-thumb">
                     <a
-                      href="./assets/images/gallery/gallery10.jpg"
                       class="img-pop"
                     >
                       <i class="flaticon-loupe"></i>

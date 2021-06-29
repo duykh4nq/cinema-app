@@ -1,4 +1,5 @@
-import React from "react";
+import React, { Component } from "react";
+import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import "./style.css";
 import { storage } from "../firebase";
@@ -79,6 +80,7 @@ function CGUD() {
   //schedule
   const _schedule = useSelector((state) => state.getSchedule);
   const { loadingSchedule, errorSchedule, schedule } = _schedule;
+  console.log(`🚀 => file: CGUD.js => line 83 => schedule`, schedule);
 
   const setValueCineplex = (e) => {
     dispatch(getRooms(e));
@@ -186,6 +188,47 @@ function CGUD() {
     setPrice(e.target.reset());
     dispatch(getAddShowtime(id_room, id_movie, date, start_time, price));
   };
+
+  //select
+  const colourStyles = {
+    menu: (provided, state) => ({
+      ...provided,
+      color: state.selectProps.menuColor,
+    }),
+    control: (styles) => ({
+      ...styles,
+      backgroundColor: "transparent",
+      fontSize: 12,
+      color: "#2b3553",
+      border: "1px solid #2b3553",
+      paddingLeft: 9,
+    }),
+    option: (styles) => {
+      return {
+        ...styles,
+        color: "gray",
+        fontSize: 12,
+        paddingTop: 3,
+        paddingBottom: 3,
+        paddingLeft: 10,
+      };
+    },
+    singleValue: (provided, state) => {
+      const opacity = state.isDisabled ? 0.5 : 1;
+      const transition = "opacity 300ms";
+
+      return { ...provided, opacity, transition };
+    },
+  };
+  const optionsMovie = schedule.map((item) => ({
+    value: item.id,
+    label: item.name_movie,
+  }));
+
+  const optionsCineplex = cinema.map((item) => ({
+    value: item.id,
+    label: item.name,
+  }));
 
   return (
     <>
@@ -379,7 +422,7 @@ function CGUD() {
                                   }
                                   return rows;
                                 })([], 1, 18)}
-                              </Input> 
+                              </Input>
                             </div>
                           </FormGroup>
                         </Col>
@@ -435,19 +478,27 @@ function CGUD() {
                   <CardBody>
                     <Form onSubmit={(e) => addMovieHandler(e)}>
                       <Row>
-                        <Col md="3">
+                        <Col md="4">
                           <FormGroup>
                             <label>Name</label>
-                            <Input
+                            <Select
                               placeholder="Name"
-                              type="text"
-                              value={name_movie}
-                              onChange={(e) => setName_movie(e.target.value)}
-                              required
+                              options={optionsMovie}
+                              styles={colourStyles}
+                              theme={(theme) => ({
+                                ...theme,
+                                borderRadius: 7,
+                                colors: {
+                                  ...theme.colors,
+                                  primary25: "#1d8cf8",
+                                  primary: "#e14eca",
+                                  neutral0: "#FFF",
+                                },
+                              })}
                             />
                           </FormGroup>
                         </Col>
-                        <Col md="3">
+                        <Col md="5">
                           <FormGroup>
                             <label>Choose Cineplex</label>
                             {loadingCineplex ? (
@@ -455,16 +506,29 @@ function CGUD() {
                             ) : errorCineplex ? (
                               <h2>{errorCineplex}</h2>
                             ) : (
-                              <Input
-                                type="select"
-                                name="select"
-                                id="exampleSelect"
-                                onChange={(e) => setId_cineplex(e.target.value)}
-                              >
-                                {cinema.map((item) => (
-                                  <option value={item.id}>{item.name}</option>
-                                ))}
-                              </Input>
+                              <>
+                                <Select
+                                  placeholder="Name"
+                                  isMulti
+                                  options={optionsCineplex}
+                                  styles={colourStyles}
+                                  className="basic-multi-select"
+                                  classNamePrefix="select"
+                                  theme={(theme) => ({
+                                    ...theme,
+                                    borderRadius: 7,
+                                    colors: {
+                                      ...theme.colors,
+                                      primary25: "#1d8cf8",
+                                      primary: "#e14eca",
+                                      neutral0: "#FFF",
+                                    },
+                                  })}
+                                  // onChange={(e) =>
+                                  //   setId_cineplex(e.target.value)
+                                  // }
+                                />
+                              </>
                             )}
                           </FormGroup>
                         </Col>
