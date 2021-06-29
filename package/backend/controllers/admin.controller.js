@@ -44,6 +44,42 @@ exports.getSchedule = async (req, res, next) => {
   res.status(200).send(schedule);
 };
 
+exports.getMovies = async (req, res, next) => {
+  const moviesCineplexsData = await db.query(
+    `
+    select mo.*, c.id as id_cineplex, c.name
+    from movies mo join movies_cineplexs mc on mo.id = mc.id_movie
+    join cineplexs c on mc.id_cineplex = c.id
+    order by c.id
+  `,
+    { type: QueryTypes.SELECT }
+  );
+
+  let result = [];
+
+  for (data of moviesCineplexsData) {
+    const existData = result.find((ress) => ress.slug === data.slug);
+    if (existData === undefined) {
+      result.push({
+        id_movie: data.id,
+        name_movie: data.name_movie,
+        slug: data.slug,
+        release_date: data.release_date,
+        poster: data.poster,
+        time: data.time,
+        cineplexs: [{ id_cineplex: data.id_cineplex, name: data.name }],
+      });
+    } else {
+      const indexData = result.findIndex((ress) => ress.slug === data.slug);
+      result[indexData].cineplexs.push({
+        id_cineplex: data.id_cineplex,
+        name: data.name,
+      });
+    }
+  }
+  return res.status(200).send(result);
+};
+
 exports.postAddCineplex = async (req, res, next) => {
   let { name, address } = req.body;
   await Cineplexs.create({
