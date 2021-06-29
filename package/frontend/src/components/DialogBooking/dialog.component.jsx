@@ -83,11 +83,11 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin }) => {
     const DialogBooking = useSelector((state) => state.postBookingShow);
     const { loading, error, movie } = DialogBooking;
     useEffect(() => {
-            dispatch(postBookingShow());
+        dispatch(postBookingShow());
     }, [dispatch]);
 
     const setIndexSeat = (value) => {
-        for (let i = 0; i < A01.length; i++) {
+        for (let i = 0;i < A01.length;i++) {
             if (value == A01[i].cineplex) {
                 setIndexDetails(i)
             }
@@ -97,7 +97,7 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin }) => {
     const A02 = A01[indexDetails].detailsCat;
 
     const setValueCatogory = (value) => {
-        for (let i = 0; i < A02.length; i++) {
+        for (let i = 0;i < A02.length;i++) {
             if (value == A02[i].cate_room) {
                 setIndexCatogory(i)
             }
@@ -111,7 +111,11 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin }) => {
             ? { className: "loginpage openform" }
             : { className: "loginpage" })}>
         <div className="bookingscreen">
+            <button className="close-dialog" onClick={BackOpenformLogin}>
+                X
+            </button>
             <div className="date">
+               
                 <button className="btncalendar">
                     <div className="day">
                         <p className="texture">{_details[0].date}</p>
@@ -123,7 +127,7 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin }) => {
             </div>
             <div className="theater-cluster">
                 {(function (rows) {
-                    for (let i = 0; i < A01.length; i++) {
+                    for (let i = 0;i < A01.length;i++) {
                         rows.push(
                             <button className="btncinema-complex" onClick={() => setIndexSeat(A01[i].cineplex)}>
                                 <div >{A01[i].cineplex}</div>
@@ -135,7 +139,7 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin }) => {
             </div>
             <div className="movie-genre ">
                 {(function (rows) {
-                    for (let i = 0; i < A02.length; i++) {
+                    for (let i = 0;i < A02.length;i++) {
                         rows.push(
                             <button className="btncategory" onClick={() => setValueCatogory(A02[i].cate_room)}>
                                 <div >{A02[i].cate_room} Phụ đề tiếng Việt</div>
@@ -149,7 +153,7 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin }) => {
                 <div className="item">
                     <div className="list-time">
                         {(function (rows) {
-                            for (let i = 0; i < A03.length; i++) {
+                            for (let i = 0;i < A03.length;i++) {
                                 rows.push(
                                     <button className="showtime"><p>{A03[i].time}</p></button>
                                 );
@@ -160,9 +164,9 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin }) => {
                     </div>
                 </div>
             </div>
-          <button className="close-dialog" onClick={BackOpenformLogin}>
-            Huỷ
-          </button>
+            <button className="proceed-dialog" >
+                Proceed
+            </button>
         </div>
     </div>;
 }
