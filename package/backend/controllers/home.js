@@ -45,14 +45,17 @@ function timeConverter(UNIX_timestamp) {
 
 exports.getHome = async (req, res, next) => {
   const end = new Date();
-  const start = new Date(new Date() - 7 * 24 * 60 * 60 * 1000);
+  const start = new Date(new Date() - 20 * 24 * 60 * 60 * 1000);
 
+  // phim A 20/6 <= 29
+  // phim B 8/6 <= 29
+  // phim C 10/7 phim sắp đc công chiếu
   const newest = await Movies.findAll({
     // new movie
     where: {
       release_date: {
-        [Op.lte]: end.toISOString().slice(0, 10),
-        [Op.gte]: start.toISOString().slice(0, 10),
+        [Op.lte]: end.toISOString().slice(0, 10), // >=
+        [Op.gte]: start.toISOString().slice(0, 10), // <=
       },
     },
     limit: 10,
@@ -63,7 +66,7 @@ exports.getHome = async (req, res, next) => {
     // comming soon movie
     where: {
       release_date: {
-        [Op.gt]: end.toISOString().slice(0, 10),
+        [Op.gt]: end.toISOString().slice(0, 10), // >
       },
     },
     limit: 10,
@@ -80,7 +83,7 @@ exports.getHome = async (req, res, next) => {
                         WHERE schedules.id = bookings.id_schedule
                         GROUP BY Schedules.id_movie
                         ORDER BY SUM(bookings.total) DESC)
-    AND (DATE_PART('day', Now()::timestamp - MOVIES.release_date::timestamp) BETWEEN 0 AND 7)            
+    AND (DATE_PART('day', Now()::timestamp - MOVIES.release_date::timestamp) BETWEEN 0 AND 7)
     LIMIT 10;
   `,
     { type: QueryTypes.SELECT }
