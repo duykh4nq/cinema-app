@@ -45,7 +45,7 @@ function timeConverter(UNIX_timestamp) {
 
 exports.getHome = async (req, res, next) => {
   const end = new Date();
-  const start = new Date(new Date() - 20 * 24 * 60 * 60 * 1000);
+  const start = new Date(new Date() - 30 * 24 * 60 * 60 * 1000);
 
   // phim A 20/6 <= 29
   // phim B 8/6 <= 29
@@ -54,12 +54,12 @@ exports.getHome = async (req, res, next) => {
     // new movie
     where: {
       release_date: {
-        [Op.lte]: end.toISOString().slice(0, 10), // >=
-        [Op.gte]: start.toISOString().slice(0, 10), // <=
+        [Op.lte]: end.toISOString().slice(0, 10), // <=
+        [Op.gte]: start.toISOString().slice(0, 10), // >=
       },
     },
-    limit: 10,
-    order: [["release_date"]],
+    limit: 50,
+    order: [["release_date", "DESC"]],
   });
 
   const commingsoon = await Movies.findAll({
@@ -78,13 +78,13 @@ exports.getHome = async (req, res, next) => {
     `
     SELECT MOVIES.*
     FROM MOVIES
-    WHERE MOVIES.ID IN (SELECT Schedules.id_movie
-                        FROM Bookings AS bookings, Schedules as schedules
-                        WHERE schedules.id = bookings.id_schedule
-                        GROUP BY Schedules.id_movie
-                        ORDER BY SUM(bookings.total) DESC)
-    AND (DATE_PART('day', Now()::timestamp - MOVIES.release_date::timestamp) BETWEEN 0 AND 7)
-    LIMIT 10;
+    WHERE MOVIES.ID IN (SELECT schedules.id_movie
+                        FROM Bookings AS bookings, Schedules as schedules, Tickets ticket
+                        WHERE schedules.id = bookings.id_schedule AND ticket.id_booking = bookings.id
+                        GROUP BY schedules.id
+                        ORDER BY COUNT(*) DESC)
+    AND (DATE_PART('day', Now()::timestamp - MOVIES.release_date::timestamp) BETWEEN 0 AND 30)
+    LIMIT 10
   `,
     { type: QueryTypes.SELECT }
   );
