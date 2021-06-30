@@ -57,7 +57,7 @@ exports.getMovies = async (req, res, next) => {
 
   let result = [];
 
-  for (data of moviesCineplexsData) {
+  for (let data of moviesCineplexsData) {
     const existData = result.find((ress) => ress.slug === data.slug);
     if (existData === undefined) {
       result.push({
