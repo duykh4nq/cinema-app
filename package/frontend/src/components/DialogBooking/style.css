@@ -34,7 +34,7 @@
     flex-direction: column;
     text-align: center;
     align-items: center;
-    border-radius: 1rem;
+    border-radius: 10px;
     width: 120%;
     height: 60%;
 }
@@ -53,9 +53,8 @@
 }
 
 .btncalendar {
-    width: 12%;
-    background: none;
-    border-radius: 1rem;
+    width: 15%;
+    border-radius: 10px;
     padding: 0rem 1rem;
     margin-left: 0.8rem;
     display: flex;
@@ -66,6 +65,7 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
     border: 1px solid #000;
+    background: none;
 }
 
 .theater-cluster {
@@ -82,7 +82,7 @@
 
 .btncinema-complex {
     background: none;
-    border-radius: 1rem;
+    border-radius: 10px;
     border: 1px solid #000;
     justify-content: center;
     width: 9%;
@@ -122,16 +122,6 @@
     justify-content: left;
 }
 
-.close-dialog {
-    width: 30%;
-    background: #001232;
-    margin: 1rem 0rem 2rem;
-    border: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .item {
     text-align: center;
     width: 20%;
@@ -156,6 +146,7 @@
     margin-left: 0.5rem;
     margin-bottom: 1rem;
     margin-left: 1rem;
+    border-radius: 10px;
 }
 
 .showtime p {
@@ -163,6 +154,34 @@
     color: white;
 }
 
-.btncalendar:hover, .btncinema-complex:hover, .btncategory:hover, .showtime:hover {
+.close-dialog {
+    border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border: 1px solid #000;
+    font-weight: bold;
+    background-color: #032055;
+    width: 40px;
+    height: 40px;
+    margin-top: 1rem;
+    margin-left: 95%;
+}
+
+.proceed-dialog {
+    justify-content: center;
+    border: 1px solid #000;
+    font-weight: bold;
+    background-color: #032055;
+    width: 100px;
+    margin-left: 80%;
+    margin-bottom: 2%;
+    border-radius: 10px;
+}
+
+.btncalendar:hover,
+.proceed-dialog:hover,
+.btncinema-complex:hover,
+.btncategory:hover,
+.showtime:hover {
     background: #31d7a9;
 }

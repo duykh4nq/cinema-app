@@ -3,8 +3,9 @@ const router = express.Router();
 
 const Admin = require("../controllers/admin.controller");
 
-router.get("/admin/cinema", Admin.getCinema); // use for cineplex, movie
+router.get("/admin/cinema", Admin.getCinema); // use for cineplex
 router.get("/admin/schedule", Admin.getSchedule); // use for showtime
+router.get("/admin/movies", Admin.getMovies); // use for add movies
 
 router.post("/admin/addcineplex", Admin.postAddCineplex);
 router.post("/admin/addroom", Admin.postAddRoom);
