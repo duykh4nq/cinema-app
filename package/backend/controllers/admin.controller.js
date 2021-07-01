@@ -27,9 +27,11 @@ exports.getCinema = async (req, res, next) => {
 
 exports.getSchedule = async (req, res, next) => {
   const schedule = await Cineplexs.findAll({
+    attributes: ["id", "name"],
     include: [
       {
         model: Rooms,
+        attributes: ["id", "name_room"],
         include: [
           {
             model: Category_rooms,
@@ -38,6 +40,7 @@ exports.getSchedule = async (req, res, next) => {
       },
       {
         model: Movies,
+        attributes: ["id", "name_movie"],
       },
     ],
   });
@@ -78,6 +81,43 @@ exports.getMovies = async (req, res, next) => {
     }
   }
   return res.status(200).send(result);
+};
+
+function timeConverterShowTime(UNIX_timestamp) {
+  var a = new Date(UNIX_timestamp);
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var time = hour + ":" + min;
+  return time;
+}
+
+exports.postShowTime = async (req, res, next) => {
+  const { id_movie, id_room } = req.body;
+  const showAllSchedules = await Schedules.findAll({
+    where: {
+      id_movie: id_movie,
+      id_room: id_room,
+    },
+    include: [
+      {
+        model: Times,
+        attributes: ["start_point"],
+      },
+    ],
+    attributes: ["id", "price"],
+  });
+  let result = [];
+  for (let schedule of showAllSchedules) {
+    schedule = JSON.parse(JSON.stringify(schedule));
+    schedule.time = {
+      premiere_date: require("moment")(schedule.time.start_point).format(
+        "DD/MM/YYYY"
+      ),
+      start_time: timeConverterShowTime(schedule.time.start_point),
+    };
+    result = [...result, schedule];
+  }
+  res.status(200).send(result);
 };
 
 exports.postAddCineplex = async (req, res, next) => {
@@ -268,7 +308,6 @@ exports.postAddShedule = async (req, res, next) => {
   let { id_room, id_movie, date, start_time, price } = req.body;
   const start_time_last = start_time.slice(6, 8); // cut last AM or PM
 
-  console.log(id_movie);
   const movie = await Movies.findOne({ where: { id: id_movie } });
 
   const times = await db.query(
