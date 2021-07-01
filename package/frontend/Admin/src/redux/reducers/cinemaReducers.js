@@ -1,7 +1,6 @@
 import * as actionTypes from "../constants/adminConstants";
 
 export const getCinemaReducer = (state = { cinema: [] }, action) => {
-
   switch (action.type) {
     case actionTypes.GET_CINEMA_REQUEST:
       return {
@@ -9,7 +8,6 @@ export const getCinemaReducer = (state = { cinema: [] }, action) => {
         cinema: [],
       };
     case actionTypes.GET_CINEMA_SUCCESS:
-    
       return {
         cinema: action.payload,
         loading: false,
@@ -25,7 +23,6 @@ export const getCinemaReducer = (state = { cinema: [] }, action) => {
 };
 
 export const getScheduleReducer = (state = { schedule: [] }, action) => {
-
   switch (action.type) {
     case actionTypes.GET_SCHEDULE_REQUEST:
       return {
@@ -33,9 +30,30 @@ export const getScheduleReducer = (state = { schedule: [] }, action) => {
         schedule: [],
       };
     case actionTypes.GET_SCHEDULE_SUCCESS:
-    
       return {
         schedule: action.payload,
+        loading: false,
+      };
+    case actionTypes.GET_SCHEDULE_FAIL:
+      return {
+        loading: false,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const getMovieReducer = (state = { movie: [] }, action) => {
+  switch (action.type) {
+    case actionTypes.GET_SCHEDULE_REQUEST:
+      return {
+        loading: true,
+        movie: [],
+      };
+    case actionTypes.GET_SCHEDULE_SUCCESS:
+      return {
+        movie: action.payload,
         loading: false,
       };
     case actionTypes.GET_SCHEDULE_FAIL:
@@ -57,7 +75,7 @@ export const getScheduleReducer = (state = { schedule: [] }, action) => {
 //         statiscal: [],
 //       };
 //     case actionTypes.GET_SCHEDULE_SUCCESS:
-    
+
 //       return {
 //         statiscal: action.payload,
 //         loading: false,
@@ -71,4 +89,3 @@ export const getScheduleReducer = (state = { schedule: [] }, action) => {
 //       return state;
 //   }
 // };
-

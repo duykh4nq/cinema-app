@@ -47,7 +47,6 @@ function Statistical(props) {
     setbigChartData(name);
   };
 
-  console.log(`🚀 => file: Statistical.js => line 55 => schedule`, schedule);
   React.useEffect(() => {
     dispatch(getCinema());
     if (start && end) {

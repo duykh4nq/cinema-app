@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "./style.css";
+import "../../assets/css/main.css";
 import "../../pages/Loginpage/login.style.scss"
 
 // Actions
@@ -111,11 +112,10 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin }) => {
             ? { className: "loginpage openform" }
             : { className: "loginpage" })}>
         <div className="bookingscreen">
-            <button className="close-dialog" onClick={BackOpenformLogin}>
+            <button className="custom-button close-dialog" onClick={BackOpenformLogin}>
                 X
             </button>
             <div className="date">
-               
                 <button className="btncalendar">
                     <div className="day">
                         <p className="texture">{_details[0].date}</p>
@@ -164,7 +164,7 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin }) => {
                     </div>
                 </div>
             </div>
-            <button className="proceed-dialog" >
+            <button className="proceed-dialog custom-button" >
                 Proceed
             </button>
         </div>

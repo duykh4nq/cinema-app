@@ -3,6 +3,8 @@ import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import "./style.css";
 import { storage } from "../firebase";
+// nodejs library that concatenates classes
+import classNames from "classnames";
 // reactstrap components
 import {
   Button,
@@ -19,6 +21,7 @@ import {
   Nav,
   NavItem,
   NavLink,
+  ButtonGroup,
 } from "reactstrap";
 import classnames from "classnames";
 
@@ -26,6 +29,7 @@ import classnames from "classnames";
 import {
   getCinema,
   getRooms,
+  getMovie,
   getMovies,
   getAddCineplex,
   getAddRoom,
@@ -75,12 +79,12 @@ function CGUD() {
 
   React.useEffect(() => {
     dispatch(getCinema());
-  }, [dispatch]);
+    dispatch(getMovie());
+  }, [dispatch, selectStatus]);
 
   //schedule
   const _schedule = useSelector((state) => state.getSchedule);
   const { loadingSchedule, errorSchedule, schedule } = _schedule;
-  console.log(`🚀 => file: CGUD.js => line 83 => schedule`, schedule);
 
   const setValueCineplex = (e) => {
     dispatch(getRooms(e));
@@ -102,7 +106,8 @@ function CGUD() {
   const [name_room, setNameRoom] = React.useState("");
   const [horizontal, setHorizontal] = React.useState(2);
   const [vertical, setVertical] = React.useState("B");
-  const [id_cineplex, setId_cineplex] = React.useState(1);
+  const [id_cineplex, setId_cineplex] = React.useState(null);
+  console.log(`🚀 => file: CGUD.js => line 110 => id_cineplex`, id_cineplex);
   const [id_categoryRoom, setId_categoryRoom] = React.useState(1);
 
   const addCinemaHandler = (e) => {
@@ -115,86 +120,8 @@ function CGUD() {
     );
   };
 
-  //add movie
-  //add Img
-  const [imgData, setImgData] = React.useState(null);
-  const [image, setImage] = React.useState(null);
-  const onChangePicture = (e) => {
-    if (e.target.files[0]) {
-      const file = e.target.files[0];
-      const check = file.name.match(/\.(jpg|jepg|png|gif)$/);
-      if (check) {
-        setImage(file);
-        setImgData(URL.createObjectURL(file));
-      }
-    }
-  };
-
-  const [name_movie, setName_movie] = React.useState("");
-  const [time, setTime] = React.useState("");
-  const [release_date, setRelease_date] = React.useState("");
-  const refImg = React.useRef(null);
-
-  const addMovieHandler = (e) => {
-    e.preventDefault();
-    if (image === null) {
-      console.log(image);
-      return;
-    }
-    const updateTask = storage.ref(`ImageMovie/${image.name}`).put(image);
-    updateTask.on(
-      "state_changed",
-      (snapshot) => {},
-      (error) => console.log("firebase", error),
-      async () => {
-        const res = await storage
-          .ref("ImageMovie")
-          .child(image.name)
-          .getDownloadURL();
-        console.log("123", res);
-        refImg.current = res;
-
-        setId_cineplex(e.target.reset());
-        setImgData(e.target.reset());
-        setTime(e.target.reset());
-        setRelease_date(e.target.reset());
-        setName_movie(e.target.reset());
-        dispatch(
-          getAddMovie(
-            id_cineplex,
-            name_movie,
-            time,
-            release_date,
-            refImg.current
-          )
-        );
-      }
-    );
-  };
-
-  //add showtime
-  const [id_room, setId_room] = React.useState("");
-  const [id_movie, setId_movie] = React.useState("");
-  const [date, setDate] = React.useState("");
-  const [start_time, setStart_time] = React.useState("");
-  const [price, setPrice] = React.useState("");
-
-  const addShowtimeHandler = (e) => {
-    e.preventDefault();
-    setId_room(e.target.reset());
-    setId_movie(e.target.reset());
-    setDate(e.target.reset());
-    setStart_time(e.target.reset());
-    setPrice(e.target.reset());
-    dispatch(getAddShowtime(id_room, id_movie, date, start_time, price));
-  };
-
   //select
   const colourStyles = {
-    menu: (provided, state) => ({
-      ...provided,
-      color: state.selectProps.menuColor,
-    }),
     control: (styles) => ({
       ...styles,
       backgroundColor: "transparent",
@@ -220,15 +147,147 @@ function CGUD() {
       return { ...provided, opacity, transition };
     },
   };
-  const optionsMovie = schedule.map((item) => ({
-    value: item.id,
+  //cineplex
+  const [disabled, setDisabled] = React.useState("");
+  const _movie = useSelector((state) => state.getMovie);
+  const { movie } = _movie;
+  const [dataCineplexs, setDataCineplexs] = React.useState(cinema);
+
+  const setValueMovie = (e) => {
+    setDisabled("disabled");
+    setDataCineplexs(cinema);
+    movie.forEach((item) => {
+      if (e.value == item.id_movie) {
+        setRelease_date(item.release_date);
+        setTime(item.time);
+        setImgData(item.poster);
+        setPoster(item.poster);
+        setDataCineplexs(item.cineplexs);
+        setName_movie(item.name_movie);
+      }
+    });
+  };
+
+  //add movie
+  const [selectStatus, setSelectStatus] = React.useState("new");
+  const setValueStatus = (name) => {
+    if (selectStatus == "old") {
+      setDisabled("");
+      setRelease_date("");
+      setTime("");
+      setPoster("");
+      setImgData("");
+      setName_movie("");
+      setDataCineplexs(cinema);
+    }
+    setSelectStatus(name);
+  };
+  //add Img
+  const [imgData, setImgData] = React.useState(null);
+  const [image, setImage] = React.useState(null);
+  const onChangePicture = (e) => {
+    if (e.target.files[0]) {
+      const file = e.target.files[0];
+      const check = file.name.match(/\.(jpg|jepg|png|gif)$/);
+      if (check) {
+        setImage(file);
+        setImgData(URL.createObjectURL(file));
+      }
+    }
+  };
+
+  const [name_movie, setName_movie] = React.useState("");
+  const [time, setTime] = React.useState("");
+  const [release_date, setRelease_date] = React.useState("");
+  const [poster, setPoster] = React.useState("");
+
+  const refImg = React.useRef(null);
+
+  const addMovieHandler = (e) => {
+    e.preventDefault();
+    if (poster === null) {
+      console.log(image);
+      return;
+    }
+    if (id_cineplex !== undefined) {
+      if (image !== null) {
+        const updateTask = storage.ref(`ImageMovie/${image.name}`).put(image);
+        updateTask.on(
+          "state_changed",
+          (snapshot) => {},
+          (error) => console.log("firebase", error),
+          async () => {
+            const res = await storage
+              .ref("ImageMovie")
+              .child(image.name)
+              .getDownloadURL();
+            console.log("123", res);
+            refImg.current = res;
+
+            setId_cineplex(e.target.reset());
+            setImgData(e.target.reset());
+            setTime(e.target.reset());
+            setRelease_date(e.target.reset());
+            setName_movie(e.target.reset());
+            dispatch(
+              getAddMovie(
+                id_cineplex,
+                name_movie,
+                time,
+                release_date,
+                refImg.current
+              )
+            );
+          }
+        );
+      } else {
+        setId_cineplex(e.target.reset());
+        setImgData(e.target.reset());
+        setTime(e.target.reset());
+        setRelease_date(e.target.reset());
+        setName_movie(e.target.reset());
+        dispatch(
+          getAddMovie(id_cineplex, name_movie, time, release_date, poster)
+        );
+      }
+    } else {
+      alert("Please choose cineplexs 👐!");
+    }
+  };
+
+  //add showtime
+  const [id_room, setId_room] = React.useState("");
+  const [id_movie, setId_movie] = React.useState("");
+  const [date, setDate] = React.useState("");
+  const [start_time, setStart_time] = React.useState("");
+  const [price, setPrice] = React.useState("");
+
+  const addShowtimeHandler = (e) => {
+    e.preventDefault();
+    setId_room(e.target.reset());
+    setId_movie(e.target.reset());
+    setDate(e.target.reset());
+    setStart_time(e.target.reset());
+    setPrice(e.target.reset());
+    dispatch(getAddShowtime(id_room, id_movie, date, start_time, price));
+  };
+
+  const optionsMovie = movie.map((item) => ({
+    value: item.id_movie,
     label: item.name_movie,
   }));
 
-  const optionsCineplex = cinema.map((item) => ({
-    value: item.id,
-    label: item.name,
-  }));
+  const _optionsCineplex = cinema
+    .filter((i) => {
+      const _data = dataCineplexs.find((d) => {
+        return d.id_cineplex === i.id;
+      });
+      return _data === undefined;
+    })
+    .map((i) => ({
+      value: i.id,
+      label: i.name,
+    }));
 
   return (
     <>
@@ -473,7 +532,49 @@ function CGUD() {
               <TabPane tabId="3">
                 <Card>
                   <CardHeader>
-                    <h5 className="title">Add Movie</h5>
+                    <Row>
+                      <Col sm="1">
+                        <ButtonGroup
+                          className="btn-group-toggle"
+                          data-toggle="buttons"
+                        >
+                          <Button
+                            tag="label"
+                            className={classNames("btn-simple", {
+                              active: selectStatus === "new",
+                            })}
+                            color="info"
+                            id="0"
+                            size="sm"
+                            onClick={() => setValueStatus("new")}
+                          >
+                            <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                              New
+                            </span>
+                            <span className="d-block d-sm-none">
+                              <i className="tim-icons icon-single-02" />
+                            </span>
+                          </Button>
+                          <Button
+                            color="info"
+                            id="1"
+                            size="sm"
+                            tag="label"
+                            className={classNames("btn-simple", {
+                              active: selectStatus === "old",
+                            })}
+                            onClick={() => setValueStatus("old")}
+                          >
+                            <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                              Old
+                            </span>
+                            <span className="d-block d-sm-none">
+                              <i className="tim-icons icon-gift-2" />
+                            </span>
+                          </Button>
+                        </ButtonGroup>
+                      </Col>
+                    </Row>
                   </CardHeader>
                   <CardBody>
                     <Form onSubmit={(e) => addMovieHandler(e)}>
@@ -481,21 +582,34 @@ function CGUD() {
                         <Col md="4">
                           <FormGroup>
                             <label>Name</label>
-                            <Select
-                              placeholder="Name"
-                              options={optionsMovie}
-                              styles={colourStyles}
-                              theme={(theme) => ({
-                                ...theme,
-                                borderRadius: 7,
-                                colors: {
-                                  ...theme.colors,
-                                  primary25: "#1d8cf8",
-                                  primary: "#e14eca",
-                                  neutral0: "#FFF",
-                                },
-                              })}
-                            />
+                            {selectStatus === "old" ? (
+                              <Select
+                                required
+                                placeholder="Name"
+                                options={optionsMovie}
+                                styles={colourStyles}
+                                theme={(theme) => ({
+                                  ...theme,
+                                  borderRadius: 7,
+                                  colors: {
+                                    ...theme.colors,
+                                    primary25: "#1d8cf8",
+                                    primary: "#e14eca",
+                                    neutral0: "#FFF",
+                                  },
+                                })}
+                                onChange={(e) => setValueMovie(e)}
+                              />
+                            ) : (
+                              <Input
+                                type="text"
+                                name="nameMovie"
+                                placeholder="Name movie"
+                                value={name_movie}
+                                onChange={(e) => setName_movie(e.target.value)}
+                                required
+                              />
+                            )}
                           </FormGroup>
                         </Col>
                         <Col md="5">
@@ -510,7 +624,8 @@ function CGUD() {
                                 <Select
                                   placeholder="Name"
                                   isMulti
-                                  options={optionsCineplex}
+                                  required
+                                  options={_optionsCineplex}
                                   styles={colourStyles}
                                   className="basic-multi-select"
                                   classNamePrefix="select"
@@ -524,9 +639,9 @@ function CGUD() {
                                       neutral0: "#FFF",
                                     },
                                   })}
-                                  // onChange={(e) =>
-                                  //   setId_cineplex(e.target.value)
-                                  // }
+                                  onChange={(e) =>
+                                    setId_cineplex(e.map((i) => i.value))
+                                  }
                                 />
                               </>
                             )}
@@ -540,8 +655,8 @@ function CGUD() {
                             <Input
                               type="text"
                               name="time"
-                              id="exampleTime"
-                              placeholder="time placeholder"
+                              id={disabled}
+                              placeholder="time"
                               value={time}
                               onChange={(e) => setTime(e.target.value)}
                               required
@@ -554,7 +669,7 @@ function CGUD() {
                             <Input
                               type="date"
                               name="date"
-                              id="exampleDate"
+                              id={disabled}
                               placeholder="date placeholder"
                               value={release_date}
                               onChange={(e) => setRelease_date(e.target.value)}
@@ -566,17 +681,24 @@ function CGUD() {
                       <Row>
                         <Col md="10">
                           <FormGroup>
-                            <Button className="btnAddimgMovie">
-                              <Input
-                                type="file"
-                                name="file"
-                                id="fileupload"
-                                placeholder="date placeholder"
-                                onChange={onChangePicture}
-                                required
-                              ></Input>
-                              Add image
-                            </Button>
+                            <Row>
+                              <Col>
+                                <Button
+                                  className="btnAddimgMovie"
+                                  id={disabled}
+                                >
+                                  <Input
+                                    type="file"
+                                    name="file"
+                                    id={disabled}
+                                    className={disabled}
+                                    placeholder="date placeholder"
+                                    onChange={onChangePicture}
+                                  ></Input>
+                                  Add image
+                                </Button>
+                              </Col>
+                            </Row>
                             <img className="ImgMovie" src={imgData}></img>
                           </FormGroup>
                         </Col>

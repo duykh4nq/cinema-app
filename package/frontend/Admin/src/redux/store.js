@@ -5,13 +5,14 @@ import { composeWithDevTools } from "redux-devtools-extension";
 // Reducers
 import {
   getCinemaReducer,
-  getScheduleReducer
+  getScheduleReducer,
+  getMovieReducer,
 } from "./reducers/cinemaReducers";
 
-
 const reducer = combineReducers({
+  getMovie: getMovieReducer,
   getCinema: getCinemaReducer,
-  getSchedule:getScheduleReducer
+  getSchedule: getScheduleReducer,
   // getCineplex:getCineplexReducers
 });
 const middleware = [thunk];

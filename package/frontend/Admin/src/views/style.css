@@ -93,3 +93,14 @@
 .select__multi-value__remove:hover {
     background-color: #e14eca !important;
 }
+
+#disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+    /*Button disabled - CSS color class*/
+    background-color: #1d253b;
+}
+
+.btn-group {
+    margin-left: 0px !important;
+}

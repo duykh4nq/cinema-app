@@ -50,6 +50,32 @@ export const getRooms = (id) => async (dispatch) => {
   }
 };
 
+// use for add movies
+export const getMovie = () => async (dispatch) => {
+  try {
+    dispatch({
+      type: actionTypes.GET_SCHEDULE_REQUEST,
+    });
+    const { data } = await axios.get("/admin/movies");
+    if (data.message === "Ok") {
+      dispatch(getMovie());
+    }
+    dispatch({
+      type: actionTypes.GET_SCHEDULE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_SCHEDULE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+// use for showtime
 export const getMovies = (id) => async (dispatch) => {
   try {
     dispatch({
@@ -125,7 +151,7 @@ export const getAddRoom =
         vertical: vertical,
         id_categoryRoom: id_categoryRoom,
       });
-      if (data.message === "Ok") {
+      if (data.message === "OK") {
         dispatch(getCinema());
         alert("Success👏");
       } else {
@@ -148,18 +174,20 @@ export const getAddRoom =
   };
 
 export const getAddMovie =
-  (id_cineplex, name_movie, time, release_date, poster) => async (dispatch) => {
+  (listIdCineplexs, name_movie, time, release_date, poster) =>
+  async (dispatch) => {
     try {
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_REQUEST,
       });
       const { data } = await axios.post("/admin/addmovie", {
-        id_cineplex: id_cineplex,
+        listIdCineplexs: listIdCineplexs,
         name_movie: name_movie,
         time: time,
-        release_date: release_date,
+        release_date: Moment(release_date).format("MM-DD-YYYY"),
         poster: poster,
       });
+      console.log(`🚀 => file: adminActions.js => line 204 => data`, data);
       if (data.message === "Ok") {
         dispatch(getCinema());
         alert("Success👏");
@@ -183,16 +211,6 @@ export const getAddMovie =
 
 export const getAddShowtime =
   (id_room, id_movie, date, start_time, price) => async (dispatch) => {
-    console.log(`🚀 => file: adminActions.js => line 185 => price`, price);
-    console.log(
-      `🚀 => file: adminActions.js => line 185 => id_movie`,
-      id_movie
-    );
-    console.log(`🚀 => file: adminActions.js => line 185 => id_room`, id_room);
-    console.log(
-      `🚀 => file: adminActions.js => line 201 => Moment(date).format("MM-DD-YYYY")`,
-      Moment(date).format("MM-DD-YYYY")
-    );
     var [h, m] = start_time.split(":");
     var meridian =
       ((h % 12) + 12 * (h % 12 === 0) + ":" + m, h >= 12 ? "PM" : "AM");
