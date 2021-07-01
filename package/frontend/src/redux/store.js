@@ -11,11 +11,8 @@ import {
   postBookingSeatReducer,
 } from "./reducers/movieReducers";
 import { loginReducer, registerReducer } from "./reducers/authReducers";
-import { oderReducers } from "./reducers/orderReduces";
 
 const reducer = combineReducers({
-  // cart: cartReducer,
-  order: oderReducers,
   getMovieDetails: getMovieDetailReducer,
   postBookingShow: postBookingShowReducer,
   postBookingSeat: postBookingSeatReducer,

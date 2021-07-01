@@ -5,8 +5,8 @@ import Register from "../../pages/Registerpage/register.page";
 
 //import css
 import "./header.component.css";
-import "../../assets/css/plugins.css";
 import "../../assets/css/style.css";
+import "../../assets/css/plugins.css";
 import { useDispatch, useSelector } from "react-redux";
 import { PostLogout } from "../../redux/actions/authActions";
 
@@ -128,7 +128,7 @@ function HeadersComponent() {
             </div>
           </nav>
 
-          <div class="top-search">
+          {/* <div class="top-search">
             <select>
               <option value="united">TV show</option>
               <option value="saab">Others</option>
@@ -137,7 +137,7 @@ function HeadersComponent() {
               type="text"
               placeholder="Search for a movie, TV Show or celebrity that you are looking for"
             />
-          </div>
+          </div> */}
         </div>
       </header>
     </>

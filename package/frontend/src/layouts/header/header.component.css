@@ -13,3 +13,11 @@
 header {
   position: unset !important;
 }
+
+.container {
+  height: 100px !important;
+}
+
+.navbar-custom {
+  margin-top: -12px !important;
+}

@@ -2,8 +2,11 @@ import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Moment from "moment";
+import { Link } from "react-router-dom";
+
 import "../../assets/css/main.css";
 import "./booking.style.css";
+
 import screen_thumb from "../../assets/img/screen-thumb.png";
 import seat01 from "../../assets/img/seat.svg";
 import seat_checked from "../../assets/img/seat_checked.svg";
@@ -11,7 +14,6 @@ import seat_booked from "../../assets/img/seat_booked.svg";
 
 // Actions
 import { postBookingSeat } from "../../redux/actions/movieActions";
-import { getMovieDetails } from "../../redux/actions/movieActions";
 
 const BookingPage = () => { 
   const seated=["A1","B5","C3"]
@@ -103,15 +105,15 @@ const BookingPage = () => {
                 <ul>
                   <li class="item-book">
                     <img src={seat01} alt="seat" />
-                    <p class="book-info">Chưa chọn</p>
+                    <p class="book-info">Empty seats</p>
                   </li>
                   <li class="item-book">
                     <img src={seat_booked} alt="seat" />
-                    <p class="book-info">Đã chọn</p>
+                    <p class="book-info">Booked seats</p>
                   </li>
                   <li class="item-book">
                     <img src={seat_checked} alt="seat" />
-                    <p class="book-info">Checked</p>
+                    <p class="book-info">Booking seats</p>
                   </li>
                 </ul>
               </div>
@@ -128,9 +130,9 @@ const BookingPage = () => {
                 <h3 class="title">$150</h3>
               </div>
               <div class="book-item">
-                <a href="/checkout" class="custom-button">
+                <Link to={`/payment/${_schedule.slug}`} class="custom-button">
                   proceed
-                </a>
+                </Link>
               </div>
             </div>
           </div>

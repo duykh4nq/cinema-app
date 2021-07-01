@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import "./style.css";
+import "./dialog.style.css";
 import "../../assets/css/main.css";
 import "../../pages/Loginpage/login.style.scss"
 
