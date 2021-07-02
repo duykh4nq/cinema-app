@@ -7,13 +7,14 @@ import {
   getCinemaReducer,
   getScheduleReducer,
   getMovieReducer,
+  getAllShowtimeReducer,
 } from "./reducers/cinemaReducers";
 
 const reducer = combineReducers({
   getMovie: getMovieReducer,
   getCinema: getCinemaReducer,
   getSchedule: getScheduleReducer,
-  // getCineplex:getCineplexReducers
+  getAllShowtime: getAllShowtimeReducer,
 });
 const middleware = [thunk];
 

@@ -54,19 +54,19 @@ export const getRooms = (id) => async (dispatch) => {
 export const getMovie = () => async (dispatch) => {
   try {
     dispatch({
-      type: actionTypes.GET_SCHEDULE_REQUEST,
+      type: actionTypes.GET_MOVIE_REQUEST,
     });
     const { data } = await axios.get("/admin/movies");
     if (data.message === "Ok") {
       dispatch(getMovie());
     }
     dispatch({
-      type: actionTypes.GET_SCHEDULE_SUCCESS,
+      type: actionTypes.GET_MOVIE_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: actionTypes.GET_SCHEDULE_FAIL,
+      type: actionTypes.GET_MOVIE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -97,6 +97,34 @@ export const getMovies = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: actionTypes.GET_SCHEDULE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const getAllShowtime = (id_movie, id_room) => async (dispatch) => {
+  console.log(`🚀 => file: adminActions.js => line 109 => id_room`, id_room);
+  console.log(`🚀 => file: adminActions.js => line 109 => id_movie`, id_movie);
+  try {
+    dispatch({
+      type: actionTypes.GET_SHOWTIME_REQUEST,
+    });
+    const { data } = await axios.post("/admin/allshowtime", {
+      id_movie: id_movie,
+      id_room: id_room,
+    });
+    console.log(`🚀 => file: adminActions.js => line 119 => data`, data);
+
+    dispatch({
+      type: actionTypes.GET_SHOWTIME_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_SHOWTIME_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

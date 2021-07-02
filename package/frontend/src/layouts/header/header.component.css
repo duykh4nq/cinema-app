@@ -15,9 +15,28 @@ header {
 }
 
 .container {
-  height: 100px !important;
+  height: 84px !important;
 }
 
 .navbar-custom {
-  margin-top: -12px !important;
+  margin-top: -10px !important;
+}
+
+.navbar {
+  overflow: hidden !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100%;
+  z-index: 99 !important;
+  background: #001232 !important;
+  border-bottom: 2px solid #0c1c2c !important;
+}
+
+.logo {
+  margin-left: 20px;
+}
+
+header .navbar-default {
+  padding: 30px 0 20px 0 !important;
 }

@@ -18,3 +18,7 @@ input[type=text] {
 .form-address {
     width: 100% !important;
 }
+
+.booking-summery {
+    height: 360px !important;
+}

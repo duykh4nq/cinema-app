@@ -1,0 +1,9 @@
+.footer-section {
+    border-top: 2px solid #0c1c2c;
+    overflow: hidden;
+    background-color: transparent;
+    width: 100%;
+    position: relative;
+    bottom: 0 !important;
+    height: 70px !important;
+}

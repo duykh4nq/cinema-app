@@ -46,17 +46,39 @@ export const getScheduleReducer = (state = { schedule: [] }, action) => {
 
 export const getMovieReducer = (state = { movie: [] }, action) => {
   switch (action.type) {
-    case actionTypes.GET_SCHEDULE_REQUEST:
+    case actionTypes.GET_MOVIE_REQUEST:
       return {
         loading: true,
         movie: [],
       };
-    case actionTypes.GET_SCHEDULE_SUCCESS:
+    case actionTypes.GET_MOVIE_SUCCESS:
       return {
         movie: action.payload,
         loading: false,
       };
-    case actionTypes.GET_SCHEDULE_FAIL:
+    case actionTypes.GET_MOVIE_FAIL:
+      return {
+        loading: false,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
+
+export const getAllShowtimeReducer = (state = { data: [] }, action) => {
+  switch (action.type) {
+    case actionTypes.GET_SHOWTIME_REQUEST:
+      return {
+        loading: true,
+        data: [],
+      };
+    case actionTypes.GET_SHOWTIME_SUCCESS:
+      return {
+        data: action.payload,
+        loading: false,
+      };
+    case actionTypes.GET_SHOWTIME_FAIL:
       return {
         loading: false,
         error: null,

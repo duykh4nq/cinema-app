@@ -31,7 +31,7 @@ exports.getSchedule = async (req, res, next) => {
     include: [
       {
         model: Rooms,
-        attributes: ["id", "name_room"],
+        // attributes: ["id", "name_room"],
         include: [
           {
             model: Category_rooms,
@@ -40,7 +40,7 @@ exports.getSchedule = async (req, res, next) => {
       },
       {
         model: Movies,
-        attributes: ["id", "name_movie"],
+        // attributes: ["id", "name_movie"],
       },
     ],
   });

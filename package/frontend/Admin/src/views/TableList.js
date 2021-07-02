@@ -21,10 +21,17 @@ import {
 } from "reactstrap";
 import classnames from "classnames";
 import "./style.css";
-import { getCinema, getRooms, getMovies } from "../redux/actions/adminActions";
+import {
+  getCinema,
+  getRooms,
+  getMovies,
+  getAllShowtime,
+} from "../redux/actions/adminActions";
 
 function Tables() {
   const dispatch = useDispatch();
+  const [valuemovie, setMovie] = React.useState(null);
+  const [valueCinema, setCinema] = React.useState(null);
   const [activeTab, setActiveTab] = React.useState("1");
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -33,15 +40,17 @@ function Tables() {
   //cineplex
   const _cineplex = useSelector((state) => state.getCinema);
   const { loadingCineplex, errorCineplex, cinema } = _cineplex;
-  console.log(`🚀 => file: TableList.js => line 36 => cinema`, cinema);
+
   React.useEffect(() => {
     dispatch(getCinema());
-  }, [dispatch]);
+    if (valuemovie && valueCinema) {
+      dispatch(getAllShowtime(valuemovie, valueCinema));
+    }
+  }, [dispatch, valuemovie, valueCinema]);
 
   //schedule
   const _schedule = useSelector((state) => state.getSchedule);
   const { loadingSchedule, errorSchedule, schedule } = _schedule;
-  console.log(`🚀 => file: TableList.js => line 44 => schedule`, schedule);
 
   const setValueCineplex = (e) => {
     dispatch(getRooms(e));
@@ -53,6 +62,23 @@ function Tables() {
   const setValueCineplex3 = (e) => {
     dispatch(getRooms(e));
     dispatch(getMovies(e));
+  };
+
+  //schedule
+  const _showtime = useSelector((state) => state.getAllShowtime);
+  const showtime = _showtime.data;
+  console.log(`🚀 => file: TableList.js => line 68 => showtime`, showtime);
+  console.log(
+    `🚀 => file: TableList.js => line 77 => _showtime`,
+    _showtime.data
+  );
+
+  const setValueMovie = (e) => {
+    setMovie(e);
+  };
+
+  const setValueCinema = (e) => {
+    setCinema(e);
   };
 
   return (
@@ -327,6 +353,7 @@ function Tables() {
                               type="select"
                               name="select"
                               id="exampleSelect"
+                              onChange={(e) => setValueCinema(e.target.value)}
                             >
                               {schedule.map((item) => (
                                 <option value={item.id}>
@@ -349,9 +376,12 @@ function Tables() {
                               type="select"
                               name="select"
                               id="exampleSelect"
+                              onChange={(e) => setValueMovie(e.target.value)}
                             >
                               {schedule.map((item) => (
-                                <option>{item.name_movie}</option>
+                                <option value={item.id}>
+                                  {item.name_movie}
+                                </option>
                               ))}
                             </Input>
                           )}
@@ -367,27 +397,29 @@ function Tables() {
                           <th>Id showtime</th>
                           <th className="text-center">Premiere date</th>
                           <th className="text-center">Start time</th>
-                          <th className="text-center">Price</th>
+                          <th className="text-center">Price (đ)</th>
                           <th className="text-center">Remove</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {loadingCineplex ? (
-                          <h2>Loading...</h2>
-                        ) : errorCineplex ? (
-                          <h2>{errorCineplex}</h2>
-                        ) : (
-                          cinema.map((item) => (
+                        {showtime.length > 0 ? (
+                          showtime.map((item) => (
                             <tr>
-                              <td>{item.name}</td>
-                              <td className="text-center">{item.name}</td>
-                              <td className="text-center">{item.name}</td>
-                              <td className="text-center">{item.address}</td>
+                              <td>{item.id}</td>
+                              <td className="text-center">
+                                {item.time.premiere_date}
+                              </td>
+                              <td className="text-center">
+                                {item.time.start_time}
+                              </td>
+                              <td className="text-center">{item.price}</td>
                               <td className="text-center">
                                 <i className="tim-icons icon-simple-remove" />
                               </td>
                             </tr>
                           ))
+                        ) : (
+                          <p>Không có xuất chiếu nào!</p>
                         )}
                       </tbody>
                     </Table>
