@@ -47,6 +47,39 @@ exports.getSchedule = async (req, res, next) => {
   res.status(200).send(schedule);
 };
 
+const deleteTime = async (id_time) => {
+  await Times.destroy({
+    where: {
+      id: id_time,
+    },
+  });
+};
+
+exports.postDeleteShedule = async (req, res, next) => {
+  const { id_schedule } = req.body;
+  let schedule = await Schedules.findOne({ where: { id: id_schedule } });
+  schedule = JSON.parse(JSON.stringify(schedule));
+  deleteTime(schedule.id_time);
+  return res.send({ message: "Delete Successfully" });
+};
+
+exports.postDeleteRoom = async (req, res, next) => {
+  const { id_room } = req.body;
+  let schedules = await Schedules.findAll({ where: { id_room: id_room } });
+  if (schedules.length !== 0) {
+    schedules = JSON.parse(JSON.stringify(schedules));
+    for (let schedule of schedules) {
+      deleteTime(schedule.id_time);
+    }
+  }
+  await Rooms.destroy({
+    where: {
+      id: id_room,
+    },
+  });
+  return res.status(200).send({ message: "Delete Successfull" });
+};
+
 exports.getMovies = async (req, res, next) => {
   const moviesCineplexsData = await db.query(
     `
