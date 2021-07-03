@@ -7,16 +7,17 @@ import BookingRoute from "./booking.router";
 import HomeRoute from "./home.router";
 import CheckoutRoute from "./checkout.router";
 import AboutUsRoute from "./aboutus.router";
-
+import Profile from "./profile.router";
 function Routes() {
   return (
     <Router>
       <Header />
-       <HomeRoute /> 
-      <DetailRoute />
+      <HomeRoute />
+      <Profile />
+      {/* <DetailRoute />
       <AboutUsRoute />
       <BookingRoute />
-      <CheckoutRoute /> 
+      <CheckoutRoute />  */}
       <Footer />
     </Router>
   );
