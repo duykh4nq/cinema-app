@@ -1,0 +1,22 @@
+.user-hero {
+  height: 200px;
+}
+.btn-function {
+  font-family: "Dosis", sans-serif;
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: bold;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  line-height: 20px;
+}
+.btn-function:hover {
+  color: #dcf836;
+}
+.user-hero .hero-ct h1 {
+  display: flex;
+  justify-content: start;
+  padding-left: 25.5%;
+  margin: 0 !important;
+}

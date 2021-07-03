@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import "./register.page.scss";
-import { PostRegister, postVerifyEmail } from "../../redux/actions/authActions";
+import { PostLogin, PostRegister, postVerifyEmail } from "../../redux/actions/authActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 
@@ -12,8 +12,8 @@ function Register({ openformRegister, BackOpenformRegister, onSubmit }) {
   const [users, setUsers] = useState("");
   const { email, password, name, phone } = users;
   const register = useSelector((state) => state.register);
+  const user = useSelector((state) => state.users);
   const [check, setCheck] = useState(false);
-
   const [code, setCode] = useState();
   //const typingTimeoutRef = useRef("");
   const dispatch = useDispatch();
@@ -27,14 +27,11 @@ function Register({ openformRegister, BackOpenformRegister, onSubmit }) {
     await dispatch(PostRegister(email, password, name, phone));
     // dispatch(postVerifyEmail(register.message.user.code));
     // console.log("succes");
-    // onSubmit();
-    // history.push(history.location.pathname);
   };
   //check succes
   useEffect(() => {
     if (register.message.user !== undefined) {
       setCheck(true);
-      console.log("succes", register.message.user);
     }
   }, [register]);
   //check code
@@ -43,13 +40,18 @@ function Register({ openformRegister, BackOpenformRegister, onSubmit }) {
     dispatch(postVerifyEmail(email, code));
   };
 
+  useEffect(() => {
+    if (user.message === "Verified success") {
+      dispatch(PostLogin(email, password));
+    }
+    if (user.loggedIn) {
+      onSubmit();
+      history.push(history.location.pathname);
+      setCheck(false);
+    }
+  }, [user]);
   return (
-    <div
-      class="register"
-      {...(openformRegister === true
-        ? { className: "register openform" }
-        : { className: "register" })}
-    >
+    <div class="register" {...(openformRegister === true ? { className: "register openform" } : { className: "register" })}>
       {check === false ? (
         <div class="login-wrapper" id="signup-content">
           <div class="login-content">
@@ -79,15 +81,8 @@ function Register({ openformRegister, BackOpenformRegister, onSubmit }) {
               <div class="row">
                 <label for="email">
                   your email:
-                  <input
-                    value={email}
-                    type="text"
-                    name="email"
-                    id="email"
-                    placeholder=""
-                    required="required"
-                    onChange={handleOnChange}
-                  />
+                  <input value={email} type="text" name="email" id="email" placeholder="" required="required" onChange={handleOnChange} />
+                  {register.error ? <p className="fail">existed email</p> : null}
                 </label>
               </div>
               <div class="row">
@@ -107,15 +102,7 @@ function Register({ openformRegister, BackOpenformRegister, onSubmit }) {
               <div class="row">
                 <label for="phone">
                   Your phone:
-                  <input
-                    value={phone}
-                    type="text"
-                    name="phone"
-                    id="phone"
-                    placeholder=""
-                    required="required"
-                    onChange={handleOnChange}
-                  />
+                  <input value={phone} type="text" name="phone" id="phone" placeholder="" required="required" onChange={handleOnChange} />
                 </label>
               </div>
               <div class="row">
@@ -146,6 +133,7 @@ function Register({ openformRegister, BackOpenformRegister, onSubmit }) {
                   required="required"
                   onChange={(e) => setCode(e.target.value)}
                 />
+                {user.error ? <p className="fail">{user.error}</p> : null}
               </label>
               <div class="row">
                 <button type="submit">Accept</button>
