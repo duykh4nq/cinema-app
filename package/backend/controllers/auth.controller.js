@@ -143,9 +143,13 @@ exports.postVerifyCodeResetPass = async (req, res, next) => {
 };
 
 exports.postResetPassword = async (req, res, next) => {
-  const { email, password } = req.body;
+  const { email, oldPassword, newPassword } = req.body;
 
-  const user = await Users.findOne({ where: { email: email } });
+  let user = await Users.findOne({ where: { email: email } });
+  user = JSON.parse(JSON.stringify(user));
+  const isValidPass = bcrypt.compareSync(user.password, oldPassword);
+  if (isValidPass === false)
+    return res.status(403).send({ message: "oldPassword not match" });
   user.password = bcrypt.hashSync(password, 12);
   await user.save();
   return res.status(200).send({ message: "Change password successfully" });

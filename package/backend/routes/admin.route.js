@@ -14,6 +14,8 @@ router.post("/admin/addmovie", Admin.postAddMovie);
 router.post("/admin/addshedule", Admin.postAddShedule);
 router.post("/admin/deleteshedule", Admin.postDeleteShedule); // delete schedule
 router.post("/admin/deleteroom", Admin.postDeleteRoom); // delete room
+router.post("/admin/deletemovie", Admin.postDeleteMovie); // delete movie
+router.post("/admin/deletecineplex", Admin.postDeleteCineplex); // delete cineplex
 
 router.post("/admin/statiscalCineplex", Admin.postStatiscalForCineplex);
 router.post("/admin/statiscalMovie", Admin.postStatiscalForMovie);
