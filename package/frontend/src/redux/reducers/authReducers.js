@@ -38,6 +38,7 @@ export const registerReducer = (state = { message: {} }, action) => {
       };
     case actionTypes.REGISTER_FAIL:
       return {
+        message: {},
         error: action.payload,
         loading: false,
       };

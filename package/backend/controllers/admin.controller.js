@@ -14,7 +14,7 @@ const { Schedules, Times } = require("../models/schedules.model");
 const { Tickets } = require("../models/ticket.model");
 const {
   Cineplexs,
-  Rooms,
+  Rooms,  
   Category_rooms,
   Movies_Cineplex,
 } = require("../models/cineplex_room.model");

@@ -25,11 +25,39 @@
   -o-transition: all 0.35s ease-out;
   transition: all 0.35s ease-out;
 }
+.btn-auth {
+  color: #666 !important;
+  background: none !important;
+  width: unset !important;
+}
+.btn-auth:hover {
+  color: #dcf836 !important;
+}
+.btn-auth.forgot:hover {
+  color: #141414 !important;
+}
+.group-input {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  .col-9 {
+    width: 70%;
+    input {
+      margin-top: 0 !important;
+    }
+    padding: 0 !important;
+  }
+  .col-3 {
+    width: 25%;
+    padding: 0 !important;
+  }
+}
+
 .login-close {
   position: absolute;
   right: 20px;
   top: 10px;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   display: flex;
 }

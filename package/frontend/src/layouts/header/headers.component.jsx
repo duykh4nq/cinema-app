@@ -48,25 +48,13 @@ function HeadersComponent() {
   };
   return (
     <>
-      <LoginScreen
-        onSubmit={HandleLoginSucess}
-        openformLogin={openformLogin}
-        BackOpenformLogin={BackOpenformLogin}
-      />
-      <Register
-        onSubmit={HandleRegisterSucess}
-        openformRegister={openformRegister}
-        BackOpenformRegister={BackOpenformRegister}
-      />
+      <LoginScreen onSubmit={HandleLoginSucess} openformLogin={openformLogin} BackOpenformLogin={BackOpenformLogin} />
+      <Register onSubmit={HandleRegisterSucess} openformRegister={openformRegister} BackOpenformRegister={BackOpenformRegister} />
       <header>
         <div class="container">
           <nav class="navbar navbar-default navbar-custom">
             <div class="navbar-header logo">
-              <div
-                class="navbar-toggle"
-                data-toggle="collapse"
-                data-target="#bs-example-navbar-collapse-1"
-              >
+              <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <div id="nav-icon1">
                   <span></span>
@@ -78,10 +66,7 @@ function HeadersComponent() {
                 <img class="logo" src={logo} alt="" width="119" height="58" />
               </a>
             </div>
-            <div
-              class="collapse navbar-collapse flex-parent"
-              id="bs-example-navbar-collapse-1"
-            >
+            <div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav flex-child-menu menu-left">
                 <li class="hidden">
                   <a href="#page-top"></a>
@@ -90,11 +75,7 @@ function HeadersComponent() {
                   <Link to="/">Home</Link>
                 </li>
                 <li class="dropdown first">
-                  <a
-                    class="btn btn-default dropdown-toggle lv1"
-                    data-toggle="dropdown"
-                    data-hover="dropdown"
-                  >
+                  <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
                     movies<i class="fa fa-angle-down" aria-hidden="true"></i>
                   </a>
                   <ul class="dropdown-menu level1">
@@ -114,15 +95,15 @@ function HeadersComponent() {
                 {userLoggedIn === true ? (
                   <li class="loginLink" onClick={HandleLogOut}>
                     {" "}
-                    <a href="#">LOG OUT</a>
+                    <button className="btn-auth">LOG OUT</button>
                   </li>
                 ) : (
                   <li class="loginLink" onClick={ClickOpenformLogin}>
-                    <a href="#">LOG In</a>
+                    <button className="btn-auth">LOG In</button>
                   </li>
                 )}
                 <li class="btn signupLink" onClick={ClickOpenformRegister}>
-                  <a href="#">sign up</a>
+                  <button className="btn-auth">sign up</button>
                 </li>
               </ul>
             </div>

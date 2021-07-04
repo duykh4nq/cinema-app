@@ -25,6 +25,10 @@
   -o-transition: all 0.35s ease-out;
   transition: all 0.35s ease-out;
 }
+.fail {
+  color: red !important;
+  margin-top: 5px !important;
+}
 .register-close {
   position: absolute;
   right: 20px;
