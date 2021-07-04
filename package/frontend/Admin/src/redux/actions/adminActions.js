@@ -335,3 +335,56 @@ export const postStatiscalForMovie = (start, end) => async (dispatch) => {
     });
   }
 };
+
+export const deleteRooms = (id_room, id_cineplex) => async (dispatch) => {
+  try {
+    dispatch({
+      type: actionTypes.GET_DELETE_REQUEST,
+    });
+    const { data } = await axios.post("/admin/deleteroom", {
+      id_room: id_room,
+    });
+    if ((data.message = "Delete Successfull")) dispatch(getRooms(id_cineplex));
+    dispatch({
+      type: actionTypes.GET_DELETE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const deleteShowtime =
+  (id_schedule, id_cineplex) => async (dispatch) => {
+    try {
+      dispatch({
+        type: actionTypes.GET_DELETE_REQUEST,
+      });
+      const { data } = await axios.post("/admin/deleteshedule", {
+        id_schedule: id_schedule,
+      });
+      console.log(`🚀 => file: adminActions.js => line 372 => data`, data);
+      if ((data.message = "Delete Successfully")) {
+        dispatch(getMovies(id_cineplex));
+        dispatch(getRooms(id_cineplex));
+      }
+      dispatch({
+        type: actionTypes.GET_DELETE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: actionTypes.GET_DELETE_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };

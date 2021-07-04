@@ -26,12 +26,19 @@ import {
   getRooms,
   getMovies,
   getAllShowtime,
+  deleteRooms,
+  deleteShowtime,
 } from "../redux/actions/adminActions";
 
 function Tables() {
   const dispatch = useDispatch();
   const [valuemovie, setMovie] = React.useState(null);
   const [valueCinema, setCinema] = React.useState(null);
+
+  const [id_cineplex, setId_cineplex] = React.useState(null);
+
+  const [delRoom, setDelRom] = React.useState(null);
+  const [delShowtime, setDelShowtime] = React.useState(null);
   const [activeTab, setActiveTab] = React.useState("1");
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -42,24 +49,38 @@ function Tables() {
   const { loadingCineplex, errorCineplex, cinema } = _cineplex;
 
   React.useEffect(() => {
-    dispatch(getCinema());
-    if (valuemovie && valueCinema) {
+    if (!id_cineplex) dispatch(getCinema());
+    if (valuemovie && valueCinema && delShowtime === null) {
       dispatch(getAllShowtime(valuemovie, valueCinema));
     }
-  }, [dispatch, valuemovie, valueCinema]);
+    if (delRoom && id_cineplex) {
+      console.log(`🚀 => file: TableList.js => line 57 => delRoom`, delRoom);
+      dispatch(deleteRooms(delRoom, id_cineplex));
+    }
+    if (delShowtime) {
+      console.log(
+        `🚀 => file: TableList.js => line 60 => delShowtime`,
+        delShowtime
+      );
+      dispatch(deleteShowtime(delShowtime, id_cineplex));
+    }
+  }, [dispatch, valuemovie, valueCinema, delRoom, delShowtime, id_cineplex]);
 
   //schedule
   const _schedule = useSelector((state) => state.getSchedule);
   const { loadingSchedule, errorSchedule, schedule } = _schedule;
 
   const setValueCineplex = (e) => {
+    setId_cineplex(e);
     dispatch(getRooms(e));
   };
   const setValueCineplex2 = (e) => {
+    setId_cineplex(e);
     dispatch(getMovies(e));
   };
 
   const setValueCineplex3 = (e) => {
+    setId_cineplex(e);
     dispatch(getRooms(e));
     dispatch(getMovies(e));
   };
@@ -67,11 +88,6 @@ function Tables() {
   //schedule
   const _showtime = useSelector((state) => state.getAllShowtime);
   const showtime = _showtime.data;
-  console.log(`🚀 => file: TableList.js => line 68 => showtime`, showtime);
-  console.log(
-    `🚀 => file: TableList.js => line 77 => _showtime`,
-    _showtime.data
-  );
 
   const setValueMovie = (e) => {
     setMovie(e);
@@ -79,6 +95,19 @@ function Tables() {
 
   const setValueCinema = (e) => {
     setCinema(e);
+  };
+
+  //delete Cinema
+  const deleteCinema = (id_room) => {
+    setDelRom(id_room);
+  };
+
+  const deleteShowtime = (id_showtime) => {
+    console.log(
+      `🚀 => file: TableList.js => line 100 => id_showtime`,
+      id_showtime
+    );
+    setDelShowtime(id_showtime);
   };
 
   return (
@@ -231,7 +260,10 @@ function Tables() {
                               <td className="text-center">
                                 {item.horizontal_size}
                               </td>
-                              <td className="text-center">
+                              <td
+                                className="text-center"
+                                onClick={() => deleteCinema(item.id)}
+                              >
                                 <i className="tim-icons icon-simple-remove" />
                               </td>
                             </tr>
@@ -413,7 +445,10 @@ function Tables() {
                                 {item.time.start_time}
                               </td>
                               <td className="text-center">{item.price}</td>
-                              <td className="text-center">
+                              <td
+                                className="text-center"
+                                onClick={() => deleteShowtime(item.id)}
+                              >
                                 <i className="tim-icons icon-simple-remove" />
                               </td>
                             </tr>
