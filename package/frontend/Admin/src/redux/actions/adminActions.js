@@ -361,7 +361,7 @@ export const deleteRooms = (id_room, id_cineplex) => async (dispatch) => {
 };
 
 export const deleteShowtime =
-  (id_schedule, id_cineplex) => async (dispatch) => {
+  (id_schedule, id_cineplex, id_movie, id_room) => async (dispatch) => {
     try {
       dispatch({
         type: actionTypes.GET_DELETE_REQUEST,
@@ -371,8 +371,7 @@ export const deleteShowtime =
       });
       console.log(`🚀 => file: adminActions.js => line 372 => data`, data);
       if ((data.message = "Delete Successfully")) {
-        dispatch(getMovies(id_cineplex));
-        dispatch(getRooms(id_cineplex));
+        dispatch(getAllShowtime(id_movie, id_room));
       }
       dispatch({
         type: actionTypes.GET_DELETE_SUCCESS,

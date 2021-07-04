@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
 
 // reactstrap components
 import {
@@ -54,7 +53,6 @@ function Tables() {
       dispatch(getAllShowtime(valuemovie, valueCinema));
     }
     if (delRoom && id_cineplex) {
-      console.log(`🚀 => file: TableList.js => line 57 => delRoom`, delRoom);
       dispatch(deleteRooms(delRoom, id_cineplex));
     }
     if (delShowtime) {
@@ -62,7 +60,9 @@ function Tables() {
         `🚀 => file: TableList.js => line 60 => delShowtime`,
         delShowtime
       );
-      dispatch(deleteShowtime(delShowtime, id_cineplex));
+      dispatch(
+        deleteShowtime(delShowtime, id_cineplex, valuemovie, valueCinema)
+      );
     }
   }, [dispatch, valuemovie, valueCinema, delRoom, delShowtime, id_cineplex]);
 
@@ -102,11 +102,7 @@ function Tables() {
     setDelRom(id_room);
   };
 
-  const deleteShowtime = (id_showtime) => {
-    console.log(
-      `🚀 => file: TableList.js => line 100 => id_showtime`,
-      id_showtime
-    );
+  const deleteShowTime = (id_showtime) => {
     setDelShowtime(id_showtime);
   };
 
@@ -447,7 +443,7 @@ function Tables() {
                               <td className="text-center">{item.price}</td>
                               <td
                                 className="text-center"
-                                onClick={() => deleteShowtime(item.id)}
+                                onClick={() => deleteShowTime(item.id)}
                               >
                                 <i className="tim-icons icon-simple-remove" />
                               </td>
