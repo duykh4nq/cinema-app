@@ -27,6 +27,8 @@ import {
   getAllShowtime,
   deleteRooms,
   deleteShowtime,
+  deleteCineplexs,
+  deleteMovies,
 } from "../redux/actions/adminActions";
 
 function Tables() {
@@ -38,6 +40,9 @@ function Tables() {
 
   const [delRoom, setDelRom] = React.useState(null);
   const [delShowtime, setDelShowtime] = React.useState(null);
+  const [delCineplex, setDelCineplex] = React.useState(null);
+  const [delMovie, setDelMovie] = React.useState(null);
+
   const [activeTab, setActiveTab] = React.useState("1");
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -56,15 +61,27 @@ function Tables() {
       dispatch(deleteRooms(delRoom, id_cineplex));
     }
     if (delShowtime) {
-      console.log(
-        `🚀 => file: TableList.js => line 60 => delShowtime`,
-        delShowtime
-      );
       dispatch(
         deleteShowtime(delShowtime, id_cineplex, valuemovie, valueCinema)
       );
     }
-  }, [dispatch, valuemovie, valueCinema, delRoom, delShowtime, id_cineplex]);
+    if (delCineplex) {
+      dispatch(deleteCineplexs(delCineplex));
+    }
+    if (delMovie) {
+      console.log(`🚀 => file: TableList.js => line 71 => delMovie`, delMovie);
+      dispatch(deleteMovies(delMovie, id_cineplex));
+    }
+  }, [
+    dispatch,
+    valuemovie,
+    valueCinema,
+    delRoom,
+    delShowtime,
+    id_cineplex,
+    delCineplex,
+    delMovie,
+  ]);
 
   //schedule
   const _schedule = useSelector((state) => state.getSchedule);
@@ -104,6 +121,14 @@ function Tables() {
 
   const deleteShowTime = (id_showtime) => {
     setDelShowtime(id_showtime);
+  };
+
+  const deleteCineplex = (id_cineplex) => {
+    setDelCineplex(id_cineplex);
+  };
+
+  const deleteMovie = (id_movie) => {
+    setDelMovie(id_movie);
   };
 
   return (
@@ -182,7 +207,10 @@ function Tables() {
                             <tr>
                               <td>{item.name}</td>
                               <td className="text-center">{item.address}</td>
-                              <td className="text-center">
+                              <td
+                                className="text-center"
+                                onClick={() => deleteCineplex(item.id)}
+                              >
                                 <i className="tim-icons icon-simple-remove" />
                               </td>
                             </tr>
@@ -331,7 +359,10 @@ function Tables() {
                                   alt={item.slug}
                                 ></img>
                               </td>
-                              <td className="text-center">
+                              <td
+                                className="text-center"
+                                onClick={() => deleteMovie(item.id)}
+                              >
                                 <i className="tim-icons icon-simple-remove" />
                               </td>
                             </tr>

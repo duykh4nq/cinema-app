@@ -361,7 +361,7 @@ export const deleteRooms = (id_room, id_cineplex) => async (dispatch) => {
 };
 
 export const deleteShowtime =
-  (id_schedule, id_cineplex, id_movie, id_room) => async (dispatch) => {
+  (id_schedule, id_movie, id_room) => async (dispatch) => {
     try {
       dispatch({
         type: actionTypes.GET_DELETE_REQUEST,
@@ -387,3 +387,57 @@ export const deleteShowtime =
       });
     }
   };
+
+export const deleteCineplexs = (id_cineplex) => async (dispatch) => {
+  try {
+    dispatch({
+      type: actionTypes.GET_DELETE_REQUEST,
+    });
+    const { data } = await axios.post("/admin/deletecineplex", {
+      id_cineplex: id_cineplex,
+    });
+    console.log(`🚀 => file: adminActions.js => line 372 => data`, data);
+    if (data !== null) {
+      dispatch(getCinema());
+    }
+    dispatch({
+      type: actionTypes.GET_DELETE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+export const deleteMovies = (id_movie, id_cineplex) => async (dispatch) => {
+  try {
+    dispatch({
+      type: actionTypes.GET_DELETE_REQUEST,
+    });
+    const { data } = await axios.post("/admin/deletemovie", {
+      id_movie: id_movie,
+      id_cineplex: id_cineplex,
+    });
+    console.log(`🚀 => file: adminActions.js => line 426 => data`, data);
+    if (data.message === "Delete Successful") {
+      dispatch(getMovies(id_cineplex));
+    }
+    dispatch({
+      type: actionTypes.GET_DELETE_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
