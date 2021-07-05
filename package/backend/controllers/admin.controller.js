@@ -63,8 +63,7 @@ exports.postDeleteShedule = async (req, res, next) => {
   return res.send({ message: "Delete Successfully" });
 };
 
-exports.postDeleteRoom = async (req, res, next) => {
-  const { id_room } = req.body;
+const deleteScheduleByRoomId = async (id_room) => {
   let schedules = await Schedules.findAll({ where: { id_room: id_room } });
   if (schedules.length !== 0) {
     schedules = JSON.parse(JSON.stringify(schedules));
@@ -72,12 +71,71 @@ exports.postDeleteRoom = async (req, res, next) => {
       deleteTime(schedule.id_time);
     }
   }
+};
+
+exports.postDeleteRoom = async (req, res, next) => {
+  const { id_room } = req.body;
+  await deleteScheduleByRoomId(id_room);
   await Rooms.destroy({
     where: {
       id: id_room,
     },
   });
   return res.status(200).send({ message: "Delete Successfull" });
+};
+
+exports.postDeleteMovie = async (req, res, next) => {
+  const { id_movie, id_cineplex } = req.body;
+  const moci = await Movies_Cineplex.findAll({
+    where: {
+      id_movie: id_movie,
+      id_cineplex: id_cineplex,
+    },
+  });
+  if (moci.length === 0)
+    return res.status(403).send({ message: "Something is wrong!!" });
+  let allRooms = await Rooms.findAll({
+    where: {
+      id_cineplex: id_cineplex,
+    },
+    attributes: ["id"],
+  });
+  allRooms = JSON.parse(JSON.stringify(allRooms));
+  for (let room of allRooms) {
+    let schedules = await Schedules.findAll({
+      where: { id_movie: id_movie, id_room: room.id },
+    });
+    if (schedules.length !== 0) {
+      schedules = JSON.parse(JSON.stringify(schedules));
+      for (let schedule of schedules) {
+        deleteTime(schedule.id_time);
+      }
+    }
+  }
+  await Movies_Cineplex.destroy({
+    where: {
+      id_movie: id_movie,
+      id_cineplex: id_cineplex,
+    },
+  });
+  return res.send({ message: "Delete Successful" });
+};
+
+exports.postDeleteCineplex = async (req, res, next) => {
+  const { id_cineplex } = req.body;
+  // TODO: get all id_room to prepare delete schedule
+  let rooms = await Rooms.findAll({
+    where: { id_cineplex: id_cineplex },
+    attributes: ["id"],
+  });
+  rooms = JSON.parse(JSON.stringify(rooms));
+  for (let room of rooms) {
+    deleteScheduleByRoomId(room.id);
+  }
+  await Movies_Cineplex.destroy({ where: { id_cineplex: id_cineplex } });
+  await Rooms.destroy({ where: { id_cineplex: id_cineplex } });
+  await Cineplexs.destroy({ where: { id: id_cineplex } });
+  return res.send(rooms);
 };
 
 exports.getMovies = async (req, res, next) => {
