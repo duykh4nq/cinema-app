@@ -142,17 +142,33 @@ exports.postVerifyCodeResetPass = async (req, res, next) => {
   }
 };
 
-exports.postResetPassword = async (req, res, next) => {
-  const { email, oldPassword, newPassword } = req.body;
+exports.postResetPasswordForgot = async (req, res, next) => {
+  const { email, password } = req.body;
 
-  let user = await Users.findOne({ where: { email: email } });
-  user = JSON.parse(JSON.stringify(user));
-  const isValidPass = bcrypt.compareSync(user.password, oldPassword);
-  if (isValidPass === false)
-    return res.status(403).send({ message: "oldPassword not match" });
+  const user = await Users.findOne({ where: { email: email } });
   user.password = bcrypt.hashSync(password, 12);
   await user.save();
   return res.status(200).send({ message: "Change password successfully" });
+};
+
+exports.postResetPassword = async (req, res, next) => {
+  const { email, oldPassword, newPassword } = req.body;
+  const user = await Users.findOne({ where: { email: email } });
+
+  bcrypt.compare(oldPassword, user.password, async (err, data) => {
+    //if error than throw error
+    if (err) throw err;
+
+    //if both match than you can do anything
+    if (data) {
+      user.password = bcrypt.hashSync(newPassword, 12);
+      await user.save();
+      return res.status(200).send({ user, message: "Change password successfully" });
+    } else {
+      console.log("🚀 ~ file: auth.controller.js ~ line 159 ~ bcrypt.compare ~ false", err, data);
+      return res.status(403).send({ message: "Invalid credencial" });
+    }
+  });
 };
 
 exports.postChangeProfile = async (req, res, next) => {

@@ -1,5 +1,6 @@
 .user-hero {
-  height: 200px;
+  height: 130px;
+  margin-top: 20px;
 }
 .btn-function {
   font-family: "Dosis", sans-serif;
@@ -14,9 +15,29 @@
 .btn-function:hover {
   color: #dcf836;
 }
+.user-hero .hero-ct {
+  padding-top: 0 !important;
+}
 .user-hero .hero-ct h1 {
   display: flex;
   justify-content: start;
   padding-left: 25.5%;
   margin: 0 !important;
+}
+.page-single {
+  padding-top: 0;
+}
+.user-information {
+  margin-top: -100px;
+}
+.form-it input[type="email"][disabled] {
+  background: #032055;
+}
+.user-img {
+  display: flex;
+  flex-direction: column;
+}
+.fail {
+  color: red !important;
+  margin-top: 5px !important;
 }
