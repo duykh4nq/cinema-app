@@ -6987,7 +6987,7 @@ input[type="submit"] {
 /*Tour-Section Starts Here*/
 
 .tour-section {
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .tour-content .list-tour {

@@ -1,4 +1,14 @@
-.main-page-header {
-    height: 0 !important;
-    margin-top: -100px !important;
+.gallery-section {
+    margin-top: 100px !important;
+    height: 1100px !important;
+    padding-top: 100px !important;
+    margin-bottom: 100px !important;
+}
+
+.philosophy-section {
+    margin-bottom: 400px !important;
+}
+
+body {
+    margin-bottom: -1000px !important;
 }

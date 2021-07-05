@@ -1,3 +1,12 @@
+.main-page-header {
+    height: 0 !important;
+    margin-top: -150px !important;
+}
+
+.event-facility {
+    margin-bottom: -400px;
+}
+
 .info {
     margin: 20px 0px;
 }

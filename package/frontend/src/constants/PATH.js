@@ -6,4 +6,5 @@ exports.PATH = {
   CHECKOUT: "/payment/:slug",
   ABOUT: "/aboutUs",
   PROFILE: "/profile",
+  MOVIE: "/movie-list",
 };

@@ -8,16 +8,18 @@ import HomeRoute from "./home.router";
 import CheckoutRoute from "./checkout.router";
 import AboutUsRoute from "./aboutus.router";
 import Profile from "./profile.router";
+import MovieRoute from "./movie.router";
 function Routes() {
   return (
     <Router>
       <Header />
       <HomeRoute />
       <Profile />
-      {/* <DetailRoute />
+      <DetailRoute />
       <AboutUsRoute />
       <BookingRoute />
-      <CheckoutRoute />  */}
+      <CheckoutRoute />
+      <MovieRoute />
       <Footer />
     </Router>
   );

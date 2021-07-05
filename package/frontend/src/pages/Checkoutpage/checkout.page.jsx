@@ -8,7 +8,16 @@ import paypal from "../../assets/img/paypal.png";
 function CheckoutPage(props) {
     return (
         <>
-    <div class="event-facility padding-bottom padding-top">
+        <section
+      class="main-page-header"
+    >
+      <div class="container">
+        <div class="speaker-banner-content">
+          <h2 class="title">payment</h2>
+        </div>
+      </div>
+    </section>
+    <div class="event-facility padding-top">
       <div class="container">
         <div class="row">
           <div class="col-lg-8">

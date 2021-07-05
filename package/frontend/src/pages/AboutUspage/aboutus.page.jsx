@@ -69,9 +69,7 @@ function AboutUsPage() {
 
     <div
       class="
-        philosophy-section
-        padding-top padding-bottom
-        bg-one bg_img bg_quater_img
+        philosophy-section padding-top padding-bottom bg-one bg_img bg_quater_img
       "
     >
       <div class="container">
@@ -279,7 +277,7 @@ function AboutUsPage() {
       </div>
     </section>
     
-    <section class="tour-section padding-top padding-bottom">
+    <section class="tour-section">
       <div class="container">
         <div class="row">
           <div class="col-lg-6">
