@@ -13,6 +13,7 @@ router.post("/logout", Auth.postLogout);
 router.post("/forgotpassword", Auth.postForgotPassword);
 router.post("/verifycoderesetpass", Auth.postVerifyCodeResetPass);
 router.post("/resetpassword", Auth.postResetPassword);
+router.post("/resetpasswordforgot", Auth.postResetPasswordForgot);
 router.post("/changeprofile", Auth.postChangeProfile);
 router.get("/historybooking", Auth.getHistoryBooking);
 router.post("/payment", Auth.postPayment);

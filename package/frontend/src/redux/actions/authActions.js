@@ -164,7 +164,7 @@ export const postForgotPassword = (email) => async (dispatch, getState) => {
 
 export const postResetPassword = (email, password) => async (dispatch, getState) => {
   try {
-    const { data } = await axios.post("/resetpassword", {
+    const { data } = await axios.post("/resetpasswordforgot", {
       password: password,
       email: email,
     });
@@ -172,6 +172,50 @@ export const postResetPassword = (email, password) => async (dispatch, getState)
       type: actionTypes.LOGIN_SUCCESS,
       payload: {
         user: data,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.LOGIN_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+
+export const postChangeProfile = (email, name, phone) => async (dispatch, getState) => {
+  try {
+    const { data } = await axios.post("/changeprofile", {
+      email: email,
+      name: name,
+      phone: phone,
+    });
+    dispatch({
+      type: actionTypes.LOGIN_SUCCESS,
+      payload: {
+        user: data,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.LOGIN_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+export const postChangePassword = (email, oldPassword, newPassword) => async (dispatch, getState) => {
+  try {
+    const { data } = await axios.post("/resetpassword", {
+      email: email,
+      oldPassword: oldPassword,
+      newPassword: newPassword,
+    });
+    console.log("🚀 ~ file: authActions.js ~ line 212 ~ postChangePassword ~ data", data.user);
+    dispatch({
+      type: actionTypes.LOGIN_SUCCESS,
+      payload: {
+        user: data.user,
+        message: data.message,
+        loggedIn: true,
       },
     });
   } catch (error) {

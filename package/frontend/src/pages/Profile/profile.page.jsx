@@ -1,17 +1,28 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "./profile.page.scss";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
+import { postChangePassword, postChangeProfile } from "../../redux/actions/authActions";
 ProfilePage.propTypes = {};
 
 function ProfilePage(props) {
-  const { user, loggedIn } = useSelector((state) => state.users);
+  const { user, loggedIn, message } = useSelector((state) => state.users);
+  const userLoggedIn = useSelector((state) => state.users.loggedIn);
   const [users, setUsers] = useState("");
   const { email, name, phone } = users;
+  const [oldPassword, setOldPassword] = useState();
+  const [newPassword, setNewPassword] = useState();
+  const [newPasswordConfirm, setPasswordConfirm] = useState();
+  const [checkNotMatch, setCheckNotMatch] = useState(false);
+  const history = useHistory();
+  const dispatch = useDispatch();
   useEffect(() => {
     if (user != null || user != undefined) {
       setUsers(user);
+    }
+    if (message === "Change password successfully") {
+      setChangPassword(false);
     }
   }, [user]);
 
@@ -23,9 +34,25 @@ function ProfilePage(props) {
   //onchang value form
   const handleOnChange = (e) => {
     const value = e.target.value;
+    const name = e.target.name;
     setUsers({ ...users, [name]: value });
   };
-  //
+  //submit changeProfile
+  const handleChangProfile = (e) => {
+    e.preventDefault();
+    dispatch(postChangeProfile(email, name, phone));
+    history.push("/");
+  };
+  // changPassword
+  const handleChangePassword = (e) => {
+    e.preventDefault();
+    if (newPassword !== newPasswordConfirm) {
+      setCheckNotMatch(true);
+    } else {
+      dispatch(postChangePassword(email, oldPassword, newPassword));
+      //setChangPassword(false);
+    }
+  };
   return (
     <>
       <div className="hero user-hero">
@@ -86,7 +113,7 @@ function ProfilePage(props) {
             </div>
             <div className="col-md-9 col-sm-12 col-xs-12">
               <div className="form-style-1 user-pro" action="#">
-                <form action="#" className="user">
+                <form action="#" className="user" onSubmit={handleChangProfile}>
                   <h4>Profile details</h4>
                   <div className="row">
                     <div className="col-md-6 form-it">
@@ -95,19 +122,13 @@ function ProfilePage(props) {
                     </div>
                     <div className="col-md-6 form-it">
                       <label>Email Address</label>
-                      <input
-                        name="email"
-                        value={email ? email : ""}
-                        type="text"
-                        placeholder="edward@kennedy.com"
-                        onChange={handleOnChange}
-                      />
+                      <input name="email" value={email ? email : ""} type="email" placeholder="edward@kennedy.com" disabled />
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-md-12 form-it">
                       <label>Phone</label>
-                      <input name="phone" value={phone ? phone : ""} type="text" placeholder="Kennedy" onChange={handleOnChange} />
+                      <input name="phone" value={phone ? phone : ""} type="number" placeholder="Kennedy" onChange={handleOnChange} />
                     </div>
                   </div>
 
@@ -118,24 +139,40 @@ function ProfilePage(props) {
                   </div>
                 </form>
                 {changPassword === true ? (
-                  <form action="#" className="password">
+                  <form action="#" className="password" onSubmit={handleChangePassword}>
                     <h4>Change password</h4>
                     <div className="row">
                       <div className="col-md-6 form-it">
                         <label>Old Password</label>
-                        <input type="text" placeholder="**********" />
+                        <input
+                          type="password"
+                          name="oldPassword"
+                          value={oldPassword ? oldPassword : ""}
+                          onChange={(e) => setOldPassword(e.target.value)}
+                        />
                       </div>
                     </div>
                     <div className="row">
                       <div className="col-md-6 form-it">
                         <label>New Password</label>
-                        <input type="text" placeholder="***************" />
+                        <input
+                          type="password"
+                          name="newPassword"
+                          value={newPassword ? newPassword : ""}
+                          onChange={(e) => setNewPassword(e.target.value)}
+                        />
                       </div>
                     </div>
                     <div className="row">
                       <div className="col-md-6 form-it">
                         <label>Confirm New Password</label>
-                        <input type="text" placeholder="*************** " />
+                        <input
+                          type="password"
+                          name="passwordConfirm"
+                          value={newPasswordConfirm ? newPasswordConfirm : ""}
+                          onChange={(e) => setPasswordConfirm(e.target.value)}
+                        />
+                        {checkNotMatch && <p className="fail">Password not match</p>}
                       </div>
                     </div>
                     <div className="row">
