@@ -220,25 +220,42 @@ exports.postBookingSeat = async (req, res, next) => {
     { type: QueryTypes.SELECT }
   );
 
-  let result = {
-    id_schedule: bookings[0].id,
-    horizontal_size: bookings[0].horizontal_size,
-    vertical_size: bookings[0].vertical_size,
-    price: bookings[0].price,
-    sum_of_seat:
-      (bookings[0].vertical_size.charCodeAt(0) - 96) *
-      bookings[0].horizontal_size,
-    empty_seat:
-      (bookings[0].vertical_size.charCodeAt(0) - 96) *
-        bookings[0].horizontal_size -
-      bookings.length,
-    exists_seat: bookings.length,
-    seats: [],
-  };
-
-  for (let item of bookings) {
-    result.seats.push(item.seat.toString());
+  let result = {};
+  if (bookings.length === 0) {
+    result = {
+      id_schedule: bookings[0].id,
+      horizontal_size: bookings[0].horizontal_size,
+      vertical_size: bookings[0].vertical_size,
+      price: bookings[0].price,
+      sum_of_seat:
+        (bookings[0].vertical_size.charCodeAt(0) - 64) *
+        bookings[0].horizontal_size,
+      empty_seat:
+        (bookings[0].vertical_size.charCodeAt(0) - 64) *
+          bookings[0].horizontal_size -
+        bookings.length,
+      exists_seat: 0,
+      seats: [],
+    };
+  } else {
+    result = {
+      id_schedule: bookings[0].id,
+      horizontal_size: bookings[0].horizontal_size,
+      vertical_size: bookings[0].vertical_size,
+      price: bookings[0].price,
+      sum_of_seat:
+        (bookings[0].vertical_size.charCodeAt(0) - 64) *
+        bookings[0].horizontal_size,
+      empty_seat:
+        (bookings[0].vertical_size.charCodeAt(0) - 64) *
+          bookings[0].horizontal_size -
+        bookings.length,
+      exists_seat: bookings.length,
+      seats: [],
+    };
+    for (let item of bookings) {
+      result.seats.push(item.seat.toString());
+    }
   }
-
   res.status(200).send(result);
 };
