@@ -238,8 +238,7 @@ exports.postBookingSeat = async (req, res, next) => {
         existsBooking[0].horizontal_size,
       empty_seat:
         (existsBooking[0].vertical_size.charCodeAt(0) - 64) *
-          existsBooking[0].horizontal_size -
-        existsBooking.length,
+        existsBooking[0].horizontal_size,
       exists_seat: 0,
       seats: [],
     };
