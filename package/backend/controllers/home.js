@@ -222,24 +222,24 @@ exports.postBookingSeat = async (req, res, next) => {
 
   let result = {};
   if (bookings.length === 0) {
-    const bookings = await db.query(
+    const existsBooking = await db.query(
       `select sch.id, ro.horizontal_size, ro.vertical_size, sch.price
       from schedules sch join rooms ro on ro.id = sch.id_room
       where sch.id = ${id_schedule}`,
       { type: QueryTypes.SELECT }
     );
-
     result = {
-      id_schedule: bookings[0].id,
-      horizontal_size: bookings[0].horizontal_size,
-      vertical_size: bookings[0].vertical_size,
-      price: bookings[0].price,
+      id_schedule: existsBooking[0].id,
+      horizontal_size: existsBooking[0].horizontal_size,
+      vertical_size: existsBooking[0].vertical_size,
+      price: existsBooking[0].price,
       sum_of_seat:
-        (bookings[0].vertical_size.charCodeAt(0) - 96) *
-        bookings[0].horizontal_size,
+        (existsBooking[0].vertical_size.charCodeAt(0) - 64) *
+        existsBooking[0].horizontal_size,
       empty_seat:
-        (bookings[0].vertical_size.charCodeAt(0) - 96) *
-        bookings[0].horizontal_size,
+        (existsBooking[0].vertical_size.charCodeAt(0) - 64) *
+          existsBooking[0].horizontal_size -
+        existsBooking.length,
       exists_seat: 0,
       seats: [],
     };
@@ -250,10 +250,10 @@ exports.postBookingSeat = async (req, res, next) => {
       vertical_size: bookings[0].vertical_size,
       price: bookings[0].price,
       sum_of_seat:
-        (bookings[0].vertical_size.charCodeAt(0) - 96) *
+        (bookings[0].vertical_size.charCodeAt(0) - 64) *
         bookings[0].horizontal_size,
       empty_seat:
-        (bookings[0].vertical_size.charCodeAt(0) - 96) *
+        (bookings[0].vertical_size.charCodeAt(0) - 64) *
           bookings[0].horizontal_size -
         bookings.length,
       exists_seat: bookings.length,
@@ -263,5 +263,5 @@ exports.postBookingSeat = async (req, res, next) => {
       result.seats.push(item.seat.toString());
     }
   }
-  return res.status(200).send(result);
+  res.status(200).send(result);
 };
