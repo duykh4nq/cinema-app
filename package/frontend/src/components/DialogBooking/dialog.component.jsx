@@ -7,54 +7,84 @@ import "../../pages/Loginpage/login.style.scss"
 
 
 const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }) => {
-
     const [valueDay, setValueDay] = React.useState(null)
-    const [valueCineplex, setValueCineplex] = React.useState(movie[0])
-    const [category, setCategory] = React.useState(valueCineplex[0].details[0].detailsCat)
-    const [schedule, setSchedule] = React.useState(category[0].schedule)
+    const [valueCineplex, setValueCineplex] = React.useState(null)
+    const [category, setCategory] = React.useState(null)
+    const [schedule, setSchedule] = React.useState(null)
     const [time, setTime] = React.useState(null)
 
-    const [color, setColor] = React.useState(new Array(7).fill(null))
+    const [colorDay, setColorDay] = React.useState(new Array(7).fill(null))
+    const [colorCineplex, setColorCineplex] = React.useState(new Array(7).fill(null))
+    const [colorCategory, setColorCategory] = React.useState(new Array(7).fill(null))
+    const [colorTime, setColorTime] = React.useState(new Array(7).fill(null))
 
-    const setIndexDay = (index, value) => {
+    const setIndexDay = (idx, value) => {
         for (let i = 0; i < movie.length; i++) {
             if (movie[i][0].date == value) {
+                setValueDay(value)
                 const newColor = new Array(7).fill(null);
-                newColor[index] = "changeColorBackground"
-                setColor(newColor)
-                setValueCineplex(movie[i])
+                newColor[idx] = "changeColorBackground"
+                setColorDay(newColor)
+                setColorCineplex(new Array(7).fill(null))
+                setColorCategory(new Array(7).fill(null))
+                setColorTime(new Array(7).fill(null))
+                if (movie[i][0].details[0]) {
+                    setValueCineplex(movie[i])
+                    setSchedule(movie[i][0].details[0].detailsCat[0].schedule)
+                    setCategory(movie[i][0].details[0].detailsCat)
+                    setTime(movie[i][0].details[0].detailsCat[0].schedule[0].time_start)
+                } else {
+                    setValueCineplex(null)
+                    setSchedule(null);
+                    setCategory(null)
+                }
             }
         }
     }
 
-    const setIndexCineplex = (index, value) => {
+    const setIndexCineplex = (idx, value) => {
         for (let i = 0; i < valueCineplex.length; i++) {
-            if (valueCineplex[i].details[0].cineplex == value) {
-                setValueDay(value)
-                const newColor = new Array(7).fill(null);
-                newColor[index] = "changeColorBackground"
-                setColor(newColor)
-                setCategory(valueCineplex[i].details[0].detailsCat)
+            const result = valueCineplex[i].details.find((el) => (
+                el.cineplex == value
+            ))
+            const newColor = new Array(valueCineplex.length).fill(null);
+            newColor[idx] = "changeColorBackground"
+            setColorCineplex(newColor)
+            setCategory(result.detailsCat)
+            if (result.detailsCat) {
+                setSchedule(result.detailsCat[0].schedule)
             }
         }
     };
 
-    const setIndexCategory = (index, value) => {
+    const setIndexCategory = (idx, value) => {
         for (let i = 0; i < category.length; i++) {
-            if (category[i].cate_room == value) {
-                const newColor = new Array(7).fill(null);
-                newColor[index] = "changeColorBackground"
-                setColor(newColor)
-                setSchedule(category[i].schedule)
-            }
+            const result = category.find((el) => (
+                el.cate_room == value
+            ))
+            const newColor = new Array(valueCineplex.length).fill(null);
+            newColor[idx] = "changeColorBackground"
+            setColorCategory(newColor)
+            setSchedule(result.schedule)
         }
+    }
+    const setIndexTime = (idx, value) => {
+        const newColor = new Array(schedule.length).fill(null);
+        newColor[idx] = "changeColorBackground"
+        setColorTime(newColor)
+        setTime(value)
     }
 
     const handleProceed = () => {
-        sessionStorage.setItem("day", JSON.stringify(valueDay));
-        sessionStorage.setItem("valueCineplex", JSON.stringify(valueCineplex));
-        sessionStorage.setItem("category", JSON.stringify(category));
-        sessionStorage.setItem("time", JSON.stringify(time));
+        if (time && category && valueCineplex && valueDay) {
+            sessionStorage.setItem("day", JSON.stringify(valueDay));
+            sessionStorage.setItem("valueCineplex", JSON.stringify(valueCineplex));
+            sessionStorage.setItem("category", JSON.stringify(category));
+            sessionStorage.setItem("time", JSON.stringify(time));
+        } else {
+            alert("Please choose showtime 😅")
+        }
+
     }
 
     return <div className="loginpage"
@@ -66,8 +96,8 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }
                 X
             </button>
             <div className="date">
-                {openformLogin === true ? (movie.map((item, index) => (
-                    <button className={`btncalendar ${color[index]}`} onClick={() => setIndexDay(index, item[0].date)}>
+                {openformLogin === true ? (movie.map((item, idx) => (
+                    <button className={`btncalendar ${colorDay[idx]}`} onClick={() => setIndexDay(idx, item[0].date)}>
                         <div className="day">
                             <p className="texture">
                                 {Moment(item[0].date).date()}</p></div>
@@ -79,34 +109,37 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }
             </div>
             {(valueCineplex !== null) ? (<>
                 <div className="theater-cluster">
-                    {((valueCineplex[0].details.length > 0 ? (
-                        <button className={`btncinema-complex ${color}`} onClick={() => setIndexCineplex(valueCineplex[0].details[0].cineplex)}>
-                            <div>{valueCineplex[0].details[0].cineplex}</div>
-                        </button>) : <p></p>))}
+                    {((valueCineplex[0].details.length > 0 ? (valueCineplex[0].details.map((dt, idx) => (
+                        <button className={`btncinema-complex ${colorCineplex[idx]}`} onClick={() => setIndexCineplex(idx, dt.cineplex)}>
+                            <div>{
+                                dt.cineplex
+                            }</div>
+                            {console.log(idx)}
+                        </button>))) : <p></p>))}
                 </div>
                 <div className="movie-genre ">
-                    {(valueCineplex[0].details.length > 0 ? (
-                        <button className={`btncategory ${color}`} onClick={() => setIndexCategory(valueCineplex[0].details[0].detailsCat[0].cate_room)}>
-                            <div >{valueCineplex[0].details[0].detailsCat[0].cate_room}</div><div> phụ đề Việt</div>
+                    {(category?.map((dtc, idx) => (
+                        <button className={`btncategory ${colorCategory[idx]}`} onClick={() => setIndexCategory(idx, dtc.cate_room)}>
+                            <div >{dtc.cate_room}</div><div> phụ đề Việt</div>
                         </button>
-                    ) : <p></p>
-                    )}
+                    )))
+                    }
                 </div>
                 <div className="time">
                     <div className="item">
                         <div className="list-time">
-                            {(schedule?.map((item, index) => (
-                                <button className={`showtime ${color}`} onClick={() => setTime(index, item.time_start)}>
+                            {(schedule?.map((item, idx) => (
+                                <button className={`showtime ${colorTime[idx]}`} onClick={() => setIndexTime(idx, item.time_start)}>
                                     <p>{item.time_start}</p>
                                 </button>
                             )))}
                         </div>
                     </div>
                 </div></>) :
-                <></>}
-            <Link to={`booking/${movies.slug}`} className="proceed-dialog custom-button" onClick={() => handleProceed()}>
+                <p className="alert-null">Sorry, there is no showing on this date, please choose another date 😅</p>}
+            {(time && category && valueCineplex && valueDay)?<Link to={`booking/${movies.slug}`} className="proceed-dialog custom-button" onClick={() => handleProceed()}>
                 Proceed
-            </Link>
+            </Link>:<></>}
         </div>
     </div>;
 }

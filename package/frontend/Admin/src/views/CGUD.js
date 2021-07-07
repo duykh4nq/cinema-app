@@ -264,8 +264,17 @@ function CGUD() {
 
   const addShowtimeHandler = (e) => {
     e.preventDefault();
-    if (start_time == "") alert("Please enter start time!!!");
-    else {
+
+    console.log(`🚀 => file: CGUD.js => line 270 => price`, price);
+    console.log(`🚀 => file: CGUD.js => line 268 => start_time`, start_time);
+    if (start_time == "" || price == undefined) {
+      alert("Please enter full data!!!");
+      setId_room(e.target.reset());
+      setId_movie(e.target.reset());
+      setDate(e.target.reset());
+      setStart_time(e.target.reset());
+      setPrice(e.target.reset());
+    } else {
       setId_room(e.target.reset());
       setId_movie(e.target.reset());
       setDate(e.target.reset());

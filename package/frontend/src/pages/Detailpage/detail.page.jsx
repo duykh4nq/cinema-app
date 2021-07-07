@@ -33,7 +33,8 @@ const DetailScreen = ({ match, history }) => {
   const { loading, error, movies } = movieDetails;
 
   const DialogBooking = useSelector((state) => state.postBookingShow);
-    const { movie } = DialogBooking;
+  const { movie } = DialogBooking;
+  console.log(`🚀 => file: detail.page.jsx => line 37 => movie`, movie)
 
   useEffect(() => {
     dispatch(getMovieDetails(match.params.slug));
@@ -50,7 +51,7 @@ const DetailScreen = ({ match, history }) => {
   };
 
   return (
-    <>{openformLogin? <DialogBookingScreen
+    <>{(openformLogin && movie) ? <DialogBookingScreen
         openformLogin={openformLogin}
         BackOpenformLogin={BackOpenformDialog}
         movie={movie}

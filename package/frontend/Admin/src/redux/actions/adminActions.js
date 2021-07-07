@@ -148,7 +148,7 @@ export const getAddCineplex = (name, address) => async (dispatch) => {
       dispatch(getCinema());
       alert("Success👏");
     } else {
-      alert("Add cineplex failed 👐");
+      alert("Add cineplex failed 😥");
     }
     dispatch({
       type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
@@ -183,7 +183,7 @@ export const getAddRoom =
         dispatch(getCinema());
         alert("Success👏");
       } else {
-        alert("Add cinema failed 👐");
+        alert("Add cinema failed 😥");
       }
       console.log(`🚀 => file: adminActions.js => line 142 => data`, data);
       dispatch({
@@ -220,7 +220,7 @@ export const getAddMovie =
         dispatch(getCinema());
         alert("Success👏");
       } else {
-        alert("Add movie failed  👐");
+        alert("Add movie failed  😥");
       }
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
@@ -239,6 +239,17 @@ export const getAddMovie =
 
 export const getAddShowtime =
   (id_room, id_movie, date, start_time, price) => async (dispatch) => {
+    console.log(`🚀 => file: adminActions.js => line 242 => price`, price);
+    console.log(
+      `🚀 => file: adminActions.js => line 242 => start_time`,
+      start_time
+    );
+    console.log(`🚀 => file: adminActions.js => line 242 => date`, date);
+    console.log(
+      `🚀 => file: adminActions.js => line 242 => id_movie`,
+      id_movie
+    );
+    console.log(`🚀 => file: adminActions.js => line 242 => id_room`, id_room);
     var [h, m] = start_time.split(":");
     var meridian =
       ((h % 12) + 12 * (h % 12 === 0) + ":" + m, h >= 12 ? "PM" : "AM");
@@ -264,14 +275,14 @@ export const getAddShowtime =
         dispatch(getCinema());
         alert("Success👏");
       } else {
-        alert("Add showtime failed  👐");
+        alert("Add showtime failed 😥");
       }
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
         payload: data,
       });
     } catch (error) {
-      alert("Add showtime failed  👐");
+      alert(error + "😥");
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_FAIL,
         payload:

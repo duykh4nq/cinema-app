@@ -1,27 +1,17 @@
-.containerdialog {
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    z-index: inherit;
-}
-
 .bookingscreen {
     background-color: #020d18;
-    justify-content: center;
     width: 80%;
+    height: 90%;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 .date {
     width: 100%;
-    height: 150%;
     display: flex;
-    align-items: center;
+    align-items: top;
     margin-top: 1rem;
+    top: 0;
     border-top: 1px solid #032055;
     border-bottom: 1px solid #032055;
 }
@@ -101,7 +91,7 @@
     display: flex;
     align-items: center;
     justify-content: left;
-    font-size: 20px;
+    font-size: 15px;
     border-bottom: 1px solid #032055;
     padding-left: 34px;
     margin-bottom: 1.5rem;
@@ -155,6 +145,9 @@
     margin-bottom: 1.5rem;
     margin-left: 1rem;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .showtime p {
@@ -178,6 +171,9 @@
     display: flex;
     font-weight: bold;
     width: 200px;
+    bottom: 30px;
+    right: 150px;
+    position: fixed;
     margin-left: 70%;
     margin-bottom: 2%;
 }
@@ -192,4 +188,18 @@
 
 .changeColorBackground {
     background-color: #31d7a9;
+}
+
+.changeColorBackground .day {
+    background: #020d18;
+}
+
+.alert-null {
+    margin-left: 50px;
+    margin-top: 20px;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    float: left;
 }

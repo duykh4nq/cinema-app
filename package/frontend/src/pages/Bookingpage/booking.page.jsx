@@ -91,7 +91,7 @@ const BookingPage = (getState) => {
           </div>
         </div>
       </section>
-      <div class="seat-plan-section padding-bottom padding-top">
+      <div class="seat-plan-section">
         <div class="container">
           <div class="screen-area">
             <h4 class="screen">screen</h4>

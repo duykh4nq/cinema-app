@@ -17,7 +17,6 @@ function CheckoutPage(props) {
   // const [fullName, setFullName] = React.useState(null)
   // const [email, setEmail] = React.useState(null)
   const [address, setAddress] = React.useState(null)
-  console.log(`🚀 => file: checkout.page.jsx => line 19 => address`, address)
 
   React.useEffect(() => {
     if (total && seat) {

@@ -6,6 +6,11 @@
     width: 62px;
 }
 
+.seat-plan-section {
+    padding-top: 50px !important;
+    margin-top: 100px !important;
+}
+
 .item-book {
     display: flex;
     flex-direction: row;
