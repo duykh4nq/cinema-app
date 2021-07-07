@@ -117,7 +117,7 @@ async function qery(id_mov, datee) {
     where sch.id_movie = ${id_mov} and ti.start_point::date = '${getDateWithoutTime(
       datee
     )}'
-    group by sch.id, cine.name, cr.name_cat, ti.start_point
+    group by sch.id, cine.name, cr.name_cat, ti.start_point, ti.end_point
     order by cine.name
     `,
     { type: QueryTypes.SELECT }

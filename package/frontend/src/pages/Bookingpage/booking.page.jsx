@@ -15,9 +15,10 @@ import seat_booked from "../../assets/img/seat_booked.svg";
 // Actions
 import { postBookingSeat } from "../../redux/actions/movieActions";
 
-const BookingPage = () => { 
-  const seated=["A1","B5","C3"]
-  const  [arrSeat,setArrSeat]=React.useState([])
+const BookingPage = (getState) => {
+  const seated = ["A1", "B5", "C3"]
+  const [arrSeat, setArrSeat] = React.useState([])
+  const [total, setTotal] = React.useState(0);
   const dispatch = useDispatch();
   const _schedule = JSON.parse(sessionStorage.getItem("movies"));
 
@@ -29,17 +30,18 @@ const BookingPage = () => {
     dispatch(postBookingSeat());
   }, [dispatch]);
 
-  const setIndexSeat = (e,index) => {
-    e.target.setAttribute("src",seat_checked)
-    const abc=[...new Set([...arrSeat,index])]
+  const setIndexSeat = (e, index) => {
+    e.target.setAttribute("src", seat_checked)
+    const abc = [...new Set([...arrSeat, index])]
     setArrSeat(abc)
+    setTotal(55000 * (arrSeat.length + 1))
   };
   const renderSeatCode = () => {
     const arr = new Array(7 * 9).fill("");
     const newArr = arr.map((elem, index) => {
       const charI = String.fromCharCode(65 + ~~(index / 9));
       const number = ~~(index % 9) + 1;
-      return {seat: `${charI}${number}`, available:false};
+      return { seat: `${charI}${number}`, available: false };
     });
     return newArr
   };
@@ -47,16 +49,21 @@ const BookingPage = () => {
   const renderSeat = () => {
     return renderSeatCode().map((elm, _index) => {
       // const _widthSeat=100/9-2rem
-      const renderImg=seated.includes(elm.seat)?seat_booked:seat01
+      const renderImg = seated.includes(elm.seat) ? seat_booked : seat01
 
       return (<ul key={_index} style={{ width: "calc(100%/9 - 2rem)", margin: "1rem" }}>
-        <li class="single-seat" onClick={(e) => setIndexSeat(e,elm.seat)}>
-        <img src={renderImg} alt="seat" />
-        <span class="sit-num">{elm.seat}</span>
+        <li class="single-seat" onClick={(e) => setIndexSeat(e, elm.seat)}>
+          <img src={renderImg} alt="seat" />
+          <span class="sit-num">{elm.seat}</span>
         </li>
       </ul>)
     });
   };
+
+  const ProceedCheckout = () => {
+    sessionStorage.setItem("total",JSON.stringify(total));
+    sessionStorage.setItem("arrSeat",JSON.stringify(arrSeat));
+  }
 
   return (
     <>
@@ -120,16 +127,16 @@ const BookingPage = () => {
               <div class="book-item">
                 <span>You have Choosed Seat</span>
                 <div className="list-selected">
-                {arrSeat.map(elm=>{
-                  return <h3 class="title">{elm}, </h3>
-                })}
+                  {arrSeat.map(elm => {
+                    return <h3 class="title">{elm}, </h3>
+                  })}
                 </div>
               </div>
               <div class="book-item">
                 <span>total price</span>
-                <h3 class="title">$150</h3>
+                <h3 class="title">{total}đ</h3>
               </div>
-              <div class="book-item">
+              <div class="book-item" onClick={() => ProceedCheckout()}>
                 <Link to={`/payment/${_schedule.slug}`} class="custom-button">
                   proceed
                 </Link>

@@ -11,6 +11,7 @@ import DialogBookingScreen from "../../components/DialogBooking/dialog.component
 
 // Actions
 import { getMovieDetails } from "../../redux/actions/movieActions";
+import { postBookingShow } from "../../redux/actions/movieActions";
 
 //import Images
 import image1 from "../../assets/images/uploads/image1.jpg"
@@ -29,12 +30,15 @@ const DetailScreen = ({ match, history }) => {
   const dispatch = useDispatch();
 
   const movieDetails = useSelector((state) => state.getMovieDetails);
-  const { loading, error, movie } = movieDetails;
-  console.log(`🚀 => file: detail.page.jsx => line 47 => movie`, movie)
+  const { loading, error, movies } = movieDetails;
+
+  const DialogBooking = useSelector((state) => state.postBookingShow);
+    const { movie } = DialogBooking;
 
   useEffect(() => {
     dispatch(getMovieDetails(match.params.slug));
-  }, [openformLogin]);
+    dispatch(postBookingShow());
+  }, [dispatch,match]);
 
 
   const ClickOpenformDialog = () => {
@@ -46,11 +50,12 @@ const DetailScreen = ({ match, history }) => {
   };
 
   return (
-    <>
-    <DialogBookingScreen
+    <>{openformLogin? <DialogBookingScreen
         openformLogin={openformLogin}
         BackOpenformLogin={BackOpenformDialog}
-      />
+        movie={movie}
+        movies={movies}
+      />:<></>}
       <div>
         <div className="row header-movie">
           <div className="col-md-12"></div>
@@ -65,7 +70,7 @@ const DetailScreen = ({ match, history }) => {
               <div className="row ipad-width2">
                 <div class="col-md-4 col-sm-12 col-xs-12">
                   <div class="movie-img sticky-sb">
-                    <img src={movie.poster} alt={movie.slug}></img>
+                    <img src={movies.poster} alt={movies.slug}></img>
                     <div class="movie-btn">
                       <div class="btn-transform transform-vertical">
                         <div><button class="item item-1 yellowbtn"> <i class="ion-card"></i> Buy ticket</button></div>
@@ -76,15 +81,15 @@ const DetailScreen = ({ match, history }) => {
                 </div>
                 <div className="col-md-8 col-sm-12 col-xs-12">
                   <div className="movie-single-ct main-content">
-                    <h1 className="bd-hd">{movie.name_movie}</h1>
+                    <h1 className="bd-hd">{movies.name_movie}</h1>
                     <div className="social-btn">
                       <div className="parent-btn">
-                        <i className="ion-clock" /> {movie.time}
+                        <i className="ion-clock" /> {movies.time}
                         <span> minutes</span>
                       </div>
                       <div className="parent-btn">
                         <i className="ion-calendar" />
-                        Release date: {movie.release_date}
+                        Release date: {movies.release_date}
                       </div>
                     </div>
                     <div className="movie-rate">

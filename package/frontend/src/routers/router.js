@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
+
 import Header from "../layouts/header/headers.component";
 import Footer from "../layouts/footer/footer.component";
 import DetailRoute from "./detail.router";
@@ -9,6 +10,8 @@ import CheckoutRoute from "./checkout.router";
 import AboutUsRoute from "./aboutus.router";
 import Profile from "./profile.router";
 import MovieRoute from "./movie.router";
+import HistoryRoute from "./history.router";
+
 function Routes() {
   return (
     <Router>
@@ -20,6 +23,7 @@ function Routes() {
       <BookingRoute />
       <CheckoutRoute />
       <MovieRoute />
+      <HistoryRoute />
       <Footer />
     </Router>
   );

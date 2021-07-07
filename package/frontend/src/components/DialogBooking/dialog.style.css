@@ -35,28 +35,28 @@
     text-align: center;
     align-items: center;
     border-radius: 10px;
-    width: 120%;
+    width: 90%;
+    background-color: #31d7a9;
     height: 60%;
 }
 
 .month p {
-    font-size: 100%;
     color: white;
     font-weight: bold;
 }
 
 .texture {
     text-align: center;
-    font-size: 160%;
+    line-height: 30px;
+    font-size: 100%;
     color: white;
     font-weight: bold;
 }
 
 .btncalendar {
-    width: 15%;
+    width: 85px !important;
     border-radius: 10px;
-    padding: 0rem 1rem;
-    margin-left: 0.8rem;
+    margin-left: 0rem 0.3rem 0 0.3rem !important;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -138,6 +138,7 @@
 }
 
 .list-time {
+    height: 80px;
     display: flex;
     justify-content: left;
 }
@@ -173,6 +174,8 @@
 
 .proceed-dialog {
     justify-content: center;
+    text-align: center;
+    display: flex;
     font-weight: bold;
     width: 200px;
     margin-left: 70%;
@@ -181,4 +184,12 @@
 
 .btncalendar:hover, .btncinema-complex:hover, .btncategory:hover, .showtime:hover {
     background: #31d7a9;
+}
+
+.btncalendar:hover .day {
+    background: #020d18;
+}
+
+.changeColorBackground {
+    background-color: #31d7a9;
 }

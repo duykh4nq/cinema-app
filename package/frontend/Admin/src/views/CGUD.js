@@ -264,12 +264,15 @@ function CGUD() {
 
   const addShowtimeHandler = (e) => {
     e.preventDefault();
-    setId_room(e.target.reset());
-    setId_movie(e.target.reset());
-    setDate(e.target.reset());
-    setStart_time(e.target.reset());
-    setPrice(e.target.reset());
-    dispatch(getAddShowtime(id_room, id_movie, date, start_time, price));
+    if (start_time == "") alert("Please enter start time!!!");
+    else {
+      setId_room(e.target.reset());
+      setId_movie(e.target.reset());
+      setDate(e.target.reset());
+      setStart_time(e.target.reset());
+      setPrice(e.target.reset());
+      dispatch(getAddShowtime(id_room, id_movie, date, start_time, price));
+    }
   };
 
   const optionsMovie = movie.map((item) => ({

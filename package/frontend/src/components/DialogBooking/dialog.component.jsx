@@ -1,111 +1,61 @@
 import React from "react";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import Moment from "moment";
 import "./dialog.style.css";
 import "../../assets/css/main.css";
 import "../../pages/Loginpage/login.style.scss"
 
-// Actions
-import { postBookingShow } from "../../redux/actions/movieActions";
 
-const DialogBookingScreen = ({ openformLogin, BackOpenformLogin }) => {
+const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }) => {
 
-    const _details = [
-        {
-            date: "05/06/2021",
-            details: [
-                {
-                    cineplex: "CGV nhà làm",
-                    detailsCat: [
-                        {
-                            cate_room: "2D",
-                            schedule: [
-                                {
-                                    id_schedule: 3,
-                                    time: "22:25"
-                                }
-                            ]
-                        },
-                        {
-                            cate_room: "4D",
-                            schedule: [
-                                {
-                                    id_schedule: 4,
-                                    time: "22:15"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    cineplex: "Galaxy nhà làm",
-                    detailsCat: [
-                        {
-                            cate_room: "2D",
-                            schedule: [
-                                {
-                                    id_schedule: 1,
-                                    time: "12:55"
-                                },
-                                {
-                                    id_schedule: 8,
-                                    time: "6:25"
-                                },
-                                {
-                                    id_schedule: 10,
-                                    time: "6:25"
-                                }
-                            ]
-                        },
-                        {
-                            cate_room: "3D",
-                            schedule: [
-                                {
-                                    id_schedule: 2,
-                                    time: "9:55"
-                                },
-                                {
-                                    id_schedule: 9,
-                                    time: "18:25"
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }
-    ];
-    const A01 = _details[0].details;
+    const [valueDay, setValueDay] = React.useState(null)
+    const [valueCineplex, setValueCineplex] = React.useState(movie[0])
+    const [category, setCategory] = React.useState(valueCineplex[0].details[0].detailsCat)
+    const [schedule, setSchedule] = React.useState(category[0].schedule)
+    const [time, setTime] = React.useState(null)
 
-    const dispatch = useDispatch();
-    const [indexDetails, setIndexDetails] = React.useState(0)
-    const [indexCatogory, setIndexCatogory] = React.useState(0)
+    const [color, setColor] = React.useState(new Array(7).fill(null))
 
-    const DialogBooking = useSelector((state) => state.postBookingShow);
-    const { loading, error, movie } = DialogBooking;
-    useEffect(() => {
-        dispatch(postBookingShow());
-    }, [dispatch]);
-
-    const setIndexSeat = (value) => {
-        for (let i = 0;i < A01.length;i++) {
-            if (value == A01[i].cineplex) {
-                setIndexDetails(i)
-            }
-        }
-    };
-
-    const A02 = A01[indexDetails].detailsCat;
-
-    const setValueCatogory = (value) => {
-        for (let i = 0;i < A02.length;i++) {
-            if (value == A02[i].cate_room) {
-                setIndexCatogory(i)
+    const setIndexDay = (index, value) => {
+        for (let i = 0; i < movie.length; i++) {
+            if (movie[i][0].date == value) {
+                const newColor = new Array(7).fill(null);
+                newColor[index] = "changeColorBackground"
+                setColor(newColor)
+                setValueCineplex(movie[i])
             }
         }
     }
 
-    const A03 = A02[indexDetails].schedule;
+    const setIndexCineplex = (index, value) => {
+        for (let i = 0; i < valueCineplex.length; i++) {
+            if (valueCineplex[i].details[0].cineplex == value) {
+                setValueDay(value)
+                const newColor = new Array(7).fill(null);
+                newColor[index] = "changeColorBackground"
+                setColor(newColor)
+                setCategory(valueCineplex[i].details[0].detailsCat)
+            }
+        }
+    };
+
+    const setIndexCategory = (index, value) => {
+        for (let i = 0; i < category.length; i++) {
+            if (category[i].cate_room == value) {
+                const newColor = new Array(7).fill(null);
+                newColor[index] = "changeColorBackground"
+                setColor(newColor)
+                setSchedule(category[i].schedule)
+            }
+        }
+    }
+
+    const handleProceed = () => {
+        sessionStorage.setItem("day", JSON.stringify(valueDay));
+        sessionStorage.setItem("valueCineplex", JSON.stringify(valueCineplex));
+        sessionStorage.setItem("category", JSON.stringify(category));
+        sessionStorage.setItem("time", JSON.stringify(time));
+    }
 
     return <div className="loginpage"
         {...(openformLogin === true
@@ -116,57 +66,47 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin }) => {
                 X
             </button>
             <div className="date">
-                <button className="btncalendar">
-                    <div className="day">
-                        <p className="texture">{_details[0].date}</p>
-                    </div>
-                    <div className="month">
-                        <p>05 TUE</p>
-                    </div>
-                </button>
+                {openformLogin === true ? (movie.map((item, index) => (
+                    <button className={`btncalendar ${color[index]}`} onClick={() => setIndexDay(index, item[0].date)}>
+                        <div className="day">
+                            <p className="texture">
+                                {Moment(item[0].date).date()}</p></div>
+                        <div className="month">
+                            <p>{Moment(item[0].date).month() + " - " + Moment(item[0].date).year()}</p>
+                        </div>
+                    </button>
+                ))) : <p></p>}
             </div>
-            <div className="theater-cluster">
-                {(function (rows) {
-                    for (let i = 0;i < A01.length;i++) {
-                        rows.push(
-                            <button className="btncinema-complex" onClick={() => setIndexSeat(A01[i].cineplex)}>
-                                <div >{A01[i].cineplex}</div>
-                            </button>
-                        );
-                    }
-                    return rows;
-                })([])}
-            </div>
-            <div className="movie-genre ">
-                {(function (rows) {
-                    for (let i = 0;i < A02.length;i++) {
-                        rows.push(
-                            <button className="btncategory" onClick={() => setValueCatogory(A02[i].cate_room)}>
-                                <div >{A02[i].cate_room} Phụ đề tiếng Việt</div>
-                            </button>
-                        );
-                    }
-                    return rows;
-                })([])}
-            </div>
-            <div className="time">
-                <div className="item">
-                    <div className="list-time">
-                        {(function (rows) {
-                            for (let i = 0;i < A03.length;i++) {
-                                rows.push(
-                                    <button className="showtime"><p>{A03[i].time}</p></button>
-                                );
-                            }
-                            return rows;
-                        })([])}
-
-                    </div>
+            {(valueCineplex !== null) ? (<>
+                <div className="theater-cluster">
+                    {((valueCineplex[0].details.length > 0 ? (
+                        <button className={`btncinema-complex ${color}`} onClick={() => setIndexCineplex(valueCineplex[0].details[0].cineplex)}>
+                            <div>{valueCineplex[0].details[0].cineplex}</div>
+                        </button>) : <p></p>))}
                 </div>
-            </div>
-            <button className="proceed-dialog custom-button" >
+                <div className="movie-genre ">
+                    {(valueCineplex[0].details.length > 0 ? (
+                        <button className={`btncategory ${color}`} onClick={() => setIndexCategory(valueCineplex[0].details[0].detailsCat[0].cate_room)}>
+                            <div >{valueCineplex[0].details[0].detailsCat[0].cate_room}</div><div> phụ đề Việt</div>
+                        </button>
+                    ) : <p></p>
+                    )}
+                </div>
+                <div className="time">
+                    <div className="item">
+                        <div className="list-time">
+                            {(schedule?.map((item, index) => (
+                                <button className={`showtime ${color}`} onClick={() => setTime(index, item.time_start)}>
+                                    <p>{item.time_start}</p>
+                                </button>
+                            )))}
+                        </div>
+                    </div>
+                </div></>) :
+                <></>}
+            <Link to={`booking/${movies.slug}`} className="proceed-dialog custom-button" onClick={() => handleProceed()}>
                 Proceed
-            </button>
+            </Link>
         </div>
     </div>;
 }
