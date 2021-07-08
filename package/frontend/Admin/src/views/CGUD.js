@@ -87,6 +87,7 @@ function CGUD() {
   const { loadingSchedule, errorSchedule, schedule } = _schedule;
 
   const setValueCineplex = (e) => {
+    console.log(`🚀 => file: CGUD.js => line 93 => e`, e);
     dispatch(getRooms(e));
     dispatch(getMovies(e));
   };
@@ -107,7 +108,6 @@ function CGUD() {
   const [horizontal, setHorizontal] = React.useState(2);
   const [vertical, setVertical] = React.useState("B");
   const [id_cineplex, setId_cineplex] = React.useState(null);
-  console.log(`🚀 => file: CGUD.js => line 110 => id_cineplex`, id_cineplex);
   const [id_categoryRoom, setId_categoryRoom] = React.useState(1);
 
   const addCinemaHandler = (e) => {
@@ -221,7 +221,6 @@ function CGUD() {
               .ref("ImageMovie")
               .child(image.name)
               .getDownloadURL();
-            console.log("123", res);
             refImg.current = res;
 
             setId_cineplex(e.target.reset());
@@ -264,10 +263,7 @@ function CGUD() {
 
   const addShowtimeHandler = (e) => {
     e.preventDefault();
-
-    console.log(`🚀 => file: CGUD.js => line 270 => price`, price);
-    console.log(`🚀 => file: CGUD.js => line 268 => start_time`, start_time);
-    if (start_time == "" || price == undefined) {
+    if (start_time == "" || price == undefined || date == undefined) {
       alert("Please enter full data!!!");
       setId_room(e.target.reset());
       setId_movie(e.target.reset());

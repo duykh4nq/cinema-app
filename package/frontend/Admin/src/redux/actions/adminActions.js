@@ -251,14 +251,20 @@ export const getAddShowtime =
     );
     console.log(`🚀 => file: adminActions.js => line 242 => id_room`, id_room);
     var [h, m] = start_time.split(":");
+    console.log(`🚀 => file: adminActions.js => line 254 => h`, h);
     var meridian =
       ((h % 12) + 12 * (h % 12 === 0) + ":" + m, h >= 12 ? "PM" : "AM");
-    if (h > 12) {
+    if (h >= 12) {
       h = h - 12;
     }
+    if (h == "00") h = 12;
+    console.log(
+      `🚀 => file: adminActions.js => line 205 => h + ":" + m + " " + meridian`,
+      h + ":" + m + " " + meridian
+    );
     try {
       dispatch({
-        type: actionTypes.GET_CINEMA_DETAILS_REQUEST,
+        type: actionTypes.GET_SCHEDULE_DETAILS_REQUEST,
       });
       const { data } = await axios.post("/admin/addshedule", {
         id_room: id_room,
@@ -278,13 +284,13 @@ export const getAddShowtime =
         alert("Add showtime failed 😥");
       }
       dispatch({
-        type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
+        type: actionTypes.GET_SCHEDULE_DETAILS_SUCCESS,
         payload: data,
       });
     } catch (error) {
       alert(error + "😥");
       dispatch({
-        type: actionTypes.GET_CINEMA_DETAILS_FAIL,
+        type: actionTypes.GET_SCHEDULE_DETAILS_FAIL,
         payload:
           error.response && error.response.data.message
             ? error.response.data.message

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import Moment from "moment";
 import "./dialog.style.css";
 import "../../assets/css/main.css";
-import "../../pages/Loginpage/login.style.scss"
 
 
 const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }) => {
@@ -54,6 +53,7 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }
             if (result.detailsCat) {
                 setSchedule(result.detailsCat[0].schedule)
             }
+            sessionStorage.setItem("valueCineplex", JSON.stringify(value));
         }
     };
 
@@ -78,13 +78,11 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }
     const handleProceed = () => {
         if (time && category && valueCineplex && valueDay) {
             sessionStorage.setItem("day", JSON.stringify(valueDay));
-            sessionStorage.setItem("valueCineplex", JSON.stringify(valueCineplex));
             sessionStorage.setItem("category", JSON.stringify(category));
             sessionStorage.setItem("time", JSON.stringify(time));
         } else {
             alert("Please choose showtime 😅")
         }
-
     }
 
     return <div className="loginpage"
@@ -114,7 +112,6 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }
                             <div>{
                                 dt.cineplex
                             }</div>
-                            {console.log(idx)}
                         </button>))) : <p></p>))}
                 </div>
                 <div className="movie-genre ">
@@ -129,7 +126,7 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }
                     <div className="item">
                         <div className="list-time">
                             {(schedule?.map((item, idx) => (
-                                <button className={`showtime ${colorTime[idx]}`} onClick={() => setIndexTime(idx, item.time_start)}>
+                                <button className={`showtime ${colorTime[idx]}`} onClick={() => setIndexTime(idx, item)}>
                                     <p>{item.time_start}</p>
                                 </button>
                             )))}

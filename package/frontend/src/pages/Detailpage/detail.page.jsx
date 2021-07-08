@@ -34,12 +34,13 @@ const DetailScreen = ({ match, history }) => {
 
   const DialogBooking = useSelector((state) => state.postBookingShow);
   const { movie } = DialogBooking;
-  console.log(`🚀 => file: detail.page.jsx => line 37 => movie`, movie)
 
   useEffect(() => {
-    dispatch(getMovieDetails(match.params.slug));
-    dispatch(postBookingShow());
-  }, [dispatch,match]);
+    if (match)
+      dispatch(getMovieDetails(match.params.slug));
+    if (movies)
+      dispatch(postBookingShow(movies.id));
+  }, [dispatch, match, openformLogin]);
 
 
   const ClickOpenformDialog = () => {
@@ -52,11 +53,11 @@ const DetailScreen = ({ match, history }) => {
 
   return (
     <>{(openformLogin && movie) ? <DialogBookingScreen
-        openformLogin={openformLogin}
-        BackOpenformLogin={BackOpenformDialog}
-        movie={movie}
-        movies={movies}
-      />:<></>}
+      openformLogin={openformLogin}
+      BackOpenformLogin={BackOpenformDialog}
+      movie={movie}
+      movies={movies}
+    /> : <></>}
       <div>
         <div className="row header-movie">
           <div className="col-md-12"></div>

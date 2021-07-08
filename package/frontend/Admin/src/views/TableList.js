@@ -69,7 +69,6 @@ function Tables() {
       dispatch(deleteCineplexs(delCineplex));
     }
     if (delMovie) {
-      console.log(`🚀 => file: TableList.js => line 71 => delMovie`, delMovie);
       dispatch(deleteMovies(delMovie, id_cineplex));
     }
   }, [
