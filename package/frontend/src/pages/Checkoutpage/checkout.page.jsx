@@ -17,11 +17,11 @@ function CheckoutPage(props) {
   const _schedule = JSON.parse(sessionStorage.getItem("movies"));
   const [address, setAddress] = React.useState(null)
 
-
   const proceedPayment = () => {
     if (!address)
       alert("Please enter your address😉");
-    else dispatch(checkoutCart(total, seat));
+    else {
+      dispatch(checkoutCart(total, seat));}
   }
 
   return (<>

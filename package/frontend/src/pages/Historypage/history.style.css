@@ -130,6 +130,7 @@ input[id="tab-tatCa"]:checked~div.wrap-content .content-tab .tab-item.tabTatCa, 
     text-align: center;
 }
 
-.wrap-movie img {
-    /* width: 60%; */
+.wrap-movie span {
+    padding-top: 8px;
+    font-weight: 600;
 }

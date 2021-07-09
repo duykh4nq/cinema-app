@@ -2,12 +2,8 @@ import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import React from "react";
-import Modal from "react-modal";
 import "./detail.style.css";
-import { ModalBody, ModalFooter } from 'reactstrap';
 import DialogBookingScreen from "../../components/DialogBooking/dialog.component";
-
-
 
 // Actions
 import { getMovieDetails } from "../../redux/actions/movieActions";

@@ -92,11 +92,12 @@ export const checkoutCart = (total, seat) => async (dispatch) => {
     dispatch({ type: actionTypes.CHECK_OUT_REQUEST });
     const id_schedule = JSON.parse(sessionStorage.getItem("time"));
     const { data } = await axios.post(`/payment`, {
-      email: "ndkhang0512@gmail.com",
+      email: "ducga079099@gmail.com",
       id_schedule: id_schedule.id_schedule,
       total: total,
       seat: seat,
     });
+    console.log(`🚀 => file: movieActions.js => line 100 => data`, data);
     if (data.message === "success") {
       alert("Payment success👏");
     }
@@ -107,6 +108,71 @@ export const checkoutCart = (total, seat) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: actionTypes.CHECK_OUT_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const postAllHistoryBooking = () => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.GET_HISTORY_REQUEST });
+    const { data } = await axios.post(`/allhistorybooking`, {
+      email: "ducga079099@gmail.com",
+    });
+    dispatch({
+      type: actionTypes.GET_HISTORY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_HISTORY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const postAllWaitHistoryBooking = () => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.GET_WAITTING_HISTORY_REQUEST });
+    const { data } = await axios.post(`/waittinghistorybooking`, {
+      email: "ducga079099@gmail.com",
+    });
+    console.log(`🚀 => file: movieActions.js => line 146 => data`, data);
+    dispatch({
+      type: actionTypes.GET_WAITTING_HISTORY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_WAITTING_HISTORY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const postAllBookedHistoryBooking = () => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.GET_BOOKED_HISTORY_REQUEST });
+    const { data } = await axios.post(`/bookedhistorybooking`, {
+      email: "ducga079099@gmail.com",
+    });
+    console.log(`🚀 => file: movieActions.js => line 168 => data`, data);
+    dispatch({
+      type: actionTypes.GET_BOOKED_HISTORY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_BOOKED_HISTORY_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
