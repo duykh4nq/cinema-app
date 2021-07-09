@@ -265,8 +265,8 @@ function CGUD() {
   const [price, setPrice] = React.useState("");
 
   if (id_room !== "" || id_movie !== "") {
-    sessionStorage.setItem("id_room", JSON.stringify(id_room));
-    sessionStorage.setItem("id_movie", JSON.stringify(id_movie));
+    sessionStorage.setItem("id_room", JSON.stringify(schedule?.rooms[0].id));
+    sessionStorage.setItem("id_movie", JSON.stringify(schedule?.movies[0].id));
   }
 
   const addShowtimeHandler = (e) => {
@@ -546,111 +546,69 @@ function CGUD() {
                 </Card>
               </TabPane>
               <TabPane tabId="3">
-                {classLoading !== "" ? (
-                  <div class={classLoading}></div>
-                ) : (
-                  <Card>
-                    <CardHeader>
-                      <Row>
-                        <Col sm="1">
-                          <ButtonGroup
-                            className="btn-group-toggle"
-                            data-toggle="buttons"
-                          >
-                            <Button
-                              tag="label"
-                              className={classNames("btn-simple", {
-                                active: selectStatus === "new",
-                              })}
-                              color="info"
-                              id="0"
-                              size="sm"
-                              onClick={() => setValueStatus("new")}
-                            >
-                              <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                                New
-                              </span>
-                              <span className="d-block d-sm-none">
-                                <i className="tim-icons icon-single-02" />
-                              </span>
-                            </Button>
-                            <Button
-                              color="info"
-                              id="1"
-                              size="sm"
-                              tag="label"
-                              className={classNames("btn-simple", {
-                                active: selectStatus === "old",
-                              })}
-                              onClick={() => setValueStatus("old")}
-                            >
-                              <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                                Old
-                              </span>
-                              <span className="d-block d-sm-none">
-                                <i className="tim-icons icon-gift-2" />
-                              </span>
-                            </Button>
-                          </ButtonGroup>
-                        </Col>
-                      </Row>
-                    </CardHeader>
-
-                    <CardBody>
-                      <Form onSubmit={(e) => addMovieHandler(e)}>
+                <Card>
+                  {classLoading !== "" ? (
+                    <div class={classLoading}></div>
+                  ) : (
+                    <>
+                      <CardHeader>
                         <Row>
-                          <Col md="4">
-                            <FormGroup>
-                              <label>Name</label>
-                              {selectStatus === "old" ? (
-                                <Select
-                                  required
-                                  placeholder="Name"
-                                  options={optionsMovie}
-                                  styles={colourStyles}
-                                  theme={(theme) => ({
-                                    ...theme,
-                                    borderRadius: 7,
-                                    colors: {
-                                      ...theme.colors,
-                                      primary25: "#1d8cf8",
-                                      primary: "#e14eca",
-                                      neutral0: "#FFF",
-                                    },
-                                  })}
-                                  onChange={(e) => setValueMovie(e)}
-                                />
-                              ) : (
-                                <Input
-                                  type="text"
-                                  name="nameMovie"
-                                  placeholder="Name movie"
-                                  value={name_movie}
-                                  onChange={(e) =>
-                                    setName_movie(e.target.value)
-                                  }
-                                  required
-                                />
-                              )}
-                            </FormGroup>
+                          <Col sm="1">
+                            <ButtonGroup
+                              className="btn-group-toggle"
+                              data-toggle="buttons"
+                            >
+                              <Button
+                                tag="label"
+                                className={classNames("btn-simple", {
+                                  active: selectStatus === "new",
+                                })}
+                                color="info"
+                                id="0"
+                                size="sm"
+                                onClick={() => setValueStatus("new")}
+                              >
+                                <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                                  New
+                                </span>
+                                <span className="d-block d-sm-none">
+                                  <i className="tim-icons icon-single-02" />
+                                </span>
+                              </Button>
+                              <Button
+                                color="info"
+                                id="1"
+                                size="sm"
+                                tag="label"
+                                className={classNames("btn-simple", {
+                                  active: selectStatus === "old",
+                                })}
+                                onClick={() => setValueStatus("old")}
+                              >
+                                <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                                  Old
+                                </span>
+                                <span className="d-block d-sm-none">
+                                  <i className="tim-icons icon-gift-2" />
+                                </span>
+                              </Button>
+                            </ButtonGroup>
                           </Col>
-                          <Col md="5">
-                            <FormGroup>
-                              <label>Choose Cineplex</label>
-                              {loadingCineplex ? (
-                                <h2>Loading...</h2>
-                              ) : errorCineplex ? (
-                                <h2>{errorCineplex}</h2>
-                              ) : (
-                                <>
+                        </Row>
+                      </CardHeader>
+
+                      <CardBody>
+                        <Form onSubmit={(e) => addMovieHandler(e)}>
+                          <Row>
+                            <Col md="4">
+                              <FormGroup>
+                                <label>Name</label>
+                                {selectStatus === "old" ? (
                                   <Select
-                                    placeholder="Name"
-                                    isMulti
                                     required
-                                    options={_optionsCineplex}
+                                    placeholder="Name"
+                                    options={optionsMovie}
                                     styles={colourStyles}
-                                    className="basic-multi-select"
-                                    classNamePrefix="select"
                                     theme={(theme) => ({
                                       ...theme,
                                       borderRadius: 7,
@@ -661,87 +619,131 @@ function CGUD() {
                                         neutral0: "#FFF",
                                       },
                                     })}
-                                    onChange={(e) =>
-                                      setId_cineplex(e.map((i) => i.value))
-                                    }
+                                    onChange={(e) => setValueMovie(e)}
                                   />
-                                </>
-                              )}
-                            </FormGroup>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col md="3">
-                            <FormGroup>
-                              <label>Time (minutes)</label>
-                              <Input
-                                type="text"
-                                name="time"
-                                id={disabled}
-                                placeholder="time"
-                                value={time}
-                                onChange={(e) => setTime(e.target.value)}
-                                required
-                              />
-                            </FormGroup>
-                          </Col>
-                          <Col md="3">
-                            <FormGroup>
-                              <label>Premiere date</label>
-                              <Input
-                                type="date"
-                                name="date"
-                                id={disabled}
-                                placeholder="date placeholder"
-                                value={release_date}
-                                onChange={(e) =>
-                                  setRelease_date(e.target.value)
-                                }
-                                required
-                              />
-                            </FormGroup>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col md="10">
-                            <FormGroup>
-                              <Row>
-                                <Col>
-                                  <Button
-                                    className="btnAddimgMovie"
-                                    id={disabled}
-                                  >
-                                    <Input
-                                      type="file"
-                                      name="file"
+                                ) : (
+                                  <Input
+                                    type="text"
+                                    name="nameMovie"
+                                    placeholder="Name movie"
+                                    value={name_movie}
+                                    onChange={(e) =>
+                                      setName_movie(e.target.value)
+                                    }
+                                    required
+                                  />
+                                )}
+                              </FormGroup>
+                            </Col>
+                            <Col md="5">
+                              <FormGroup>
+                                <label>Choose Cineplex</label>
+                                {loadingCineplex ? (
+                                  <h2>Loading...</h2>
+                                ) : errorCineplex ? (
+                                  <h2>{errorCineplex}</h2>
+                                ) : (
+                                  <>
+                                    <Select
+                                      placeholder="Name"
+                                      isMulti
+                                      required
+                                      options={_optionsCineplex}
+                                      styles={colourStyles}
+                                      className="basic-multi-select"
+                                      classNamePrefix="select"
+                                      theme={(theme) => ({
+                                        ...theme,
+                                        borderRadius: 7,
+                                        colors: {
+                                          ...theme.colors,
+                                          primary25: "#1d8cf8",
+                                          primary: "#e14eca",
+                                          neutral0: "#FFF",
+                                        },
+                                      })}
+                                      onChange={(e) =>
+                                        setId_cineplex(e.map((i) => i.value))
+                                      }
+                                    />
+                                  </>
+                                )}
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col md="3">
+                              <FormGroup>
+                                <label>Time (minutes)</label>
+                                <Input
+                                  type="text"
+                                  name="time"
+                                  id={disabled}
+                                  placeholder="time"
+                                  value={time}
+                                  onChange={(e) => setTime(e.target.value)}
+                                  required
+                                />
+                              </FormGroup>
+                            </Col>
+                            <Col md="3">
+                              <FormGroup>
+                                <label>Premiere date</label>
+                                <Input
+                                  type="date"
+                                  name="date"
+                                  id={disabled}
+                                  placeholder="date placeholder"
+                                  value={release_date}
+                                  onChange={(e) =>
+                                    setRelease_date(e.target.value)
+                                  }
+                                  required
+                                />
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col md="10">
+                              <FormGroup>
+                                <Row>
+                                  <Col>
+                                    <Button
+                                      className="btnAddimgMovie"
                                       id={disabled}
-                                      className={disabled}
-                                      placeholder="date placeholder"
-                                      onChange={onChangePicture}
-                                    ></Input>
-                                    Add image
-                                  </Button>
-                                </Col>
-                              </Row>
-                              <img className="ImgMovie" src={imgData}></img>
-                            </FormGroup>
-                          </Col>
-                        </Row>
-                        <Row>
-                          <Col md="3">
-                            <Button
-                              className="btn-fill"
-                              color="primary"
-                              type="submit"
-                            >
-                              Add Movie
-                            </Button>
-                          </Col>
-                        </Row>
-                      </Form>
-                    </CardBody>
-                  </Card>
-                )}
+                                    >
+                                      <Input
+                                        type="file"
+                                        name="file"
+                                        id={disabled}
+                                        className={disabled}
+                                        placeholder="date placeholder"
+                                        onChange={onChangePicture}
+                                      ></Input>
+                                      Add image
+                                    </Button>
+                                  </Col>
+                                </Row>
+                                <img className="ImgMovie" src={imgData}></img>
+                              </FormGroup>
+                            </Col>
+                          </Row>
+                          <Row>
+                            <Col md="3">
+                              <Button
+                                className="btn-fill"
+                                color="primary"
+                                type="submit"
+                              >
+                                Add Movie
+                              </Button>
+                            </Col>
+                          </Row>
+                        </Form>
+                      </CardBody>
+                    </>
+                  )}
+                </Card>
               </TabPane>
               <TabPane tabId="4">
                 <Card>
