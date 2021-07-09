@@ -205,45 +205,6 @@ exports.postChangeProfile = async (req, res, next) => {
   return res.status(200).send({ message: "Update success" });
 };
 
-exports.getHistoryBooking = async (req, res, next) => {
-  const { email } = req.body;
-  const user = await Users.findOne({ where: { email } });
-  const test = await Bookings.findAll({
-    where: {
-      id_user: {
-        [Op.eq]: user.id,
-      },
-    },
-    include: [
-      {
-        model: Tickets,
-        attributes: ["seat", "price_ticket"],
-      },
-      {
-        model: Schedules,
-        attributes: ["id_movie", "id_cineplex"],
-        include: [
-          {
-            model: Movies,
-            attributes: ["name_movie", "poster", "time"],
-          },
-          {
-            model: Cineplexs,
-            attributes: ["name", "address"],
-            include: [
-              {
-                model: Rooms,
-                attributes: ["name_room"],
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  });
-  return res.status(200).send(test);
-};
-
 exports.postPayment = async (req, res, next) => {
   const { email, id_schedule, total, seat } = req.body;
   const user = await Users.findOne({
@@ -291,4 +252,111 @@ exports.postPayment = async (req, res, next) => {
   });
   //return res.send({ listIdTickets, info: bookingInfo[0] });
    res.status(200).send({ message: "success" });
+};
+
+exports.postAllHistoryBooking = async (req, res, next) => {
+  const { email } = req.body;
+  const user = await Users.findOne({ where: { email } });
+  console.log(user);
+  if (!user) {
+    return res.send({ message: "Email not exists" });
+  }
+  const test = await Bookings.findAll({
+    where: {
+      id_user: user.id,
+    },
+    attributes: ["total", "created_at"],
+    include: [
+      {
+        model: Schedules,
+        attributes: ["id_movie"],
+        include: [
+          {
+            model: Movies,
+            attributes: ["name_movie", "poster"],
+          },
+        ],
+      },
+      {
+        model: Tickets,
+        attributes: ["id"],
+      },
+    ],
+    order: [["created_at", "DESC"]],
+  });
+  return res.status(200).send(test);
+};
+
+exports.postAllWaitHistoryBooking = async (req, res, next) => {
+  const { email } = req.body;
+  const user = await Users.findOne({ where: { email } });
+  if (!user) {
+    return res.send({ message: "Email not exists" });
+  }
+
+  const today = new Date();
+  const test = await Bookings.findAll({
+    where: {
+      id_user: user.id,
+      created_at: {
+        [Op.gte]: today,
+      },
+    },
+    attributes: ["total", "created_at"],
+    include: [
+      {
+        model: Schedules,
+        attributes: ["id_movie"],
+        include: [
+          {
+            model: Movies,
+            attributes: ["name_movie", "poster"],
+          },
+        ],
+      },
+      {
+        model: Tickets,
+        attributes: ["id"],
+      },
+    ],
+    order: [["created_at", "DESC"]],
+  });
+  return res.status(200).send(test);
+};
+
+exports.postAllBookedHistoryBooking = async (req, res, next) => {
+  const { email } = req.body;
+  const user = await Users.findOne({ where: { email } });
+  if (!user) {
+    return res.send({ message: "Email not exists" });
+  }
+
+  const today = new Date();
+  const test = await Bookings.findAll({
+    where: {
+      id_user: user.id,
+      created_at: {
+        [Op.lte]: today,
+      },
+    },
+    attributes: ["total", "created_at"],
+    include: [
+      {
+        model: Schedules,
+        attributes: ["id_movie"],
+        include: [
+          {
+            model: Movies,
+            attributes: ["name_movie", "poster"],
+          },
+        ],
+      },
+      {
+        model: Tickets,
+        attributes: ["id"],
+      },
+    ],
+    order: [["created_at", "DESC"]],
+  });
+  return res.status(200).send(test);
 };

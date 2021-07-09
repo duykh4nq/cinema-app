@@ -14,14 +14,14 @@ const { Schedules, Times } = require("../models/schedules.model");
 const { Tickets } = require("../models/ticket.model");
 const {
   Cineplexs,
-  Rooms,  
+  Rooms,
   Category_rooms,
   Movies_Cineplex,
 } = require("../models/cineplex_room.model");
 
 exports.getCinema = async (req, res, next) => {
   const cineplex = await Cineplexs.findAll();
-  const category_room = await Category_rooms.findAll();
+  //const category_room = await Category_rooms.findAll();
   res.status(200).send(cineplex);
 };
 
