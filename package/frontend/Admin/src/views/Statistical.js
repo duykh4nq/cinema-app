@@ -21,7 +21,7 @@ import {
 //import Actions
 import {
   getCinema,
-  getMovies,
+  getSchedule,
   postStatiscalForCineplex,
   postStatiscalForMovie,
 } from "../redux/actions/adminActions";
@@ -35,9 +35,11 @@ function Statistical(props) {
   //schedule
   const _schedule = useSelector((state) => state.getSchedule);
   const { schedule } = _schedule;
+  console.log(`🚀 => file: Statistical.js => line 38 => schedule`, schedule);
 
   const setValueCineplex = (e) => {
-    dispatch(getMovies(e));
+    console.log(`🚀 => file: Statistical.js => line 43 => e`, e);
+    dispatch(getSchedule(e));
   };
 
   const [start, setStart] = useState("");
@@ -48,14 +50,14 @@ function Statistical(props) {
   };
 
   React.useEffect(() => {
-    dispatch(getCinema());
+    if (!start) dispatch(getCinema());
     if (start && end) {
       dispatch(postStatiscalForCineplex(start, end));
       if (schedule) {
         dispatch(postStatiscalForMovie(start, end));
       }
     }
-  }, [dispatch, start, end, schedule]);
+  }, [dispatch, start, end]);
 
   let chart1_2_options = {
     maintainAspectRatio: false,
@@ -121,7 +123,7 @@ function Statistical(props) {
       gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
       return {
-        labels: cinema.map((item) => item.name),
+        labels: cinema?.map((item) => item.name),
         datasets: [
           {
             label: "Total",
@@ -138,7 +140,7 @@ function Statistical(props) {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: cinema.map((item) => item.sum),
+            data: cinema?.map((item) => item.sum),
           },
         ],
       };
@@ -153,7 +155,7 @@ function Statistical(props) {
       gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
       return {
-        labels: schedule.map((item) => item.name_movie),
+        labels: schedule?.movies?.map((item) => item.name_movie),
         datasets: [
           {
             label: "Total",
@@ -170,7 +172,7 @@ function Statistical(props) {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: schedule.map((item) => item.sum),
+            data: schedule?.movies?.map((item) => item.sum),
           },
         ],
       };
@@ -215,8 +217,10 @@ function Statistical(props) {
                 onChange={(e) => setValueCineplex(e.target.value)}
                 required
               >
-                {cinema.map((item) => (
-                  <option value={item.id}>{item.name}</option>
+                {cinema?.map((item) => (
+                  <>
+                    <option value={item.id}>{item.name}</option>
+                  </>
                 ))}
               </Input>
             </Col>
@@ -230,8 +234,8 @@ function Statistical(props) {
               {bigChartData === "movie"
                 ? function () {
                     let sum = 0;
-                    for (let i = 0; i < schedule.length; i++) {
-                      sum += schedule[i].sum;
+                    for (let i = 0; i < schedule?.movies.length; i++) {
+                      sum += schedule.movies[i].sum;
                     }
                     return <p>{sum}</p>;
                   }

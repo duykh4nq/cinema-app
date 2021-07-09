@@ -28,9 +28,8 @@ import classnames from "classnames";
 //import Actions
 import {
   getCinema,
-  getRooms,
   getMovie,
-  getMovies,
+  getSchedule,
   getAddCineplex,
   getAddRoom,
   getAddMovie,
@@ -68,6 +67,7 @@ function CGUD() {
 
   const dispatch = useDispatch();
 
+  const [id_cineplex, setId_cineplex] = React.useState(0);
   const [activeTab, setActiveTab] = React.useState("1");
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
@@ -80,17 +80,11 @@ function CGUD() {
   React.useEffect(() => {
     dispatch(getCinema());
     dispatch(getMovie());
-  }, [dispatch, selectStatus]);
+  }, [dispatch]);
 
   //schedule
   const _schedule = useSelector((state) => state.getSchedule);
   const { loadingSchedule, errorSchedule, schedule } = _schedule;
-
-  const setValueCineplex = (e) => {
-    console.log(`🚀 => file: CGUD.js => line 93 => e`, e);
-    dispatch(getRooms(e));
-    dispatch(getMovies(e));
-  };
 
   //add cineplex
   const [name_cineplex, setCineplex] = React.useState("");
@@ -103,11 +97,15 @@ function CGUD() {
     dispatch(getAddCineplex(name_cineplex, address_cineplex));
   };
 
+  const setValueCineplex = (e) => {
+    setId_cineplex(e);
+    dispatch(getSchedule(e));
+  };
+
   //add cinema
   const [name_room, setNameRoom] = React.useState("");
   const [horizontal, setHorizontal] = React.useState(2);
   const [vertical, setVertical] = React.useState("B");
-  const [id_cineplex, setId_cineplex] = React.useState(null);
   const [id_categoryRoom, setId_categoryRoom] = React.useState(1);
 
   const addCinemaHandler = (e) => {
@@ -200,6 +198,7 @@ function CGUD() {
   const [time, setTime] = React.useState("");
   const [release_date, setRelease_date] = React.useState("");
   const [poster, setPoster] = React.useState("");
+  const [classLoading, setLoading] = React.useState("");
 
   const refImg = React.useRef(null);
 
@@ -212,6 +211,9 @@ function CGUD() {
     if (id_cineplex !== undefined) {
       if (image !== null) {
         const updateTask = storage.ref(`ImageMovie/${image.name}`).put(image);
+        if (refImg.current == null) {
+          setLoading("loader");
+        }
         updateTask.on(
           "state_changed",
           (snapshot) => {},
@@ -237,6 +239,7 @@ function CGUD() {
                 refImg.current
               )
             );
+            setLoading("");
           }
         );
       } else {
@@ -260,6 +263,11 @@ function CGUD() {
   const [date, setDate] = React.useState("");
   const [start_time, setStart_time] = React.useState("");
   const [price, setPrice] = React.useState("");
+
+  if (id_room !== "" || id_movie !== "") {
+    sessionStorage.setItem("id_room", JSON.stringify(id_room));
+    sessionStorage.setItem("id_movie", JSON.stringify(id_movie));
+  }
 
   const addShowtimeHandler = (e) => {
     e.preventDefault();
@@ -538,105 +546,68 @@ function CGUD() {
                 </Card>
               </TabPane>
               <TabPane tabId="3">
-                <Card>
-                  <CardHeader>
-                    <Row>
-                      <Col sm="1">
-                        <ButtonGroup
-                          className="btn-group-toggle"
-                          data-toggle="buttons"
-                        >
-                          <Button
-                            tag="label"
-                            className={classNames("btn-simple", {
-                              active: selectStatus === "new",
-                            })}
-                            color="info"
-                            id="0"
-                            size="sm"
-                            onClick={() => setValueStatus("new")}
-                          >
-                            <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                              New
-                            </span>
-                            <span className="d-block d-sm-none">
-                              <i className="tim-icons icon-single-02" />
-                            </span>
-                          </Button>
-                          <Button
-                            color="info"
-                            id="1"
-                            size="sm"
-                            tag="label"
-                            className={classNames("btn-simple", {
-                              active: selectStatus === "old",
-                            })}
-                            onClick={() => setValueStatus("old")}
-                          >
-                            <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                              Old
-                            </span>
-                            <span className="d-block d-sm-none">
-                              <i className="tim-icons icon-gift-2" />
-                            </span>
-                          </Button>
-                        </ButtonGroup>
-                      </Col>
-                    </Row>
-                  </CardHeader>
-                  <CardBody>
-                    <Form onSubmit={(e) => addMovieHandler(e)}>
+                {classLoading !== "" ? (
+                  <div class={classLoading}></div>
+                ) : (
+                  <Card>
+                    <CardHeader>
                       <Row>
-                        <Col md="4">
-                          <FormGroup>
-                            <label>Name</label>
-                            {selectStatus === "old" ? (
-                              <Select
-                                required
-                                placeholder="Name"
-                                options={optionsMovie}
-                                styles={colourStyles}
-                                theme={(theme) => ({
-                                  ...theme,
-                                  borderRadius: 7,
-                                  colors: {
-                                    ...theme.colors,
-                                    primary25: "#1d8cf8",
-                                    primary: "#e14eca",
-                                    neutral0: "#FFF",
-                                  },
-                                })}
-                                onChange={(e) => setValueMovie(e)}
-                              />
-                            ) : (
-                              <Input
-                                type="text"
-                                name="nameMovie"
-                                placeholder="Name movie"
-                                value={name_movie}
-                                onChange={(e) => setName_movie(e.target.value)}
-                                required
-                              />
-                            )}
-                          </FormGroup>
+                        <Col sm="1">
+                          <ButtonGroup
+                            className="btn-group-toggle"
+                            data-toggle="buttons"
+                          >
+                            <Button
+                              tag="label"
+                              className={classNames("btn-simple", {
+                                active: selectStatus === "new",
+                              })}
+                              color="info"
+                              id="0"
+                              size="sm"
+                              onClick={() => setValueStatus("new")}
+                            >
+                              <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                                New
+                              </span>
+                              <span className="d-block d-sm-none">
+                                <i className="tim-icons icon-single-02" />
+                              </span>
+                            </Button>
+                            <Button
+                              color="info"
+                              id="1"
+                              size="sm"
+                              tag="label"
+                              className={classNames("btn-simple", {
+                                active: selectStatus === "old",
+                              })}
+                              onClick={() => setValueStatus("old")}
+                            >
+                              <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
+                                Old
+                              </span>
+                              <span className="d-block d-sm-none">
+                                <i className="tim-icons icon-gift-2" />
+                              </span>
+                            </Button>
+                          </ButtonGroup>
                         </Col>
-                        <Col md="5">
-                          <FormGroup>
-                            <label>Choose Cineplex</label>
-                            {loadingCineplex ? (
-                              <h2>Loading...</h2>
-                            ) : errorCineplex ? (
-                              <h2>{errorCineplex}</h2>
-                            ) : (
-                              <>
+                      </Row>
+                    </CardHeader>
+
+                    <CardBody>
+                      <Form onSubmit={(e) => addMovieHandler(e)}>
+                        <Row>
+                          <Col md="4">
+                            <FormGroup>
+                              <label>Name</label>
+                              {selectStatus === "old" ? (
                                 <Select
-                                  placeholder="Name"
-                                  isMulti
                                   required
-                                  options={_optionsCineplex}
+                                  placeholder="Name"
+                                  options={optionsMovie}
                                   styles={colourStyles}
-                                  className="basic-multi-select"
-                                  classNamePrefix="select"
                                   theme={(theme) => ({
                                     ...theme,
                                     borderRadius: 7,
@@ -647,84 +618,130 @@ function CGUD() {
                                       neutral0: "#FFF",
                                     },
                                   })}
-                                  onChange={(e) =>
-                                    setId_cineplex(e.map((i) => i.value))
-                                  }
+                                  onChange={(e) => setValueMovie(e)}
                                 />
-                              </>
-                            )}
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md="3">
-                          <FormGroup>
-                            <label>Time (minutes)</label>
-                            <Input
-                              type="text"
-                              name="time"
-                              id={disabled}
-                              placeholder="time"
-                              value={time}
-                              onChange={(e) => setTime(e.target.value)}
-                              required
-                            />
-                          </FormGroup>
-                        </Col>
-                        <Col md="3">
-                          <FormGroup>
-                            <label>Premiere date</label>
-                            <Input
-                              type="date"
-                              name="date"
-                              id={disabled}
-                              placeholder="date placeholder"
-                              value={release_date}
-                              onChange={(e) => setRelease_date(e.target.value)}
-                              required
-                            />
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md="10">
-                          <FormGroup>
-                            <Row>
-                              <Col>
-                                <Button
-                                  className="btnAddimgMovie"
-                                  id={disabled}
-                                >
-                                  <Input
-                                    type="file"
-                                    name="file"
+                              ) : (
+                                <Input
+                                  type="text"
+                                  name="nameMovie"
+                                  placeholder="Name movie"
+                                  value={name_movie}
+                                  onChange={(e) =>
+                                    setName_movie(e.target.value)
+                                  }
+                                  required
+                                />
+                              )}
+                            </FormGroup>
+                          </Col>
+                          <Col md="5">
+                            <FormGroup>
+                              <label>Choose Cineplex</label>
+                              {loadingCineplex ? (
+                                <h2>Loading...</h2>
+                              ) : errorCineplex ? (
+                                <h2>{errorCineplex}</h2>
+                              ) : (
+                                <>
+                                  <Select
+                                    placeholder="Name"
+                                    isMulti
+                                    required
+                                    options={_optionsCineplex}
+                                    styles={colourStyles}
+                                    className="basic-multi-select"
+                                    classNamePrefix="select"
+                                    theme={(theme) => ({
+                                      ...theme,
+                                      borderRadius: 7,
+                                      colors: {
+                                        ...theme.colors,
+                                        primary25: "#1d8cf8",
+                                        primary: "#e14eca",
+                                        neutral0: "#FFF",
+                                      },
+                                    })}
+                                    onChange={(e) =>
+                                      setId_cineplex(e.map((i) => i.value))
+                                    }
+                                  />
+                                </>
+                              )}
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col md="3">
+                            <FormGroup>
+                              <label>Time (minutes)</label>
+                              <Input
+                                type="text"
+                                name="time"
+                                id={disabled}
+                                placeholder="time"
+                                value={time}
+                                onChange={(e) => setTime(e.target.value)}
+                                required
+                              />
+                            </FormGroup>
+                          </Col>
+                          <Col md="3">
+                            <FormGroup>
+                              <label>Premiere date</label>
+                              <Input
+                                type="date"
+                                name="date"
+                                id={disabled}
+                                placeholder="date placeholder"
+                                value={release_date}
+                                onChange={(e) =>
+                                  setRelease_date(e.target.value)
+                                }
+                                required
+                              />
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col md="10">
+                            <FormGroup>
+                              <Row>
+                                <Col>
+                                  <Button
+                                    className="btnAddimgMovie"
                                     id={disabled}
-                                    className={disabled}
-                                    placeholder="date placeholder"
-                                    onChange={onChangePicture}
-                                  ></Input>
-                                  Add image
-                                </Button>
-                              </Col>
-                            </Row>
-                            <img className="ImgMovie" src={imgData}></img>
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                      <Row>
-                        <Col md="3">
-                          <Button
-                            className="btn-fill"
-                            color="primary"
-                            type="submit"
-                          >
-                            Add Movie
-                          </Button>
-                        </Col>
-                      </Row>
-                    </Form>
-                  </CardBody>
-                </Card>
+                                  >
+                                    <Input
+                                      type="file"
+                                      name="file"
+                                      id={disabled}
+                                      className={disabled}
+                                      placeholder="date placeholder"
+                                      onChange={onChangePicture}
+                                    ></Input>
+                                    Add image
+                                  </Button>
+                                </Col>
+                              </Row>
+                              <img className="ImgMovie" src={imgData}></img>
+                            </FormGroup>
+                          </Col>
+                        </Row>
+                        <Row>
+                          <Col md="3">
+                            <Button
+                              className="btn-fill"
+                              color="primary"
+                              type="submit"
+                            >
+                              Add Movie
+                            </Button>
+                          </Col>
+                        </Row>
+                      </Form>
+                    </CardBody>
+                  </Card>
+                )}
               </TabPane>
               <TabPane tabId="4">
                 <Card>
@@ -746,13 +763,15 @@ function CGUD() {
                                 type="select"
                                 name="select"
                                 id="exampleSelect"
-                                onChange={(e) =>
+                                onClick={(e) =>
                                   setValueCineplex(e.target.value)
                                 }
                                 required
                               >
                                 {cinema.map((item) => (
-                                  <option value={item.id}>{item.name}</option>
+                                  <>
+                                    <option value={item.id}>{item.name}</option>
+                                  </>
                                 ))}
                               </Input>
                             )}
@@ -773,7 +792,7 @@ function CGUD() {
                                 onChange={(e) => setId_room(e.target.value)}
                                 required
                               >
-                                {schedule.map((item) => (
+                                {schedule?.rooms?.map((item) => (
                                   <option value={item.id}>
                                     {item.name_room}
                                   </option>
@@ -799,7 +818,7 @@ function CGUD() {
                                 onChange={(e) => setId_movie(e.target.value)}
                                 required
                               >
-                                {schedule.map((item) => (
+                                {schedule?.movies?.map((item) => (
                                   <option value={item.id}>
                                     {item.name_movie}
                                   </option>

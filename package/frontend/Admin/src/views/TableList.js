@@ -22,8 +22,7 @@ import classnames from "classnames";
 import "./style.css";
 import {
   getCinema,
-  getRooms,
-  getMovies,
+  getSchedule,
   getAllShowtime,
   deleteRooms,
   deleteShowtime,
@@ -53,7 +52,7 @@ function Tables() {
   const { loadingCineplex, errorCineplex, cinema } = _cineplex;
 
   React.useEffect(() => {
-    if (!id_cineplex) dispatch(getCinema());
+    if (id_cineplex === null) dispatch(getCinema());
     if (valuemovie && valueCinema && delShowtime === null) {
       dispatch(getAllShowtime(valuemovie, valueCinema));
     }
@@ -88,17 +87,16 @@ function Tables() {
 
   const setValueCineplex = (e) => {
     setId_cineplex(e);
-    dispatch(getRooms(e));
+    dispatch(getSchedule(e));
   };
   const setValueCineplex2 = (e) => {
     setId_cineplex(e);
-    dispatch(getMovies(e));
+    dispatch(getSchedule(e));
   };
 
   const setValueCineplex3 = (e) => {
     setId_cineplex(e);
-    dispatch(getRooms(e));
-    dispatch(getMovies(e));
+    dispatch(getSchedule(e));
   };
 
   //schedule
@@ -267,7 +265,7 @@ function Tables() {
                         ) : errorSchedule ? (
                           <h2>{errorSchedule}</h2>
                         ) : (
-                          schedule.map((item) => (
+                          schedule?.rooms?.map((item) => (
                             <tr>
                               <td>{item.name_room}</td>
                               {item.id_category_room === 1 ? (
@@ -344,7 +342,7 @@ function Tables() {
                         ) : errorSchedule ? (
                           <h2>{errorSchedule}</h2>
                         ) : (
-                          schedule.map((item) => (
+                          schedule?.movies?.map((item) => (
                             <tr>
                               <td>{item.name_movie}</td>
                               <td className="text-center">{item.time} phút</td>
@@ -413,7 +411,7 @@ function Tables() {
                               id="exampleSelect"
                               onChange={(e) => setValueCinema(e.target.value)}
                             >
-                              {schedule.map((item) => (
+                              {schedule?.rooms?.map((item) => (
                                 <option value={item.id}>
                                   {item.name_room}
                                 </option>
@@ -436,7 +434,7 @@ function Tables() {
                               id="exampleSelect"
                               onChange={(e) => setValueMovie(e.target.value)}
                             >
-                              {schedule.map((item) => (
+                              {schedule?.movies?.map((item) => (
                                 <option value={item.id}>
                                   {item.name_movie}
                                 </option>

@@ -27,7 +27,6 @@ const BookingPage = () => {
 
   const seatBooking = useSelector((state) => state.postBookingSeat);
   const { loading, error, movie } = seatBooking;
-  console.log(`🚀 => file: booking.page.jsx => line 31 => movie`, movie)
 
   useEffect(() => {
     dispatch(postBookingSeat());
@@ -149,7 +148,7 @@ const BookingPage = () => {
                 </div>
                 <div class="book-item">
                   <span>total price</span>
-                  <h3 class="title">{total}đ</h3>
+                  <h3 class="title">{total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}đ</h3>
                 </div>
                 <div class="book-item" onClick={() => ProceedCheckout()}>
                   <Link to={total > 0 ? `/payment/${_schedule.slug}` : `/detail/booking/${_schedule.slug}`} class="custom-button">

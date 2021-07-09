@@ -290,5 +290,5 @@ exports.postPayment = async (req, res, next) => {
     info: bookingInfo[0],
   });
   //return res.send({ listIdTickets, info: bookingInfo[0] });
-  return res.status(200).send({ message: "success" });
+   res.status(200).send({ message: "success" });
 };

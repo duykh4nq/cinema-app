@@ -17,6 +17,7 @@ function CheckoutPage(props) {
   const _schedule = JSON.parse(sessionStorage.getItem("movies"));
   const [address, setAddress] = React.useState(null)
 
+
   const proceedPayment = () => {
     if (!address)
       alert("Please enter your address😉");
@@ -92,20 +93,20 @@ function CheckoutPage(props) {
                 <ul>
                   <li>
                     <h6 class="subtitle">
-                      <span>STD</span> <span>{total}đ</span>
+                      <span>STD</span> <span>{(total/seat.length).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}đ</span>
                     </h6>
                     <div class="info"><span>Số lượng</span><span>{seat.length}</span></div>
                   </li>
                   <li>
                     <h6 class="subtitle mb-0">
-                      <span>Tổng cộng</span><span>{total}đ</span>
+                      <span>Tổng cộng</span><span>{total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}đ</span>
                     </h6>
                   </li>
                 </ul>
                 <ul class="side-shape">
                   <li>
                     <h6 class="subtitle">
-                      <span>KHUYẾN MÃI</span><span>0đ</span>
+                      <span>Your seat: </span> <span>{seat+"  "}</span>
                     </h6>
                   </li>
                 </ul>
@@ -114,7 +115,7 @@ function CheckoutPage(props) {
                 <h6 class="info">
                   <h5>TỔNG TIỀN THANH TOÁN</h5>
                 </h6>
-                <div class="info"><span>{total}đ</span></div>
+                <div class="info-total"><span>{total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}đ</span></div>
                 <Link to={address?`/`:`/payment/${_schedule.slug}`} class="custom-button back-button" onClick={() => proceedPayment()}>
                   proceed</Link>
               </div>

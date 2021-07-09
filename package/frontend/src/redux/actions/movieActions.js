@@ -88,22 +88,15 @@ export const postBookingSeat = () => async (dispatch) => {
 };
 
 export const checkoutCart = (total, seat) => async (dispatch) => {
-  console.log(`🚀 => file: movieActions.js => line 91 => seat`, seat);
-  console.log(`🚀 => file: movieActions.js => line 91 => total`, total);
   try {
     dispatch({ type: actionTypes.CHECK_OUT_REQUEST });
     const id_schedule = JSON.parse(sessionStorage.getItem("time"));
-    console.log(
-      `🚀 => file: movieActions.js => line 96 => id_schedule`,
-      id_schedule
-    );
     const { data } = await axios.post(`/payment`, {
       email: "ndkhang0512@gmail.com",
       id_schedule: id_schedule.id_schedule,
       total: total,
       seat: seat,
     });
-    console.log(`🚀 => file: movieActions.js => line 102 => data`, data);
     if (data.message === "success") {
       alert("Payment success👏");
     }

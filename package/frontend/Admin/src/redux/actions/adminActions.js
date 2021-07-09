@@ -23,7 +23,8 @@ export const getCinema = () => async (dispatch) => {
   }
 };
 
-export const getRooms = (id) => async (dispatch) => {
+export const getSchedule = (id) => async (dispatch, getState) => {
+  console.log(`🚀 => file: adminActions.js => line 27 => id`, id);
   try {
     dispatch({
       type: actionTypes.GET_SCHEDULE_REQUEST,
@@ -35,9 +36,11 @@ export const getRooms = (id) => async (dispatch) => {
         index = i;
       }
     }
+    console.log(`🚀 => file: adminActions.js => line 32 => data`, data[index]);
+    sessionStorage.setItem("data", JSON.stringify(data[index]));
     dispatch({
       type: actionTypes.GET_SCHEDULE_SUCCESS,
-      payload: data[index].rooms,
+      payload: data[index],
     });
   } catch (error) {
     dispatch({
@@ -67,36 +70,6 @@ export const getMovie = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: actionTypes.GET_MOVIE_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
-    });
-  }
-};
-
-// use for showtime
-export const getMovies = (id) => async (dispatch) => {
-  try {
-    dispatch({
-      type: actionTypes.GET_SCHEDULE_REQUEST,
-    });
-    const { data } = await axios.get("/admin/schedule");
-    console.log(`🚀 => file: adminActions.js => line 59 => data`, data);
-    let index = 0;
-    for (let i = 0; i < data.length; i++) {
-      if (id == data[i].id) {
-        index = i;
-      }
-    }
-
-    dispatch({
-      type: actionTypes.GET_SCHEDULE_SUCCESS,
-      payload: data[index].movies,
-    });
-  } catch (error) {
-    dispatch({
-      type: actionTypes.GET_SCHEDULE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -185,7 +158,6 @@ export const getAddRoom =
       } else {
         alert("Add cinema failed 😥");
       }
-      console.log(`🚀 => file: adminActions.js => line 142 => data`, data);
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
         payload: data,
@@ -239,29 +211,19 @@ export const getAddMovie =
 
 export const getAddShowtime =
   (id_room, id_movie, date, start_time, price) => async (dispatch) => {
-    console.log(`🚀 => file: adminActions.js => line 242 => price`, price);
+    const showtime = JSON.parse(sessionStorage.getItem("data"));
     console.log(
-      `🚀 => file: adminActions.js => line 242 => start_time`,
-      start_time
+      `🚀 => file: adminActions.js => line 215 => showtime`,
+      showtime
     );
-    console.log(`🚀 => file: adminActions.js => line 242 => date`, date);
-    console.log(
-      `🚀 => file: adminActions.js => line 242 => id_movie`,
-      id_movie
-    );
-    console.log(`🚀 => file: adminActions.js => line 242 => id_room`, id_room);
+    // if(id_movie=="" && ) id_movie=showtime.
     var [h, m] = start_time.split(":");
-    console.log(`🚀 => file: adminActions.js => line 254 => h`, h);
     var meridian =
       ((h % 12) + 12 * (h % 12 === 0) + ":" + m, h >= 12 ? "PM" : "AM");
     if (h >= 12) {
       h = h - 12;
     }
     if (h == "00") h = 12;
-    console.log(
-      `🚀 => file: adminActions.js => line 205 => h + ":" + m + " " + meridian`,
-      h + ":" + m + " " + meridian
-    );
     try {
       dispatch({
         type: actionTypes.GET_SCHEDULE_DETAILS_REQUEST,
@@ -361,7 +323,8 @@ export const deleteRooms = (id_room, id_cineplex) => async (dispatch) => {
     const { data } = await axios.post("/admin/deleteroom", {
       id_room: id_room,
     });
-    if ((data.message = "Delete Successfull")) dispatch(getRooms(id_cineplex));
+    if ((data.message = "Delete Successfull"))
+      dispatch(getSchedule(id_cineplex));
     dispatch({
       type: actionTypes.GET_DELETE_SUCCESS,
       payload: data,
@@ -442,7 +405,7 @@ export const deleteMovies = (id_movie, id_cineplex) => async (dispatch) => {
     });
     console.log(`🚀 => file: adminActions.js => line 426 => data`, data);
     if (data.message === "Delete Successful") {
-      dispatch(getMovies(id_cineplex));
+      // dispatch(getMovies(id_cineplex));
     }
     dispatch({
       type: actionTypes.GET_DELETE_SUCCESS,
