@@ -15,7 +15,9 @@ router.post("/verifycoderesetpass", Auth.postVerifyCodeResetPass);
 router.post("/resetpassword", Auth.postResetPassword);
 router.post("/resetpasswordforgot", Auth.postResetPasswordForgot);
 router.post("/changeprofile", Auth.postChangeProfile);
-router.get("/historybooking", Auth.getHistoryBooking);
 router.post("/payment", Auth.postPayment);
+router.post("/allhistorybooking", Auth.postAllHistoryBooking); // all history
+router.post("/waittinghistorybooking", Auth.postAllWaitHistoryBooking);
+router.post("/bookedhistorybooking", Auth.postAllBookedHistoryBooking);
 
 module.exports = router;
