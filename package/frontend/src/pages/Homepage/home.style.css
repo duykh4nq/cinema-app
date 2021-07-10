@@ -17,3 +17,10 @@
 .slick-arrow:hover {
   color: #31d7a9 !important;
 }
+.movie-section {
+  margin-top: 50px;
+}
+.container {
+  width: 90%;
+  margin: auto;
+}

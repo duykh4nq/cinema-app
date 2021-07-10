@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import LoginScreen from "../../pages/Loginpage/login.page";
 import Register from "../../pages/Registerpage/register.page";
-
+import "../../constants/function";
 //import css
 import "./header.component.css";
 import "../../assets/css/style.css";
@@ -56,7 +56,7 @@ function HeadersComponent() {
       />
       <header>
         <div class="container">
-          <nav class="navbar navbar-default navbar-custom">
+          <nav class="navbar navbar-default navbar-custom My-custom">
             <div class="navbar-header logo">
               <div class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
@@ -95,7 +95,7 @@ function HeadersComponent() {
                   <Link to="/aboutUs">about us</Link>
                 </li>
                 <li>
-                  <Link to="/search">Tất Cả Các Rạp</Link>
+                  <Link to="/search">Search Cinemas</Link>
                 </li>
               </ul>
               <ul class="nav navbar-nav flex-child-menu menu-right">
@@ -106,11 +106,11 @@ function HeadersComponent() {
                   </li>
                 ) : (
                   <li class="loginLink" onClick={ClickOpenformLogin}>
-                    <button className="btn-auth">LOG In</button>
+                    <button className="btn-auth">Sign in</button>
                   </li>
                 )}
                 <li class="btn signupLink" onClick={ClickOpenformRegister}>
-                  <button className="btn-auth">sign up</button>
+                  <button className="btn-auth">Sign up</button>
                 </li>
               </ul>
             </div>

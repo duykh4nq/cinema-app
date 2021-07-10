@@ -5,7 +5,6 @@ export const getMoviesReducer = (state = { movies: [] }, action) => {
     case actionTypes.GET_MOVIES_REQUEST:
       return {
         loading: true,
-        movies: [],
       };
     case actionTypes.GET_MOVIES_SUCCESS:
       return {
@@ -97,10 +96,7 @@ export const postBookingSeatReducer = (state = { movie: {} }, action) => {
   }
 };
 
-export const postAllHistoryBookingReducer = (
-  state = { history: {} },
-  action
-) => {
+export const postAllHistoryBookingReducer = (state = { history: {} }, action) => {
   switch (action.type) {
     case actionTypes.GET_HISTORY_REQUEST:
       return {
@@ -125,10 +121,7 @@ export const postAllHistoryBookingReducer = (
   }
 };
 
-export const postAllWaitHistoryBookingReducer = (
-  state = { waitting_history: {} },
-  action
-) => {
+export const postAllWaitHistoryBookingReducer = (state = { waitting_history: {} }, action) => {
   switch (action.type) {
     case actionTypes.GET_WAITTING_HISTORY_REQUEST:
       return {
@@ -152,10 +145,7 @@ export const postAllWaitHistoryBookingReducer = (
       return state;
   }
 };
-export const postAllBookedHistoryBookingReducer = (
-  state = { booked_history: {} },
-  action
-) => {
+export const postAllBookedHistoryBookingReducer = (state = { booked_history: {} }, action) => {
   switch (action.type) {
     case actionTypes.GET_BOOKED_HISTORY_REQUEST:
       return {
@@ -174,6 +164,48 @@ export const postAllBookedHistoryBookingReducer = (
     case actionTypes.GET_BOOKED_HISTORY_RESET:
       return {
         booked_history: {},
+      };
+    default:
+      return state;
+  }
+};
+
+export const AllcineplexsReducer = (state = { Allcineplex: [] }, action) => {
+  switch (action.type) {
+    case actionTypes.GET_CINEPLEX_REQUEST:
+      return {
+        loading: true,
+      };
+    case actionTypes.GET_CINEPLEX_SUCCESS:
+      return {
+        loading: false,
+        Allcineplex: action.payload,
+      };
+    case actionTypes.GET_CINEPLEX_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
+export const AllMoviesByCineplexReducer = (state = { MoviesByCineplex: [] }, action) => {
+  switch (action.type) {
+    case actionTypes.GET_AllMoviesByCineplex_REQUEST:
+      return {
+        loading: true,
+      };
+    case actionTypes.GET_AllMoviesByCineplex_SUCCESS:
+      return {
+        loading: false,
+        MoviesByCineplex: action.payload,
+      };
+    case actionTypes.GET_AllMoviesByCineplex_FAIL:
+      return {
+        loading: false,
+        error: action.payload,
       };
     default:
       return state;
