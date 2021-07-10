@@ -61,11 +61,12 @@ header .navbar-default {
 }
 
 .btn-auth:hover {
-  color: #dcf836;
+  color: #dcf836 !important;
 }
 
 .navbar .menu-right {
   margin-right: 3%;
+  width: 20%;
 }
 
 .loginLink {
@@ -96,12 +97,38 @@ header .navbar-default {
 .profile i {
   font-size: 14px;
   color: #abb7c4;
+  margin-right: 5px;
 }
-.profile span {
-  margin-left: 5px;
+
+.account {
+  position: relative;
+  cursor: pointer;
+}
+.account .dropdown-account {
+  display: none;
+  position: fixed;
+  background-color: unset;
+  min-width: 200px;
+  margin-top: 20px;
+}
+.account .dropdown-account li {
+  border-bottom: 1px solid #f4f4f4;
+  width: 100%;
+}
+.account .dropdown-account.active-account {
+  display: block;
+}
+.account .logout {
+  background-color: unset;
+  border: none;
+  text-align: start;
   font-family: "Dosis", sans-serif;
   font-size: 14px;
+  color: #abb7c4;
   font-weight: bold;
   text-transform: uppercase;
-  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.account .logout:hover {
+  color: #dcf836;
 }
