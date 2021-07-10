@@ -1,6 +1,6 @@
 import * as actionTypes from "../constants/movieConstants";
 
-export const getMoviesReducer = (state = { movies: [] }, action) => {
+export const getMoviesReducer = (state = { movies: {} }, action) => {
   switch (action.type) {
     case actionTypes.GET_MOVIES_REQUEST:
       return {

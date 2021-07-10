@@ -12,12 +12,15 @@ import "swiper/swiper.min.css";
 import SwiperComponent from "../../components/Swiper/SwiperComponent";
 import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Navigation, Pagination } from "swiper/core";
-SwiperCore.use([Navigation, Pagination]);
+import "swiper/components/pagination/pagination.min.css";
+
+// install Swiper modules
+SwiperCore.use([Pagination]);
 
 const HomeScreen = ({ match, history }) => {
   const dispatch = useDispatch();
-  const getMovies = useSelector((state) => state.getMovies);
-  console.log("🚀 ~ file: home.page.jsx ~ line 20 ~ HomeScreen ~ getMovies", getMovies);
+  const { movies } = useSelector((state) => state.getMovies);
+  console.log("🚀 ~ file: home.page.jsx ~ line 20 ~ HomeScreen ~ getMovies", movies);
   const settings = {
     dots: true,
     infinite: true,
@@ -25,9 +28,7 @@ const HomeScreen = ({ match, history }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-
   var arrData = [];
-
   useEffect(() => {
     dispatch(listMovies());
   }, [dispatch]);
@@ -51,11 +52,11 @@ const HomeScreen = ({ match, history }) => {
         <div class="container">
           <div class="row flex-wrap-reverse justify-content-center">
             <div class="col-lg-12">
-              <div class="article-section padding-bottom">
-                <div class="section-header-1">
-                  <h2 class="title">movies</h2>
-                </div>
-                {arrData ? (
+              {movies && Object.values(movies).length > 0 && movies.newest.length > 0 && (
+                <div class="article-section padding-bottom">
+                  <div class="section-header-1">
+                    <h2 class="title">Newest</h2>
+                  </div>
                   <Swiper
                     pagination={true}
                     slidesPerView={3}
@@ -63,70 +64,64 @@ const HomeScreen = ({ match, history }) => {
                     allowTouchMove={true}
                     lazy={true}
                     slidesPerGroup={3}
-                    loop={true}
                   >
-                    {arrData.map((item, index) => (
-                      <SwiperSlide key={index}>
-                        <SwiperComponent item={item} />
-                      </SwiperSlide>
-                    ))}
+                    {movies.newest &&
+                      movies.newest.map((item, index) => (
+                        <SwiperSlide key={index}>
+                          <SwiperComponent movie={item} />
+                        </SwiperSlide>
+                      ))}
                   </Swiper>
-                ) : null}
-
-                <div class="row mb-30-none justify-content-center"></div>
-              </div>
-
-              <div class="article-section padding-bottom">
-                <div class="section-header-1">
-                  <h2 class="title">movies</h2>
-                  <a class="view-all" href="movie-grid.html">
-                    View All
-                  </a>
+                  <div class="row mb-30-none justify-content-center"></div>
                 </div>
-                <Swiper
-                  pagination={true}
-                  slidesPerView={3}
-                  spaceBetween={20}
-                  allowTouchMove={true}
-                  lazy={true}
-                  slidesPerGroup={3}
-                  loop={true}
-                >
-                  {arrData.map((item, index) => (
-                    <SwiperSlide key={index}>
-                      <SwiperComponent item={item} />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
+              )}
 
-                <div class="row mb-30-none justify-content-center"></div>
-              </div>
-
-              <div class="article-section padding-bottom">
-                <div class="section-header-1">
-                  <h2 class="title">movies</h2>
-                  <a class="view-all" href="movie-grid.html">
-                    View All
-                  </a>
+              {movies && Object.values(movies).length > 0 && movies.commingsoon.length > 0 && (
+                <div class="article-section padding-bottom">
+                  <div class="section-header-1">
+                    <h2 class="title">Commingsoon</h2>
+                  </div>
+                  <Swiper
+                    pagination={true}
+                    slidesPerView={3}
+                    spaceBetween={20}
+                    allowTouchMove={true}
+                    lazy={true}
+                    slidesPerGroup={3}
+                  >
+                    {movies.commingsoon &&
+                      movies.commingsoon.map((item, index) => (
+                        <SwiperSlide key={index}>
+                          <SwiperComponent movie={item} />
+                        </SwiperSlide>
+                      ))}
+                  </Swiper>
+                  <div class="row mb-30-none justify-content-center"></div>
                 </div>
-                <Swiper
-                  pagination={true}
-                  slidesPerView={3}
-                  spaceBetween={20}
-                  allowTouchMove={true}
-                  lazy={true}
-                  slidesPerGroup={3}
-                  loop={true}
-                >
-                  {arrData.map((item, index) => (
-                    <SwiperSlide key={index}>
-                      <SwiperComponent item={item} />
-                    </SwiperSlide>
-                  ))}
-                </Swiper>
-
-                <div class="row mb-30-none justify-content-center"></div>
-              </div>
+              )}
+              {movies && Object.values(movies).length > 0 && movies.bestSelling.length > 0 && (
+                <div class="article-section padding-bottom">
+                  <div class="section-header-1">
+                    <h2 class="title">Best Selling</h2>
+                  </div>
+                  <Swiper
+                    pagination={true}
+                    slidesPerView={3}
+                    spaceBetween={20}
+                    allowTouchMove={true}
+                    lazy={true}
+                    slidesPerGroup={3}
+                  >
+                    {movies.bestSelling &&
+                      movies.bestSelling.map((item, index) => (
+                        <SwiperSlide key={index}>
+                          <SwiperComponent movie={item} />
+                        </SwiperSlide>
+                      ))}
+                  </Swiper>
+                  <div class="row mb-30-none justify-content-center"></div>
+                </div>
+              )}
             </div>
           </div>
         </div>

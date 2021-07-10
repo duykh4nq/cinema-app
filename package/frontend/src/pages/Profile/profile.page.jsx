@@ -82,10 +82,7 @@ function ProfilePage(props) {
               <div className="user-information">
                 <div className="user-img">
                   <a href="#">
-                    <img src="images/uploads/user-img.png" alt="" />
-                  </a>
-                  <a href="#" className="redbtn">
-                    Change avatar
+                    <img src="images/avatar.png" alt="" />
                   </a>
                 </div>
                 <div className="user-fav">
@@ -103,7 +100,11 @@ function ProfilePage(props) {
                   <p>Others</p>
                   <ul>
                     <li>
-                      <button className="btn-function" onClick={ChangPassword}>
+                      <button
+                        style={{ color: changPassword ? "#dcf836" : "#f4f4f4" }}
+                        className="btn-function"
+                        onClick={ChangPassword}
+                      >
                         Change password
                       </button>
                     </li>
@@ -118,17 +119,35 @@ function ProfilePage(props) {
                   <div className="row">
                     <div className="col-md-6 form-it">
                       <label>Username</label>
-                      <input name="name" value={name ? name : ""} type="text" placeholder="edwardkennedy" onChange={handleOnChange} />
+                      <input
+                        name="name"
+                        value={name ? name : ""}
+                        type="text"
+                        placeholder="edwardkennedy"
+                        onChange={handleOnChange}
+                      />
                     </div>
                     <div className="col-md-6 form-it">
                       <label>Email Address</label>
-                      <input name="email" value={email ? email : ""} type="email" placeholder="edward@kennedy.com" disabled />
+                      <input
+                        name="email"
+                        value={email ? email : ""}
+                        type="email"
+                        placeholder="edward@kennedy.com"
+                        disabled
+                      />
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-md-12 form-it">
                       <label>Phone</label>
-                      <input name="phone" value={phone ? phone : ""} type="number" placeholder="Kennedy" onChange={handleOnChange} />
+                      <input
+                        name="phone"
+                        value={phone ? phone : ""}
+                        type="text"
+                        placeholder="Kennedy"
+                        onChange={handleOnChange}
+                      />
                     </div>
                   </div>
 

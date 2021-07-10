@@ -51,7 +51,10 @@ function Register({ openformRegister, BackOpenformRegister, onSubmit }) {
     }
   }, [user]);
   return (
-    <div class="register" {...(openformRegister === true ? { className: "register openform" } : { className: "register" })}>
+    <div
+      class="register"
+      {...(openformRegister === true ? { className: "register openform" } : { className: "register" })}
+    >
       {check === false ? (
         <div class="login-wrapper" id="signup-content">
           <div class="login-content">
@@ -81,7 +84,15 @@ function Register({ openformRegister, BackOpenformRegister, onSubmit }) {
               <div class="row">
                 <label for="email">
                   your email:
-                  <input value={email} type="text" name="email" id="email" placeholder="" required="required" onChange={handleOnChange} />
+                  <input
+                    value={email}
+                    type="email"
+                    name="email"
+                    id="email"
+                    placeholder=""
+                    required="required"
+                    onChange={handleOnChange}
+                  />
                   {register.error ? <p className="fail">existed email</p> : null}
                 </label>
               </div>
@@ -102,7 +113,15 @@ function Register({ openformRegister, BackOpenformRegister, onSubmit }) {
               <div class="row">
                 <label for="phone">
                   Your phone:
-                  <input value={phone} type="text" name="phone" id="phone" placeholder="" required="required" onChange={handleOnChange} />
+                  <input
+                    value={phone}
+                    type="text"
+                    name="phone"
+                    id="phone"
+                    placeholder=""
+                    required="required"
+                    onChange={handleOnChange}
+                  />
                 </label>
               </div>
               <div class="row">

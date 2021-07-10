@@ -126,14 +126,16 @@ function LoginScreen({ openformLogin, BackOpenformLogin, onSubmit }) {
 
                 <div class="row">
                   <div class="remember">
-                    <button onClick={HandleForgotPassword} className="btn-auth forgot">
-                      Forget password ?
+                    <button onClick={HandleForgotPassword} className=" forgot">
+                      Forget password
                     </button>
                   </div>
                 </div>
 
                 <div class="row">
-                  <button type="submit">Login</button>
+                  <button className="btn-sub" type="submit">
+                    Login
+                  </button>
                 </div>
               </form>
             </>
@@ -224,7 +226,9 @@ function LoginScreen({ openformLogin, BackOpenformLogin, onSubmit }) {
                   </div>
                 ) : null}
                 <div class="row">
-                  <button type="submit">Confirm</button>
+                  <button className="btn-sub" type="submit">
+                    Confirm
+                  </button>
                 </div>
               </form>{" "}
             </>
