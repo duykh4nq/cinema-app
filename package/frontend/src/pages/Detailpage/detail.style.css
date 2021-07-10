@@ -1,7 +1,11 @@
 .header-movie {
-    margin-top: 100px !important;
+    margin-top: 170px !important;
 }
 
 .movie-single .movie-img .movie-btn {
-    background-color: #02163b;
+    background-color: #001232;
+}
+
+.page-single {
+    background: transparent !important;
 }

@@ -11,6 +11,7 @@ function ProfilePage(props) {
   const userLoggedIn = useSelector((state) => state.users.loggedIn);
   const [users, setUsers] = useState("");
   const { email, name, phone } = users;
+  console.log(`🚀 => file: profile.page.jsx => line 14 => name`, name)
   const [oldPassword, setOldPassword] = useState();
   const [newPassword, setNewPassword] = useState();
   const [newPasswordConfirm, setPasswordConfirm] = useState();
@@ -95,7 +96,7 @@ function ProfilePage(props) {
                       <a href="userprofile.html">Profile</a>
                     </li>
                     <li>
-                      <a href="userfavoritelist.html">History movies</a>
+                    <Link to="/history">History Booking</Link>
                     </li>
                   </ul>
                 </div>

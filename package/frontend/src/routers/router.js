@@ -9,7 +9,6 @@ import HomeRoute from "./home.router";
 import CheckoutRoute from "./checkout.router";
 import AboutUsRoute from "./aboutus.router";
 import Profile from "./profile.router";
-import MovieRoute from "./movie.router";
 import SearchRoute from "./search.router";
 import HistoryRoute from "./history.router";
 
@@ -23,7 +22,6 @@ function Routes() {
       <AboutUsRoute />
       <BookingRoute />
       <CheckoutRoute />
-      <MovieRoute />
       <SearchRoute />
       <HistoryRoute />
       <Footer />

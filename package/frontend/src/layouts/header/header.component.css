@@ -2,21 +2,17 @@
   display: block;
 }
 
-.dropdown:hover .level1 > .level1 > .level2 {
+.dropdown:hover .level1>.level1>.level2 {
   display: none;
 }
 
-.dropdown:hover .level1 > .level1:hover > .level2 {
+.dropdown:hover .level1>.level1:hover>.level2 {
   display: block;
 }
 
 header {
   position: unset !important;
   margin-bottom: 100px;
-}
-
-.navbar-custom {
-  margin-top: -10px !important;
 }
 
 .navbar {
@@ -27,6 +23,7 @@ header {
   width: 100%;
   z-index: 99 !important;
   background: #001232 !important;
+  border-bottom: 2px solid #000d24 !important;
 }
 
 .logo {
@@ -50,6 +47,19 @@ header .navbar-default {
   transition: all 0.3s ease;
 }
 
+.btn-signin {
+  font-family: "Dosis", sans-serif;
+  font-size: 14px;
+  color: #f4f4f4 !important;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 0 25px;
+  transition: all 0.3s ease;
+}
+
 .btn-auth:hover {
   color: #dcf836;
 }
@@ -61,16 +71,20 @@ header .navbar-default {
 .loginLink {
   margin-right: 20px;
 }
+
 .My-custom .logo img {
   height: 58px;
   transition: all 0.3s ease;
 }
+
 .My-custom.scroll {
   padding: 15px 0 5px 0 !important;
 }
+
 .My-custom.scroll .logo img {
   height: 40px;
 }
+
 .My-custom.scroll .collapse .menu-right .btn-auth {
-  height: 40px;
+  height: 30px;
 }

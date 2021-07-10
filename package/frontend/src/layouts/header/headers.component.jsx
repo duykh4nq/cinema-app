@@ -78,19 +78,6 @@ function HeadersComponent() {
                 <li>
                   <Link to="/">Home</Link>
                 </li>
-                <li class="dropdown first">
-                  <a class="btn btn-default dropdown-toggle lv1" data-toggle="dropdown" data-hover="dropdown">
-                    movies<i class="fa fa-angle-down" aria-hidden="true"></i>
-                  </a>
-                  <ul class="dropdown-menu level1">
-                    <li>
-                      <a href="#">Movie grid</a>
-                    </li>
-                    <li>
-                      <a href="movielist.html">Movie list</a>
-                    </li>
-                  </ul>
-                </li>
                 <li>
                   <Link to="/aboutUs">about us</Link>
                 </li>
@@ -102,30 +89,19 @@ function HeadersComponent() {
                 {userLoggedIn === true ? (
                   <li class="loginLink" onClick={HandleLogOut}>
                     {" "}
-                    <button className="btn-auth">LOG OUT</button>
+                    <button className="btn-auth">{}</button>
                   </li>
-                ) : (
+                ) : (<>
                   <li class="loginLink" onClick={ClickOpenformLogin}>
-                    <button className="btn-auth">Sign in</button>
+                    <button className="btn-signin">Sign in</button>
                   </li>
+                  <li class="btn signupLink" onClick={ClickOpenformRegister}>
+                    <button className="btn-auth">Sign up</button>
+                  </li></>
                 )}
-                <li class="btn signupLink" onClick={ClickOpenformRegister}>
-                  <button className="btn-auth">Sign up</button>
-                </li>
               </ul>
             </div>
           </nav>
-
-          {/* <div class="top-search">
-            <select>
-              <option value="united">TV show</option>
-              <option value="saab">Others</option>
-            </select>
-            <input
-              type="text"
-              placeholder="Search for a movie, TV Show or celebrity that you are looking for"
-            />
-          </div> */}
         </div>
       </header>
     </>
