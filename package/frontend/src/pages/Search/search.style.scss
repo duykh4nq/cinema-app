@@ -1,0 +1,106 @@
+.select-bar {
+  width: 140px;
+  background-color: transparent;
+  font-size: 15px;
+  text-transform: uppercase;
+  border: 0;
+}
+
+.ticket-search-form {
+  margin-left: 30px;
+  width: 90% !important;
+  margin-top: -25px !important;
+}
+
+option {
+  color: #001232;
+  margin: 4px !important;
+}
+
+.bg-one {
+  height: 100px !important;
+}
+
+.seat-plan-wrapper li .movie-schedule .item {
+  height: 36px !important;
+}
+
+.icons {
+  border: 1px;
+}
+
+.movie-name img {
+  width: 240px;
+  height: 280px;
+  border-radius: 10px !important;
+  object-fit: cover;
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+}
+
+.movie-info p {
+  color: #fff;
+  text-transform: uppercase !important;
+  font-size: 1.3rem !important;
+  font-weight: 400 !important;
+  margin-top: 30px !important;
+  margin-left: 30px !important;
+}
+
+.movie-info span {
+  margin-top: 5px !important;
+  margin-left: 32px !important;
+}
+
+.seat-plan-wrapper li .movie-name {
+  width: 24% !important;
+}
+
+.movie-info {
+  width: 76% !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.seat-plan-wrapper li .movie-schedule {
+  width: 70% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+}
+.movie {
+  display: none;
+}
+
+.list-booth {
+  max-width: 1170px;
+  border: 2px solid #f4f4f4;
+  margin: auto;
+  padding-bottom: 50px;
+  .head {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 40px;
+    padding-top: 40px;
+    margin: 0 5%;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #f4f4f4;
+  }
+  .list {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: auto;
+    .item {
+      display: flex;
+      flex: 0 1 20%;
+      text-align: left;
+      line-height: 2rem;
+      cursor: pointer;
+    }
+  }
+}

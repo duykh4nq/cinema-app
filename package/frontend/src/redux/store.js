@@ -4,7 +4,12 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 // Reducers
 // import { cartReducer } from "./reducers/cartReducers";
-import { getMovieDetailReducer, postBookingShowReducer, getMoviesReducer, postBookingSeatReducer } from "./reducers/movieReducers";
+import {
+  getMovieDetailReducer,
+  postBookingShowReducer,
+  getMoviesReducer,
+  postBookingSeatReducer,
+} from "./reducers/movieReducers";
 import { loginReducer, registerReducer } from "./reducers/authReducers";
 
 const reducer = combineReducers({

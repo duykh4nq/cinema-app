@@ -1,7 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { postForgotPassword, PostLogin, postResetPassword, postVerifyForgotPassword } from "../../redux/actions/authActions";
+import {
+  postForgotPassword,
+  PostLogin,
+  postResetPassword,
+  postVerifyForgotPassword,
+} from "../../redux/actions/authActions";
 import "./login.style.scss";
 
 LoginScreen.propTypes = {};
@@ -9,6 +14,7 @@ LoginScreen.propTypes = {};
 function LoginScreen({ openformLogin, BackOpenformLogin, onSubmit }) {
   const typingTimeoutRef = useRef("");
   const user = useSelector((state) => state.users);
+  console.log("🚀 ~ file: login.page.jsx ~ line 17 ~ LoginScreen ~ user", user);
   const error = user.error;
   const dispatch = useDispatch();
   const [email, setEmail] = useState();
@@ -72,7 +78,10 @@ function LoginScreen({ openformLogin, BackOpenformLogin, onSubmit }) {
     }
   };
   return (
-    <div class="loginpage" {...(openformLogin === true ? { className: "loginpage openform" } : { className: "loginpage" })}>
+    <div
+      class="loginpage"
+      {...(openformLogin === true ? { className: "loginpage openform" } : { className: "loginpage" })}
+    >
       <div class="login-wrapper" id="login-content">
         <div class="login-content">
           {forgotPassword === false ? (
@@ -123,6 +132,7 @@ function LoginScreen({ openformLogin, BackOpenformLogin, onSubmit }) {
                     </button>
                   </div>
                 </div>
+
                 <div class="row">
                   <button type="submit">Login</button>
                 </div>
@@ -164,7 +174,9 @@ function LoginScreen({ openformLogin, BackOpenformLogin, onSubmit }) {
                           onChange={(e) => setPasswordConfirm(e.target.value)}
                         />
                         {checkConfirm ? <p className="fail">password not match</p> : null}
-                        {user.user.message === "Change password successfully" ? <p className="fail">Change password successfully</p> : null}
+                        {user.user.message === "Change password successfully" ? (
+                          <p className="fail">Change password successfully</p>
+                        ) : null}
                       </label>
                     </div>
                   </>
@@ -189,7 +201,9 @@ function LoginScreen({ openformLogin, BackOpenformLogin, onSubmit }) {
                           </button>
                         </div>
                       </div>
-                      {error === "Request failed with status code 403" ? <span className="error">Not exist email</span> : null}
+                      {error === "Request failed with status code 403" ? (
+                        <span className="error">Not exist email</span>
+                      ) : null}
                     </label>
                   </div>
                 )}
@@ -216,6 +230,7 @@ function LoginScreen({ openformLogin, BackOpenformLogin, onSubmit }) {
               </form>{" "}
             </>
           )}
+
           <div class="row">
             <p>Or via social</p>
             <div class="social-btn-2">
