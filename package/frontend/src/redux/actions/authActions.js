@@ -12,6 +12,10 @@ export const PostLogin = (email, password) => async (dispatch, getState) => {
       password: password,
       role: 1,
     });
+    if (data.user.active !== null) {
+      let error = { message: "Email does not exist" };
+      throw error;
+    }
     dispatch({
       type: actionTypes.LOGIN_SUCCESS,
       payload: {

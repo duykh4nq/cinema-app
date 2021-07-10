@@ -22,6 +22,7 @@ import store from "./redux/store";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 
 import AdminLayout from "layouts/Admin/Admin.js";
+import LoginLayout from "layouts/Admin/Login.js";
 
 import "assets/scss/black-dashboard-react.scss";
 import "assets/demo/demo.css";
@@ -37,11 +38,9 @@ ReactDOM.render(
       <BrowserRouter>
         <Switch>
           <Provider store={store}>
-            <Route
-              path="/admin"
-              render={(props) => <AdminLayout {...props} />}
-            />
-            <Redirect to="/admin/statistical" />
+            <Route path="/login" render={(props) => <LoginLayout {...props} />} />
+            <Route path="/admin" render={(props) => <AdminLayout {...props} />} />
+            <Redirect to="/login" />
           </Provider>
         </Switch>
       </BrowserRouter>

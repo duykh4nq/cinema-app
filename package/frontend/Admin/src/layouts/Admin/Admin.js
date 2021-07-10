@@ -16,7 +16,7 @@
 
 */
 import React from "react";
-import { Route, Switch, Redirect, useLocation } from "react-router-dom";
+import { Route, Switch, Redirect, useLocation, useHistory } from "react-router-dom";
 // javascript plugin used to create scrollbars on windows
 import PerfectScrollbar from "perfect-scrollbar";
 
@@ -30,10 +30,16 @@ import routes from "routes.js";
 
 import logo from "assets/img/react-logo.png";
 import { BackgroundColorContext } from "contexts/BackgroundColorContext";
+import { useSelector } from "react-redux";
 
 var ps;
 
 function Admin(props) {
+  const history = useHistory();
+  const admin = useSelector((state) => state.admin);
+  if (!admin.loggedIn) {
+    history.push("/login");
+  }
   const location = useLocation();
   const mainPanelRef = React.useRef(null);
   const [sidebarOpened, setsidebarOpened] = React.useState(
@@ -81,13 +87,7 @@ function Admin(props) {
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
       if (prop.layout === "/admin") {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
+        return <Route path={prop.layout + prop.path} component={prop.component} key={key} />;
       } else {
         return null;
       }
@@ -101,6 +101,7 @@ function Admin(props) {
     }
     return "Brand";
   };
+
   return (
     <BackgroundColorContext.Consumer>
       {({ color, changeColor }) => (

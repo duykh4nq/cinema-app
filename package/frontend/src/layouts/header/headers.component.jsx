@@ -49,7 +49,11 @@ function HeadersComponent() {
   return (
     <>
       <LoginScreen onSubmit={HandleLoginSucess} openformLogin={openformLogin} BackOpenformLogin={BackOpenformLogin} />
-      <Register onSubmit={HandleRegisterSucess} openformRegister={openformRegister} BackOpenformRegister={BackOpenformRegister} />
+      <Register
+        onSubmit={HandleRegisterSucess}
+        openformRegister={openformRegister}
+        BackOpenformRegister={BackOpenformRegister}
+      />
       <header>
         <div class="container">
           <nav class="navbar navbar-default navbar-custom">
@@ -89,6 +93,9 @@ function HeadersComponent() {
                 </li>
                 <li>
                   <Link to="/aboutUs">about us</Link>
+                </li>
+                <li>
+                  <Link to="/search">Tất Cả Các Rạp</Link>
                 </li>
               </ul>
               <ul class="nav navbar-nav flex-child-menu menu-right">

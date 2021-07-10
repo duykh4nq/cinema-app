@@ -9,6 +9,7 @@ import CheckoutRoute from "./checkout.router";
 import AboutUsRoute from "./aboutus.router";
 import Profile from "./profile.router";
 import MovieRoute from "./movie.router";
+import SearchRoute from "./search.router";
 function Routes() {
   return (
     <Router>
@@ -20,6 +21,7 @@ function Routes() {
       <BookingRoute />
       <CheckoutRoute />
       <MovieRoute />
+      <SearchRoute />
       <Footer />
     </Router>
   );
