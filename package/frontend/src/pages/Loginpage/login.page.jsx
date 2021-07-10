@@ -14,7 +14,7 @@ LoginScreen.propTypes = {};
 function LoginScreen({ openformLogin, BackOpenformLogin, onSubmit }) {
   const typingTimeoutRef = useRef("");
   const user = useSelector((state) => state.users);
-  console.log("🚀 ~ file: login.page.jsx ~ line 17 ~ LoginScreen ~ user", user);
+  console.log("🚀 ~ file: login.page.jsx ~ line 17 ~ LoginScreen ~ user", user.user.email);
   const error = user.error;
   const dispatch = useDispatch();
   const [email, setEmail] = useState();
