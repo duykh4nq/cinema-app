@@ -9,3 +9,7 @@
 .page-single {
     background: transparent !important;
 }
+
+.btn-transform .ion-card {
+    margin-left: -10px !important;
+}

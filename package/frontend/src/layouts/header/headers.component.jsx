@@ -82,14 +82,14 @@ function HeadersComponent() {
                   <Link to="/aboutUs">about us</Link>
                 </li>
                 <li>
-                  <Link to="/search">Search Cinemas</Link>
+                  <Link to="/search">Cineplexs</Link>
                 </li>
               </ul>
               <ul class="nav navbar-nav flex-child-menu menu-right">
                 {userLoggedIn === true ? (
                   <li class="loginLink" onClick={HandleLogOut}>
                     {" "}
-                    <button className="btn-auth">{}</button>
+                    <button className="btn-auth">Hi, Khanq</button>
                   </li>
                 ) : (<>
                   <li class="loginLink" onClick={ClickOpenformLogin}>

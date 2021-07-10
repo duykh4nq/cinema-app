@@ -21,6 +21,7 @@ import play_vd from "../../assets/images/uploads/play-vd.png"
 
 
 const DetailScreen = ({ match, history }) => {
+  const userLoggedIn = useSelector((state) => state.users.loggedIn);
   const [openformLogin, setOpenformLogin] = React.useState(false);
   history = useHistory();
   const dispatch = useDispatch();
@@ -40,7 +41,8 @@ const DetailScreen = ({ match, history }) => {
 
 
   const ClickOpenformDialog = () => {
-    setOpenformLogin(true);
+    userLoggedIn ?
+      setOpenformLogin(true) : alert("Please login before booking seats😝")
   };
 
   const BackOpenformDialog = () => {
