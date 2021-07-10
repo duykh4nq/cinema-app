@@ -5,7 +5,6 @@ export const getMovies = () => async (dispatch) => {
   try {
     dispatch({ type: actionTypes.GET_MOVIES_REQUEST });
     const { data } = await axios.get("/");
-    console.log(`🚀 => file: movieActions.js => line 8 => data`, data);
     dispatch({
       type: actionTypes.GET_MOVIES_SUCCESS,
       payload: data,
@@ -97,7 +96,6 @@ export const checkoutCart = (total, seat) => async (dispatch) => {
       total: total,
       seat: seat,
     });
-    console.log(`🚀 => file: movieActions.js => line 100 => data`, data);
     if (data.message === "success") {
       alert("Payment success👏");
     }
@@ -143,7 +141,6 @@ export const postAllWaitHistoryBooking = () => async (dispatch) => {
     const { data } = await axios.post(`/waittinghistorybooking`, {
       email: "ducga079099@gmail.com",
     });
-    console.log(`🚀 => file: movieActions.js => line 146 => data`, data);
     dispatch({
       type: actionTypes.GET_WAITTING_HISTORY_SUCCESS,
       payload: data,
@@ -165,7 +162,6 @@ export const postAllBookedHistoryBooking = () => async (dispatch) => {
     const { data } = await axios.post(`/bookedhistorybooking`, {
       email: "ducga079099@gmail.com",
     });
-    console.log(`🚀 => file: movieActions.js => line 168 => data`, data);
     dispatch({
       type: actionTypes.GET_BOOKED_HISTORY_SUCCESS,
       payload: data,

@@ -9,6 +9,11 @@
 .seat-plan-section {
     padding-top: 50px !important;
     margin-top: 100px !important;
+    margin-bottom: -1100px !important;
+}
+
+.seat-plan-section .container {
+    height: unset !important;
 }
 
 .item-book {

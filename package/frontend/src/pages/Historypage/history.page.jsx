@@ -100,7 +100,7 @@ function HistoryPage() {
                                     <span class="col-lg-3">Total</span>
                                 </div>
                                 <div class="wrap-cart row">
-                                    {waitting_history!==undefined > 0 ? waitting_history?.map((elm) => (
+                                    {waitting_history!==undefined && waitting_history.length> 0 ? waitting_history?.map((elm) => (
                                         <div class="card mb-3 col-12 px-0">
                                             <div class="card-body row">
                                                 <div class="col-lg-4 d-flex justify-content-between">
@@ -132,7 +132,7 @@ function HistoryPage() {
                                     <span class="col-lg-3">Total</span>
                                 </div>
                                 <div class="wrap-cart row">
-                                    {booked_history!==undefined ? booked_history?.map((elm) => (
+                                    {booked_history!==undefined &&booked_history.length>0  ? booked_history?.map((elm) => (
                                         <div class="card mb-3 col-12 px-0">
                                             <div class="card-body row">
                                                 <div class="col-lg-4 d-flex justify-content-between">

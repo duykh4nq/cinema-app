@@ -106,7 +106,7 @@ const BookingPage = () => {
           </div>
         </section>
         <div class="seat-plan-section">
-          <div class="container">
+          <div>
             <div class="screen-area">
               <h4 class="screen">screen</h4>
               <div class="screen-thumb">
@@ -120,7 +120,7 @@ const BookingPage = () => {
                 </ul>
               </div>
             </div>
-            <div class="proceed-book bg_img">
+            <div class="proceed-book bg_img container">
               <div class="proceed-to-book">
                 <div class="book-item">
                   <ul>
