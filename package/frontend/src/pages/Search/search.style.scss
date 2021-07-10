@@ -18,7 +18,7 @@ option {
 }
 
 .bg-one {
-  height: 100px ;
+  height: 100px;
 }
 
 .seat-plan-wrapper li .movie-schedule .item {
@@ -72,7 +72,10 @@ option {
   flex-wrap: wrap !important;
 }
 .movie {
-  display: none;
+  margin-top: 30px;
+  //display: none;
+  width: 100%;
+  padding: 0;
 }
 
 .list-booth {
@@ -103,5 +106,16 @@ option {
       line-height: 2rem;
       cursor: pointer;
     }
+  }
+}
+
+.tab {
+  max-width: 1170px;
+  margin: auto;
+  .nav-item {
+    transition: all 0.3s ease;
+  }
+  .nav-item:hover {
+    color: #141414;
   }
 }

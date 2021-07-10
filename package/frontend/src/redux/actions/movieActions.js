@@ -12,10 +12,7 @@ export const getMovies = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: actionTypes.GET_MOVIES_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
     });
   }
 };
@@ -28,17 +25,11 @@ export const getMovieDetails = (slug) => async (dispatch, getState) => {
       type: actionTypes.GET_MOVIE_DETAILS_SUCCESS,
       payload: data,
     });
-    sessionStorage.setItem(
-      "movies",
-      JSON.stringify(getState().getMovieDetails.movies)
-    );
+    sessionStorage.setItem("movies", JSON.stringify(getState().getMovieDetails.movies));
   } catch (error) {
     dispatch({
       type: actionTypes.GET_MOVIE_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
     });
   }
 };
@@ -56,10 +47,7 @@ export const postBookingShow = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: actionTypes.GET_BOOKING_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
     });
   }
 };
@@ -78,10 +66,7 @@ export const postBookingSeat = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: actionTypes.GET_MOVIE_DETAILS_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
     });
   }
 };
@@ -108,10 +93,7 @@ export const checkoutCart = (total, seat) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: actionTypes.CHECK_OUT_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
     });
   }
 };
@@ -130,10 +112,7 @@ export const postAllHistoryBooking = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: actionTypes.GET_HISTORY_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
     });
   }
 };
@@ -152,10 +131,7 @@ export const postAllWaitHistoryBooking = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: actionTypes.GET_WAITTING_HISTORY_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
     });
   }
 };
@@ -174,10 +150,7 @@ export const postAllBookedHistoryBooking = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: actionTypes.GET_BOOKED_HISTORY_FAIL,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
     });
   }
 };

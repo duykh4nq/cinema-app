@@ -84,21 +84,36 @@ function HeadersComponent() {
                 <li>
                   <Link to="/search">Cineplexs</Link>
                 </li>
+                {userLoggedIn && (
+                  <li>
+                    <Link className="profile" to="/profile">
+                      <i class="fa fa-user" aria-hidden="true"></i>
+                      <span>Your Account</span>
+                    </Link>
+                  </li>
+                )}
               </ul>
               <ul class="nav navbar-nav flex-child-menu menu-right">
                 {userLoggedIn === true ? (
-                  <li class="loginLink" onClick={HandleLogOut}>
-                    {" "}
-                    <button className="btn-auth">Hi, Khanq</button>
-                  </li>
-                ) : (<>
-                  <li class="loginLink" onClick={ClickOpenformLogin}>
-                    <button className="btn-signin">Sign in</button>
-                  </li>
-                  <li class="btn signupLink" onClick={ClickOpenformRegister}>
-                    <button className="btn-auth">Sign up</button>
-                  </li></>
+                  <>
+                    <li class="loginLink" onClick={HandleLogOut}>
+                      {" "}
+                      <button className="btn-auth">Log out</button>
+                    </li>
+                  </>
+                ) : (
+                  <>
+                    <li class="loginLink" onClick={ClickOpenformLogin}>
+                      <button className="btn-auth">Login</button>
+                    </li>
+                    <li class="btn signupLink" onClick={ClickOpenformRegister}>
+                      <button className="btn-auth">Sign up</button>
+                    </li>
+                  </>
                 )}
+                <li class="btn signupLink" onClick={ClickOpenformRegister}>
+                  <button className="btn-auth">Register</button>
+                </li>
               </ul>
             </div>
           </nav>
