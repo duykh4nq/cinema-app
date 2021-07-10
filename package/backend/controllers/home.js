@@ -1,6 +1,7 @@
 const { Op, QueryTypes } = require("sequelize");
 const sequelize = require("sequelize");
 const db = require("../configs/db");
+const moment = require("moment");
 // Model
 const { Users } = require("../models/users.model");
 const { Bookings } = require("../models/bookings.model");
@@ -11,6 +12,7 @@ const {
   Cineplexs,
   Rooms,
   Category_rooms,
+  Movies_Cineplex,
 } = require("../models/cineplex_room.model");
 
 function getDateWithoutTime(date) {
@@ -264,3 +266,134 @@ exports.postBookingSeat = async (req, res, next) => {
   }
   res.status(200).send(result);
 };
+
+exports.getAllCineplexs = async (req, res, next) => {
+  const cineplexs = await Cineplexs.findAll();
+  return res.send(cineplexs);
+};
+
+function getDateWithoutTimeForAll(date) {
+  return require("moment")(date).format("DD/MM/YYYY");
+}
+
+exports.postAllMoviesByCineplexId = async (req, res, next) => {
+  const { id_cineplex } = req.body;
+  // find all id movie
+  let listmMovies = await db.query(
+    `
+    select mo.id, mo.name_movie, mo.poster, sch.id as id_schedule, sch.id_room, tt.start_point
+    from Movies_Cineplexs mc join Movies mo on mc.id_movie = mo.id
+    join schedules sch on sch.id_movie = mc.id_movie
+    join times tt on sch.id_time = tt.id
+    where mc.id_cineplex = ${id_cineplex}
+    `,
+    { type: QueryTypes.SELECT }
+  );
+
+  if (listmMovies.length === 0) {
+    return res.send({ message: "Cineplex not have movie" });
+  }
+
+  const rooms = await db.query(
+    `
+    select ro.id, cr.name_cat
+    from rooms ro join category_rooms cr on ro.id_category_room = cr.id
+    where ro.id_cineplex = ${id_cineplex}
+    `,
+    { type: QueryTypes.SELECT }
+  );
+
+  const today = new Date();
+  let after7days = new Date(new Date().getTime() + 6 * 24 * 60 * 60 * 1000);
+  after7days = moment(after7days).endOf("day");
+  // filter movie if have schedule and today <= time <= today*6
+  listmMovies = listmMovies.filter(
+    (list) =>
+      getDateWithoutTime(list.start_point) >= getDateWithoutTime(today) &&
+      getDateWithoutTime(list.start_point) <= getDateWithoutTime(after7days)
+  );
+
+  // filter in today ex: 9h -> 23h
+  let result = [];
+  for (let i = 0; i < 7; i++) {
+    let start = new Date(new Date().getTime() + i * 24 * 60 * 60 * 1000);
+    let end = null;
+    if (i > 0) {
+      start.setHours(9, 0, 0, 0);
+      end = moment(start).endOf("day");
+    } else {
+      end = moment(start).endOf("day");
+    }
+    let detail = [];
+    const listmMoviesV1 = listmMovies.filter(
+      (list) => list.start_point >= start && list.start_point <= end
+    );
+    for (let listmovie of listmMoviesV1) {
+      // find name cate
+      const room = rooms.filter((r) => r.id === listmovie.id_room);
+      // find movie in detail
+      let ko = detail.find((d) => d.id_movie === listmovie.id);
+      // if(ko === null)
+      if (ko === undefined) {
+        const kooo = {
+          id_movie: listmovie.id,
+          movie_name: listmovie.name_movie,
+          poster: listmovie.poster,
+          cate: [
+            {
+              id_cate: room[0].id,
+              name_cate: room[0].name_cat,
+              schedule_detail: [
+                {
+                  id_schedule: listmovie.id_schedule,
+                  time: timeConverterShowTime(listmovie.start_point),
+                },
+              ],
+            },
+          ],
+        };
+        detail.push(kooo);
+      } else {
+        const existsRoom = ko.cate.filter((c) => c.id_cate === room[0].id);
+        const index = ko.cate.findIndex((c) => c.id_cate === room[0].id);
+        if (existsRoom.length === 0) {
+          ko.cate.push({
+            id_cate: room[0].id,
+            name_cate: room[0].name_cat,
+            schedule_detail: [
+              {
+                id_schedule: listmovie.id_schedule,
+                time: timeConverterShowTime(listmovie.start_point),
+              },
+            ],
+          });
+        } else {
+          ko.cate[index].schedule_detail.push({
+            id_schedule: listmovie.id_schedule,
+            time: timeConverterShowTime(listmovie.start_point),
+          });
+          ko.cate[index].schedule_detail.sort(function (a, b) {
+            return ("" + a.time).localeCompare(b.time);
+          });
+        }
+      }
+    }
+    result.push({
+      date: {
+        date: getDateWithoutTimeForAll(start),
+        details: detail,
+      },
+    });
+  }
+
+  return res.send(result);
+};
+
+function timeConverterShowTime(UNIX_timestamp) {
+  var a = new Date(UNIX_timestamp);
+  var hour = a.getHours();
+  let min = a.getMinutes();
+  if (min == 0) min = "00";
+  var time = hour + ":" + min;
+  return time;
+}
