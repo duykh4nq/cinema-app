@@ -7,5 +7,7 @@ router.get("/", tes.getHome);
 router.get("/detail/:movie", tes.getDetailMovie);
 router.post("/booking/now-showing", tes.postBookingShow);
 router.post("/booking/seat", tes.postBookingSeat);
+router.get("/allcineplexs", tes.getAllCineplexs);
+router.post("/allmoviesbycineplexid", tes.postAllMoviesByCineplexId);
 
 module.exports = router;

@@ -1,19 +1,19 @@
 .slick-slide img {
-    width: 100% !important;
-    height: 480px;
-    object-fit: cover !important;
-    justify-content: center !important;
-    margin: 0 auto;
+  width: 100% !important;
+  height: 480px;
+  object-fit: cover !important;
+  justify-content: center !important;
+  margin: 0 auto;
 }
 
 .slick-dots {
-    margin-bottom: 20px !important;
+  margin-bottom: 20px !important;
 }
 
 .slick-dots li.slick-active button:before {
-    background-color: #31d7a9;
+  background-color: #31d7a9;
 }
 
 .slick-arrow:hover {
-    color: #31d7a9 !important;
+  color: #31d7a9 !important;
 }

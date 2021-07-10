@@ -16,6 +16,9 @@ function CheckoutPage(props) {
   const seat = JSON.parse(sessionStorage.getItem("arrSeat"));
   const _schedule = JSON.parse(sessionStorage.getItem("movies"));
   const [address, setAddress] = React.useState(null)
+  const name=JSON.parse(sessionStorage.getItem("users")).user.name
+  const phone=JSON.parse(sessionStorage.getItem("users")).user.phone
+  console.log(`🚀 => file: checkout.page.jsx => line 21 => phone`, phone)
 
   const proceedPayment = () => {
     if (!address)
@@ -43,10 +46,10 @@ function CheckoutPage(props) {
                 <h5 class="title">Share your Contact Details</h5>
                 <form class="checkout-contact-form">
                   <div class="form-group">
-                    <input type="text" placeholder="Full Name" required />
+                    <input type="text" value={name} disabled />
                   </div>
                   <div class="form-group">
-                    <input type="text" placeholder="Enter your Phone Number " required />
+                    <input type="text" value={phone} disabled />
                   </div>
                   <div class="form-group form-address">
                     <input type="text" placeholder="Enter your Address" required

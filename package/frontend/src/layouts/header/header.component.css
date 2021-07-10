@@ -55,3 +55,11 @@ header .navbar-default {
 .btn-auth:hover {
   color: #dcf836;
 }
+
+.navbar .menu-right {
+  margin-right: 3%;
+}
+
+.loginLink {
+  margin-right: 20px;
+}

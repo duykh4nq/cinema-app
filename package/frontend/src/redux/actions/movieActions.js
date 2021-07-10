@@ -86,16 +86,18 @@ export const postBookingSeat = () => async (dispatch) => {
   }
 };
 
-export const checkoutCart = (total, seat) => async (dispatch) => {
+export const checkoutCart = (total, seat) => async (dispatch, getState) => {
+  const users = getState().users;
   try {
     dispatch({ type: actionTypes.CHECK_OUT_REQUEST });
     const id_schedule = JSON.parse(sessionStorage.getItem("time"));
     const { data } = await axios.post(`/payment`, {
-      email: "ducga079099@gmail.com",
+      email: users.user.email,
       id_schedule: id_schedule.id_schedule,
       total: total,
       seat: seat,
     });
+    console.log(`🚀 => file: movieActions.js => line 85 => data`, data);
     if (data.message === "success") {
       alert("Payment success👏");
     }
@@ -114,11 +116,12 @@ export const checkoutCart = (total, seat) => async (dispatch) => {
   }
 };
 
-export const postAllHistoryBooking = () => async (dispatch) => {
+export const postAllHistoryBooking = () => async (dispatch, getState) => {
+  const users = getState().users;
   try {
     dispatch({ type: actionTypes.GET_HISTORY_REQUEST });
     const { data } = await axios.post(`/allhistorybooking`, {
-      email: "ducga079099@gmail.com",
+      email: users.user.email,
     });
     dispatch({
       type: actionTypes.GET_HISTORY_SUCCESS,
@@ -135,11 +138,12 @@ export const postAllHistoryBooking = () => async (dispatch) => {
   }
 };
 
-export const postAllWaitHistoryBooking = () => async (dispatch) => {
+export const postAllWaitHistoryBooking = () => async (dispatch, getState) => {
+  const users = getState().users;
   try {
     dispatch({ type: actionTypes.GET_WAITTING_HISTORY_REQUEST });
     const { data } = await axios.post(`/waittinghistorybooking`, {
-      email: "ducga079099@gmail.com",
+      email: users.user.email,
     });
     dispatch({
       type: actionTypes.GET_WAITTING_HISTORY_SUCCESS,
@@ -156,11 +160,12 @@ export const postAllWaitHistoryBooking = () => async (dispatch) => {
   }
 };
 
-export const postAllBookedHistoryBooking = () => async (dispatch) => {
+export const postAllBookedHistoryBooking = () => async (dispatch, getState) => {
+  const users = getState().users;
   try {
     dispatch({ type: actionTypes.GET_BOOKED_HISTORY_REQUEST });
     const { data } = await axios.post(`/bookedhistorybooking`, {
-      email: "ducga079099@gmail.com",
+      email: users.user.email,
     });
     dispatch({
       type: actionTypes.GET_BOOKED_HISTORY_SUCCESS,

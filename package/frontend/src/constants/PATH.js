@@ -7,5 +7,6 @@ exports.PATH = {
   ABOUT: "/aboutUs",
   PROFILE: "/profile",
   MOVIE: "/movie-list",
+  SEARCH: "/search",
   HISTORY: "/history",
 };
