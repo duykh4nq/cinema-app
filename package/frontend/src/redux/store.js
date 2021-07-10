@@ -12,6 +12,8 @@ import {
   postAllHistoryBookingReducer,
   postAllWaitHistoryBookingReducer,
   postAllBookedHistoryBookingReducer,
+  AllcineplexsReducer,
+  AllMoviesByCineplexReducer,
 } from "./reducers/movieReducers";
 import { loginReducer, registerReducer } from "./reducers/authReducers";
 
@@ -25,6 +27,8 @@ const reducer = combineReducers({
   users: loginReducer,
   register: registerReducer,
   getMovies: getMoviesReducer,
+  AllCineplex: AllcineplexsReducer,
+  AllMoviesByCineplex: AllMoviesByCineplexReducer,
 });
 const middleware = [thunk];
 const userLocalStorage = sessionStorage.getItem("users") ? JSON.parse(sessionStorage.getItem("users")) : [];

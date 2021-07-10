@@ -44,3 +44,13 @@ export const GET_BOOKED_HISTORY_REQUEST = "GET_BOOKED_HISTORY_REQUEST";
 export const GET_BOOKED_HISTORY_SUCCESS = "GET_BOOKED_HISTORY_SUCCESS";
 export const GET_BOOKED_HISTORY_FAIL = "GET_BOOKED_HISTORY_FAIL";
 export const GET_BOOKED_HISTORY_RESET = "GET_BOOKED_HISTORY_RESET";
+
+//  cineplex
+export const GET_CINEPLEX_REQUEST = "GET_CINEPLEX_REQUEST";
+export const GET_CINEPLEX_SUCCESS = "GET_CINEPLEX_SUCCESS";
+export const GET_CINEPLEX_FAIL = "GET_CINEPLEX_FAIL";
+
+// AllMoviesByCineplex
+export const GET_AllMoviesByCineplex_REQUEST = "GET_AllMoviesByCineplex_REQUEST";
+export const GET_AllMoviesByCineplex_SUCCESS = "GET_AllMoviesByCineplex_SUCCESS";
+export const GET_AllMoviesByCineplex_FAIL = "GET_AllMoviesByCineplex_FAIL";

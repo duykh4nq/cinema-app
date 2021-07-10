@@ -157,3 +157,37 @@ export const postAllBookedHistoryBooking = () => async (dispatch, getState) => {
     });
   }
 };
+
+export const getAllCineplex = () => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.GET_CINEPLEX_REQUEST });
+    const { data } = await axios.get(`/allcineplexs`);
+    dispatch({
+      type: actionTypes.GET_CINEPLEX_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_CINEPLEX_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};
+
+export const postAllMoviesByCineplex = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: actionTypes.GET_AllMoviesByCineplex_REQUEST });
+    const { data } = await axios.post(`/allmoviesbycineplexid`, {
+      id_cineplex: id,
+    });
+    dispatch({
+      type: actionTypes.GET_AllMoviesByCineplex_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: actionTypes.GET_AllMoviesByCineplex_FAIL,
+      payload: error.response && error.response.data.message ? error.response.data.message : error.message,
+    });
+  }
+};

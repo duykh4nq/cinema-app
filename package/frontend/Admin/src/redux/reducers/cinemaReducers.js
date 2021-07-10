@@ -112,7 +112,6 @@ export const getAllShowtimeReducer = (state = { data: [] }, action) => {
 //   }
 // };
 export const getLoginReducer = (state = { admin: {} }, action) => {
-  console.log("pay", action.payload);
   switch (action.type) {
     case actionTypes.LOGIN_REQUEST:
       return {

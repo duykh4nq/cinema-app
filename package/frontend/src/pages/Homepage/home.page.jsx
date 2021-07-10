@@ -1,15 +1,12 @@
 import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
 import { getMovies as listMovies } from "../../redux/actions/movieActions";
-
 import Slider from "react-slick";
 //import img
 import banner1 from "../../assets/img/banner1.jpg";
 import banner2 from "../../assets/img/banner2.jpg";
 import banner3 from "../../assets/img/banner3.png";
-
 import "./home.style.css";
 import "swiper/swiper.min.css";
 import SwiperComponent from "../../components/Swiper/SwiperComponent";
@@ -19,9 +16,8 @@ SwiperCore.use([Navigation, Pagination]);
 
 const HomeScreen = ({ match, history }) => {
   const dispatch = useDispatch();
-
   const getMovies = useSelector((state) => state.getMovies);
-  const { movies } = getMovies;
+  console.log("🚀 ~ file: home.page.jsx ~ line 20 ~ HomeScreen ~ getMovies", getMovies);
   const settings = {
     dots: true,
     infinite: true,

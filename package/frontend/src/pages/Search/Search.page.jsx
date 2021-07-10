@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 //import css
 import "./search.style.scss";
 
@@ -7,29 +7,20 @@ import city from "../../assets/img/city.png";
 import cinema from "../../assets/img/cinema.png";
 import exp from "../../assets/img/exp.png";
 import client01 from "../../assets/img/client01.jpg";
-
-const cineplex = [
-  { id: 1, name: "Hung Vuong" },
-  { id: 2, name: "Hung Vuong" },
-  { id: 3, name: "Hung Vuong" },
-  { id: 4, name: "Hung Vuong" },
-  { id: 5, name: "Hung Vuong" },
-  { id: 6, name: "Hung Vuong" },
-  { id: 7, name: "Hung Vuong" },
-  { id: 8, name: "Hung Vuong" },
-  { id: 9, name: "Hung Vuong" },
-  { id: 10, name: "Hung Vuong" },
-  { id: 11, name: "Hung Vuong" },
-  { id: 12, name: "Hung Vuong" },
-  { id: 13, name: "Hung Vuong" },
-  { id: 14, name: "Hung Vuong" },
-  { id: 15, name: "Hung Vuong" },
-  { id: 16, name: "Hung Vuong" },
-];
+import { getAllCineplex, postAllMoviesByCineplex } from "../../redux/actions/movieActions";
+import { useDispatch, useSelector } from "react-redux";
 
 function SearchComponent() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllCineplex());
+  }, [dispatch]);
+  const { Allcineplex } = useSelector((state) => state.AllCineplex);
+  const { MoviesByCineplex } = useSelector((state) => state.AllMoviesByCineplex);
+  console.log("🚀 ~ file: Search.page.jsx ~ line 21 ~ SearchComponent ~ MoviesByCineplex", MoviesByCineplex);
   const getMovies = (e) => {
     let id = e.target.id;
+    dispatch(postAllMoviesByCineplex(id));
   };
   return (
     <div>
@@ -37,8 +28,8 @@ function SearchComponent() {
         <div className="list-booth">
           <h2 className="head">CINIMAS</h2>
           <div className="list">
-            {cineplex &&
-              cineplex.map((item, index) => (
+            {Allcineplex &&
+              Allcineplex.map((item, index) => (
                 <span className="item" id={item.id} key={index} onClick={getMovies}>
                   {item.name}
                 </span>
