@@ -1,111 +1,89 @@
 import React from "react";
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import Moment from "moment";
 import "./dialog.style.css";
 import "../../assets/css/main.css";
-import "../../pages/Loginpage/login.style.scss"
 
-// Actions
-import { postBookingShow } from "../../redux/actions/movieActions";
 
-const DialogBookingScreen = ({ openformLogin, BackOpenformLogin }) => {
+const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }) => {
+    const [valueDay, setValueDay] = React.useState(null)
+    const [valueCineplex, setValueCineplex] = React.useState(null)
+    const [category, setCategory] = React.useState(null)
+    const [schedule, setSchedule] = React.useState(null)
+    const [time, setTime] = React.useState(null)
 
-    const _details = [
-        {
-            date: "05/06/2021",
-            details: [
-                {
-                    cineplex: "CGV nhà làm",
-                    detailsCat: [
-                        {
-                            cate_room: "2D",
-                            schedule: [
-                                {
-                                    id_schedule: 3,
-                                    time: "22:25"
-                                }
-                            ]
-                        },
-                        {
-                            cate_room: "4D",
-                            schedule: [
-                                {
-                                    id_schedule: 4,
-                                    time: "22:15"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    cineplex: "Galaxy nhà làm",
-                    detailsCat: [
-                        {
-                            cate_room: "2D",
-                            schedule: [
-                                {
-                                    id_schedule: 1,
-                                    time: "12:55"
-                                },
-                                {
-                                    id_schedule: 8,
-                                    time: "6:25"
-                                },
-                                {
-                                    id_schedule: 10,
-                                    time: "6:25"
-                                }
-                            ]
-                        },
-                        {
-                            cate_room: "3D",
-                            schedule: [
-                                {
-                                    id_schedule: 2,
-                                    time: "9:55"
-                                },
-                                {
-                                    id_schedule: 9,
-                                    time: "18:25"
-                                }
-                            ]
-                        }
-                    ]
+    const [colorDay, setColorDay] = React.useState(new Array(7).fill(null))
+    const [colorCineplex, setColorCineplex] = React.useState(new Array(7).fill(null))
+    const [colorCategory, setColorCategory] = React.useState(new Array(7).fill(null))
+    const [colorTime, setColorTime] = React.useState(new Array(7).fill(null))
+
+    const setIndexDay = (idx, value) => {
+        for (let i = 0; i < movie.length; i++) {
+            if (movie[i][0].date == value) {
+                setValueDay(value)
+                const newColor = new Array(7).fill(null);
+                newColor[idx] = "changeColorBackground"
+                setColorDay(newColor)
+                setColorCineplex(new Array(7).fill(null))
+                setColorCategory(new Array(7).fill(null))
+                setColorTime(new Array(7).fill(null))
+                if (movie[i][0].details[0]) {
+                    setValueCineplex(movie[i])
+                    setSchedule(movie[i][0].details[0].detailsCat[0].schedule)
+                    setCategory(movie[i][0].details[0].detailsCat)
+                    setTime(movie[i][0].details[0].detailsCat[0].schedule[0].time_start)
+                } else {
+                    setValueCineplex(null)
+                    setSchedule(null);
+                    setCategory(null)
                 }
-            ]
-        }
-    ];
-    const A01 = _details[0].details;
-
-    const dispatch = useDispatch();
-    const [indexDetails, setIndexDetails] = React.useState(0)
-    const [indexCatogory, setIndexCatogory] = React.useState(0)
-
-    const DialogBooking = useSelector((state) => state.postBookingShow);
-    const { loading, error, movie } = DialogBooking;
-    useEffect(() => {
-        dispatch(postBookingShow());
-    }, [dispatch]);
-
-    const setIndexSeat = (value) => {
-        for (let i = 0;i < A01.length;i++) {
-            if (value == A01[i].cineplex) {
-                setIndexDetails(i)
-            }
-        }
-    };
-
-    const A02 = A01[indexDetails].detailsCat;
-
-    const setValueCatogory = (value) => {
-        for (let i = 0;i < A02.length;i++) {
-            if (value == A02[i].cate_room) {
-                setIndexCatogory(i)
             }
         }
     }
 
-    const A03 = A02[indexDetails].schedule;
+    const setIndexCineplex = (idx, value) => {
+        for (let i = 0; i < valueCineplex.length; i++) {
+            const result = valueCineplex[i].details.find((el) => (
+                el.cineplex == value
+            ))
+            const newColor = new Array(valueCineplex.length).fill(null);
+            newColor[idx] = "changeColorBackground"
+            setColorCineplex(newColor)
+            setCategory(result.detailsCat)
+            if (result.detailsCat) {
+                setSchedule(result.detailsCat[0].schedule)
+            }
+            sessionStorage.setItem("valueCineplex", JSON.stringify(value));
+        }
+    };
+
+    const setIndexCategory = (idx, value) => {
+        for (let i = 0; i < category.length; i++) {
+            const result = category.find((el) => (
+                el.cate_room == value
+            ))
+            const newColor = new Array(valueCineplex.length).fill(null);
+            newColor[idx] = "changeColorBackground"
+            setColorCategory(newColor)
+            setSchedule(result.schedule)
+        }
+    }
+    const setIndexTime = (idx, value) => {
+        const newColor = new Array(schedule.length).fill(null);
+        newColor[idx] = "changeColorBackground"
+        setColorTime(newColor)
+        setTime(value)
+    }
+
+    const handleProceed = () => {
+        if (time && category && valueCineplex && valueDay) {
+            sessionStorage.setItem("day", JSON.stringify(valueDay));
+            sessionStorage.setItem("category", JSON.stringify(category));
+            sessionStorage.setItem("time", JSON.stringify(time));
+        } else {
+            alert("Please choose showtime 😅")
+        }
+    }
 
     return <div className="loginpage"
         {...(openformLogin === true
@@ -116,57 +94,49 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin }) => {
                 X
             </button>
             <div className="date">
-                <button className="btncalendar">
-                    <div className="day">
-                        <p className="texture">{_details[0].date}</p>
-                    </div>
-                    <div className="month">
-                        <p>05 TUE</p>
-                    </div>
-                </button>
+                {openformLogin === true ? (movie.map((item, idx) => (
+                    <button className={`btncalendar ${colorDay[idx]}`} onClick={() => setIndexDay(idx, item[0].date)}>
+                        <div className="day">
+                            <p className="texture">
+                                {Moment(item[0].date).date()}</p></div>
+                        <div className="month">
+                            <p>{Moment(item[0].date).month() + " - " + Moment(item[0].date).year()}</p>
+                        </div>
+                    </button>
+                ))) : <p></p>}
             </div>
-            <div className="theater-cluster">
-                {(function (rows) {
-                    for (let i = 0;i < A01.length;i++) {
-                        rows.push(
-                            <button className="btncinema-complex" onClick={() => setIndexSeat(A01[i].cineplex)}>
-                                <div >{A01[i].cineplex}</div>
-                            </button>
-                        );
-                    }
-                    return rows;
-                })([])}
-            </div>
-            <div className="movie-genre ">
-                {(function (rows) {
-                    for (let i = 0;i < A02.length;i++) {
-                        rows.push(
-                            <button className="btncategory" onClick={() => setValueCatogory(A02[i].cate_room)}>
-                                <div >{A02[i].cate_room} Phụ đề tiếng Việt</div>
-                            </button>
-                        );
-                    }
-                    return rows;
-                })([])}
-            </div>
-            <div className="time">
-                <div className="item">
-                    <div className="list-time">
-                        {(function (rows) {
-                            for (let i = 0;i < A03.length;i++) {
-                                rows.push(
-                                    <button className="showtime"><p>{A03[i].time}</p></button>
-                                );
-                            }
-                            return rows;
-                        })([])}
-
-                    </div>
+            {(valueCineplex !== null) ? (<>
+                <div className="theater-cluster">
+                    {((valueCineplex[0].details.length > 0 ? (valueCineplex[0].details.map((dt, idx) => (
+                        <button className={`btncinema-complex ${colorCineplex[idx]}`} onClick={() => setIndexCineplex(idx, dt.cineplex)}>
+                            <div>{
+                                dt.cineplex
+                            }</div>
+                        </button>))) : <p></p>))}
                 </div>
-            </div>
-            <button className="proceed-dialog custom-button" >
+                <div className="movie-genre ">
+                    {(category?.map((dtc, idx) => (
+                        <button className={`btncategory ${colorCategory[idx]}`} onClick={() => setIndexCategory(idx, dtc.cate_room)}>
+                            <div >{dtc.cate_room}</div><div> phụ đề Việt</div>
+                        </button>
+                    )))
+                    }
+                </div>
+                <div className="time">
+                    <div className="item">
+                        <div className="list-time">
+                            {(schedule?.map((item, idx) => (
+                                <button className={`showtime ${colorTime[idx]}`} onClick={() => setIndexTime(idx, item)}>
+                                    <p>{item.time_start}</p>
+                                </button>
+                            )))}
+                        </div>
+                    </div>
+                </div></>) :
+                <p className="alert-null">Sorry, there is no showing on this date, please choose another date 😅</p>}
+            {(time && category && valueCineplex && valueDay)?<Link to={`booking/${movies.slug}`} className="proceed-dialog custom-button" onClick={() => handleProceed()}>
                 Proceed
-            </button>
+            </Link>:<></>}
         </div>
     </div>;
 }

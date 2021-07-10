@@ -1,7 +1,6 @@
 import CGUD from "views/CGUD.js";
 import Statistical from "views/Statistical.js";
 import TableList from "views/TableList.js";
-import UserProfile from "views/UserProfile.js";
 
 var routes = [
   {
@@ -13,14 +12,6 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/user-profile",
-    name: "User Profile",
-    rtlName: "ملف تعريفي للمستخدم",
-    icon: "tim-icons icon-single-02",
-    component: UserProfile,
-    layout: "/admin",
-  },
-  {
     path: "/list",
     name: "List",
     rtlName: "قائمة الجدول",
@@ -29,8 +20,8 @@ var routes = [
     layout: "/admin",
   },
   {
-    path: "/CGUD",
-    name: "Thêm xoá sửa",
+    path: "/add",
+    name: "Add",
     rtlName: "طباعة",
     icon: "tim-icons icon-pencil",
     component: CGUD,

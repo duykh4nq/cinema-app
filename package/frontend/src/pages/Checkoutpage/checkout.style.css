@@ -31,3 +31,13 @@ input[type=text] {
 .booking-summery {
     height: 360px !important;
 }
+
+.info-total {
+    margin-bottom: 30px;
+}
+
+.info-total span {
+    color: aqua;
+    font-size: 24px;
+    font-weight: 800;
+}

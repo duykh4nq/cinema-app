@@ -7,7 +7,9 @@ import BookingPage from "../pages/Bookingpage/booking.page";
 function BookingRoute(props) {
   return (
     <Switch>
-      <Route exact path={PATH.BOOKING} component={() => <BookingPage />} />
+      <Route exact path={PATH.BOOKING} component={(props) => <BookingPage {
+                        ...props
+                    } />} />
     </Switch>
   );
 }
