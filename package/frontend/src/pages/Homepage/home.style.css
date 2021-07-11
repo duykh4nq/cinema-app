@@ -24,3 +24,18 @@
   width: 90%;
   margin: auto;
 }
+.movie-section {
+  padding-bottom: 0 !important;
+}
+.swiper-button-prev {
+  color: #ff3b3b !important;
+}
+.swiper-button-next {
+  color: #ff3b3b !important;
+}
+.swiper-pagination {
+  bottom: 0px !important;
+}
+.swiper-pagination-bullet {
+  background: #f4f4f4 !important;
+}

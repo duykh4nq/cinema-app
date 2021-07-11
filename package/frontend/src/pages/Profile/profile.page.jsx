@@ -11,7 +11,7 @@ function ProfilePage(props) {
   const userLoggedIn = useSelector((state) => state.users.loggedIn);
   const [users, setUsers] = useState("");
   const { email, name, phone } = users;
-  console.log(`🚀 => file: profile.page.jsx => line 14 => name`, name)
+  console.log(`🚀 => file: profile.page.jsx => line 14 => name`, name);
   const [oldPassword, setOldPassword] = useState();
   const [newPassword, setNewPassword] = useState();
   const [newPasswordConfirm, setPasswordConfirm] = useState();
@@ -54,6 +54,7 @@ function ProfilePage(props) {
       //setChangPassword(false);
     }
   };
+
   return (
     <>
       <div className="hero user-hero">
@@ -83,10 +84,7 @@ function ProfilePage(props) {
               <div className="user-information">
                 <div className="user-img">
                   <a href="#">
-                    <img src="images/uploads/user-img.png" alt="" />
-                  </a>
-                  <a href="#" className="redbtn">
-                    Change avatar
+                    <img src="images/avatar.png" alt="" />
                   </a>
                 </div>
                 <div className="user-fav">
@@ -96,7 +94,7 @@ function ProfilePage(props) {
                       <a href="userprofile.html">Profile</a>
                     </li>
                     <li>
-                    <Link to="/history">History Booking</Link>
+                      <Link to="/history">History Booking</Link>
                     </li>
                   </ul>
                 </div>
@@ -104,7 +102,11 @@ function ProfilePage(props) {
                   <p>Others</p>
                   <ul>
                     <li>
-                      <button className="btn-function" onClick={ChangPassword}>
+                      <button
+                        style={{ color: changPassword ? "#dcf836" : "#f4f4f4" }}
+                        className="btn-function"
+                        onClick={ChangPassword}
+                      >
                         Change password
                       </button>
                     </li>
@@ -119,17 +121,35 @@ function ProfilePage(props) {
                   <div className="row">
                     <div className="col-md-6 form-it">
                       <label>Username</label>
-                      <input name="name" value={name ? name : ""} type="text" placeholder="edwardkennedy" onChange={handleOnChange} />
+                      <input
+                        name="name"
+                        value={name ? name : ""}
+                        type="text"
+                        placeholder="edwardkennedy"
+                        onChange={handleOnChange}
+                      />
                     </div>
                     <div className="col-md-6 form-it">
                       <label>Email Address</label>
-                      <input name="email" value={email ? email : ""} type="email" placeholder="edward@kennedy.com" disabled />
+                      <input
+                        name="email"
+                        value={email ? email : ""}
+                        type="email"
+                        placeholder="edward@kennedy.com"
+                        disabled
+                      />
                     </div>
                   </div>
                   <div className="row">
                     <div className="col-md-12 form-it">
                       <label>Phone</label>
-                      <input name="phone" value={phone ? phone : ""} type="number" placeholder="Kennedy" onChange={handleOnChange} />
+                      <input
+                        name="phone"
+                        value={phone ? phone : ""}
+                        type="text"
+                        placeholder="Kennedy"
+                        onChange={handleOnChange}
+                      />
                     </div>
                   </div>
 

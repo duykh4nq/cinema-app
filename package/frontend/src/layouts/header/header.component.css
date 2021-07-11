@@ -2,17 +2,17 @@
   display: block;
 }
 
-.dropdown:hover .level1>.level1>.level2 {
+.dropdown:hover .level1 > .level1 > .level2 {
   display: none;
 }
 
-.dropdown:hover .level1>.level1:hover>.level2 {
+.dropdown:hover .level1 > .level1:hover > .level2 {
   display: block;
 }
 
 header {
   position: unset !important;
-  margin-bottom: 100px;
+  margin-bottom: 80px;
 }
 
 .navbar {
@@ -31,7 +31,7 @@ header {
 }
 
 header .navbar-default {
-  padding: 25px 0 15px 0 !important;
+  padding: 20px 0 10px 0 !important;
 }
 
 .btn-auth {
@@ -61,11 +61,12 @@ header .navbar-default {
 }
 
 .btn-auth:hover {
-  color: #dcf836;
+  color: #dcf836 !important;
 }
 
 .navbar .menu-right {
   margin-right: 3%;
+  width: 20%;
 }
 
 .loginLink {
@@ -86,5 +87,48 @@ header .navbar-default {
 }
 
 .My-custom.scroll .collapse .menu-right .btn-auth {
-  height: 30px;
+  height: 40px;
+}
+.profile {
+  height: 100%;
+  display: flex !important;
+  align-items: center;
+}
+.profile i {
+  font-size: 14px;
+  color: #abb7c4;
+  margin-right: 5px;
+}
+
+.account {
+  position: relative;
+  cursor: pointer;
+}
+.account .dropdown-account {
+  display: none;
+  position: fixed;
+  background-color: unset;
+  min-width: 200px;
+  margin-top: 20px;
+}
+.account .dropdown-account li {
+  border-bottom: 1px solid #f4f4f4;
+  width: 100%;
+}
+.account .dropdown-account.active-account {
+  display: block;
+}
+.account .logout {
+  background-color: unset;
+  border: none;
+  text-align: start;
+  font-family: "Dosis", sans-serif;
+  font-size: 14px;
+  color: #abb7c4;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.account .logout:hover {
+  color: #dcf836;
 }

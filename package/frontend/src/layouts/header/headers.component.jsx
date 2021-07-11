@@ -9,11 +9,15 @@ import "../../assets/css/style.css";
 import "../../assets/css/plugins.css";
 import { useDispatch, useSelector } from "react-redux";
 import { PostLogout } from "../../redux/actions/authActions";
-
+import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import logo from "../../assets/images/logo1.png";
 
 function HeadersComponent() {
-  const userLoggedIn = useSelector((state) => state.users.loggedIn);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const AccountHandle = () => {
+    dropdownOpen ? setDropdownOpen(false) : setDropdownOpen(true);
+  };
+  const { loggedIn, user } = useSelector((state) => state.users);
   const dispatch = useDispatch();
   const history = useHistory();
   const [openformLogin, setOpenformLogin] = useState(false);
@@ -45,6 +49,7 @@ function HeadersComponent() {
   const HandleLogOut = () => {
     dispatch(PostLogout());
     history.push(history.location.pathname);
+    setDropdownOpen(false);
   };
   return (
     <>
@@ -84,20 +89,32 @@ function HeadersComponent() {
                 <li>
                   <Link to="/search">Cineplexs</Link>
                 </li>
+                <li></li>
               </ul>
               <ul class="nav navbar-nav flex-child-menu menu-right">
-                {userLoggedIn === true ? (
-                  <li class="loginLink" onClick={HandleLogOut}>
-                    {" "}
-                    <button className="btn-auth">Hi, Khanq</button>
-                  </li>
-                ) : (<>
-                  <li class="loginLink" onClick={ClickOpenformLogin}>
-                    <button className="btn-signin">Sign in</button>
-                  </li>
-                  <li class="btn signupLink" onClick={ClickOpenformRegister}>
-                    <button className="btn-auth">Sign up</button>
-                  </li></>
+                {loggedIn === true ? (
+                  <div className="account">
+                    <li onClick={AccountHandle}>
+                      Hi {user.name}'s <i class="fa fa-caret-down" aria-hidden="true"></i>
+                    </li>
+                    <div className={dropdownOpen ? "dropdown-account active-account" : "dropdown-account"}>
+                      <li>
+                        <Link to="/profile">My account</Link>
+                      </li>
+                      <li class="loginLink" onClick={HandleLogOut}>
+                        <button className="logout">Log out</button>
+                      </li>
+                    </div>
+                  </div>
+                ) : (
+                  <>
+                    <li class="loginLink" onClick={ClickOpenformLogin}>
+                      <button className="btn-auth">Login</button>
+                    </li>
+                    <li class="btn signupLink" onClick={ClickOpenformRegister}>
+                      <button className="btn-auth">Register</button>
+                    </li>
+                  </>
                 )}
               </ul>
             </div>

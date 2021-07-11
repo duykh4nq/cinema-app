@@ -1,0 +1,26 @@
+.swipercomponent {
+  .movie-thumb {
+    img {
+      height: 400px;
+      object-fit: cover;
+      object-position: center;
+      @media (max-width: 768px) {
+        height: 100px;
+      }
+    }
+  }
+  .bg-one {
+    height: unset;
+  }
+  .title {
+    font-size: 18px !important;
+  }
+  .movie-rating-percent {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    .content {
+      padding-left: 0;
+    }
+  }
+}
