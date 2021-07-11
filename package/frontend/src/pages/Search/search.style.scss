@@ -118,4 +118,40 @@ option {
   .nav-item:hover {
     color: #141414;
   }
+  .active.nav-link {
+    border: 1px solid #f4f4f4;
+  }
+  .movie-info {
+    .movie-schedule {
+      justify-content: unset !important;
+      .item {
+        margin-right: 30px;
+      }
+    }
+  }
+}
+
+.tab-content {
+  .content {
+    display: flex;
+    padding: 5px;
+    .tab-left {
+      margin-right: 5px;
+      p {
+        font-size: 12px;
+      }
+      p:last-child {
+        padding-top: 5px;
+      }
+    }
+    .tab-right {
+      display: flex;
+      p {
+        font-size: 40px;
+        display: flex;
+        align-items: flex-end;
+        max-height: 46px;
+      }
+    }
+  }
 }
