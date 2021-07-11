@@ -340,10 +340,8 @@ exports.postAllMoviesByCineplexId = async (req, res, next) => {
       }
     }
     result.push({
-      date: {
-        date: getDateWithoutTimeForAll(start),
-        details: detail,
-      },
+      date: getDateWithoutTimeForAll(start),
+      details: detail,
     });
   }
 
