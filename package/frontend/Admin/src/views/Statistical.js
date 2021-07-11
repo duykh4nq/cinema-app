@@ -31,6 +31,7 @@ function Statistical(props) {
   //cineplex
   const _cineplex = useSelector((state) => state.getCinema);
   const { cinema } = _cineplex;
+  console.log(`🚀 => file: Statistical.js => line 34 => cinema`, cinema);
 
   //schedule
   const _schedule = useSelector((state) => state.getSchedule);
@@ -49,11 +50,16 @@ function Statistical(props) {
     setbigChartData(name);
   };
 
+  console.log(
+    `🚀 => file: Statistical.js => line 236 => bigChartData`,
+    bigChartData
+  );
+
   React.useEffect(() => {
     if (!start) dispatch(getCinema());
     if (start && end) {
       dispatch(postStatiscalForCineplex(start, end));
-      if (schedule) {
+      if (schedule.statiscalForMovie) {
         dispatch(postStatiscalForMovie(start, end));
       }
     }
@@ -87,9 +93,9 @@ function Statistical(props) {
           ticks: {
             suggestedMin: 0,
             suggestedMax: 200,
-            // schedule
+            // {schedule
             //   ? schedule.map((item) => Math.max(item.sum))
-            //   : cinema.map((item) => Math.max(item.sum)),
+            //   : cinema.map((item) => Math.max(item.sum))},
             padding: 20,
             fontColor: "#9a9a9a",
           },
@@ -123,7 +129,7 @@ function Statistical(props) {
       gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
       return {
-        labels: cinema?.map((item) => item.name),
+        labels: cinema.statiscalForCineplex?.map((item) => item.name),
         datasets: [
           {
             label: "Total",
@@ -140,7 +146,7 @@ function Statistical(props) {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: cinema?.map((item) => item.sum),
+            data: cinema.statiscalForCineplex?.map((item) => item.sum),
           },
         ],
       };
@@ -241,8 +247,16 @@ function Statistical(props) {
                   }
                 : function () {
                     let sum = 0;
-                    for (let i = 0; i < cinema.length; i++) {
-                      sum += cinema[i].sum;
+                    for (
+                      let i = 0;
+                      i < cinema.statiscalForCineplex.length;
+                      i++
+                    ) {
+                      sum += cinema.statiscalForCineplex[i].sum;
+                      console.log(
+                        `🚀 => file: Statistical.js => line 327 => sum`,
+                        sum
+                      );
                     }
                     return <p>{sum}</p>;
                   }}

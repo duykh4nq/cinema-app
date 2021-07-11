@@ -31,13 +31,11 @@ function AddShowtimeComponent() {
     //cineplex
     const _cineplex = useSelector((state) => state.getCinema);
     const { loadingCineplex, errorCineplex, cinema } = _cineplex;
-    const [id_cineplex, setId_cineplex] = React.useState(0);
     //schedule
     const _schedule = useSelector((state) => state.getSchedule);
     const { loadingSchedule, errorSchedule, schedule } = _schedule;
 
     const setValueCineplex = (e) => {
-        setId_cineplex(e);
         dispatch(getSchedule(e));
     };
 
@@ -47,11 +45,6 @@ function AddShowtimeComponent() {
     const [date, setDate] = React.useState("");
     const [start_time, setStart_time] = React.useState("");
     const [price, setPrice] = React.useState("");
-
-    if (id_room !== "" || id_movie !== "") {
-        sessionStorage.setItem("id_room", JSON.stringify(schedule?.rooms[0].id));
-        sessionStorage.setItem("id_movie", JSON.stringify(schedule?.movies[0].id));
-    }
 
     const addShowtimeHandler = (e) => {
         e.preventDefault();

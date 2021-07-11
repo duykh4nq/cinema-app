@@ -57,6 +57,7 @@ function Tables() {
       dispatch(getAllShowtime(valuemovie, valueCinema));
     }
     if (delRoom && id_cineplex) {
+      console.log(`🚀 => file: TableList.js => line 60 => delRoom`, delRoom);
       dispatch(deleteRooms(delRoom, id_cineplex));
     }
     if (delShowtime) {
@@ -65,9 +66,14 @@ function Tables() {
       );
     }
     if (delCineplex) {
+      console.log(
+        `🚀 => file: TableList.js => line 69 => delCineplex`,
+        delCineplex
+      );
       dispatch(deleteCineplexs(delCineplex));
     }
     if (delMovie) {
+      console.log(`🚀 => file: TableList.js => line 73 => delMovie`, delMovie);
       dispatch(deleteMovies(delMovie, id_cineplex));
     }
   }, [
@@ -85,16 +91,19 @@ function Tables() {
   const _schedule = useSelector((state) => state.getSchedule);
   const { loadingSchedule, errorSchedule, schedule } = _schedule;
 
-  const setValueCineplex = (e) => {
+  const setValueCineplexInRoom = (e) => {
     setId_cineplex(e);
     dispatch(getSchedule(e));
   };
-  const setValueCineplex2 = (e) => {
+  const setValueCineplexInMovie = (e) => {
     setId_cineplex(e);
     dispatch(getSchedule(e));
   };
 
-  const setValueCineplex3 = (e) => {
+  const setValueCineplexInShowtime = (e) => {
+    setDelCineplex(null);
+    setDelMovie(null);
+    setDelRom(null);
     setId_cineplex(e);
     dispatch(getSchedule(e));
   };
@@ -234,7 +243,7 @@ function Tables() {
                               type="select"
                               name="select"
                               id="exampleSelect"
-                              onChange={(e) => setValueCineplex(e.target.value)}
+                              onChange={(e) => e.target.value}
                             >
                               {cinema.map((item) => (
                                 <option value={item.id}>{item.name}</option>
@@ -312,7 +321,7 @@ function Tables() {
                               name="select"
                               id="exampleSelect"
                               onChange={(e) =>
-                                setValueCineplex2(e.target.value)
+                                setValueCineplexInMovie(e.target.value)
                               }
                             >
                               {cinema.map((item) => (
@@ -387,7 +396,7 @@ function Tables() {
                               name="select"
                               id="exampleSelect"
                               onChange={(e) =>
-                                setValueCineplex3(e.target.value)
+                                setValueCineplexInShowtime(e.target.value)
                               }
                             >
                               {cinema.map((item) => (
