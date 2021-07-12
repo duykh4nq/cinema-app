@@ -3,6 +3,7 @@ import axios from "../configAxios";
 import Moment from "moment";
 
 export const getCinema = () => async (dispatch) => {
+  console.log(123);
   try {
     dispatch({
       type: actionTypes.GET_CINEMA_REQUEST,

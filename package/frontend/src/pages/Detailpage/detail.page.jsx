@@ -34,7 +34,7 @@ const DetailScreen = ({ match, history }) => {
 
   useEffect(() => {
     if (match)
-      dispatch(getMovieDetails(match.params.slug));
+      dispatch(getMovieDetails(match.params.id_movie));
     if (movies)
       dispatch(postBookingShow(movies.id));
   }, [dispatch, match, openformLogin]);
@@ -70,7 +70,7 @@ const DetailScreen = ({ match, history }) => {
               <div className="row ipad-width2">
                 <div class="col-md-4 col-sm-12 col-xs-12">
                   <div class="movie-img sticky-sb">
-                    <img src={movies.poster} alt={movies.slug}></img>
+                    <img src={movies.poster} alt={movies.id_movie}></img>
                     <div class="movie-btn">
                       <div class="btn-transform transform-vertical">
                         <div><button class="item item-1 yellowbtn"> <i class="ion-card"></i> Buy ticket</button></div>

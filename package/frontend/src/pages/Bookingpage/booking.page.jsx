@@ -151,7 +151,7 @@ const BookingPage = () => {
                   <h3 class="title">{total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}vnd</h3>
                 </div>
                 <div class="book-item" onClick={() => ProceedCheckout()}>
-                  <Link to={total > 0 ? `/payment/${_schedule.slug}` : `/detail/booking/${_schedule.slug}`} class="custom-button">
+                  <Link to={total > 0 ? `/payment/${_schedule.id_movie}` : `/detail/booking/${_schedule.id_movie}`} class="custom-button">
                     proceed
                   </Link>
                 </div>

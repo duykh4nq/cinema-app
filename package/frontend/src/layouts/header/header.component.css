@@ -2,11 +2,11 @@
   display: block;
 }
 
-.dropdown:hover .level1 > .level1 > .level2 {
+.dropdown:hover .level1>.level1>.level2 {
   display: none;
 }
 
-.dropdown:hover .level1 > .level1:hover > .level2 {
+.dropdown:hover .level1>.level1:hover>.level2 {
   display: block;
 }
 
@@ -89,11 +89,13 @@ header .navbar-default {
 .My-custom.scroll .collapse .menu-right .btn-auth {
   height: 40px;
 }
+
 .profile {
   height: 100%;
   display: flex !important;
   align-items: center;
 }
+
 .profile i {
   font-size: 14px;
   color: #abb7c4;
@@ -104,20 +106,24 @@ header .navbar-default {
   position: relative;
   cursor: pointer;
 }
+
 .account .dropdown-account {
   display: none;
   position: fixed;
   background-color: unset;
   min-width: 200px;
   margin-top: 20px;
+  background: #f4f4f4;
 }
+
 .account .dropdown-account li {
-  border-bottom: 1px solid #f4f4f4;
   width: 100%;
 }
+
 .account .dropdown-account.active-account {
   display: block;
 }
+
 .account .logout {
   background-color: unset;
   border: none;
@@ -129,6 +135,7 @@ header .navbar-default {
   text-transform: uppercase;
   transition: all 0.3s ease;
 }
+
 .account .logout:hover {
   color: #dcf836;
 }

@@ -118,7 +118,7 @@ function CheckoutPage() {
                   <h5>TỔNG TIỀN THANH TOÁN</h5>
                 </h6>
                 <div class="info-total"><span>{total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}vnd</span></div>
-                <Link to={address?`/`:`/payment/${_schedule.slug}`} class="custom-button back-button" onClick={() => proceedPayment()}>
+                <Link to={address?`/`:`/payment/${_schedule.id_movie}`} class="custom-button back-button" onClick={() => proceedPayment()}>
                   proceed</Link>
               </div>
             </div>

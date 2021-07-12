@@ -36,10 +36,6 @@ function Tables() {
   const [valueCinema, setCinema] = React.useState(null);
 
   const [id_cineplex, setId_cineplex] = React.useState(null);
-  console.log(
-    `🚀 => file: TableList.js => line 39 => id_cineplex`,
-    id_cineplex
-  );
 
   const [delRoom, setDelRom] = React.useState(null);
   const [delShowtime, setDelShowtime] = React.useState(null);
@@ -51,6 +47,8 @@ function Tables() {
     if (activeTab !== tab) {
       setActiveTab(tab);
       setId_cineplex(null);
+      setCinema(null);
+      setMovie(null);
     }
   };
 
@@ -64,14 +62,16 @@ function Tables() {
   console.log(`🚀 => file: TableList.js => line 86 => schedule`, schedule);
 
   React.useEffect(() => {
-    if (id_cineplex === null) dispatch(getCinema());
+    if (id_cineplex === null) {
+      console.log(1111111111);
+      dispatch(getCinema());
+    }
     if (
       cinema.length > 0 &&
       id_cineplex === null &&
       valueCinema === null &&
       valuemovie === null
     ) {
-      console.log("hahahahah");
       dispatch(getSchedule(cinema[0].id));
     }
 
@@ -96,12 +96,11 @@ function Tables() {
   ]);
 
   if (
-    cinema.length > 0 &&
-    id_cineplex === null &&
     valueCinema === null &&
     valuemovie === null &&
     schedule.rooms &&
-    schedule.movies
+    schedule.movies &&
+    activeTab === "4"
   ) {
     setCinema(schedule.rooms[0].id);
     setMovie(schedule.movies[0].id);

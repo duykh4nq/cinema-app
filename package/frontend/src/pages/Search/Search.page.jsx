@@ -201,7 +201,7 @@ function SearchComponent() {
                                     </div>
                                     <div class="movie-info">
                                       <p class="name">{subItem.movie_name}</p>
-                                      <span>{subItem.cate.length > 0 && subItem.cate[0].name_cate}</span>
+                                      <span>{subItem.cate.length > 0 && subItem.cate[0].name_cate} Phụ đề Việt</span>
                                       <div className="movie-schedule">
                                         {subItem.cate.length > 0 &&
                                           subItem.cate[0].schedule_detail.length > 0 &&
