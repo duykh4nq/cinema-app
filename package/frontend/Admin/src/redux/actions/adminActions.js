@@ -3,7 +3,7 @@ import axios from "../configAxios";
 import Moment from "moment";
 
 export const getCinema = () => async (dispatch) => {
-  console.log(123);
+  console.log(1111111111);
   try {
     dispatch({
       type: actionTypes.GET_CINEMA_REQUEST,
@@ -140,6 +140,7 @@ export const getAddCineplex = (name, address) => async (dispatch) => {
       address: address,
     });
 
+    console.log(`🚀 => file: adminActions.js => line 91 => data`, data);
     if (data.message === "Ok") {
       dispatch(getCinema());
       alert("Success👏");
@@ -258,7 +259,7 @@ export const getAddShowtime =
     } else
       try {
         dispatch({
-          type: actionTypes.GET_CINEMA_DETAILS_REQUEST,
+          type: actionTypes.GET_SHOWTIME_ADD_REQUEST,
         });
         const { data } = await axios.post("/admin/addshedule", {
           id_room: id_room,
@@ -267,20 +268,21 @@ export const getAddShowtime =
           start_time: h + ":" + m + " " + meridian,
           price: price,
         });
+        console.log(data);
         if (data === "ok") {
           dispatch(getCinema());
           alert("Success👏");
         } else {
-          alert(data.message + "👐");
+          alert("Add showtime failed  👐");
         }
         dispatch({
-          type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
+          type: actionTypes.GET_SHOWTIME_ADD_SUCCESS,
           payload: data,
         });
       } catch (error) {
-        alert("Add showtime failed  👐");
+        alert("Add showtime failed  ");
         dispatch({
-          type: actionTypes.GET_CINEMA_DETAILS_FAIL,
+          type: actionTypes.GET_SHOWTIME_ADD_FAIL,
           payload:
             error.response && error.response.data.message
               ? error.response.data.message
@@ -377,6 +379,7 @@ export const deleteShowtime =
       const { data } = await axios.post("/admin/deleteshedule", {
         id_schedule: id_schedule,
       });
+      console.log(`🚀 => file: adminActions.js => line 372 => data`, data);
       if ((data.message = "Delete Successfully")) {
         dispatch(getAllShowtime(id_movie, id_room));
       }
@@ -394,7 +397,6 @@ export const deleteShowtime =
       });
     }
   };
-
 export const deleteCineplexs = (id_cineplex) => async (dispatch) => {
   try {
     dispatch({
@@ -403,6 +405,7 @@ export const deleteCineplexs = (id_cineplex) => async (dispatch) => {
     const { data } = await axios.post("/admin/deletecineplex", {
       id_cineplex: id_cineplex,
     });
+    console.log(`🚀 => file: adminActions.js => line 372 => data`, data);
     if (data !== null) {
       dispatch(getCinema());
     }
@@ -420,6 +423,7 @@ export const deleteCineplexs = (id_cineplex) => async (dispatch) => {
     });
   }
 };
+
 export const deleteMovies = (id_movie, id_cineplex) => async (dispatch) => {
   try {
     dispatch({

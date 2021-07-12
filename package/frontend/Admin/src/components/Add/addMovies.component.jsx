@@ -20,7 +20,8 @@ import {
 
 //import Actions
 import {
-    getAddMovie
+    getAddMovie,
+    getMovie
 } from "../../redux/actions/adminActions";
 
 function AddMoviesComponent() {
@@ -141,6 +142,7 @@ function AddMoviesComponent() {
                         setTime(e.target.reset());
                         setRelease_date(e.target.reset());
                         setName_movie(e.target.reset());
+                        dispatch(getMovie());
                         dispatch(
                             getAddMovie(
                                 id_cineplex,

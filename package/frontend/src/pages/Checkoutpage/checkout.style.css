@@ -32,6 +32,10 @@ input[type=text] {
     height: 360px !important;
 }
 
+.booking-summery .title {
+    width: 290px !important;
+}
+
 .info-total {
     margin-bottom: 30px;
 }

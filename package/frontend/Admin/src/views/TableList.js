@@ -40,6 +40,10 @@ function Tables() {
   const [delRoom, setDelRom] = React.useState(null);
   const [delShowtime, setDelShowtime] = React.useState(null);
   const [delCineplex, setDelCineplex] = React.useState(null);
+  console.log(
+    `🚀 => file: TableList.js => line 43 => delCineplex`,
+    delCineplex
+  );
   const [delMovie, setDelMovie] = React.useState(null);
 
   const [activeTab, setActiveTab] = React.useState("1");
@@ -49,6 +53,7 @@ function Tables() {
       setId_cineplex(null);
       setCinema(null);
       setMovie(null);
+      setDelCineplex(null);
     }
   };
 
@@ -63,7 +68,6 @@ function Tables() {
 
   React.useEffect(() => {
     if (id_cineplex === null) {
-      console.log(1111111111);
       dispatch(getCinema());
     }
     if (
