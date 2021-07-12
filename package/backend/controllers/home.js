@@ -99,7 +99,6 @@ exports.getHome = async (req, res, next) => {
 };
 exports.getDetailMovie = async (req, res, next) => {
   const id_movie = req.params.id_movie;
-  console.log(`🚀 => file: home.js => line 102 => id_movie`, id_movie);
   const mov = await Movies.findOne({
     where: {
       id: id_movie,

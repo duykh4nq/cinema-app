@@ -121,11 +121,13 @@ input[id="tab-tatCa"]:checked~div.wrap-content .content-tab .tab-item.tabTatCa, 
     width: 100%;
     padding: 10px 0 0px;
     border-bottom: 1px solid var(--grey);
+    display: flex;
+    align-items: center;
 }
 
 .wrap-movie {
     width: 70%;
-    height: 200px;
+    height: 380px;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -134,4 +136,9 @@ input[id="tab-tatCa"]:checked~div.wrap-content .content-tab .tab-item.tabTatCa, 
 .wrap-movie span {
     padding-top: 8px;
     font-weight: 600;
+}
+
+.wrap-movie img {
+    height: 340px;
+    object-fit: cover;
 }

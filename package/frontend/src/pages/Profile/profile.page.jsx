@@ -62,7 +62,7 @@ function ProfilePage(props) {
           <div className="row">
             <div className="col-md-12">
               <div className="hero-ct">
-                <h1>{name}</h1>
+                <h1>{name}</h1> 
                 <ul className="breadcumb">
                   <li className="active">
                     <Link to="/">Home</Link>

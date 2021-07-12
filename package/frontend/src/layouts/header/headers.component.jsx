@@ -93,19 +93,19 @@ function HeadersComponent() {
               </ul>
               <ul class="nav navbar-nav flex-child-menu menu-right">
                 {loggedIn === true ? (
-                  <div className="account">
-                    <li onClick={AccountHandle} className="btn-auth">
+                   <div className="account">
+                    <li onClick={AccountHandle}>
                       Hi {user.name}'s <i class="fa fa-caret-down" aria-hidden="true"></i>
                     </li>
                     <div className={dropdownOpen ? "dropdown-account active-account" : "dropdown-account"}>
                       <li>
-                        <Link to="/profile">My account</Link>
+                        <Link to="/profile" className="my-account">My account</Link>
                       </li>
-                      <li class="loginLink" onClick={HandleLogOut}>
+                      <li onClick={HandleLogOut}>
                         <button className="logout">Log out</button>
                       </li>
                     </div>
-                  </div>
+                  </div> 
                 ) : (
                   <>
                     <li class="loginLink" onClick={ClickOpenformLogin}>

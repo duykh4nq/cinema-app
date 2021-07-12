@@ -43,7 +43,7 @@ header .navbar-default {
   cursor: pointer;
   border: none;
   background-color: #dd003f !important;
-  padding: 0 25px;
+  margin: 0 25px;
   transition: all 0.3s ease;
 }
 
@@ -67,10 +67,6 @@ header .navbar-default {
 .navbar .menu-right {
   margin-right: 3%;
   width: 20%;
-}
-
-.loginLink {
-  margin-right: 20px;
 }
 
 .My-custom .logo img {
@@ -113,11 +109,25 @@ header .navbar-default {
   background-color: unset;
   min-width: 200px;
   margin-top: 20px;
-  background: #f4f4f4;
+  background: #ffffff;
 }
 
 .account .dropdown-account li {
   width: 100%;
+  padding-top: 20px !important;
+  padding-left: 20px !important;
+}
+
+.account li {
+  font-family: 'Dosis', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.account li:hover {
+  color: #dcf836;
 }
 
 .account .dropdown-account.active-account {
@@ -130,12 +140,19 @@ header .navbar-default {
   text-align: start;
   font-family: "Dosis", sans-serif;
   font-size: 14px;
-  color: #abb7c4;
-  font-weight: bold;
+  color: #061e38;
   text-transform: uppercase;
   transition: all 0.3s ease;
 }
 
 .account .logout:hover {
   color: #dcf836;
+}
+
+.my-account {
+  color: #061e38 !important;
+}
+
+.my-account:hover {
+  color: #dcf836 !important;
 }

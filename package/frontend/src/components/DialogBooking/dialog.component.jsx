@@ -134,7 +134,7 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }
                     </div>
                 </div></>) :
                 <p className="alert-null">Sorry, there is no showing on this date, please choose another date 😅</p>}
-            {(time && category && valueCineplex && valueDay)?<Link to={`/booking/${movies.id_movie}`} className="proceed-dialog custom-button" onClick={() => handleProceed()}>
+            {(time && category && valueCineplex && valueDay)?<Link to={`/booking/${movies.slug}`} className="proceed-dialog custom-button" onClick={() => handleProceed()}>
                 Proceed
             </Link>:<></>}
         </div>
