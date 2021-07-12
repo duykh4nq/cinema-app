@@ -28,20 +28,14 @@ import {
 
 function Statistical(props) {
   const dispatch = useDispatch();
-  //cineplex
-  const _cineplex = useSelector((state) => state.getCinema);
-  const { cinema } = _cineplex;
-  console.log(`🚀 => file: Statistical.js => line 34 => cinema`, cinema);
 
-  //schedule
-  const _schedule = useSelector((state) => state.getSchedule);
-  const { schedule } = _schedule;
-  console.log(`🚀 => file: Statistical.js => line 38 => schedule`, schedule);
+  const _statiscal_cineplex = useSelector(
+    (state) => state.postStatiscalForCineplex
+  );
+  const { statiscal_cineplex } = _statiscal_cineplex;
 
-  const setValueCineplex = (e) => {
-    console.log(`🚀 => file: Statistical.js => line 43 => e`, e);
-    dispatch(getSchedule(e));
-  };
+  const _statiscal_movie = useSelector((state) => state.postStatiscalForMovie);
+  const { statiscal_movie } = _statiscal_movie;
 
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
@@ -50,16 +44,11 @@ function Statistical(props) {
     setbigChartData(name);
   };
 
-  console.log(
-    `🚀 => file: Statistical.js => line 236 => bigChartData`,
-    bigChartData
-  );
-
   React.useEffect(() => {
     if (!start) dispatch(getCinema());
     if (start && end) {
       dispatch(postStatiscalForCineplex(start, end));
-      if (schedule.statiscalForMovie) {
+      if (statiscal_movie) {
         dispatch(postStatiscalForMovie(start, end));
       }
     }
@@ -129,7 +118,9 @@ function Statistical(props) {
       gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
       return {
-        labels: cinema.statiscalForCineplex?.map((item) => item.name),
+        labels: statiscal_cineplex.statiscalForCineplex?.map(
+          (item) => item.name
+        ),
         datasets: [
           {
             label: "Total",
@@ -146,7 +137,9 @@ function Statistical(props) {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: cinema.statiscalForCineplex?.map((item) => item.sum),
+            data: statiscal_cineplex.statiscalForCineplex?.map(
+              (item) => item.sum
+            ),
           },
         ],
       };
@@ -161,7 +154,9 @@ function Statistical(props) {
       gradientStroke.addColorStop(0, "rgba(29,140,248,0)"); //blue colors
 
       return {
-        labels: schedule?.movies?.map((item) => item.name_movie),
+        labels: statiscal_movie.statiscalForMovie?.map(
+          (item) => item.name_movie
+        ),
         datasets: [
           {
             label: "Total",
@@ -178,7 +173,7 @@ function Statistical(props) {
             pointHoverRadius: 4,
             pointHoverBorderWidth: 15,
             pointRadius: 4,
-            data: schedule?.movies?.map((item) => item.sum),
+            data: statiscal_movie.statiscalForMovie?.map((item) => item.sum),
           },
         ],
       };
@@ -213,53 +208,43 @@ function Statistical(props) {
               onChange={(e) => setEnd(e.target.value)}
             />
           </Col>
-          {bigChartData === "movie" ? (
-            <Col xs="3">
-              <label>Choose cineplex</label>
-              <Input
-                type="select"
-                name="select"
-                id="exampleSelect"
-                onChange={(e) => setValueCineplex(e.target.value)}
-                required
-              >
-                {cinema?.map((item) => (
-                  <>
-                    <option value={item.id}>{item.name}</option>
-                  </>
-                ))}
-              </Input>
-            </Col>
-          ) : (
-            <div></div>
-          )}
           <Col xs="3">
             <label>Total revenue</label>
             <CardTitle tag="h4" className="text-total">
               <i className="tim-icons icon-wallet-43 text-info" />
-              {bigChartData === "movie"
-                ? function () {
-                    let sum = 0;
-                    for (let i = 0; i < schedule?.movies.length; i++) {
-                      sum += schedule.movies[i].sum;
-                    }
-                    return <p>{sum}</p>;
-                  }
-                : function () {
+              {statiscal_cineplex.statiscalForCineplex
+                ? (function () {
                     let sum = 0;
                     for (
                       let i = 0;
-                      i < cinema.statiscalForCineplex.length;
+                      i < statiscal_cineplex.statiscalForCineplex.length;
                       i++
                     ) {
-                      sum += cinema.statiscalForCineplex[i].sum;
-                      console.log(
-                        `🚀 => file: Statistical.js => line 327 => sum`,
-                        sum
+                      sum += parseInt(
+                        statiscal_cineplex.statiscalForCineplex[i].sum
                       );
                     }
-                    return <p>{sum}</p>;
-                  }}
+                    return (
+                      sum.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,") +
+                      "vnd"
+                    );
+                  })([])
+                : statiscal_movie.statiscalForMovie
+                ? (function () {
+                    let sum = 0;
+                    for (
+                      let i = 0;
+                      i < statiscal_movie.statiscalForMovie.length;
+                      i++
+                    ) {
+                      sum += parseInt(statiscal_movie.statiscalForMovie[i].sum);
+                    }
+                    return (
+                      sum.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,") +
+                      "vnd"
+                    );
+                  })([])
+                : "0vnd"}
             </CardTitle>
           </Col>
         </Row>

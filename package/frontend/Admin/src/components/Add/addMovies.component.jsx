@@ -172,17 +172,17 @@ function AddMoviesComponent() {
         label: item.name_movie,
     }));
 
-    const _optionsCineplex = cinema
+    const _optionsCineplex = cinema.length > 0 ? cinema
         .filter((i) => {
-            const _data = dataCineplexs.find((d) => {
+            const _data = dataCineplexs.length>0?dataCineplexs.find((d) => {
                 return d.id_cineplex === i.id;
-            });
+            }):0;
             return _data === undefined;
         })
         .map((i) => ({
             value: i.id,
             label: i.name,
-        }));
+        })) : 0;
     return (
         <Card>
             {classLoading !== "" ? (

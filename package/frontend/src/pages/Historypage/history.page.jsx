@@ -84,7 +84,7 @@ function HistoryPage() {
                                                     <strong>{Moment(elm.created_at).format("DD-MM-YYYY")}</strong>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <strong>{elm.total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}đ</strong>
+                                                    <strong>{elm.total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}vnd</strong>
                                                 </div>
                                             </div>
                                         </div>
@@ -116,7 +116,7 @@ function HistoryPage() {
                                                     <strong>{Moment(elm.created_at).format("DD-MM-YYYY")}</strong>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <strong>{elm.total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}đ</strong>
+                                                    <strong>{elm.total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}vnd</strong>
                                                 </div>
                                             </div>
                                         </div>
@@ -148,7 +148,7 @@ function HistoryPage() {
                                                     <strong>{Moment(elm.created_at).format("DD-MM-YYYY")}</strong>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <strong>{elm.total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}đ</strong>
+                                                    <strong>{elm.total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}vnd</strong>
                                                 </div>
                                             </div>
                                         </div>

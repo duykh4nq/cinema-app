@@ -48,6 +48,10 @@
     margin-top: 6px;
 }
 
+.text-total i {
+    margin-right: 10px;
+}
+
 .poster_movie {
     width: 120px;
     height: 160px;

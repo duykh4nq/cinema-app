@@ -52,7 +52,8 @@ function AddCinemaComponent(props) {
     //cineplex
     const _cineplex = useSelector((state) => state.getCinema);
     const { loadingCineplex, errorCineplex, cinema } = _cineplex;
-    const [id_cineplex, setId_cineplex] = React.useState(0);
+    const [id_cineplex, setId_cineplex] = React.useState(null);
+    if (id_cineplex === null && cinema.length>0) setId_cineplex(cinema[0].id)
 
     React.useEffect(() => {
         dispatch(getCinema());
@@ -68,8 +69,8 @@ function AddCinemaComponent(props) {
     const addCinemaHandler = (e) => {
         e.preventDefault();
         setNameRoom(e.target.reset());
-        setHorizontal(e.target.reset());
-        setVertical(e.target.reset());
+        setHorizontal(2);
+        setVertical("B");
         dispatch(
             getAddRoom(id_cineplex, name_room, horizontal, vertical, id_categoryRoom)
         );
@@ -99,9 +100,9 @@ function AddCinemaComponent(props) {
                                         color="primary"
                                         required
                                     >
-                                        {cinema.map((item) => (
+                                        {cinema.length > 0 ? cinema.map((item) => (
                                             <option value={item.id}>{item.name}</option>
-                                        ))}
+                                        )) : 0}
                                     </Input>
                                 )}
                             </FormGroup>

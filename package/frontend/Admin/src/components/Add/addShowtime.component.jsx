@@ -24,6 +24,7 @@ function AddShowtimeComponent() {
     const dispatch = useDispatch();
 
     React.useEffect(() => {
+        if (schedule.length === 0 && cinema.length > 0) dispatch(getSchedule(cinema[0].id));
         dispatch(getCinema());
         dispatch(getMovie());
     }, [dispatch]);
@@ -45,6 +46,11 @@ function AddShowtimeComponent() {
     const [date, setDate] = React.useState("");
     const [start_time, setStart_time] = React.useState("");
     const [price, setPrice] = React.useState("");
+
+    if (id_room === "" && id_movie === "" && cinema.length > 0 && schedule.rooms && schedule.movies) {
+        setId_room(schedule.rooms[0].id)
+        setId_movie(schedule.movies[0].id)
+    }
 
     const addShowtimeHandler = (e) => {
         e.preventDefault();
@@ -88,11 +94,11 @@ function AddShowtimeComponent() {
                                     }
                                     required
                                 >
-                                    {cinema.map((item) => (
+                                    {cinema.length > 0 ? cinema.map((item) => (
                                         <>
                                             <option value={item.id}>{item.name}</option>
                                         </>
-                                    ))}
+                                    )) : 0}
                                 </Input>
                             )}
                         </FormGroup>

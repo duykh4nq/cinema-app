@@ -6,12 +6,12 @@ export default class Footer extends Component {
   render() {
     return (
       <footer class="footer-section">
-      <div class="container">
+      <div class="">
         <div class="footer-bottom">
           <div class="footer-bottom-area">
             <div class="left">
               <p>
-                Copyright © 2020.All Rights Reserved By <a href="#0">Boleto </a>
+                Copyright © 2020.All Rights Reserved By <a href="#0">Block Buster </a>
               </p>
             </div>
             <ul class="links">

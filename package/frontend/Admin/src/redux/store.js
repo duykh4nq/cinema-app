@@ -9,8 +9,9 @@ import {
   getMovieReducer,
   getAllShowtimeReducer,
   getLoginReducer,
+  postStatiscalForMovieReducer,
+  postStatiscalForCineplexReducer,
 } from "./reducers/cinemaReducers";
-console.log("🚀 ~ file: store.js ~ line 13 ~ getLoginReducer", getLoginReducer);
 
 const reducer = combineReducers({
   getMovie: getMovieReducer,
@@ -18,14 +19,23 @@ const reducer = combineReducers({
   getSchedule: getScheduleReducer,
   getAllShowtime: getAllShowtimeReducer,
   admin: getLoginReducer,
+  postStatiscalForMovie: postStatiscalForMovieReducer,
+  postStatiscalForCineplex: postStatiscalForCineplexReducer,
 });
 const middleware = [thunk];
-const adminLocalStorage = sessionStorage.getItem("admin") ? JSON.parse(sessionStorage.getItem("admin")) : [];
-const admin = adminLocalStorage !== [] ? adminLocalStorage : { loggedIn: false };
+const adminLocalStorage = sessionStorage.getItem("admin")
+  ? JSON.parse(sessionStorage.getItem("admin"))
+  : [];
+const admin =
+  adminLocalStorage !== [] ? adminLocalStorage : { loggedIn: false };
 const INITIAL_STATE = {
   admin: admin,
 };
 
-const store = createStore(reducer, INITIAL_STATE, composeWithDevTools(applyMiddleware(...middleware)));
+const store = createStore(
+  reducer,
+  INITIAL_STATE,
+  composeWithDevTools(applyMiddleware(...middleware))
+);
 
 export default store;

@@ -23,8 +23,7 @@ export const getCinema = () => async (dispatch) => {
   }
 };
 
-export const getSchedule = (id) => async (dispatch, getState) => {
-  console.log(`🚀 => file: adminActions.js => line 27 => id`, id);
+export const getSchedule = (id) => async (dispatch) => {
   try {
     dispatch({
       type: actionTypes.GET_SCHEDULE_REQUEST,
@@ -36,7 +35,6 @@ export const getSchedule = (id) => async (dispatch, getState) => {
         index = i;
       }
     }
-    console.log(`🚀 => file: adminActions.js => line 32 => data`, data[index]);
     sessionStorage.setItem("data", JSON.stringify(data[index]));
     dispatch({
       type: actionTypes.GET_SCHEDULE_SUCCESS,
@@ -85,7 +83,6 @@ export const getMovies = (id) => async (dispatch) => {
       type: actionTypes.GET_SCHEDULE_REQUEST,
     });
     const { data } = await axios.get("/admin/schedule");
-    console.log(`🚀 => file: adminActions.js => line 59 => data`, data);
     let index = 0;
     for (let i = 0; i < data.length; i++) {
       if (id == data[i].id) {
@@ -109,8 +106,6 @@ export const getMovies = (id) => async (dispatch) => {
 };
 
 export const getAllShowtime = (id_movie, id_room) => async (dispatch) => {
-  console.log(`🚀 => file: adminActions.js => line 109 => id_room`, id_room);
-  console.log(`🚀 => file: adminActions.js => line 109 => id_movie`, id_movie);
   try {
     dispatch({
       type: actionTypes.GET_SHOWTIME_REQUEST,
@@ -119,8 +114,6 @@ export const getAllShowtime = (id_movie, id_room) => async (dispatch) => {
       id_movie: id_movie,
       id_room: id_room,
     });
-    console.log(`🚀 => file: adminActions.js => line 119 => data`, data);
-
     dispatch({
       type: actionTypes.GET_SHOWTIME_SUCCESS,
       payload: data,
@@ -146,7 +139,6 @@ export const getAddCineplex = (name, address) => async (dispatch) => {
       address: address,
     });
 
-    console.log(`🚀 => file: adminActions.js => line 91 => data`, data);
     if (data.message === "Ok") {
       dispatch(getCinema());
       alert("Success👏");
@@ -188,7 +180,6 @@ export const getAddRoom =
       } else {
         alert("Add cinema failed 👐");
       }
-      console.log(`🚀 => file: adminActions.js => line 142 => data`, data);
       dispatch({
         type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
         payload: data,
@@ -218,7 +209,6 @@ export const getAddMovie =
         release_date: Moment(release_date).format("MM-DD-YYYY"),
         poster: poster,
       });
-      console.log(`🚀 => file: adminActions.js => line 204 => data`, data);
       if (data.message === "Ok") {
         dispatch(getCinema());
         alert("Success👏");
@@ -242,24 +232,21 @@ export const getAddMovie =
 
 export const getAddShowtime =
   (id_room, id_movie, date, start_time, price) => async (dispatch) => {
-    console.log(`🚀 => file: adminActions.js => line 216 => price`, price);
     console.log(
-      `🚀 => file: adminActions.js => line 216 => start_time`,
-      start_time
-    );
-    console.log(`🚀 => file: adminActions.js => line 216 => date`, date);
-    console.log(
-      `🚀 => file: adminActions.js => line 216 => id_movie`,
+      `🚀 => file: adminActions.js => line 235 => id_movie`,
       id_movie
     );
-    console.log(`🚀 => file: adminActions.js => line 216 => id_room`, id_room);
+    console.log(`🚀 => file: adminActions.js => line 235 => id_room`, id_room);
     var [h, m] = start_time.split(":");
-    console.log(`🚀 => file: adminActions.js => line 257 => h`, h);
     var meridian =
       ((h % 12) + 12 * (h % 12 === 0) + ":" + m, h >= 12 ? "PM" : "AM");
-    if (h > 12) {
+    if (h >= 13) {
       h = h - 12;
+      h = "0" + h;
+    } else if (h === "00") {
+      h = 12;
     }
+
     if (
       (h < 9 && m > 0 && meridian == "AM") ||
       (h > 10 && m > 30 && meridian == "PM")
@@ -283,7 +270,7 @@ export const getAddShowtime =
           dispatch(getCinema());
           alert("Success👏");
         } else {
-          alert("Add showtime failed  👐");
+          alert(data.message + "👐");
         }
         dispatch({
           type: actionTypes.GET_CINEMA_DETAILS_SUCCESS,
@@ -306,20 +293,20 @@ export const postStatiscalForCineplex = (start, end) => async (dispatch) => {
   console.log(`🚀 => file: adminActions.js => line 214 => start`, start);
   try {
     dispatch({
-      type: actionTypes.GET_CINEMA_REQUEST,
+      type: actionTypes.GET_STATISCAL_CINEMA_REQUEST,
     });
     const { data } = await axios.post("/admin/statiscalCineplex", {
       start: start,
       end: end,
     });
-    console.log(`🚀 => file: adminActions.js => line 223 => data`, data);
+    console.log(`🚀 => file: adminActions.js => line 297 => data`, data);
     dispatch({
-      type: actionTypes.GET_CINEMA_SUCCESS,
+      type: actionTypes.GET_STATISCAL_CINEMA_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: actionTypes.GET_CINEMA_FAIL,
+      type: actionTypes.GET_STATISCAL_CINEMA_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -333,20 +320,20 @@ export const postStatiscalForMovie = (start, end) => async (dispatch) => {
   console.log(`🚀 => file: adminActions.js => line 214 => start`, start);
   try {
     dispatch({
-      type: actionTypes.GET_CINEMA_REQUEST,
+      type: actionTypes.GET_STATISCAL_MOVIE_REQUEST,
     });
     const { data } = await axios.post("/admin/statiscalMovie", {
       start: start,
       end: end,
     });
-    console.log(`🚀 => file: adminActions.js => line 223 => data`, data);
+    console.log(`🚀 => file: adminActions.js => line 324 => data`, data);
     dispatch({
-      type: actionTypes.GET_CINEMA_SUCCESS,
+      type: actionTypes.GET_STATISCAL_MOVIE_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: actionTypes.GET_CINEMA_FAIL,
+      type: actionTypes.GET_STATISCAL_MOVIE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -389,7 +376,6 @@ export const deleteShowtime =
       const { data } = await axios.post("/admin/deleteshedule", {
         id_schedule: id_schedule,
       });
-      console.log(`🚀 => file: adminActions.js => line 372 => data`, data);
       if ((data.message = "Delete Successfully")) {
         dispatch(getAllShowtime(id_movie, id_room));
       }
@@ -416,7 +402,6 @@ export const deleteCineplexs = (id_cineplex) => async (dispatch) => {
     const { data } = await axios.post("/admin/deletecineplex", {
       id_cineplex: id_cineplex,
     });
-    console.log(`🚀 => file: adminActions.js => line 372 => data`, data);
     if (data !== null) {
       dispatch(getCinema());
     }
@@ -443,7 +428,6 @@ export const deleteMovies = (id_movie, id_cineplex) => async (dispatch) => {
       id_movie: id_movie,
       id_cineplex: id_cineplex,
     });
-    console.log(`🚀 => file: adminActions.js => line 426 => data`, data);
 
     dispatch({
       type: actionTypes.GET_DELETE_SUCCESS,
@@ -460,10 +444,6 @@ export const deleteMovies = (id_movie, id_cineplex) => async (dispatch) => {
   }
 };
 export const LoginAdmin = (email, password) => async (dispatch, getState) => {
-  console.log(
-    "🚀 ~ file: adminActions.js ~ line 393 ~ LoginAdmin ~ email",
-    email
-  );
   try {
     dispatch({
       type: actionTypes.LOGIN_REQUEST,
@@ -473,10 +453,6 @@ export const LoginAdmin = (email, password) => async (dispatch, getState) => {
       password: password,
       role: 0,
     });
-    console.log(
-      "🚀 ~ file: adminActions.js ~ line 403 ~ LoginAdmin ~ data",
-      data.user
-    );
     dispatch({
       type: actionTypes.LOGIN_SUCCESS,
       payload: {

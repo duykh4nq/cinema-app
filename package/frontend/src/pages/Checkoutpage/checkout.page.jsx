@@ -10,7 +10,7 @@ import paypal from "../../assets/img/paypal.png";
 import { checkoutCart } from "../../redux/actions/movieActions";
 
 
-function CheckoutPage(props) {
+function CheckoutPage() {
   const dispatch = useDispatch();
   const total = JSON.parse(sessionStorage.getItem("total"));
   const seat = JSON.parse(sessionStorage.getItem("arrSeat"));
@@ -18,7 +18,6 @@ function CheckoutPage(props) {
   const [address, setAddress] = React.useState(null)
   const name=JSON.parse(sessionStorage.getItem("users")).user.name
   const phone=JSON.parse(sessionStorage.getItem("users")).user.phone
-  console.log(`🚀 => file: checkout.page.jsx => line 21 => phone`, phone)
 
   const proceedPayment = () => {
     if (!address)
@@ -96,13 +95,13 @@ function CheckoutPage(props) {
                 <ul>
                   <li>
                     <h6 class="subtitle">
-                      <span>STD</span> <span>{(total/seat.length).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}đ</span>
+                      <span>STD</span> <span>{(total/seat.length).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}vnd</span>
                     </h6>
                     <div class="info"><span>Số lượng</span><span>{seat.length}</span></div>
                   </li>
                   <li>
                     <h6 class="subtitle mb-0">
-                      <span>Tổng cộng</span><span>{total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}đ</span>
+                      <span>Tổng cộng</span><span>{total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}vnd</span>
                     </h6>
                   </li>
                 </ul>
@@ -118,7 +117,7 @@ function CheckoutPage(props) {
                 <h6 class="info">
                   <h5>TỔNG TIỀN THANH TOÁN</h5>
                 </h6>
-                <div class="info-total"><span>{total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}đ</span></div>
+                <div class="info-total"><span>{total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}vnd</span></div>
                 <Link to={address?`/`:`/payment/${_schedule.slug}`} class="custom-button back-button" onClick={() => proceedPayment()}>
                   proceed</Link>
               </div>

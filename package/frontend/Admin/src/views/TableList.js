@@ -36,6 +36,10 @@ function Tables() {
   const [valueCinema, setCinema] = React.useState(null);
 
   const [id_cineplex, setId_cineplex] = React.useState(null);
+  console.log(
+    `🚀 => file: TableList.js => line 39 => id_cineplex`,
+    id_cineplex
+  );
 
   const [delRoom, setDelRom] = React.useState(null);
   const [delShowtime, setDelShowtime] = React.useState(null);
@@ -44,38 +48,41 @@ function Tables() {
 
   const [activeTab, setActiveTab] = React.useState("1");
   const toggle = (tab) => {
-    if (activeTab !== tab) setActiveTab(tab);
+    if (activeTab !== tab) {
+      setActiveTab(tab);
+      setId_cineplex(null);
+    }
   };
 
   //cineplex
   const _cineplex = useSelector((state) => state.getCinema);
   const { loadingCineplex, errorCineplex, cinema } = _cineplex;
 
+  //schedule
+  const _schedule = useSelector((state) => state.getSchedule);
+  const { loadingSchedule, errorSchedule, schedule } = _schedule;
+  console.log(`🚀 => file: TableList.js => line 86 => schedule`, schedule);
+
   React.useEffect(() => {
     if (id_cineplex === null) dispatch(getCinema());
-    if (valuemovie && valueCinema && delShowtime === null) {
+    if (
+      cinema.length > 0 &&
+      id_cineplex === null &&
+      valueCinema === null &&
+      valuemovie === null
+    ) {
+      console.log("hahahahah");
+      dispatch(getSchedule(cinema[0].id));
+    }
+
+    //delete
+    if (valuemovie && valueCinema && delShowtime === null)
       dispatch(getAllShowtime(valuemovie, valueCinema));
-    }
-    if (delRoom && id_cineplex) {
-      console.log(`🚀 => file: TableList.js => line 60 => delRoom`, delRoom);
-      dispatch(deleteRooms(delRoom, id_cineplex));
-    }
-    if (delShowtime) {
-      dispatch(
-        deleteShowtime(delShowtime, id_cineplex, valuemovie, valueCinema)
-      );
-    }
-    if (delCineplex) {
-      console.log(
-        `🚀 => file: TableList.js => line 69 => delCineplex`,
-        delCineplex
-      );
-      dispatch(deleteCineplexs(delCineplex));
-    }
-    if (delMovie) {
-      console.log(`🚀 => file: TableList.js => line 73 => delMovie`, delMovie);
-      dispatch(deleteMovies(delMovie, id_cineplex));
-    }
+    if (delRoom) dispatch(deleteRooms(delRoom, id_cineplex));
+    if (delShowtime)
+      dispatch(deleteShowtime(delShowtime, valuemovie, valueCinema));
+    if (delCineplex) dispatch(deleteCineplexs(delCineplex));
+    if (delMovie) dispatch(deleteMovies(delMovie, id_cineplex));
   }, [
     dispatch,
     valuemovie,
@@ -85,11 +92,20 @@ function Tables() {
     id_cineplex,
     delCineplex,
     delMovie,
+    activeTab,
   ]);
 
-  //schedule
-  const _schedule = useSelector((state) => state.getSchedule);
-  const { loadingSchedule, errorSchedule, schedule } = _schedule;
+  if (
+    cinema.length > 0 &&
+    id_cineplex === null &&
+    valueCinema === null &&
+    valuemovie === null &&
+    schedule.rooms &&
+    schedule.movies
+  ) {
+    setCinema(schedule.rooms[0].id);
+    setMovie(schedule.movies[0].id);
+  }
 
   const setValueCineplexInRoom = (e) => {
     setId_cineplex(e);
@@ -208,8 +224,8 @@ function Tables() {
                           <h2>Loading...</h2>
                         ) : errorCineplex ? (
                           <h2>{errorCineplex}</h2>
-                        ) : (
-                          cinema.map((item) => (
+                        ) : cinema.length > 0 ? (
+                          cinema?.map((item) => (
                             <tr>
                               <td>{item.name}</td>
                               <td className="text-center">{item.address}</td>
@@ -221,6 +237,8 @@ function Tables() {
                               </td>
                             </tr>
                           ))
+                        ) : (
+                          0
                         )}
                       </tbody>
                     </Table>
@@ -243,11 +261,15 @@ function Tables() {
                               type="select"
                               name="select"
                               id="exampleSelect"
-                              onChange={(e) => e.target.value}
+                              onChange={(e) =>
+                                setValueCineplexInRoom(e.target.value)
+                              }
                             >
-                              {cinema.map((item) => (
-                                <option value={item.id}>{item.name}</option>
-                              ))}
+                              {cinema.length > 0
+                                ? cinema?.map((item) => (
+                                    <option value={item.id}>{item.name}</option>
+                                  ))
+                                : 0}
                             </Input>
                           )}
                         </FormGroup>
@@ -324,9 +346,11 @@ function Tables() {
                                 setValueCineplexInMovie(e.target.value)
                               }
                             >
-                              {cinema.map((item) => (
-                                <option value={item.id}>{item.name}</option>
-                              ))}
+                              {cinema.length > 0
+                                ? cinema?.map((item) => (
+                                    <option value={item.id}>{item.name}</option>
+                                  ))
+                                : 0}
                             </Input>
                           )}
                         </FormGroup>
@@ -399,9 +423,11 @@ function Tables() {
                                 setValueCineplexInShowtime(e.target.value)
                               }
                             >
-                              {cinema.map((item) => (
-                                <option value={item.id}>{item.name}</option>
-                              ))}
+                              {cinema.length > 0
+                                ? cinema?.map((item) => (
+                                    <option value={item.id}>{item.name}</option>
+                                  ))
+                                : 0}
                             </Input>
                           )}
                         </FormGroup>

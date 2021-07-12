@@ -88,29 +88,56 @@ export const getAllShowtimeReducer = (state = { data: [] }, action) => {
   }
 };
 
-// export const getStatiscalReducer = (state = { statiscal: [] }, action) => {
+export const postStatiscalForMovieReducer = (
+  state = { statiscal_movie: [] },
+  action
+) => {
+  switch (action.type) {
+    case actionTypes.GET_STATISCAL_MOVIE_REQUEST:
+      return {
+        loading: true,
+        statiscal_movie: [],
+      };
+    case actionTypes.GET_STATISCAL_MOVIE_SUCCESS:
+      return {
+        statiscal_movie: action.payload,
+        loading: false,
+      };
+    case actionTypes.GET_STATISCAL_MOVIE_FAIL:
+      return {
+        loading: false,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//   switch (action.type) {
-//     case actionTypes.GET_SCHEDULE_REQUEST:
-//       return {
-//         loading: true,
-//         statiscal: [],
-//       };
-//     case actionTypes.GET_SCHEDULE_SUCCESS:
+export const postStatiscalForCineplexReducer = (
+  state = { statiscal_cineplex: [] },
+  action
+) => {
+  switch (action.type) {
+    case actionTypes.GET_STATISCAL_CINEMA_REQUEST:
+      return {
+        loading: true,
+        statiscal_cineplex: [],
+      };
+    case actionTypes.GET_STATISCAL_CINEMA_SUCCESS:
+      return {
+        statiscal_cineplex: action.payload,
+        loading: false,
+      };
+    case actionTypes.GET_STATISCAL_CINEMA_FAIL:
+      return {
+        loading: false,
+        error: null,
+      };
+    default:
+      return state;
+  }
+};
 
-//       return {
-//         statiscal: action.payload,
-//         loading: false,
-//       };
-//     case actionTypes.GET_SCHEDULE_FAIL:
-//       return {
-//         loading: false,
-//         error: null,
-//       };
-//     default:
-//       return state;
-//   }
-// };
 export const getLoginReducer = (state = { admin: {} }, action) => {
   switch (action.type) {
     case actionTypes.LOGIN_REQUEST:
