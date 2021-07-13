@@ -196,9 +196,12 @@ export const postChangeProfile = (email, name, phone) => async (dispatch, getSta
     dispatch({
       type: actionTypes.LOGIN_SUCCESS,
       payload: {
-        user: data,
+        user: data.user,
+        message: data.message,
+        loggedIn: true,
       },
     });
+    sessionStorage.setItem("users", JSON.stringify(getState().users));
   } catch (error) {
     dispatch({
       type: actionTypes.LOGIN_FAIL,
@@ -213,7 +216,6 @@ export const postChangePassword = (email, oldPassword, newPassword) => async (di
       oldPassword: oldPassword,
       newPassword: newPassword,
     });
-    console.log("🚀 ~ file: authActions.js ~ line 212 ~ postChangePassword ~ data", data.user);
     dispatch({
       type: actionTypes.LOGIN_SUCCESS,
       payload: {
