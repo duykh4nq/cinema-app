@@ -84,12 +84,11 @@ function HeadersComponent() {
                   <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <Link to="/aboutUs">about us</Link>
-                </li>
-                <li>
                   <Link to="/search">Cineplexs</Link>
                 </li>
-                <li></li>
+                <li>
+                  <Link to="/aboutUs">about us</Link>
+                </li>
               </ul>
               <ul class="nav navbar-nav flex-child-menu menu-right">
                 {loggedIn === true ? (

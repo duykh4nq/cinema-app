@@ -1,6 +1,7 @@
 import React from 'react';
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import Moment from "moment";
 
 //import css
@@ -12,10 +13,11 @@ import { postAllHistoryBooking, postAllWaitHistoryBooking, postAllBookedHistoryB
 
 
 function HistoryPage() {
+    const userLoggedIn = useSelector((state) => state.users.loggedIn);
+    const _history = useHistory();
     const dispatch = useDispatch();
     const HistoryBooking = useSelector((state) => state.postAllHistoryBooking);
     const { loading, error, history } = HistoryBooking;
-    console.log(`🚀 => file: history.page.jsx => line 18 => history`, history)
 
     const WaitHistory = useSelector((state) => state.postAllWaitHistoryBooking);
     const { waitting_history } = WaitHistory;
@@ -23,13 +25,14 @@ function HistoryPage() {
 
     const BookedHistory = useSelector((state) => state.postAllBookedHistoryBooking);
     const { booked_history } = BookedHistory;
-    console.log(`🚀 => file: history.page.jsx => line 25 => booked_history`, booked_history)
 
     useEffect(() => {
+        if (!userLoggedIn)
+            _history.push("/");
         dispatch(postAllHistoryBooking());
         dispatch(postAllWaitHistoryBooking());
         dispatch(postAllBookedHistoryBooking());
-    }, [dispatch])
+    }, [dispatch, userLoggedIn])
 
     return (
         loading ? (
@@ -100,7 +103,7 @@ function HistoryPage() {
                                     <span class="col-lg-3">Total</span>
                                 </div>
                                 <div class="wrap-cart row">
-                                    {waitting_history!==undefined && waitting_history.length> 0 ? waitting_history?.map((elm) => (
+                                    {waitting_history !== undefined && waitting_history.length > 0 ? waitting_history?.map((elm) => (
                                         <div class="card mb-3 col-12 px-0">
                                             <div class="card-body row">
                                                 <div class="col-lg-4 d-flex justify-content-between">
@@ -132,7 +135,7 @@ function HistoryPage() {
                                     <span class="col-lg-3">Total</span>
                                 </div>
                                 <div class="wrap-cart row">
-                                    {booked_history!==undefined &&booked_history.length>0  ? booked_history?.map((elm) => (
+                                    {booked_history !== undefined && booked_history.length > 0 ? booked_history?.map((elm) => (
                                         <div class="card mb-3 col-12 px-0">
                                             <div class="card-body row">
                                                 <div class="col-lg-4 d-flex justify-content-between">

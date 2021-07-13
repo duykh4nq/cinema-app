@@ -2,7 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Moment from "moment";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import "../../assets/css/main.css";
 import "./booking.style.css";
@@ -16,9 +16,11 @@ import seat_booked from "../../assets/img/seat_booked.svg";
 import { postBookingSeat } from "../../redux/actions/movieActions";
 
 const BookingPage = () => {
+  const userLoggedIn = useSelector((state) => state.users.loggedIn);
   const [arrSeat, setArrSeat] = React.useState([])
   const [total, setTotal] = React.useState(0);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const _schedule = JSON.parse(sessionStorage.getItem("movies"));
   const cineplex_name = JSON.parse(sessionStorage.getItem("valueCineplex"));
@@ -29,8 +31,10 @@ const BookingPage = () => {
   const { loading, error, movie } = seatBooking;
 
   useEffect(() => {
+    if(!userLoggedIn)
+      history.push("/");
     dispatch(postBookingSeat());
-  }, [dispatch]);
+  }, [dispatch,userLoggedIn]);
 
   const setIndexSeat = (e, index) => {
     if (movie.seats.includes(index)) {

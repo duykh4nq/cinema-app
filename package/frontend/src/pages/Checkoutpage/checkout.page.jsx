@@ -1,6 +1,6 @@
 import React from 'react';
-import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import "./checkout.style.css";
 import "../../assets/css/main.css";
 import card from "../../assets/img/card.png";
@@ -11,19 +11,24 @@ import { checkoutCart } from "../../redux/actions/movieActions";
 
 
 function CheckoutPage() {
+  const userLoggedIn = useSelector((state) => state.users.loggedIn);
+  const _history = useHistory();
   const dispatch = useDispatch();
   const total = JSON.parse(sessionStorage.getItem("total"));
   const seat = JSON.parse(sessionStorage.getItem("arrSeat"));
   const _schedule = JSON.parse(sessionStorage.getItem("movies"));
   const [address, setAddress] = React.useState(null)
-  const name=JSON.parse(sessionStorage.getItem("users")).user.name
-  const phone=JSON.parse(sessionStorage.getItem("users")).user.phone
+  const name = JSON.parse(sessionStorage.getItem("users")).user.name
+  const phone = JSON.parse(sessionStorage.getItem("users")).user.phone
 
   const proceedPayment = () => {
+    if (!userLoggedIn)
+      _history.push("/");
     if (!address)
       alert("Please enter your address😉");
     else {
-      dispatch(checkoutCart(total, seat));}
+      dispatch(checkoutCart(total, seat));
+    }
   }
 
   return (<>
@@ -95,20 +100,20 @@ function CheckoutPage() {
                 <ul>
                   <li>
                     <h6 class="subtitle">
-                      <span>STD</span> <span>{(total/seat.length).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}vnd</span>
+                      <span>STD</span> <span>{(total / seat.length).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}vnd</span>
                     </h6>
                     <div class="info"><span>Số lượng</span><span>{seat.length}</span></div>
                   </li>
                   <li>
-                    <h6 class="subtitle mb-0">
-                      <span>Tổng cộng</span><span>{total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}vnd</span>
+                    <h6 class="subtitle">
+                      <span>Your seat: </span> <span>{seat + "  "}</span>
                     </h6>
                   </li>
                 </ul>
                 <ul class="side-shape">
                   <li>
-                    <h6 class="subtitle">
-                      <span>Your seat: </span> <span>{seat+"  "}</span>
+                    <h6 class="subtitle mb-0">
+                      <span>Tổng cộng</span><span>{total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}vnd</span>
                     </h6>
                   </li>
                 </ul>
@@ -118,7 +123,7 @@ function CheckoutPage() {
                   <h5>TỔNG TIỀN THANH TOÁN</h5>
                 </h6>
                 <div class="info-total"><span>{total.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,')}vnd</span></div>
-                <Link to={address?`/`:`/payment/${_schedule.id_movie}`} class="custom-button back-button" onClick={() => proceedPayment()}>
+                <Link to={address ? `/` : `/payment/${_schedule.id_movie}`} class="custom-button back-button" onClick={() => proceedPayment()}>
                   proceed</Link>
               </div>
             </div>

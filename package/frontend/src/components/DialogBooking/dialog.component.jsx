@@ -8,9 +8,12 @@ import "../../assets/css/main.css";
 const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }) => {
     const [valueDay, setValueDay] = React.useState(null)
     const [valueCineplex, setValueCineplex] = React.useState(null)
+    console.log(`🚀 => file: dialog.component.jsx => line 11 => valueCineplex`, valueCineplex)
     const [category, setCategory] = React.useState(null)
+    console.log(`🚀 => file: dialog.component.jsx => line 12 => category`, category)
     const [schedule, setSchedule] = React.useState(null)
     const [time, setTime] = React.useState(null)
+    console.log(`🚀 => file: dialog.component.jsx => line 14 => time`, time)
 
     const [colorDay, setColorDay] = React.useState(new Array(7).fill(null))
     const [colorCineplex, setColorCineplex] = React.useState(new Array(7).fill(null))
@@ -31,7 +34,7 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }
                     setValueCineplex(movie[i])
                     setSchedule(movie[i][0].details[0].detailsCat[0].schedule)
                     setCategory(movie[i][0].details[0].detailsCat)
-                    setTime(movie[i][0].details[0].detailsCat[0].schedule[0].time_start)
+                    setTime(movie[i][0].details[0].detailsCat[0].schedule[0])
                 } else {
                     setValueCineplex(null)
                     setSchedule(null);

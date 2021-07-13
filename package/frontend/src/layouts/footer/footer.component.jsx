@@ -6,7 +6,7 @@ export default class Footer extends Component {
   render() {
     return (
       <footer class="footer-section">
-      <div class="">
+      <div class="container">
         <div class="footer-bottom">
           <div class="footer-bottom-area">
             <div class="left">
