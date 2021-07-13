@@ -10,15 +10,14 @@ import { getMovieDetails } from "../../redux/actions/movieActions";
 import { postBookingShow } from "../../redux/actions/movieActions";
 
 //import Images
-import image1 from "../../assets/images/uploads/image1.jpg"
-import image2 from "../../assets/images/uploads/image2.jpg"
-import image3 from "../../assets/images/uploads/image3.jpg"
-import image4 from "../../assets/images/uploads/image4.jpg"
-import image31 from "../../assets/images/uploads/image31.jpg"
-import image21 from "../../assets/images/uploads/image21.jpg"
-import image11 from "../../assets/images/uploads/image11.jpg"
-import play_vd from "../../assets/images/uploads/play-vd.png"
-
+import image1 from "../../assets/images/uploads/image1.jpg";
+import image2 from "../../assets/images/uploads/image2.jpg";
+import image3 from "../../assets/images/uploads/image3.jpg";
+import image4 from "../../assets/images/uploads/image4.jpg";
+import image31 from "../../assets/images/uploads/image31.jpg";
+import image21 from "../../assets/images/uploads/image21.jpg";
+import image11 from "../../assets/images/uploads/image11.jpg";
+import play_vd from "../../assets/images/uploads/play-vd.png";
 
 const DetailScreen = ({ match, history }) => {
   const userLoggedIn = useSelector((state) => state.users.loggedIn);
@@ -33,16 +32,16 @@ const DetailScreen = ({ match, history }) => {
   const { movie } = DialogBooking;
 
   useEffect(() => {
-    if (match)
-      dispatch(getMovieDetails(match.params.id_movie));
-    if (movies)
+    if (match) {
+      dispatch(getMovieDetails(match.params));
+    }
+    if (movies) {
       dispatch(postBookingShow(movies.id));
+    }
   }, [dispatch, match, openformLogin]);
 
-
   const ClickOpenformDialog = () => {
-    userLoggedIn ?
-      setOpenformLogin(true) : alert("Please login before booking seats😝")
+    userLoggedIn ? setOpenformLogin(true) : alert("Please login before booking seats😝");
   };
 
   const BackOpenformDialog = () => {
@@ -50,12 +49,17 @@ const DetailScreen = ({ match, history }) => {
   };
 
   return (
-    <>{(openformLogin && movie) ? <DialogBookingScreen
-      openformLogin={openformLogin}
-      BackOpenformLogin={BackOpenformDialog}
-      movie={movie}
-      movies={movies}
-    /> : <></>}
+    <>
+      {openformLogin && movie ? (
+        <DialogBookingScreen
+          openformLogin={openformLogin}
+          BackOpenformLogin={BackOpenformDialog}
+          movie={movie}
+          movies={movies}
+        />
+      ) : (
+        <></>
+      )}
       <div>
         <div className="row header-movie">
           <div className="col-md-12"></div>
@@ -73,8 +77,17 @@ const DetailScreen = ({ match, history }) => {
                     <img src={movies.poster} alt={movies.id_movie}></img>
                     <div class="movie-btn">
                       <div class="btn-transform transform-vertical">
-                        <div><button class="item item-1 yellowbtn"> <i class="ion-card"></i> Buy ticket</button></div>
-                        <div><button class="item item-2 yellowbtn" onClick={ClickOpenformDialog}><i class="ion-card"></i></button></div>
+                        <div>
+                          <button class="item item-1 yellowbtn">
+                            {" "}
+                            <i class="ion-card"></i> Buy ticket
+                          </button>
+                        </div>
+                        <div>
+                          <button class="item item-2 yellowbtn" onClick={ClickOpenformDialog}>
+                            <i class="ion-card"></i>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -126,65 +139,41 @@ const DetailScreen = ({ match, history }) => {
                             <div className="row">
                               <div className="col-md-8 col-sm-12 col-xs-12">
                                 <p>
-                                  Tony Stark creates the Ultron Program to protect
-                                  the world, but when the peacekeeping program
-                                  becomes hostile, The Avengers go into action to
-                                  try and defeat a virtually impossible enemy
-                                  together. Earth's mightiest heroes must come
-                                  together once again to protect the world from
-                                  global extinction.
+                                  Tony Stark creates the Ultron Program to protect the world, but when the peacekeeping
+                                  program becomes hostile, The Avengers go into action to try and defeat a virtually
+                                  impossible enemy together. Earth's mightiest heroes must come together once again to
+                                  protect the world from global extinction.
                                 </p>
                                 <div className="title-hd-sm">
                                   <h4>Videos &amp; Photos</h4>
                                   <a href="#" className="time">
-                                    All 5 Videos &amp; 245 Photos{" "}
-                                    <i className="ion-ios-arrow-right" />
+                                    All 5 Videos &amp; 245 Photos <i className="ion-ios-arrow-right" />
                                   </a>
                                 </div>
                                 <div className="mvsingle-item ov-item">
-                                  <a
-                                    className="img-lightbox"
-                                    data-fancybox-group="gallery"
-                                    href={image11}
-                                  >
+                                  <a className="img-lightbox" data-fancybox-group="gallery" href={image11}>
                                     <img src={image1} alt="" />
                                   </a>
-                                  <a
-                                    className="img-lightbox"
-                                    data-fancybox-group="gallery"
-                                    href={image21}
-                                  >
+                                  <a className="img-lightbox" data-fancybox-group="gallery" href={image21}>
                                     <img src={image2} alt="" />
                                   </a>
-                                  <a
-                                    className="img-lightbox"
-                                    data-fancybox-group="gallery"
-                                    href={image31}
-                                  >
+                                  <a className="img-lightbox" data-fancybox-group="gallery" href={image31}>
                                     <img src={image3} alt="" />
                                   </a>
                                   <div className="vd-it">
-                                    <img
-                                      className="vd-img"
-                                      src={image4}
-                                      alt=""
-                                    />
+                                    <img className="vd-img" src={image4} alt="" />
                                     <a
                                       className="fancybox-media hvr-grow"
                                       href="https://www.youtube.com/embed/o-0hcF97wy0"
                                     >
-                                      <img
-                                        src={play_vd}
-                                        alt=""
-                                      />
+                                      <img src={play_vd} alt="" />
                                     </a>
                                   </div>
                                 </div>
                                 <div className="title-hd-sm">
                                   <h4>User reviews</h4>
                                   <a href="#" className="time">
-                                    See All 56 Reviews{" "}
-                                    <i className="ion-ios-arrow-right" />
+                                    See All 56 Reviews <i className="ion-ios-arrow-right" />
                                   </a>
                                 </div>
                                 {/* movie user review */}
@@ -203,25 +192,18 @@ const DetailScreen = ({ match, history }) => {
                                     <i className="ion-android-star last" />
                                   </div>
                                   <p className="time">
-                                    17 December 2016 by{" "}
-                                    <a href="#"> hawaiipierson</a>
+                                    17 December 2016 by <a href="#"> hawaiipierson</a>
                                   </p>
                                   <p>
-                                    This is by far one of my favorite movies from
-                                    the MCU. The introduction of new Characters
-                                    both good and bad also makes the movie more
-                                    exciting. giving the characters more of a back
-                                    story can also help audiences relate more to
-                                    different characters better, and it connects a
-                                    bond between the audience and actors or
-                                    characters. Having seen the movie three times
-                                    does not bother me here as it is as thrilling
-                                    and exciting every time I am watching it. In
-                                    other words, the movie is by far better than
-                                    previous movies (and I do love everything
-                                    Marvel), the plotting is splendid (they really
-                                    do out do themselves in each film, there are
-                                    no problems watching it more than once.
+                                    This is by far one of my favorite movies from the MCU. The introduction of new
+                                    Characters both good and bad also makes the movie more exciting. giving the
+                                    characters more of a back story can also help audiences relate more to different
+                                    characters better, and it connects a bond between the audience and actors or
+                                    characters. Having seen the movie three times does not bother me here as it is as
+                                    thrilling and exciting every time I am watching it. In other words, the movie is by
+                                    far better than previous movies (and I do love everything Marvel), the plotting is
+                                    splendid (they really do out do themselves in each film, there are no problems
+                                    watching it more than once.
                                   </p>
                                 </div>
                               </div>
@@ -235,15 +217,13 @@ const DetailScreen = ({ match, history }) => {
                                 <div className="sb-it">
                                   <h6>Writer: </h6>
                                   <p>
-                                    <a href="#">Joss Whedon,</a>{" "}
-                                    <a href="#">Stan Lee</a>
+                                    <a href="#">Joss Whedon,</a> <a href="#">Stan Lee</a>
                                   </p>
                                 </div>
                                 <div className="sb-it">
                                   <h6>Stars: </h6>
                                   <p>
-                                    <a href="#">Robert Downey Jr,</a>{" "}
-                                    <a href="#">Chris Evans,</a>{" "}
+                                    <a href="#">Robert Downey Jr,</a> <a href="#">Chris Evans,</a>{" "}
                                     <a href="#">Mark Ruffalo,</a>
                                     <a href="#"> Scarlett Johansson</a>
                                   </p>
@@ -251,9 +231,7 @@ const DetailScreen = ({ match, history }) => {
                                 <div className="sb-it">
                                   <h6>Genres:</h6>
                                   <p>
-                                    <a href="#">Action, </a>{" "}
-                                    <a href="#"> Sci-Fi,</a>{" "}
-                                    <a href="#">Adventure</a>
+                                    <a href="#">Action, </a> <a href="#"> Sci-Fi,</a> <a href="#">Adventure</a>
                                   </p>
                                 </div>
                                 <div className="sb-it">
@@ -311,22 +289,12 @@ const DetailScreen = ({ match, history }) => {
                                 </p>
                                 <label>Filter by:</label>
                                 <select>
-                                  <option value="popularity">
-                                    Popularity Descending
-                                  </option>
-                                  <option value="popularity">
-                                    Popularity Ascending
-                                  </option>
-                                  <option value="rating">
-                                    Rating Descending
-                                  </option>
+                                  <option value="popularity">Popularity Descending</option>
+                                  <option value="popularity">Popularity Ascending</option>
+                                  <option value="rating">Rating Descending</option>
                                   <option value="rating">Rating Ascending</option>
-                                  <option value="date">
-                                    Release date Descending
-                                  </option>
-                                  <option value="date">
-                                    Release date Ascending
-                                  </option>
+                                  <option value="date">Release date Descending</option>
+                                  <option value="date">Release date Ascending</option>
                                 </select>
                               </div>
                               <div className="mv-user-review-item">
@@ -347,27 +315,19 @@ const DetailScreen = ({ match, history }) => {
                                       <i className="ion-android-star last" />
                                     </div>
                                     <p className="time">
-                                      17 December 2016 by{" "}
-                                      <a href="#"> hawaiipierson</a>
+                                      17 December 2016 by <a href="#"> hawaiipierson</a>
                                     </p>
                                   </div>
                                 </div>
                                 <p>
-                                  This is by far one of my favorite movies from
-                                  the MCU. The introduction of new Characters both
-                                  good and bad also makes the movie more exciting.
-                                  giving the characters more of a back story can
-                                  also help audiences relate more to different
-                                  characters better, and it connects a bond
-                                  between the audience and actors or characters.
-                                  Having seen the movie three times does not
-                                  bother me here as it is as thrilling and
-                                  exciting every time I am watching it. In other
-                                  words, the movie is by far better than previous
-                                  movies (and I do love everything Marvel), the
-                                  plotting is splendid (they really do out do
-                                  themselves in each film, there are no problems
-                                  watching it more than once.
+                                  This is by far one of my favorite movies from the MCU. The introduction of new
+                                  Characters both good and bad also makes the movie more exciting. giving the characters
+                                  more of a back story can also help audiences relate more to different characters
+                                  better, and it connects a bond between the audience and actors or characters. Having
+                                  seen the movie three times does not bother me here as it is as thrilling and exciting
+                                  every time I am watching it. In other words, the movie is by far better than previous
+                                  movies (and I do love everything Marvel), the plotting is splendid (they really do out
+                                  do themselves in each film, there are no problems watching it more than once.
                                 </p>
                               </div>
                               <div className="mv-user-review-item">
@@ -388,56 +348,40 @@ const DetailScreen = ({ match, history }) => {
                                       <i className="ion-android-star" />
                                     </div>
                                     <p className="time">
-                                      17 December 2016 by{" "}
-                                      <a href="#"> hawaiipierson</a>
+                                      17 December 2016 by <a href="#"> hawaiipierson</a>
                                     </p>
                                   </div>
                                 </div>
                                 <p>
-                                  Avengers Age of Ultron is an excellent sequel
-                                  and a worthy MCU title! There are a lot of good
-                                  and one thing that feels off in my opinion.{" "}
+                                  Avengers Age of Ultron is an excellent sequel and a worthy MCU title! There are a lot
+                                  of good and one thing that feels off in my opinion.{" "}
                                 </p>
                                 <p>THE GOOD:</p>
                                 <p>
-                                  First off the action in this movie is amazing,
-                                  to buildings crumbling, to evil blue eyed robots
-                                  tearing stuff up, this movie has the action
-                                  perfectly handled. And with that action comes
-                                  visuals. The visuals are really good, even
-                                  though you can see clearly where they are
-                                  through the movie, but that doesn't detract from
-                                  the experience. While all the CGI glory is
-                                  taking place, there are lovable characters that
-                                  are in the mix. First off the original
-                                  characters, Iron Man, Captain America, Thor,
-                                  Hulk, Black Widow, and Hawkeye, are just as
-                                  brilliant as they are always. And Joss Whedon
-                                  fixed my main problem in the first Avengers by
-                                  putting in more Hawkeye and him more fleshed
-                                  out. Then there is the new Avengers,
-                                  Quicksilver, Scarletwich, and Vision, they are
-                                  pretty cool in my opinion. Vision in particular
-                                  is pretty amazing in all his scenes.
+                                  First off the action in this movie is amazing, to buildings crumbling, to evil blue
+                                  eyed robots tearing stuff up, this movie has the action perfectly handled. And with
+                                  that action comes visuals. The visuals are really good, even though you can see
+                                  clearly where they are through the movie, but that doesn't detract from the
+                                  experience. While all the CGI glory is taking place, there are lovable characters that
+                                  are in the mix. First off the original characters, Iron Man, Captain America, Thor,
+                                  Hulk, Black Widow, and Hawkeye, are just as brilliant as they are always. And Joss
+                                  Whedon fixed my main problem in the first Avengers by putting in more Hawkeye and him
+                                  more fleshed out. Then there is the new Avengers, Quicksilver, Scarletwich, and
+                                  Vision, they are pretty cool in my opinion. Vision in particular is pretty amazing in
+                                  all his scenes.
                                 </p>
                                 <p>THE BAD:</p>
                                 <p>
-                                  The beginning of the film it's fine until
-                                  towards the second act and there is when it
-                                  starts to feel a little rushed. Also I do feel
-                                  like there are scenes missing but there was talk
-                                  of an extended version on Blu-Ray so that's
-                                  cool.
+                                  The beginning of the film it's fine until towards the second act and there is when it
+                                  starts to feel a little rushed. Also I do feel like there are scenes missing but there
+                                  was talk of an extended version on Blu-Ray so that's cool.
                                 </p>
                               </div>
                               <div className="mv-user-review-item">
                                 <div className="user-infor">
                                   <img src="images/uploads/userava3.jpg" alt="" />
                                   <div>
-                                    <h3>
-                                      One of the most boring exepirences from
-                                      watching a movie
-                                    </h3>
+                                    <h3>One of the most boring exepirences from watching a movie</h3>
                                     <div className="no-star">
                                       <i className="ion-android-star" />
                                       <i className="ion-android-star last" />
@@ -457,18 +401,12 @@ const DetailScreen = ({ match, history }) => {
                                   </div>
                                 </div>
                                 <p>
-                                  I can't right much... it's just so
-                                  forgettable...Okay, from what I remember, I
-                                  remember just sitting down on my seat and
-                                  waiting for the movie to begin. 5 minutes into
-                                  the movie, boring scene of Tony Stark just
-                                  talking to his "dead" friends saying it's his
-                                  fault. 10 minutes in: Boring scene of Ultron and
-                                  Jarvis having robot space battles(I dunno:/). 15
-                                  minutes in: I leave the theatre.2nd attempt at
-                                  watching it: I fall asleep. What woke me up is
-                                  the next movie on Netflix when the movie was
-                                  over.
+                                  I can't right much... it's just so forgettable...Okay, from what I remember, I
+                                  remember just sitting down on my seat and waiting for the movie to begin. 5 minutes
+                                  into the movie, boring scene of Tony Stark just talking to his "dead" friends saying
+                                  it's his fault. 10 minutes in: Boring scene of Ultron and Jarvis having robot space
+                                  battles(I dunno:/). 15 minutes in: I leave the theatre.2nd attempt at watching it: I
+                                  fall asleep. What woke me up is the next movie on Netflix when the movie was over.
                                 </p>
                                 <p>Bottemline: It's boring...</p>
                                 <p>10/10 because I'm a Marvel Fanboy</p>
@@ -496,48 +434,30 @@ const DetailScreen = ({ match, history }) => {
                                   </div>
                                 </div>
                                 <p>
-                                  If there were not an audience for Marvel comic
-                                  heroes than clearly these films would not be
-                                  made, to answer one other reviewer although I
-                                  sympathize with him somewhat. The world is
-                                  indeed an infinitely more complex place than the
-                                  world of Marvel comics with clearly identifiable
-                                  heroes and villains. But I get the feeling that
-                                  from Robert Downey, Jr. on down the organizer
-                                  and prime mover as Iron Man behind the Avengers
-                                  these players do love doing these roles because
-                                  it's a lot of fun. If they didn't show that
-                                  spirit of fun to the audience than these films
-                                  would never be made.
+                                  If there were not an audience for Marvel comic heroes than clearly these films would
+                                  not be made, to answer one other reviewer although I sympathize with him somewhat. The
+                                  world is indeed an infinitely more complex place than the world of Marvel comics with
+                                  clearly identifiable heroes and villains. But I get the feeling that from Robert
+                                  Downey, Jr. on down the organizer and prime mover as Iron Man behind the Avengers
+                                  these players do love doing these roles because it's a lot of fun. If they didn't show
+                                  that spirit of fun to the audience than these films would never be made.
                                 </p>
                                 <p>
-                                  So in that spirit of fun Avengers: Age Of Ultron
-                                  comes before us and everyone looks like they're
-                                  having a good time saving the world. A computer
-                                  program got loose and took form in this
-                                  dimension named Ultron and James Spader who is
-                                  completely unrecognizable is running amuck in
-                                  the earth. No doubt Star Trek fans took notice
-                                  that this guy's mission is to cleanse the earth
-                                  much like that old earth probe NOMAD which got
-                                  its programming mixed up in that classic Star
-                                  Trek prime story. Wouldst Captain James T. Kirk
-                                  of the Enterprise had a crew like Downey has at
-                                  his command.
+                                  So in that spirit of fun Avengers: Age Of Ultron comes before us and everyone looks
+                                  like they're having a good time saving the world. A computer program got loose and
+                                  took form in this dimension named Ultron and James Spader who is completely
+                                  unrecognizable is running amuck in the earth. No doubt Star Trek fans took notice that
+                                  this guy's mission is to cleanse the earth much like that old earth probe NOMAD which
+                                  got its programming mixed up in that classic Star Trek prime story. Wouldst Captain
+                                  James T. Kirk of the Enterprise had a crew like Downey has at his command.
                                 </p>
                                 <p>
-                                  My favorite is always Chris Evans because of the
-                                  whole cast he best gets into the spirit of being
-                                  a superhero. Of all of them, he's already played
-                                  two superheroes, Captain America and Johnny
-                                  Storm the Human Torch. I'll be before he's done
-                                  Evans will play a couple of more as long as the
-                                  money's good and he enjoys it.
+                                  My favorite is always Chris Evans because of the whole cast he best gets into the
+                                  spirit of being a superhero. Of all of them, he's already played two superheroes,
+                                  Captain America and Johnny Storm the Human Torch. I'll be before he's done Evans will
+                                  play a couple of more as long as the money's good and he enjoys it.
                                 </p>
-                                <p>
-                                  Pretend you're a kid again and enjoy, don't take
-                                  it so seriously.
-                                </p>
+                                <p>Pretend you're a kid again and enjoy, don't take it so seriously.</p>
                               </div>
                               <div className="mv-user-review-item last">
                                 <div className="user-infor">
@@ -562,39 +482,25 @@ const DetailScreen = ({ match, history }) => {
                                   </div>
                                 </div>
                                 <p>
-                                  The Avengers raid a Hydra base in Sokovia
-                                  commanded by Strucker and they retrieve Loki's
-                                  scepter. They also discover that Strucker had
-                                  been conducting experiments with the orphan
-                                  twins Pietro Maximoff (Aaron Taylor-Johnson),
-                                  who has super speed, and Wanda Maximoff
-                                  (Elizabeth Olsen), who can control minds and
-                                  project energy. Tony Stark (Robert Downey Jr.)
-                                  discovers an Artificial Intelligence in the
-                                  scepter and convinces Bruce Banner (Mark
-                                  Ruffalo) to secretly help him to transfer the
-                                  A.I. to his Ultron defense system. However, the
-                                  Ultron understands that is necessary to
-                                  annihilate mankind to save the planet, attacks
-                                  the Avengers and flees to Sokovia with the
-                                  scepter. He builds an armature for
-                                  self-protection and robots for his army and
-                                  teams up with the twins. The Avengers go to
-                                  Clinton Barton's house to recover, but out of
-                                  the blue, Nick Fury (Samuel L. Jackson) arrives
-                                  and convinces them to fight against Ultron. Will
-                                  they succeed?{" "}
+                                  The Avengers raid a Hydra base in Sokovia commanded by Strucker and they retrieve
+                                  Loki's scepter. They also discover that Strucker had been conducting experiments with
+                                  the orphan twins Pietro Maximoff (Aaron Taylor-Johnson), who has super speed, and
+                                  Wanda Maximoff (Elizabeth Olsen), who can control minds and project energy. Tony Stark
+                                  (Robert Downey Jr.) discovers an Artificial Intelligence in the scepter and convinces
+                                  Bruce Banner (Mark Ruffalo) to secretly help him to transfer the A.I. to his Ultron
+                                  defense system. However, the Ultron understands that is necessary to annihilate
+                                  mankind to save the planet, attacks the Avengers and flees to Sokovia with the
+                                  scepter. He builds an armature for self-protection and robots for his army and teams
+                                  up with the twins. The Avengers go to Clinton Barton's house to recover, but out of
+                                  the blue, Nick Fury (Samuel L. Jackson) arrives and convinces them to fight against
+                                  Ultron. Will they succeed?{" "}
                                 </p>
                                 <p>
-                                  "Avengers: Age of Ultron" is an entertaining
-                                  adventure with impressive special effects and
-                                  cast. The storyline might be better, since most
-                                  of the characters do not show any chemistry.
-                                  However, it is worthwhile watching this film
-                                  since the amazing special effects are not
-                                  possible to be described in words. Why Pietro
-                                  has to die is also not possible to be explained.
-                                  My vote is eight.
+                                  "Avengers: Age of Ultron" is an entertaining adventure with impressive special effects
+                                  and cast. The storyline might be better, since most of the characters do not show any
+                                  chemistry. However, it is worthwhile watching this film since the amazing special
+                                  effects are not possible to be described in words. Why Pietro has to die is also not
+                                  possible to be explained. My vote is eight.
                                 </p>
                               </div>
                               <div className="topbar-filter">
@@ -661,9 +567,7 @@ const DetailScreen = ({ match, history }) => {
                                     <h4>JS</h4>
                                     <a href="#">Joe Simon</a>
                                   </div>
-                                  <p>
-                                    ... (character created by: Captain America)
-                                  </p>
+                                  <p>... (character created by: Captain America)</p>
                                 </div>
                                 <div className="cast-it">
                                   <div className="cast-left">
@@ -677,18 +581,14 @@ const DetailScreen = ({ match, history }) => {
                                     <h4>RT</h4>
                                     <a href="#">Roy Thomas</a>
                                   </div>
-                                  <p>
-                                    ... (character created by: Ultron, Vision)
-                                  </p>
+                                  <p>... (character created by: Ultron, Vision)</p>
                                 </div>
                                 <div className="cast-it">
                                   <div className="cast-left">
                                     <h4>JB</h4>
                                     <a href="#">John Buscema</a>
                                   </div>
-                                  <p>
-                                    ... (character created by: Ultron, Vision)
-                                  </p>
+                                  <p>... (character created by: Ultron, Vision)</p>
                                 </div>
                               </div>
                               {/* //== */}
@@ -833,19 +733,12 @@ const DetailScreen = ({ match, history }) => {
                               <div className="mvsingle-item media-item">
                                 <div className="vd-item">
                                   <div className="vd-it">
-                                    <img
-                                      className="vd-img"
-                                      src="images/uploads/vd-item1.jpg"
-                                      alt=""
-                                    />
+                                    <img className="vd-img" src="images/uploads/vd-item1.jpg" alt="" />
                                     <a
                                       className="fancybox-media hvr-grow"
                                       href="https://www.youtube.com/embed/o-0hcF97wy0"
                                     >
-                                      <img
-                                        src="images/uploads/play-vd.png"
-                                        alt=""
-                                      />
+                                      <img src="images/uploads/play-vd.png" alt="" />
                                     </a>
                                   </div>
                                   <div className="vd-infor">
@@ -858,46 +751,30 @@ const DetailScreen = ({ match, history }) => {
                                 </div>
                                 <div className="vd-item">
                                   <div className="vd-it">
-                                    <img
-                                      className="vd-img"
-                                      src="images/uploads/vd-item2.jpg"
-                                      alt=""
-                                    />
+                                    <img className="vd-img" src="images/uploads/vd-item2.jpg" alt="" />
                                     <a
                                       className="fancybox-media hvr-grow"
                                       href="https://www.youtube.com/embed/o-0hcF97wy0"
                                     >
-                                      <img
-                                        src="images/uploads/play-vd.png"
-                                        alt=""
-                                      />
+                                      <img src="images/uploads/play-vd.png" alt="" />
                                     </a>
                                   </div>
                                   <div className="vd-infor">
                                     <h6>
                                       {" "}
-                                      <a href="#">
-                                        Featurette: “Avengers Re-Assembled
-                                      </a>
+                                      <a href="#">Featurette: “Avengers Re-Assembled</a>
                                     </h6>
                                     <p className="time"> 1: 03</p>
                                   </div>
                                 </div>
                                 <div className="vd-item">
                                   <div className="vd-it">
-                                    <img
-                                      className="vd-img"
-                                      src="images/uploads/vd-item3.jpg"
-                                      alt=""
-                                    />
+                                    <img className="vd-img" src="images/uploads/vd-item3.jpg" alt="" />
                                     <a
                                       className="fancybox-media hvr-grow"
                                       href="https://www.youtube.com/embed/o-0hcF97wy0"
                                     >
-                                      <img
-                                        src="images/uploads/play-vd.png"
-                                        alt=""
-                                      />
+                                      <img src="images/uploads/play-vd.png" alt="" />
                                     </a>
                                   </div>
                                   <div className="vd-infor">
@@ -910,101 +787,66 @@ const DetailScreen = ({ match, history }) => {
                                 </div>
                                 <div className="vd-item">
                                   <div className="vd-it">
-                                    <img
-                                      className="vd-img"
-                                      src="images/uploads/vd-item4.jpg"
-                                      alt=""
-                                    />
+                                    <img className="vd-img" src="images/uploads/vd-item4.jpg" alt="" />
                                     <a
                                       className="fancybox-media hvr-grow"
                                       href="https://www.youtube.com/embed/o-0hcF97wy0"
                                     >
-                                      <img
-                                        src="images/uploads/play-vd.png"
-                                        alt=""
-                                      />
+                                      <img src="images/uploads/play-vd.png" alt="" />
                                     </a>
                                   </div>
                                   <div className="vd-infor">
                                     <h6>
                                       {" "}
-                                      <a href="#">
-                                        Interview: Scarlett Johansson
-                                      </a>
+                                      <a href="#">Interview: Scarlett Johansson</a>
                                     </h6>
                                     <p className="time"> 3:27</p>
                                   </div>
                                 </div>
                                 <div className="vd-item">
                                   <div className="vd-it">
-                                    <img
-                                      className="vd-img"
-                                      src="images/uploads/vd-item1.jpg"
-                                      alt=""
-                                    />
+                                    <img className="vd-img" src="images/uploads/vd-item1.jpg" alt="" />
                                     <a
                                       className="fancybox-media hvr-grow"
                                       href="https://www.youtube.com/embed/o-0hcF97wy0"
                                     >
-                                      <img
-                                        src="images/uploads/play-vd.png"
-                                        alt=""
-                                      />
+                                      <img src="images/uploads/play-vd.png" alt="" />
                                     </a>
                                   </div>
                                   <div className="vd-infor">
                                     <h6>
                                       {" "}
-                                      <a href="#">
-                                        Featurette: Meet Quicksilver &amp; The
-                                        Scarlet Witch
-                                      </a>
+                                      <a href="#">Featurette: Meet Quicksilver &amp; The Scarlet Witch</a>
                                     </h6>
                                     <p className="time"> 1: 31</p>
                                   </div>
                                 </div>
                                 <div className="vd-item">
                                   <div className="vd-it">
-                                    <img
-                                      className="vd-img"
-                                      src="images/uploads/vd-item2.jpg"
-                                      alt=""
-                                    />
+                                    <img className="vd-img" src="images/uploads/vd-item2.jpg" alt="" />
                                     <a
                                       className="fancybox-media hvr-grow"
                                       href="https://www.youtube.com/embed/o-0hcF97wy0"
                                     >
-                                      <img
-                                        src="images/uploads/play-vd.png"
-                                        alt=""
-                                      />
+                                      <img src="images/uploads/play-vd.png" alt="" />
                                     </a>
                                   </div>
                                   <div className="vd-infor">
                                     <h6>
                                       {" "}
-                                      <a href="#">
-                                        Interview: Director Joss Whedon
-                                      </a>
+                                      <a href="#">Interview: Director Joss Whedon</a>
                                     </h6>
                                     <p className="time"> 1: 03</p>
                                   </div>
                                 </div>
                                 <div className="vd-item">
                                   <div className="vd-it">
-                                    <img
-                                      className="vd-img"
-                                      src="images/uploads/vd-item3.jpg"
-                                      alt=""
-                                    />
+                                    <img className="vd-img" src="images/uploads/vd-item3.jpg" alt="" />
                                     <a
                                       className="fancybox-media hvr-grow"
                                       href="https://www.youtube.com/embed/o-0hcF97wy0"
                                     >
-                                      <img
-                                        src="images/uploads/play-vd.png"
-                                        alt=""
-                                      />
+                                      <img src="images/uploads/play-vd.png" alt="" />
                                     </a>
                                   </div>
                                   <div className="vd-infor">
@@ -1017,19 +859,12 @@ const DetailScreen = ({ match, history }) => {
                                 </div>
                                 <div className="vd-item">
                                   <div className="vd-it">
-                                    <img
-                                      className="vd-img"
-                                      src="images/uploads/vd-item4.jpg"
-                                      alt=""
-                                    />
+                                    <img className="vd-img" src="images/uploads/vd-item4.jpg" alt="" />
                                     <a
                                       className="fancybox-media hvr-grow"
                                       href="https://www.youtube.com/embed/o-0hcF97wy0"
                                     >
-                                      <img
-                                        src="images/uploads/play-vd.png"
-                                        alt=""
-                                      />
+                                      <img src="images/uploads/play-vd.png" alt="" />
                                     </a>
                                   </div>
                                   <div className="vd-infor">
@@ -1207,22 +1042,12 @@ const DetailScreen = ({ match, history }) => {
                                 </p>
                                 <label>Sort by:</label>
                                 <select>
-                                  <option value="popularity">
-                                    Popularity Descending
-                                  </option>
-                                  <option value="popularity">
-                                    Popularity Ascending
-                                  </option>
-                                  <option value="rating">
-                                    Rating Descending
-                                  </option>
+                                  <option value="popularity">Popularity Descending</option>
+                                  <option value="popularity">Popularity Ascending</option>
+                                  <option value="rating">Rating Descending</option>
                                   <option value="rating">Rating Ascending</option>
-                                  <option value="date">
-                                    Release date Descending
-                                  </option>
-                                  <option value="date">
-                                    Release date Ascending
-                                  </option>
+                                  <option value="date">Release date Descending</option>
+                                  <option value="date">Release date Ascending</option>
                                 </select>
                               </div>
                               <div className="movie-item-style-2">
@@ -1238,23 +1063,18 @@ const DetailScreen = ({ match, history }) => {
                                     <span>8.1</span> /10
                                   </p>
                                   <p className="describe">
-                                    Earth's mightiest heroes must come together
-                                    and learn to fight as a team if they are to
-                                    stop the mischievous Loki and his alien army
-                                    from enslaving humanity...
+                                    Earth's mightiest heroes must come together and learn to fight as a team if they are
+                                    to stop the mischievous Loki and his alien army from enslaving humanity...
                                   </p>
                                   <p className="run-time">
                                     {" "}
-                                    Run Time: 2h21’ . <span>
-                                      MMPA: PG-13{" "}
-                                    </span> . <span>Release: 1 May 2015</span>
+                                    Run Time: 2h21’ . <span>MMPA: PG-13 </span> . <span>Release: 1 May 2015</span>
                                   </p>
                                   <p>
                                     Director: <a href="#">Joss Whedon</a>
                                   </p>
                                   <p>
-                                    Stars: <a href="#">Robert Downey Jr.,</a>{" "}
-                                    <a href="#">Chris Evans,</a>{" "}
+                                    Stars: <a href="#">Robert Downey Jr.,</a> <a href="#">Chris Evans,</a>{" "}
                                     <a href="#"> Chris Hemsworth</a>
                                   </p>
                                 </div>
@@ -1272,24 +1092,19 @@ const DetailScreen = ({ match, history }) => {
                                     <span>7.8</span> /10
                                   </p>
                                   <p className="describe">
-                                    As Steve Rogers struggles to embrace his role
-                                    in the modern world, he teams up with a fellow
-                                    Avenger and S.H.I.E.L.D agent, Black Widow, to
-                                    battle a new threat...
+                                    As Steve Rogers struggles to embrace his role in the modern world, he teams up with
+                                    a fellow Avenger and S.H.I.E.L.D agent, Black Widow, to battle a new threat...
                                   </p>
                                   <p className="run-time">
                                     {" "}
-                                    Run Time: 2h21’ . <span>
-                                      MMPA: PG-13{" "}
-                                    </span> . <span>Release: 1 May 2015</span>
+                                    Run Time: 2h21’ . <span>MMPA: PG-13 </span> . <span>Release: 1 May 2015</span>
                                   </p>
                                   <p>
                                     Director: <a href="#">Anthony Russo,</a>
                                     <a href="#">Joe Russo</a>
                                   </p>
                                   <p>
-                                    Stars: <a href="#">Chris Evans,</a>{" "}
-                                    <a href="#">Samuel L. Jackson,</a>{" "}
+                                    Stars: <a href="#">Chris Evans,</a> <a href="#">Samuel L. Jackson,</a>{" "}
                                     <a href="#"> Scarlett Johansson</a>
                                   </p>
                                 </div>
@@ -1307,23 +1122,18 @@ const DetailScreen = ({ match, history }) => {
                                     <span>7.3</span> /10
                                   </p>
                                   <p className="describe">
-                                    Armed with a super-suit with the astonishing
-                                    ability to shrink in scale but increase in
-                                    strength, cat burglar Scott Lang must embrace
-                                    his inner hero and help...
+                                    Armed with a super-suit with the astonishing ability to shrink in scale but increase
+                                    in strength, cat burglar Scott Lang must embrace his inner hero and help...
                                   </p>
                                   <p className="run-time">
                                     {" "}
-                                    Run Time: 2h21’ . <span>
-                                      MMPA: PG-13{" "}
-                                    </span> . <span>Release: 1 May 2015</span>
+                                    Run Time: 2h21’ . <span>MMPA: PG-13 </span> . <span>Release: 1 May 2015</span>
                                   </p>
                                   <p>
                                     Director: <a href="#">Peyton Reed</a>
                                   </p>
                                   <p>
-                                    Stars: <a href="#">Paul Rudd,</a>{" "}
-                                    <a href="#"> Michael Douglas</a>
+                                    Stars: <a href="#">Paul Rudd,</a> <a href="#"> Michael Douglas</a>
                                   </p>
                                 </div>
                               </div>
@@ -1340,23 +1150,18 @@ const DetailScreen = ({ match, history }) => {
                                     <span>7.2</span> /10
                                   </p>
                                   <p className="describe">
-                                    When Tony Stark's world is torn apart by a
-                                    formidable terrorist called the Mandarin, he
-                                    starts an odyssey of rebuilding and
-                                    retribution.
+                                    When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin,
+                                    he starts an odyssey of rebuilding and retribution.
                                   </p>
                                   <p className="run-time">
                                     {" "}
-                                    Run Time: 2h21’ . <span>
-                                      MMPA: PG-13{" "}
-                                    </span> . <span>Release: 1 May 2015</span>
+                                    Run Time: 2h21’ . <span>MMPA: PG-13 </span> . <span>Release: 1 May 2015</span>
                                   </p>
                                   <p>
                                     Director: <a href="#">Shane Black</a>
                                   </p>
                                   <p>
-                                    Stars: <a href="#">Robert Downey Jr., </a>{" "}
-                                    <a href="#"> Guy Pearce,</a>
+                                    Stars: <a href="#">Robert Downey Jr., </a> <a href="#"> Guy Pearce,</a>
                                     <a href="#">Don Cheadle</a>
                                   </p>
                                 </div>
@@ -1374,23 +1179,18 @@ const DetailScreen = ({ match, history }) => {
                                     <span>7.0</span> /10
                                   </p>
                                   <p className="describe">
-                                    When Tony Stark's world is torn apart by a
-                                    formidable terrorist called the Mandarin, he
-                                    starts an odyssey of rebuilding and
-                                    retribution.
+                                    When Tony Stark's world is torn apart by a formidable terrorist called the Mandarin,
+                                    he starts an odyssey of rebuilding and retribution.
                                   </p>
                                   <p className="run-time">
                                     {" "}
-                                    Run Time: 2h21’ . <span>
-                                      MMPA: PG-13{" "}
-                                    </span> . <span>Release: 1 May 2015</span>
+                                    Run Time: 2h21’ . <span>MMPA: PG-13 </span> . <span>Release: 1 May 2015</span>
                                   </p>
                                   <p>
                                     Director: <a href="#">Alan Taylor</a>
                                   </p>
                                   <p>
-                                    Stars: <a href="#">Chris Hemsworth,</a>{" "}
-                                    <a href="#"> Natalie Portman,</a>
+                                    Stars: <a href="#">Chris Hemsworth,</a> <a href="#"> Natalie Portman,</a>
                                     <a href="#">Tom Hiddleston</a>
                                   </p>
                                 </div>
@@ -1423,7 +1223,8 @@ const DetailScreen = ({ match, history }) => {
             )}
           </div>
         </div>
-      </div></>
+      </div>
+    </>
   );
 };
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>;

@@ -10,13 +10,13 @@ function SwiperComponent({ movie }) {
       {movie && (
         <div class="movie-grid">
           <div class="movie-thumb c-thumb">
-            <Link to={`detail/${movie.id_movie}`}>
+            <Link to={`detail/${movie.slug}`}>
               <img src={movie.poster} alt="movie" />
             </Link>
           </div>
           <div class="movie-content bg-one">
             <h5 class="title m-0">
-              <Link to={`detail/${movie.id_movie}`}>{movie.name_movie}</Link>
+              <Link to={`detail/${movie.slug}`}>{movie.name_movie}</Link>
             </h5>
             <ul class="movie-rating-percent">
               <li>

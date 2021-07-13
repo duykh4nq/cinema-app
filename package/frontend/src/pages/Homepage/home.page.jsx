@@ -20,7 +20,6 @@ SwiperCore.use([Pagination]);
 const HomeScreen = ({ match, history }) => {
   const dispatch = useDispatch();
   const { movies } = useSelector((state) => state.getMovies);
-  console.log("🚀 ~ file: home.page.jsx ~ line 20 ~ HomeScreen ~ getMovies", movies);
   const settings = {
     dots: true,
     infinite: true,
@@ -47,7 +46,6 @@ const HomeScreen = ({ match, history }) => {
           </div>
         </Slider>
       </div>
-
       <section class="movie-section padding-bottom bg-two">
         <div class="container">
           <div class="row flex-wrap-reverse justify-content-center">

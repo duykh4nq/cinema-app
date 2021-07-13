@@ -129,8 +129,11 @@ function SearchComponent() {
   }, [dispatch]);
   const { Allcineplex } = useSelector((state) => state.AllCineplex);
   const { MoviesByCineplex } = useSelector((state) => state.AllMoviesByCineplex);
-  let movies = Data.filter((x) => x.details.length > 0);
-  console.log("🚀 ~ file: Search.page.jsx ~ line 132 ~ SearchComponent ~ movies", movies);
+  let movies =
+    MoviesByCineplex !== undefined && MoviesByCineplex.length > 0
+      ? MoviesByCineplex.filter((x) => x.details.length > 0)
+      : [];
+  console.log("🚀 ~ file: Search.page.jsx ~ line 133 ~ SearchComponent ~ movies", movies);
   const getMovies = (e) => {
     let id = e.target.id;
     dispatch(postAllMoviesByCineplex(id));
