@@ -49,6 +49,11 @@ option {
   margin-top: 30px !important;
   margin-left: 30px !important;
 }
+.movie-info {
+  > a {
+    margin-bottom: 1rem;
+  }
+}
 
 .movie-info span {
   margin-top: 5px !important;

@@ -17,10 +17,11 @@ export const getMovies = () => async (dispatch) => {
   }
 };
 
-export const getMovieDetails = (id_movie) => async (dispatch, getState) => {
+export const getMovieDetails = (slug) => async (dispatch, getState) => {
+  console.log("🚀 ~ file: movieActions.js ~ line 21 ~ getMovieDetails ~ slug", slug);
   try {
     dispatch({ type: actionTypes.GET_MOVIE_DETAILS_REQUEST });
-    const { data } = await axios.get(`detail/${id_movie}`);
+    const { data } = await axios.get(`detail/${slug}`);
     dispatch({
       type: actionTypes.GET_MOVIE_DETAILS_SUCCESS,
       payload: data,
@@ -177,7 +178,6 @@ export const postAllMoviesByCineplex = (id) => async (dispatch) => {
     const { data } = await axios.post(`/allmoviesbycineplexid`, {
       id_cineplex: id,
     });
-    console.log("🚀 ~ file: movieActions.js ~ line 180 ~ postAllMoviesByCineplex ~ data", data);
     dispatch({
       type: actionTypes.GET_AllMoviesByCineplex_SUCCESS,
       payload: data,
