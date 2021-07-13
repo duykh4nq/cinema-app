@@ -201,12 +201,12 @@ function SearchComponent() {
                                 <ul class="seat-plan-wrapper bg-five">
                                   <li>
                                     <div class="movie-name">
-                                      <Link to={`detail/${subItem.id_movie}`}>
+                                      <Link to={`detail/${subItem.slug}`}>
                                         <img src={subItem.poster} alt="img_movie" />
                                       </Link>
                                     </div>
                                     <div class="movie-info">
-                                      <Link to={`detail/${subItem.id_movie}`}>
+                                      <Link to={`detail/${subItem.slug}`}>
                                         {" "}
                                         <p class="name">{subItem.movie_name}</p>
                                       </Link>

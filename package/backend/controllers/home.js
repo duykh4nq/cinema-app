@@ -80,8 +80,9 @@ exports.getHome = async (req, res, next) => {
   });
 };
 exports.getDetailMovie = async (req, res, next) => {
+  console.log("🚀 ~ file: home.js ~ line 85 ~ exports.getDetailMovie= ~ slug", req.params);
   const slug = req.params.slug;
-  console.log("🚀 ~ file: home.js ~ line 85 ~ exports.getDetailMovie= ~ slug", slug);
+
   const mov = await Movies.findOne({
     where: {
       slug: slug,
