@@ -8,6 +8,7 @@ import classnames from "classnames";
 import client01 from "../../assets/img/client01.jpg";
 import { getAllCineplex, postAllMoviesByCineplex } from "../../redux/actions/movieActions";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 const Data = [
   {
     date: "10/07/2021",
@@ -197,11 +198,18 @@ function SearchComponent() {
                                 <ul class="seat-plan-wrapper bg-five">
                                   <li>
                                     <div class="movie-name">
-                                      <img src={subItem.poster} alt="img_movie" />
+                                      <Link to={`detail/${subItem.id_movie}`}>
+                                        <img src={subItem.poster} alt="img_movie" />
+                                      </Link>
                                     </div>
                                     <div class="movie-info">
-                                      <p class="name">{subItem.movie_name}</p>
+                                      <Link to={`detail/${subItem.id_movie}`}>
+                                        {" "}
+                                        <p class="name">{subItem.movie_name}</p>
+                                      </Link>
+
                                       <span>{subItem.cate.length > 0 && subItem.cate[0].name_cate} Phụ đề Việt</span>
+
                                       <div className="movie-schedule">
                                         {subItem.cate.length > 0 &&
                                           subItem.cate[0].schedule_detail.length > 0 &&

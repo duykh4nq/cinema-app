@@ -15,24 +15,14 @@ const { Bookings } = require("../models/bookings.model");
 const { Movies } = require("../models/movies.model");
 const { Schedules, Times } = require("../models/schedules.model");
 const { Tickets } = require("../models/ticket.model");
-const {
-  Cineplexs,
-  Rooms,
-  Category_rooms,
-} = require("../models/cineplex_room.model");
+const { Cineplexs, Rooms, Category_rooms } = require("../models/cineplex_room.model");
 
 // Mail
 const MailService = require("../services/mail");
 
 exports.postSignup = async (req, res, next) => {
   let { password, email, name, phone } = req.body;
-  console.log(
-    "🚀 ~ file: auth.controller.js ~ line 29 ~ password",
-    password,
-    email,
-    name,
-    phone
-  );
+  console.log("🚀 ~ file: auth.controller.js ~ line 29 ~ password", password, email, name, phone);
 
   const code = Math.floor(100000 + Math.random() * 900000);
   try {
@@ -55,9 +45,7 @@ exports.postSignup = async (req, res, next) => {
     });
     if (newUser) {
       await MailService.sendMail(email, code);
-      return res
-        .status(200)
-        .send({ message: "Success", code: code.toString() });
+      return res.status(200).send({ message: "Success", code: code.toString() });
     } else {
       return res.status(400).send({ error: "Fail!!!!" });
     }
@@ -130,9 +118,7 @@ exports.postForgotPassword = async (req, res, next) => {
     await MailService.sendMail(email, code);
     userExists.verifyCode = code;
     await userExists.save();
-    return res
-      .status(200)
-      .send({ message: "Success Forgot", codeverify: code.toString() });
+    return res.status(200).send({ message: "Success Forgot", codeverify: code.toString() });
   } catch (error) {
     return res.status(400).send({ error: "Fail" });
   }
@@ -177,15 +163,9 @@ exports.postResetPassword = async (req, res, next) => {
     if (data) {
       user.password = bcrypt.hashSync(newPassword, 12);
       await user.save();
-      return res
-        .status(200)
-        .send({ user, message: "Change password successfully" });
+      return res.status(200).send({ user, message: "Change password successfully" });
     } else {
-      console.log(
-        "🚀 ~ file: auth.controller.js ~ line 159 ~ bcrypt.compare ~ false",
-        err,
-        data
-      );
+      console.log("🚀 ~ file: auth.controller.js ~ line 159 ~ bcrypt.compare ~ false", err, data);
       return res.status(403).send({ message: "Invalid credencial" });
     }
   });
@@ -202,7 +182,7 @@ exports.postChangeProfile = async (req, res, next) => {
   user.name = name;
   user.phone = phone;
   await user.save();
-  return res.status(200).send({ message: "Update success" });
+  return res.status(200).send({ user, message: "Update success" });
 };
 
 exports.postPayment = async (req, res, next) => {
@@ -251,7 +231,7 @@ exports.postPayment = async (req, res, next) => {
     info: bookingInfo[0],
   });
   //return res.send({ listIdTickets, info: bookingInfo[0] });
-   res.status(200).send({ message: "success" });
+  res.status(200).send({ message: "success" });
 };
 
 exports.postAllHistoryBooking = async (req, res, next) => {
