@@ -30,10 +30,11 @@ const DetailScreen = ({ match, history }) => {
 
   const DialogBooking = useSelector((state) => state.postBookingShow);
   const { movie } = DialogBooking;
+  console.log("🚀 ~ file: detail.page.jsx ~ line 33 ~ DetailScreen ~ movie", movie);
 
   useEffect(() => {
     if (match) {
-      dispatch(getMovieDetails(match.params));
+      dispatch(getMovieDetails(match.params.id_movie));
     }
     if (movies) {
       dispatch(postBookingShow(movies.id));

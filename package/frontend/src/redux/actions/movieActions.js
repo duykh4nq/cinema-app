@@ -18,7 +18,6 @@ export const getMovies = () => async (dispatch) => {
 };
 
 export const getMovieDetails = (slug) => async (dispatch, getState) => {
-  console.log("🚀 ~ file: movieActions.js ~ line 21 ~ getMovieDetails ~ slug", slug);
   try {
     dispatch({ type: actionTypes.GET_MOVIE_DETAILS_REQUEST });
     const { data } = await axios.get(`detail/${slug}`);
