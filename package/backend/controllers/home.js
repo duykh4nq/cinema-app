@@ -346,7 +346,7 @@ exports.postAllMoviesByCineplexId = async (req, res, next) => {
         if (ko === undefined) {
           const kooo = {
             id_movie: listmovie.id,
-            movie_name: listmovie.name_movie,
+            name_movie: listmovie.name_movie,
             slug: listmovie.slug,
             poster: listmovie.poster,
             cate: [

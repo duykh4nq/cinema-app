@@ -27,7 +27,6 @@ const HomeScreen = ({ match, history }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  var arrData = [];
   useEffect(() => {
     dispatch(listMovies());
   }, [dispatch]);
@@ -46,7 +45,7 @@ const HomeScreen = ({ match, history }) => {
           </div>
         </Slider>
       </div>
-      <section class="movie-section padding-bottom bg-two">
+      <section class="movie-section bg-two">
         <div class="container">
           <div class="row flex-wrap-reverse justify-content-center">
             <div class="col-lg-12">

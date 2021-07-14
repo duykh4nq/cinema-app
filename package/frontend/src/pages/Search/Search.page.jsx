@@ -41,7 +41,9 @@ function SearchComponent() {
   const userLoggedIn = useSelector((state) => state.users.loggedIn);
   const { Allcineplex } = useSelector((state) => state.AllCineplex);
   const { MoviesByCineplex } = useSelector((state) => state.AllMoviesByCineplex);
-  const [NameCineplex, setNameCineplex] = useState("");
+  const [NameCineplex, setNameCineplex] = useState(
+    JSON.parse(sessionStorage.getItem("valueCineplex")) ? JSON.parse(sessionStorage.getItem("valueCineplex")) : ""
+  );
   let movies =
     MoviesByCineplex !== undefined && MoviesByCineplex.length > 0
       ? MoviesByCineplex.filter((x) => x.details.length > 0)
@@ -61,21 +63,16 @@ function SearchComponent() {
 
   //booking
   const handleProceed = (valueDay, category, time, movies) => {
-  console.log(`🚀 => file: Search.page.jsx => line 64 => movies`, movies)
-  console.log(`🚀 => file: Search.page.jsx => line 64 => time`, time)
-  console.log(`🚀 => file: Search.page.jsx => line 64 => category`, category)
-  console.log(`🚀 => file: Search.page.jsx => line 64 => valueDay`, valueDay)
-  console.log(`🚀 => file: Search.page.jsx => line 69 => NameCineplex`, NameCineplex)
     if (time && category && valueDay && movies && NameCineplex) {
+      if (!userLoggedIn) {
+        alert("Please login before booking seats😝");
+      }
       sessionStorage.setItem("day", JSON.stringify(valueDay));
       sessionStorage.setItem("category", JSON.stringify(category));
       sessionStorage.setItem("time", JSON.stringify(time));
       sessionStorage.setItem("valueCineplex", JSON.stringify(NameCineplex));
       sessionStorage.setItem("movies", JSON.stringify(movies));
-      if(!userLoggedIn) alert("You need to login 😅");
-    } else {
-      alert("You need to login 😅");
-    }
+    } 
   };
 
   return (
@@ -143,14 +140,14 @@ function SearchComponent() {
                                     <div class="movie-info">
                                       <Link to={`detail/${subItem.slug}`}>
                                         {" "}
-                                        <p class="name">{subItem.movie_name}</p>
+                                        <p class="name">{subItem.name_movier}</p>
                                       </Link>
 
                                       {subItem.cate.length > 0 &&
                                         subItem.cate.map((cate, idx) => (
                                           <>
                                             <span key={idx}>
-                                              {subItem.cate.length > 0 && cate.name_cate} Phụ đề Việt
+                                              {subItem.cate.length > 0 && cate.name_cate} Vietnamese Subtitles
                                             </span>
                                             <div className="movie-schedule">
                                               {cate.schedule_detail.length > 0 &&
