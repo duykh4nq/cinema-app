@@ -20,11 +20,18 @@ function LoginScreen({ openformLogin, BackOpenformLogin, onSubmit }) {
   const [password, setPassword] = useState();
   const [passwordConfirm, setPasswordConfirm] = useState();
   const [forgotPassword, setForgotPassword] = useState(false);
+  console.log("🚀 ~ file: login.page.jsx ~ line 23 ~ LoginScreen ~ forgotPassword", forgotPassword);
   const [verifyPassword, setVerifyPassword] = useState(false);
   const [code, setCode] = useState("");
   const [getCode, setGetCode] = useState(false);
   const [checkConfirm, setCheckConfirm] = useState(false);
-
+  const backHandler = (e) => {
+    setForgotPassword(false);
+    setVerifyPassword(false);
+    setGetCode(false);
+    setCheckConfirm(false);
+    BackOpenformLogin();
+  };
   if (user.loggedIn === true) {
     onSubmit();
   }
@@ -86,7 +93,7 @@ function LoginScreen({ openformLogin, BackOpenformLogin, onSubmit }) {
           {forgotPassword === false ? (
             <>
               {" "}
-              <div class="login-close" onClick={BackOpenformLogin}>
+              <div class="login-close" onClick={backHandler}>
                 <i class="fa fa-times" aria-hidden="true"></i>
               </div>
               <a href="#" class="close">
@@ -141,7 +148,7 @@ function LoginScreen({ openformLogin, BackOpenformLogin, onSubmit }) {
             </>
           ) : (
             <>
-              <div class="login-close" onClick={BackOpenformLogin}>
+              <div class="login-close" onClick={backHandler}>
                 <i class="fa fa-times" aria-hidden="true"></i>
               </div>
               <h3>Forgot password</h3>
@@ -185,10 +192,11 @@ function LoginScreen({ openformLogin, BackOpenformLogin, onSubmit }) {
                   <div class="row">
                     <label for="username">
                       Email
-                      <div className=" group-input">
+                      <div className="group-input">
                         <div className="col-9">
                           <input
-                            type="text"
+                            className="unset-text"
+                            type="email"
                             name="email"
                             value={email}
                             id="username"
