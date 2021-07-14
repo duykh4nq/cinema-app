@@ -59,12 +59,13 @@ function SearchComponent() {
   };
 
   //booking
-  const handleProceed = (valueDay, category, time) => {
-    if (time && category && valueDay) {
+  const handleProceed = (valueDay, category, time, movies) => {
+    if (time && category && valueDay && movies && NameCineplex) {
       sessionStorage.setItem("day", JSON.stringify(valueDay));
       sessionStorage.setItem("category", JSON.stringify(category));
       sessionStorage.setItem("time", JSON.stringify(time));
       sessionStorage.setItem("valueCineplex", JSON.stringify(NameCineplex));
+      sessionStorage.setItem("movies", JSON.stringify(movies));
     } else {
       alert("Please choose showtime 😅");
     }
@@ -150,7 +151,7 @@ function SearchComponent() {
                                                   <div key={idn} class="item">
                                                     <Link
                                                       to={`/booking/${subItem.slug}`}
-                                                      onClick={() => handleProceed(item.date, cate, child)}
+                                                      onClick={() => handleProceed(item.date, cate, child, subItem)}
                                                     >
                                                       {child.time_start}
                                                     </Link>
