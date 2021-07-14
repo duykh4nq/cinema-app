@@ -20,10 +20,10 @@ export const getMovies = () => async (dispatch) => {
   }
 };
 
-export const getMovieDetails = (id_movie) => async (dispatch, getState) => {
+export const getMovieDetails = (slug) => async (dispatch, getState) => {
   try {
     dispatch({ type: actionTypes.GET_MOVIE_DETAILS_REQUEST });
-    const { data } = await axios.get(`detail/${id_movie}`);
+    const { data } = await axios.get(`detail/${slug}`);
     dispatch({
       type: actionTypes.GET_MOVIE_DETAILS_SUCCESS,
       payload: data,

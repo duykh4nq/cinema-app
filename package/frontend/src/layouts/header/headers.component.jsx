@@ -94,7 +94,7 @@ function HeadersComponent() {
                 {loggedIn === true ? (
                    <div className="account">
                     <li onClick={AccountHandle}>
-                      Hi {user.name}'s <i class="fa fa-caret-down" aria-hidden="true"></i>
+                      Hi, {user.name}'s <i class="fa fa-caret-down" aria-hidden="true"></i>
                     </li>
                     <div className={dropdownOpen ? "dropdown-account active-account" : "dropdown-account"}>
                       <li>

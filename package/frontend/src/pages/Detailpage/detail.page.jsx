@@ -34,7 +34,7 @@ const DetailScreen = ({ match, history }) => {
 
   useEffect(() => {
     if (match)
-      dispatch(getMovieDetails(match.params.id_movie));
+      dispatch(getMovieDetails(match.params.slug));
     if (movies)
       dispatch(postBookingShow(movies.id));
   }, [dispatch, match, openformLogin]);
