@@ -6,8 +6,9 @@ import "../../assets/css/main.css";
 
 const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }) => {
   const [valueDay, setValueDay] = React.useState(null);
+  console.log("🚀 ~ file: dialog.component.jsx ~ line 9 ~ DialogBookingScreen ~ valueDay", valueDay);
   const [valueCineplex, setValueCineplex] = React.useState(null);
-  console.log(`🚀 => file: dialog.component.jsx => line 11 => valueCineplex`, valueCineplex);
+  console.log("🚀 ~ file: dialog.component.jsx ~ line 11 ~ DialogBookingScreen ~ valueCineplex", valueCineplex);
   const [category, setCategory] = React.useState(null);
   console.log(`🚀 => file: dialog.component.jsx => line 12 => category`, category);
   const [schedule, setSchedule] = React.useState(null);

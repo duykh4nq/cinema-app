@@ -9,96 +9,6 @@ import client01 from "../../assets/img/client01.jpg";
 import { getAllCineplex, postAllMoviesByCineplex } from "../../redux/actions/movieActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-const Data = [
-  {
-    date: "10/07/2021",
-    details: [
-      {
-        id_movie: 167,
-        movie_name: "PALM SPRINGS: MỞ MẮT THẤY HÔM QUA",
-        poster:
-          "https://firebasestorage.googleapis.com/v0/b/cinema-app-ea4a7.appspot.com/o/ImageMovie%2FPalm_Springs_M%E1%BB%9F_m%E1%BA%AFt_th%E1%BA%A5y_h%C3%B4m_qua_poster.jpg?alt=media&token=86e2e3f8-fe30-40eb-b645-893501407484",
-        cate: [
-          {
-            id_cate: 79,
-            name_cate: "3D",
-            schedule_detail: [
-              {
-                id_schedule: 2,
-                time: "21:00",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        id_movie: 36,
-        movie_name: "NGƯỜI NHÂN BẢN",
-        poster:
-          "https://firebasestorage.googleapis.com/v0/b/cinema-app-ea4a7.appspot.com/o/ImageMovie%2Fngang-3-16184129931631178967046.jpg?alt=media&token=5d4ed045-c34a-4fd4-8d08-4b6d708b282c",
-        cate: [
-          {
-            id_cate: 78,
-            name_cate: "2D",
-            schedule_detail: [
-              {
-                id_schedule: 4,
-                time: "17:00",
-              },
-              {
-                id_schedule: 1,
-                time: "21:00",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    date: "11/07/2021",
-    details: [],
-  },
-  {
-    date: "12/07/2021",
-    details: [],
-  },
-  {
-    date: "13/07/2021",
-    details: [],
-  },
-  {
-    date: "14/07/2021",
-    details: [],
-  },
-  {
-    date: "15/07/2021",
-    details: [],
-  },
-  {
-    date: "16/07/2021",
-    details: [
-      {
-        id_movie: 36,
-        movie_name: "NGƯỜI NHÂN BẢN",
-        poster:
-          "https://firebasestorage.googleapis.com/v0/b/cinema-app-ea4a7.appspot.com/o/ImageMovie%2Fngang-3-16184129931631178967046.jpg?alt=media&token=5d4ed045-c34a-4fd4-8d08-4b6d708b282c",
-        cate: [
-          {
-            id_cate: 78,
-            name_cate: "2D",
-            schedule_detail: [
-              {
-                id_schedule: 3,
-                time: "11:00",
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  },
-];
 //convert date
 const getDate = (day) => {
   var parts = day.split("/");
@@ -129,6 +39,7 @@ function SearchComponent() {
   }, [dispatch]);
   const { Allcineplex } = useSelector((state) => state.AllCineplex);
   const { MoviesByCineplex } = useSelector((state) => state.AllMoviesByCineplex);
+  const [NameCineplex, setNameCineplex] = useState("");
   let movies =
     MoviesByCineplex !== undefined && MoviesByCineplex.length > 0
       ? MoviesByCineplex.filter((x) => x.details.length > 0)
@@ -136,13 +47,29 @@ function SearchComponent() {
   console.log("🚀 ~ file: Search.page.jsx ~ line 133 ~ SearchComponent ~ movies", movies);
   const getMovies = (e) => {
     let id = e.target.id;
+    let Cineplex = e.target.innerText;
+    setNameCineplex(Cineplex);
     dispatch(postAllMoviesByCineplex(id));
   };
+
   const [activeTab, setActiveTab] = useState("0");
 
   const toggle = (tab) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
+
+  //booking
+  const handleProceed = (valueDay, category, time) => {
+    if (time && category && valueDay) {
+      sessionStorage.setItem("day", JSON.stringify(valueDay));
+      sessionStorage.setItem("category", JSON.stringify(category));
+      sessionStorage.setItem("time", JSON.stringify(time));
+      sessionStorage.setItem("valueCineplex", JSON.stringify(NameCineplex));
+    } else {
+      alert("Please choose showtime 😅");
+    }
+  };
+
   return (
     <div>
       <div class="ticket-plan-section padding-bottom padding-top">
@@ -211,17 +138,27 @@ function SearchComponent() {
                                         <p class="name">{subItem.movie_name}</p>
                                       </Link>
 
-                                      <span>{subItem.cate.length > 0 && subItem.cate[0].name_cate} Phụ đề Việt</span>
-
-                                      <div className="movie-schedule">
-                                        {subItem.cate.length > 0 &&
-                                          subItem.cate[0].schedule_detail.length > 0 &&
-                                          subItem.cate[0].schedule_detail.map((child, ind) => (
-                                            <div key={ind} class="item">
-                                              {child.time}
+                                      {subItem.cate.length > 0 &&
+                                        subItem.cate.map((cate, idx) => (
+                                          <>
+                                            <span key={idx}>
+                                              {subItem.cate.length > 0 && cate.name_cate} Phụ đề Việt
+                                            </span>
+                                            <div className="movie-schedule">
+                                              {cate.schedule_detail.length > 0 &&
+                                                cate.schedule_detail.map((child, idn) => (
+                                                  <div key={idn} class="item">
+                                                    <Link
+                                                      to={`/booking/${subItem.slug}`}
+                                                      onClick={() => handleProceed(item.date, cate, child)}
+                                                    >
+                                                      {child.time_start}
+                                                    </Link>
+                                                  </div>
+                                                ))}
                                             </div>
-                                          ))}
-                                      </div>
+                                          </>
+                                        ))}
                                     </div>
                                   </li>
                                 </ul>
