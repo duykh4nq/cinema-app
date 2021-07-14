@@ -333,7 +333,10 @@ exports.postAllMoviesByCineplexId = async (req, res, next) => {
       (list) => list.start_point >= start && list.start_point <= end
     );
     for (let listmovie of listmMoviesV1) {
-      console.log("🚀 ~ file: home.js ~ line 294 ~ exports.postAllMoviesByCineplexId= ~ listmovie", listmovie);
+      console.log(
+        "🚀 ~ file: home.js ~ line 294 ~ exports.postAllMoviesByCineplexId= ~ listmovie",
+        listmovie
+      );
       // find name cate
       const room = rooms.filter((r) => r.id === listmovie.id_room);
       // find movie in detail

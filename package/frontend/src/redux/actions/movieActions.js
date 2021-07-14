@@ -88,7 +88,6 @@ export const postBookingSeat = () => async (dispatch) => {
 
 export const checkoutCart = (total, seat) => async (dispatch, getState) => {
   const users = getState().users;
-  console.log(`🚀 => file: movieActions.js => line 76 => users`, users);
   try {
     dispatch({ type: actionTypes.CHECK_OUT_REQUEST });
     const id_schedule = JSON.parse(sessionStorage.getItem("time"));
@@ -122,7 +121,7 @@ export const postAllHistoryBooking = () => async (dispatch, getState) => {
   try {
     dispatch({ type: actionTypes.GET_HISTORY_REQUEST });
     const { data } = await axios.post(`/allhistorybooking`, {
-      email: users.user.id,
+      id_user: users.user.id,
     });
     dispatch({
       type: actionTypes.GET_HISTORY_SUCCESS,
@@ -144,7 +143,7 @@ export const postAllWaitHistoryBooking = () => async (dispatch, getState) => {
   try {
     dispatch({ type: actionTypes.GET_WAITTING_HISTORY_REQUEST });
     const { data } = await axios.post(`/waittinghistorybooking`, {
-      email: users.user.id,
+      id_user: users.user.id,
     });
     dispatch({
       type: actionTypes.GET_WAITTING_HISTORY_SUCCESS,
@@ -166,7 +165,7 @@ export const postAllBookedHistoryBooking = () => async (dispatch, getState) => {
   try {
     dispatch({ type: actionTypes.GET_BOOKED_HISTORY_REQUEST });
     const { data } = await axios.post(`/bookedhistorybooking`, {
-      email: users.user.id,
+      id_user: users.user.id,
     });
     dispatch({
       type: actionTypes.GET_BOOKED_HISTORY_SUCCESS,
