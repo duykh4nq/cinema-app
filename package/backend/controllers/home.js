@@ -246,7 +246,7 @@ exports.postAllMoviesByCineplexId = async (req, res, next) => {
   // find all id movie
   let listmMovies = await db.query(
     `
-    select mo.id, mo.name_movie, mo.slug, mo.poster, sch.id as id_schedule, sch.id_room, tt.start_point
+    select mo.id, mo.name_movie, mo.slug, mo.poster, sch.id as id_schedule, sch.id_room, tt.start_point, tt.end_point
     from Movies_Cineplexs mc join Movies mo on mc.id_movie = mo.id
     join schedules sch on sch.id_movie = mc.id_movie
     join times tt on sch.id_time = tt.id
@@ -291,6 +291,7 @@ exports.postAllMoviesByCineplexId = async (req, res, next) => {
     let detail = [];
     const listmMoviesV1 = listmMovies.filter((list) => list.start_point >= start && list.start_point <= end);
     for (let listmovie of listmMoviesV1) {
+      console.log("🚀 ~ file: home.js ~ line 294 ~ exports.postAllMoviesByCineplexId= ~ listmovie", listmovie);
       // find name cate
       const room = rooms.filter((r) => r.id === listmovie.id_room);
       // find movie in detail
@@ -310,7 +311,8 @@ exports.postAllMoviesByCineplexId = async (req, res, next) => {
                 schedule_detail: [
                   {
                     id_schedule: listmovie.id_schedule,
-                    time: timeConverterShowTime(listmovie.start_point),
+                    time_start: timeConverterShowTime(listmovie.start_point),
+                    time_end: timeConverterShowTime(listmovie.end_point),
                   },
                 ],
               },
@@ -327,14 +329,16 @@ exports.postAllMoviesByCineplexId = async (req, res, next) => {
               schedule_detail: [
                 {
                   id_schedule: listmovie.id_schedule,
-                  time: timeConverterShowTime(listmovie.start_point),
+                  time_start: timeConverterShowTime(listmovie.start_point),
+                  time_end: timeConverterShowTime(listmovie.end_point),
                 },
               ],
             });
           } else {
             ko.cate[index].schedule_detail.push({
               id_schedule: listmovie.id_schedule,
-              time: timeConverterShowTime(listmovie.start_point),
+              time_start: timeConverterShowTime(listmovie.start_point),
+              time_end: timeConverterShowTime(listmovie.end_point),
             });
             ko.cate[index].schedule_detail.sort(function (a, b) {
               return ("" + a.time).localeCompare(b.time);
