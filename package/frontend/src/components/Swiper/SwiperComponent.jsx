@@ -5,9 +5,6 @@ import "./Swiper.scss";
 SwiperComponent.propTypes = {};
 
 function SwiperComponent({ movie }) {
-  const handleDetail =()=>{
-    sessionStorage.setItem("id_movie",movie.id);
-  }
   return (
     <div className="swipercomponent">
       {movie && (
@@ -18,7 +15,7 @@ function SwiperComponent({ movie }) {
             </Link>
           </div>
           <div class="movie-content bg-one">
-            <h5 class="title m-0" onClick={()=>handleDetail()}>
+            <h5 class="title m-0">
               <Link to={`detail/${movie.slug}`}>{movie.name_movie}</Link>
             </h5>
             <ul class="movie-rating-percent">

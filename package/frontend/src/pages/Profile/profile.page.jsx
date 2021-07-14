@@ -8,10 +8,10 @@ ProfilePage.propTypes = {};
 
 function ProfilePage(props) {
   const { user, loggedIn, message } = useSelector((state) => state.users);
-  const userLoggedIn = useSelector((state) => state.users.loggedIn);
+  const us = useSelector((state) => state.users);
+  console.log("🚀 ~ file: profile.page.jsx ~ line 12 ~ ProfilePage ~ us", us);
   const [users, setUsers] = useState("");
   const { email, name, phone } = users;
-  console.log(`🚀 => file: profile.page.jsx => line 14 => name`, name);
   const [oldPassword, setOldPassword] = useState();
   const [newPassword, setNewPassword] = useState();
   const [newPasswordConfirm, setPasswordConfirm] = useState();
@@ -42,7 +42,7 @@ function ProfilePage(props) {
   const handleChangProfile = (e) => {
     e.preventDefault();
     dispatch(postChangeProfile(email, name, phone));
-    history.push("/");
+    //history.push("/");
   };
   // changPassword
   const handleChangePassword = (e) => {
@@ -62,7 +62,7 @@ function ProfilePage(props) {
           <div className="row">
             <div className="col-md-12">
               <div className="hero-ct">
-                <h1>{name}</h1> 
+                <h1>{name}</h1>
                 <ul className="breadcumb">
                   <li className="active">
                     <Link to="/">Home</Link>

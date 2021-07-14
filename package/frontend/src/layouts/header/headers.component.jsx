@@ -9,7 +9,6 @@ import "../../assets/css/style.css";
 import "../../assets/css/plugins.css";
 import { useDispatch, useSelector } from "react-redux";
 import { PostLogout } from "../../redux/actions/authActions";
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import logo from "../../assets/images/logo1.png";
 
 function HeadersComponent() {

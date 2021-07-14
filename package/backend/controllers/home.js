@@ -98,11 +98,15 @@ exports.getHome = async (req, res, next) => {
   });
 };
 exports.getDetailMovie = async (req, res, next) => {
-  const id_movie = req.params.id_movie;
-  console.log(`🚀 => file: home.js => line 102 => id_movie`, id_movie);
+  const slug = req.params.slug;
+  console.log(
+    "🚀 ~ file: home.js ~ line 84 ~ exports.getDetailMovie= ~ slug",
+    slug
+  );
+
   const mov = await Movies.findOne({
     where: {
-      id: id_movie,
+      slug: slug,
     },
   });
   res.status(200).send(mov);
@@ -282,7 +286,7 @@ exports.postAllMoviesByCineplexId = async (req, res, next) => {
   // find all id movie
   let listmMovies = await db.query(
     `
-    select mo.id, mo.name_movie, mo.poster, sch.id as id_schedule, sch.id_room, tt.start_point
+    select mo.id, mo.name_movie, mo.slug, mo.poster, sch.id as id_schedule, sch.id_room, tt.start_point
     from Movies_Cineplexs mc join Movies mo on mc.id_movie = mo.id
     join schedules sch on sch.id_movie = mc.id_movie
     join times tt on sch.id_time = tt.id
@@ -303,7 +307,6 @@ exports.postAllMoviesByCineplexId = async (req, res, next) => {
     `,
     { type: QueryTypes.SELECT }
   );
-
   const today = new Date();
   let after7days = new Date(new Date().getTime() + 6 * 24 * 60 * 60 * 1000);
   after7days = moment(after7days).endOf("day");
@@ -335,13 +338,32 @@ exports.postAllMoviesByCineplexId = async (req, res, next) => {
       // find movie in detail
       let ko = detail.find((d) => d.id_movie === listmovie.id);
       // if(ko === null)
-      if (ko === undefined) {
-        const kooo = {
-          id_movie: listmovie.id,
-          movie_name: listmovie.name_movie,
-          poster: listmovie.poster,
-          cate: [
-            {
+      if (room.length !== 0) {
+        if (ko === undefined) {
+          const kooo = {
+            id_movie: listmovie.id,
+            movie_name: listmovie.name_movie,
+            slug: listmovie.slug,
+            poster: listmovie.poster,
+            cate: [
+              {
+                id_cate: room[0].id,
+                name_cate: room[0].name_cat,
+                schedule_detail: [
+                  {
+                    id_schedule: listmovie.id_schedule,
+                    time: timeConverterShowTime(listmovie.start_point),
+                  },
+                ],
+              },
+            ],
+          };
+          detail.push(kooo);
+        } else {
+          const existsRoom = ko.cate.filter((c) => c.id_cate === room[0].id);
+          const index = ko.cate.findIndex((c) => c.id_cate === room[0].id);
+          if (existsRoom.length === 0) {
+            ko.cate.push({
               id_cate: room[0].id,
               name_cate: room[0].name_cat,
               schedule_detail: [
@@ -350,35 +372,20 @@ exports.postAllMoviesByCineplexId = async (req, res, next) => {
                   time: timeConverterShowTime(listmovie.start_point),
                 },
               ],
-            },
-          ],
-        };
-        detail.push(kooo);
-      } else {
-        const existsRoom = ko.cate.filter((c) => c.id_cate === room[0].id);
-        const index = ko.cate.findIndex((c) => c.id_cate === room[0].id);
-        if (existsRoom.length === 0) {
-          ko.cate.push({
-            id_cate: room[0].id,
-            name_cate: room[0].name_cat,
-            schedule_detail: [
-              {
-                id_schedule: listmovie.id_schedule,
-                time: timeConverterShowTime(listmovie.start_point),
-              },
-            ],
-          });
-        } else {
-          ko.cate[index].schedule_detail.push({
-            id_schedule: listmovie.id_schedule,
-            time: timeConverterShowTime(listmovie.start_point),
-          });
-          ko.cate[index].schedule_detail.sort(function (a, b) {
-            return ("" + a.time).localeCompare(b.time);
-          });
+            });
+          } else {
+            ko.cate[index].schedule_detail.push({
+              id_schedule: listmovie.id_schedule,
+              time: timeConverterShowTime(listmovie.start_point),
+            });
+            ko.cate[index].schedule_detail.sort(function (a, b) {
+              return ("" + a.time).localeCompare(b.time);
+            });
+          }
         }
       }
     }
+    console.log("done", detail);
     result.push({
       date: getDateWithoutTimeForAll(start),
       details: detail,
