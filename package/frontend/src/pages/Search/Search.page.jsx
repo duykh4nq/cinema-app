@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-//import css
-import "./search.style.scss";
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from "reactstrap";
-import classnames from "classnames";
-//import img
-
-import client01 from "../../assets/img/client01.jpg";
-import { getAllCineplex, postAllMoviesByCineplex } from "../../redux/actions/movieActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from "reactstrap";
+import classnames from "classnames";
+
+//import css
+import "./search.style.scss";
+
+//import actions
+import { getAllCineplex, postAllMoviesByCineplex } from "../../redux/actions/movieActions";
+
 //convert date
 const getDate = (day) => {
   var parts = day.split("/");
@@ -37,6 +38,7 @@ function SearchComponent() {
   useEffect(() => {
     dispatch(getAllCineplex());
   }, [dispatch]);
+  const userLoggedIn = useSelector((state) => state.users.loggedIn);
   const { Allcineplex } = useSelector((state) => state.AllCineplex);
   const { MoviesByCineplex } = useSelector((state) => state.AllMoviesByCineplex);
   const [NameCineplex, setNameCineplex] = useState("");
@@ -44,7 +46,6 @@ function SearchComponent() {
     MoviesByCineplex !== undefined && MoviesByCineplex.length > 0
       ? MoviesByCineplex.filter((x) => x.details.length > 0)
       : [];
-  console.log("🚀 ~ file: Search.page.jsx ~ line 133 ~ SearchComponent ~ movies", movies);
   const getMovies = (e) => {
     let id = e.target.id;
     let Cineplex = e.target.innerText;
@@ -60,14 +61,20 @@ function SearchComponent() {
 
   //booking
   const handleProceed = (valueDay, category, time, movies) => {
+  console.log(`🚀 => file: Search.page.jsx => line 64 => movies`, movies)
+  console.log(`🚀 => file: Search.page.jsx => line 64 => time`, time)
+  console.log(`🚀 => file: Search.page.jsx => line 64 => category`, category)
+  console.log(`🚀 => file: Search.page.jsx => line 64 => valueDay`, valueDay)
+  console.log(`🚀 => file: Search.page.jsx => line 69 => NameCineplex`, NameCineplex)
     if (time && category && valueDay && movies && NameCineplex) {
       sessionStorage.setItem("day", JSON.stringify(valueDay));
       sessionStorage.setItem("category", JSON.stringify(category));
       sessionStorage.setItem("time", JSON.stringify(time));
       sessionStorage.setItem("valueCineplex", JSON.stringify(NameCineplex));
       sessionStorage.setItem("movies", JSON.stringify(movies));
+      if(!userLoggedIn) alert("You need to login 😅");
     } else {
-      alert("Please choose showtime 😅");
+      alert("You need to login 😅");
     }
   };
 
@@ -150,7 +157,7 @@ function SearchComponent() {
                                                 cate.schedule_detail.map((child, idn) => (
                                                   <div key={idn} class="item">
                                                     <Link
-                                                      to={`/booking/${subItem.slug}`}
+                                                      to={userLoggedIn?`/booking/${subItem.slug}`:'/search'}
                                                       onClick={() => handleProceed(item.date, cate, child, subItem)}
                                                     >
                                                       {child.time_start}
