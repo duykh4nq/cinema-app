@@ -39,12 +39,14 @@ function SearchComponent() {
   }, [dispatch]);
   const { Allcineplex } = useSelector((state) => state.AllCineplex);
   const { MoviesByCineplex } = useSelector((state) => state.AllMoviesByCineplex);
-  const [NameCineplex, setNameCineplex] = useState("");
+  const userLoggedIn = useSelector((state) => state.users.loggedIn);
+  const [NameCineplex, setNameCineplex] = useState(
+    JSON.parse(sessionStorage.getItem("valueCineplex")) ? JSON.parse(sessionStorage.getItem("valueCineplex")) : ""
+  );
   let movies =
     MoviesByCineplex !== undefined && MoviesByCineplex.length > 0
       ? MoviesByCineplex.filter((x) => x.details.length > 0)
       : [];
-  console.log("🚀 ~ file: Search.page.jsx ~ line 133 ~ SearchComponent ~ movies", movies);
   const getMovies = (e) => {
     let id = e.target.id;
     let Cineplex = e.target.innerText;
@@ -61,13 +63,14 @@ function SearchComponent() {
   //booking
   const handleProceed = (valueDay, category, time, movies) => {
     if (time && category && valueDay && movies && NameCineplex) {
+      if (!userLoggedIn) {
+        alert("Login, please");
+      }
       sessionStorage.setItem("day", JSON.stringify(valueDay));
       sessionStorage.setItem("category", JSON.stringify(category));
       sessionStorage.setItem("time", JSON.stringify(time));
       sessionStorage.setItem("valueCineplex", JSON.stringify(NameCineplex));
       sessionStorage.setItem("movies", JSON.stringify(movies));
-    } else {
-      alert("Please choose showtime 😅");
     }
   };
 
