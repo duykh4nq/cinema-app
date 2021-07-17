@@ -3,7 +3,7 @@ require("dotenv").config();
 const nodemailer = require("nodemailer");
 
 const config = {
-  host: process.env.EMAIL_HOST || "smtp.gmail.com",
+  host: "smtp.gmail.com",
   port: 587,
   ignoreTLS: false,
   secure: false,
@@ -27,7 +27,7 @@ function timeConverter(UNIX_timestamp) {
   return time;
 }
 
-exports.sendMail = (email, code) => {
+exports.sendMail = async (email, code) => {
   const transporter = nodemailer.createTransport(config);
   try {
     const msg = {
@@ -37,7 +37,14 @@ exports.sendMail = (email, code) => {
       text: `CGV Cinemas`,
       html: `<p>code: ${code}</p>`,
     };
-    const info = transporter.sendMail(msg);
+    //const info = transporter.sendMail(msg);
+    await transporter.sendMail(msg, function (err, info) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(info);
+      }
+    });
     return true;
   } catch (error) {
     console.log(error);
@@ -47,7 +54,7 @@ exports.sendMail = (email, code) => {
   }
 };
 
-exports.sendMailBookingSuccess = (email, content) => {
+exports.sendMailBookingSuccess = async (email, content) => {
   const transporter = nodemailer.createTransport(config);
   try {
     let kk = "";
@@ -83,7 +90,13 @@ exports.sendMailBookingSuccess = (email, content) => {
         ${kk}
       `, // html body,
     };
-    const info = transporter.sendMail(msg);
+    await transporter.sendMail(msg, function (err, info) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(info);
+      }
+    });
     return true;
   } catch (error) {
     console.log(error);

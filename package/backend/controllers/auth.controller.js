@@ -15,43 +15,78 @@ const { Bookings } = require("../models/bookings.model");
 const { Movies } = require("../models/movies.model");
 const { Schedules, Times } = require("../models/schedules.model");
 const { Tickets } = require("../models/ticket.model");
-const { Cineplexs, Rooms, Category_rooms } = require("../models/cineplex_room.model");
+const {
+  Cineplexs,
+  Rooms,
+  Category_rooms,
+} = require("../models/cineplex_room.model");
 
 // Mail
 const MailService = require("../services/mail");
 
 exports.postSignup = async (req, res, next) => {
   let { password, email, name, phone } = req.body;
-  console.log("🚀 ~ file: auth.controller.js ~ line 29 ~ password", password, email, name, phone);
+  console.log(
+    "🚀 ~ file: auth.controller.js ~ line 29 ~ password",
+    password,
+    email,
+    name,
+    phone
+  );
 
   const code = Math.floor(100000 + Math.random() * 900000);
-  try {
-    const userExists = await Users.findOne({ where: { email: email } });
+  const userExists = await Users.findOne({ where: { email: email } });
 
-    // check exists user
+  // check exists user
 
-    if (userExists) {
-      return res.status(403).send({
-        error: "Email is taken by another account.",
-      });
-    }
-    const newUser = await Users.create({
-      email: email,
-      password: bcrypt.hashSync(password, 12),
-      name: name,
-      phone: phone,
-      role: 1,
-      active: code,
+  if (userExists) {
+    return res.status(403).send({
+      error: "Email is taken by another account.",
     });
-    if (newUser) {
-      await MailService.sendMail(email, code);
-      return res.status(200).send({ message: "Success", code: code.toString() });
-    } else {
-      return res.status(400).send({ error: "Fail!!!!" });
-    }
-  } catch (error) {
-    return res.status(400).send({ error: "Fail" });
   }
+  const newUser = await Users.create({
+    email: email,
+    password: bcrypt.hashSync(password.toString(), 12),
+    name: name,
+    phone: phone.toString(),
+    role: 1,
+    active: code,
+    verifyCode: null,
+  });
+  if (newUser) {
+    await MailService.sendMail(email, code);
+    return res.status(200).send({ message: "Success", code: code.toString() });
+  }
+  // try {
+  //   const userExists = await Users.findOne({ where: { email: email } });
+
+  //   // check exists user
+
+  //   if (userExists) {
+  //     return res.status(403).send({
+  //       error: "Email is taken by another account.",
+  //     });
+  //   }
+  //   const newUser = await Users.create({
+  //     email: email,
+  //     password: bcrypt.hashSync(password.toString(), 12),
+  //     name: name,
+  //     phone: phone.toString(),
+  //     role: 1,
+  //     active: code,
+  //     verifyCode: null,
+  //   });
+  //   if (newUser) {
+  //     await MailService.sendMail(email, code);
+  //     return res
+  //       .status(200)
+  //       .send({ message: "Success", code: code.toString() });
+  //   } else {
+  //     return res.status(400).send({ error: "Fail!!!!" });
+  //   }
+  // } catch (error) {
+  //   return res.status(400).send({ error: "Fail" });
+  // }
 };
 
 exports.postVerify = async (req, res, next) => {
@@ -118,7 +153,9 @@ exports.postForgotPassword = async (req, res, next) => {
     await MailService.sendMail(email, code);
     userExists.verifyCode = code;
     await userExists.save();
-    return res.status(200).send({ message: "Success Forgot", codeverify: code.toString() });
+    return res
+      .status(200)
+      .send({ message: "Success Forgot", codeverify: code.toString() });
   } catch (error) {
     return res.status(400).send({ error: "Fail" });
   }
@@ -163,9 +200,15 @@ exports.postResetPassword = async (req, res, next) => {
     if (data) {
       user.password = bcrypt.hashSync(newPassword, 12);
       await user.save();
-      return res.status(200).send({ user, message: "Change password successfully" });
+      return res
+        .status(200)
+        .send({ user, message: "Change password successfully" });
     } else {
-      console.log("🚀 ~ file: auth.controller.js ~ line 159 ~ bcrypt.compare ~ false", err, data);
+      console.log(
+        "🚀 ~ file: auth.controller.js ~ line 159 ~ bcrypt.compare ~ false",
+        err,
+        data
+      );
       return res.status(403).send({ message: "Invalid credencial" });
     }
   });
