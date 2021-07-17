@@ -27,11 +27,14 @@ const HomeScreen = ({ match, history }) => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  var arrData = [];
   useEffect(() => {
     dispatch(listMovies());
   }, [dispatch]);
+<<<<<<< HEAD
   console.log(movies);
+=======
+  console.log("====");
+>>>>>>> 01896ee53d380924e760eabf4faef2be477e4022
   return (
     <div class="homepage">
       <div className="banner">
@@ -47,7 +50,7 @@ const HomeScreen = ({ match, history }) => {
           </div>
         </Slider>
       </div>
-      <section class="movie-section padding-bottom bg-two">
+      <section class="movie-section bg-two">
         <div class="container">
           <div class="row flex-wrap-reverse justify-content-center">
             <div class="col-lg-12">

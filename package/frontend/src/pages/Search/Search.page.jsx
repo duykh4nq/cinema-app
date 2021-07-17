@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
-//import css
-import "./search.style.scss";
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from "reactstrap";
-import classnames from "classnames";
-//import img
-
-import client01 from "../../assets/img/client01.jpg";
-import { getAllCineplex, postAllMoviesByCineplex } from "../../redux/actions/movieActions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { TabContent, TabPane, Nav, NavItem, NavLink, Row, Col } from "reactstrap";
+import classnames from "classnames";
+
+//import css
+import "./search.style.scss";
+
+//import actions
+import { getAllCineplex, postAllMoviesByCineplex } from "../../redux/actions/movieActions";
+
 //convert date
 const getDate = (day) => {
   var parts = day.split("/");
@@ -37,9 +38,9 @@ function SearchComponent() {
   useEffect(() => {
     dispatch(getAllCineplex());
   }, [dispatch]);
+  const userLoggedIn = useSelector((state) => state.users.loggedIn);
   const { Allcineplex } = useSelector((state) => state.AllCineplex);
   const { MoviesByCineplex } = useSelector((state) => state.AllMoviesByCineplex);
-  const userLoggedIn = useSelector((state) => state.users.loggedIn);
   const [NameCineplex, setNameCineplex] = useState(
     JSON.parse(sessionStorage.getItem("valueCineplex")) ? JSON.parse(sessionStorage.getItem("valueCineplex")) : ""
   );
@@ -64,14 +65,14 @@ function SearchComponent() {
   const handleProceed = (valueDay, category, time, movies) => {
     if (time && category && valueDay && movies && NameCineplex) {
       if (!userLoggedIn) {
-        alert("Login, please");
+        alert("Please login before booking seats😝");
       }
       sessionStorage.setItem("day", JSON.stringify(valueDay));
       sessionStorage.setItem("category", JSON.stringify(category));
       sessionStorage.setItem("time", JSON.stringify(time));
       sessionStorage.setItem("valueCineplex", JSON.stringify(NameCineplex));
       sessionStorage.setItem("movies", JSON.stringify(movies));
-    }
+    } 
   };
 
   return (
@@ -139,21 +140,21 @@ function SearchComponent() {
                                     <div class="movie-info">
                                       <Link to={`detail/${subItem.slug}`}>
                                         {" "}
-                                        <p class="name">{subItem.movie_name}</p>
+                                        <p class="name">{subItem.name_movier}</p>
                                       </Link>
 
                                       {subItem.cate.length > 0 &&
                                         subItem.cate.map((cate, idx) => (
                                           <>
                                             <span key={idx}>
-                                              {subItem.cate.length > 0 && cate.name_cate} Phụ đề Việt
+                                              {subItem.cate.length > 0 && cate.name_cate} Vietnamese Subtitles
                                             </span>
                                             <div className="movie-schedule">
                                               {cate.schedule_detail.length > 0 &&
                                                 cate.schedule_detail.map((child, idn) => (
                                                   <div key={idn} class="item">
                                                     <Link
-                                                      to={`/booking/${subItem.slug}`}
+                                                      to={userLoggedIn?`/booking/${subItem.slug}`:'/search'}
                                                       onClick={() => handleProceed(item.date, cate, child, subItem)}
                                                     >
                                                       {child.time_start}

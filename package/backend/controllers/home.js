@@ -8,7 +8,12 @@ const { Bookings } = require("../models/bookings.model");
 const { Movies } = require("../models/movies.model");
 const { Schedules, Times } = require("../models/schedules.model");
 const { Tickets } = require("../models/ticket.model");
-const { Cineplexs, Rooms, Category_rooms, Movies_Cineplex } = require("../models/cineplex_room.model");
+const {
+  Cineplexs,
+  Rooms,
+  Category_rooms,
+  Movies_Cineplex,
+} = require("../models/cineplex_room.model");
 
 function getDateWithoutTime(date) {
   return require("moment")(date).format("YYYY-MM-DD");
@@ -16,7 +21,20 @@ function getDateWithoutTime(date) {
 
 function timeConverter(UNIX_timestamp) {
   var a = new Date(UNIX_timestamp);
-  var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  var months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   var year = a.getFullYear();
   var month = months[a.getMonth()];
   var date = a.getDate();
@@ -81,7 +99,10 @@ exports.getHome = async (req, res, next) => {
 };
 exports.getDetailMovie = async (req, res, next) => {
   const slug = req.params.slug;
-  console.log("🚀 ~ file: home.js ~ line 84 ~ exports.getDetailMovie= ~ slug", slug);
+  console.log(
+    "🚀 ~ file: home.js ~ line 84 ~ exports.getDetailMovie= ~ slug",
+    slug
+  );
 
   const mov = await Movies.findOne({
     where: {
@@ -99,7 +120,9 @@ async function qery(id_mov, datee) {
     join category_rooms cr on cr.id = ro.id_category_room
     join schedules sch on sch.id_room = ro.id
     join times ti on ti.id = sch.id_time
-    where sch.id_movie = ${id_mov} and ti.start_point::date = '${getDateWithoutTime(datee)}'
+    where sch.id_movie = ${id_mov} and ti.start_point::date = '${getDateWithoutTime(
+      datee
+    )}'
     group by sch.id, cine.name, cr.name_cat, ti.start_point, ti.end_point
     order by cine.name
     `,
@@ -145,15 +168,23 @@ function converData(arr) {
       };
       details.push(ttkk);
     } else {
-      const existsDetailsCat = existsCineplex.detailsCat.find((de) => de.cate_room === ko.name_cat);
+      const existsDetailsCat = existsCineplex.detailsCat.find(
+        (de) => de.cate_room === ko.name_cat
+      );
 
-      const indexCine = details.findIndex((e) => e.cineplex === existsCineplex.cineplex);
+      const indexCine = details.findIndex(
+        (e) => e.cineplex === existsCineplex.cineplex
+      );
       if (existsDetailsCat === undefined) {
         // cate_room undefined
-        details[indexCine].detailsCat.push(detailsCat(ko.name_cat, ko.id, ko.start_point));
+        details[indexCine].detailsCat.push(
+          detailsCat(ko.name_cat, ko.id, ko.start_point)
+        );
       } else {
         // cate_room not undefined
-        const indexSche = details[indexCine].detailsCat.findIndex((e) => e.cate_room === ko.name_cat);
+        const indexSche = details[indexCine].detailsCat.findIndex(
+          (e) => e.cate_room === ko.name_cat
+        );
         details[indexCine].detailsCat[indexSche].schedule.push({
           id_schedule: ko.id,
           time_start: timeConverter(ko.start_point),
@@ -208,8 +239,12 @@ exports.postBookingSeat = async (req, res, next) => {
       horizontal_size: existsBooking[0].horizontal_size,
       vertical_size: existsBooking[0].vertical_size,
       price: existsBooking[0].price,
-      sum_of_seat: (existsBooking[0].vertical_size.charCodeAt(0) - 64) * existsBooking[0].horizontal_size,
-      empty_seat: (existsBooking[0].vertical_size.charCodeAt(0) - 64) * existsBooking[0].horizontal_size,
+      sum_of_seat:
+        (existsBooking[0].vertical_size.charCodeAt(0) - 64) *
+        existsBooking[0].horizontal_size,
+      empty_seat:
+        (existsBooking[0].vertical_size.charCodeAt(0) - 64) *
+        existsBooking[0].horizontal_size,
       exists_seat: 0,
       seats: [],
     };
@@ -219,8 +254,13 @@ exports.postBookingSeat = async (req, res, next) => {
       horizontal_size: bookings[0].horizontal_size,
       vertical_size: bookings[0].vertical_size,
       price: bookings[0].price,
-      sum_of_seat: (bookings[0].vertical_size.charCodeAt(0) - 64) * bookings[0].horizontal_size,
-      empty_seat: (bookings[0].vertical_size.charCodeAt(0) - 64) * bookings[0].horizontal_size - bookings.length,
+      sum_of_seat:
+        (bookings[0].vertical_size.charCodeAt(0) - 64) *
+        bookings[0].horizontal_size,
+      empty_seat:
+        (bookings[0].vertical_size.charCodeAt(0) - 64) *
+          bookings[0].horizontal_size -
+        bookings.length,
       exists_seat: bookings.length,
       seats: [],
     };
@@ -289,9 +329,14 @@ exports.postAllMoviesByCineplexId = async (req, res, next) => {
       end = moment(start).endOf("day");
     }
     let detail = [];
-    const listmMoviesV1 = listmMovies.filter((list) => list.start_point >= start && list.start_point <= end);
+    const listmMoviesV1 = listmMovies.filter(
+      (list) => list.start_point >= start && list.start_point <= end
+    );
     for (let listmovie of listmMoviesV1) {
-      console.log("🚀 ~ file: home.js ~ line 294 ~ exports.postAllMoviesByCineplexId= ~ listmovie", listmovie);
+      console.log(
+        "🚀 ~ file: home.js ~ line 294 ~ exports.postAllMoviesByCineplexId= ~ listmovie",
+        listmovie
+      );
       // find name cate
       const room = rooms.filter((r) => r.id === listmovie.id_room);
       // find movie in detail

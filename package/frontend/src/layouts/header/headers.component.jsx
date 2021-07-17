@@ -9,7 +9,6 @@ import "../../assets/css/style.css";
 import "../../assets/css/plugins.css";
 import { useDispatch, useSelector } from "react-redux";
 import { PostLogout } from "../../redux/actions/authActions";
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from "reactstrap";
 import logo from "../../assets/images/logo1.png";
 
 function HeadersComponent() {
@@ -71,15 +70,12 @@ function HeadersComponent() {
                   <span></span>
                 </div>
               </div>
-              <a href="index-2.html">
+              <Link to="/">
                 <img class="logo" src={logo} alt="" width="119" height="58" />
-              </a>
+              </Link>
             </div>
             <div class="collapse navbar-collapse flex-parent" id="bs-example-navbar-collapse-1">
               <ul class="nav navbar-nav flex-child-menu menu-left">
-                <li class="hidden">
-                  <a href="#page-top"></a>
-                </li>
                 <li>
                   <Link to="/">Home</Link>
                 </li>
@@ -92,19 +88,21 @@ function HeadersComponent() {
               </ul>
               <ul class="nav navbar-nav flex-child-menu menu-right">
                 {loggedIn === true ? (
-                   <div className="account">
+                  <div className="account">
                     <li onClick={AccountHandle}>
-                      Hi {user.name}'s <i class="fa fa-caret-down" aria-hidden="true"></i>
+                      Hi, {user.name}'s <i class="fa fa-caret-down" aria-hidden="true"></i>
                     </li>
                     <div className={dropdownOpen ? "dropdown-account active-account" : "dropdown-account"}>
                       <li>
-                        <Link to="/profile" className="my-account">My account</Link>
+                        <Link to="/profile" className="my-account">
+                          My account
+                        </Link>
                       </li>
                       <li onClick={HandleLogOut}>
                         <button className="logout">Log out</button>
                       </li>
                     </div>
-                  </div> 
+                  </div>
                 ) : (
                   <>
                     <li class="loginLink" onClick={ClickOpenformLogin}>

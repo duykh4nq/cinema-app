@@ -26,6 +26,7 @@ const BookingPage = () => {
   const cineplex_name = JSON.parse(sessionStorage.getItem("valueCineplex"));
   const _time = JSON.parse(sessionStorage.getItem("time"));
   const _day = JSON.parse(sessionStorage.getItem("day"));
+  console.log(`🚀 => file: booking.page.jsx => line 29 => _day`, _day)
 
   const seatBooking = useSelector((state) => state.postBookingSeat);
   const { loading, error, movie } = seatBooking;
@@ -103,7 +104,7 @@ const BookingPage = () => {
                 <h5 class="title">{_schedule.name_movie}</h5>
               </div>
               <div class="item-right">
-                <p>{Moment(_day).format("DD-MM-YYYY") + " " + _time.time_start + " ~ " + _time.time_end}</p>
+                <p>{_day + " " + _time.time_start + " ~ " + _time.time_end}</p>
                 <p>{cineplex_name} | Số ghế ({movie.empty_seat}/{movie.sum_of_seat})</p>
               </div>
             </div>

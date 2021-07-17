@@ -132,7 +132,7 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }
                   onClick={() => setIndexCategory(idx, dtc.cate_room)}
                 >
                   <div>{dtc.cate_room}</div>
-                  <div> phụ đề Việt</div>
+                  <div> Vietnamese Subtitles</div>
                 </button>
               ))}
             </div>

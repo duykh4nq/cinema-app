@@ -85,37 +85,40 @@ exports.postDeleteRoom = async (req, res, next) => {
 };
 
 exports.postDeleteMovie = async (req, res, next) => {
-  const { id_movie, id_cineplex } = req.body;
+  const { id_movie } = req.body;
+
   const moci = await Movies_Cineplex.findAll({
     where: {
       id_movie: id_movie,
-      id_cineplex: id_cineplex,
     },
   });
   if (moci.length === 0)
     return res.status(403).send({ message: "Something is wrong!!" });
-  let allRooms = await Rooms.findAll({
-    where: {
-      id_cineplex: id_cineplex,
-    },
-    attributes: ["id"],
+
+  //
+  let schedules = await Schedules.findAll({
+    where: { id_movie: id_movie },
   });
-  allRooms = JSON.parse(JSON.stringify(allRooms));
-  for (let room of allRooms) {
-    let schedules = await Schedules.findAll({
-      where: { id_movie: id_movie, id_room: room.id },
-    });
-    if (schedules.length !== 0) {
-      schedules = JSON.parse(JSON.stringify(schedules));
-      for (let schedule of schedules) {
-        deleteTime(schedule.id_time);
-      }
+
+  // delete schedule of movie
+  if (schedules.length !== 0) {
+    schedules = JSON.parse(JSON.stringify(schedules));
+    for (let schedule of schedules) {
+      deleteTime(schedule.id_time);
     }
   }
+
+  // delete movie in movies_cineplex
   await Movies_Cineplex.destroy({
     where: {
       id_movie: id_movie,
-      id_cineplex: id_cineplex,
+    },
+  });
+
+  // delete movie
+  await Movies.destroy({
+    where: {
+      id: id_movie,
     },
   });
   return res.send({ message: "Delete Successful" });
