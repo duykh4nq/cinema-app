@@ -60,19 +60,8 @@ exports.sendMailBookingSuccess = async (email, content) => {
     let kk = "";
     for (let i = 0; i < content.listIdTickets.length; i++) {
       if (i == content.listIdTickets.length - 1)
-        kk +=
-          "   <p>Ticket " +
-          (i + 1).toString() +
-          ": " +
-          content.listIdTickets[i].toString() +
-          "</p>";
-      else
-        kk +=
-          "   <p>Ticket " +
-          (i + 1).toString() +
-          ": " +
-          content.listIdTickets[i].toString() +
-          "</p>";
+        kk += "   <p>Ticket " + (i + 1).toString() + ": " + content.listIdTickets[i].toString() + "</p>";
+      else kk += "   <p>Ticket " + (i + 1).toString() + ": " + content.listIdTickets[i].toString() + "</p>";
     }
 
     const msg = {
