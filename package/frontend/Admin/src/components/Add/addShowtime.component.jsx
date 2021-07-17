@@ -37,6 +37,7 @@ function AddShowtimeComponent() {
     const { loadingSchedule, errorSchedule, schedule } = _schedule;
 
     const setValueCineplex = (e) => {
+        
         dispatch(getSchedule(e));
     };
 

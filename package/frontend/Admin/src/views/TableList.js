@@ -123,6 +123,7 @@ function Tables() {
     setDelCineplex(null);
     setDelMovie(null);
     setDelRom(null);
+    setDelShowtime(null);
     setId_cineplex(e);
     dispatch(getSchedule(e));
   };
@@ -132,10 +133,12 @@ function Tables() {
   const showtime = _showtime.data;
 
   const setValueMovie = (e) => {
+    setDelShowtime(null);
     setMovie(e);
   };
 
   const setValueCinema = (e) => {
+    setDelShowtime(null);
     setCinema(e);
   };
 

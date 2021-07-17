@@ -31,6 +31,7 @@ const HomeScreen = ({ match, history }) => {
   useEffect(() => {
     dispatch(listMovies());
   }, [dispatch]);
+  console.log(movies);
   return (
     <div class="homepage">
       <div className="banner">
