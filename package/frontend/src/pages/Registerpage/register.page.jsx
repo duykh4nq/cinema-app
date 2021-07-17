@@ -12,6 +12,7 @@ function Register({ openformRegister, BackOpenformRegister, onSubmit }) {
   const [users, setUsers] = useState("");
   const { email, password, name, phone } = users;
   const register = useSelector((state) => state.register);
+
   const user = useSelector((state) => state.users);
   const [check, setCheck] = useState(false);
   const [code, setCode] = useState();
@@ -152,7 +153,7 @@ function Register({ openformRegister, BackOpenformRegister, onSubmit }) {
                   required="required"
                   onChange={(e) => setCode(e.target.value)}
                 />
-                {user.error ? <p className="fail">{user.error}</p> : null}
+                {user.error ? <p className="fail">Code fail</p> : null}
               </label>
               <div class="row">
                 <button type="submit">Accept</button>
