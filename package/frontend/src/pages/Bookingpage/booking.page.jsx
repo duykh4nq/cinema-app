@@ -44,7 +44,7 @@ const BookingPage = () => {
       e.target.setAttribute("src", seat_checked)
       const abc = [...new Set([...arrSeat, index])]
       setArrSeat(abc)
-      setTotal(55000 * (arrSeat.length + 1))
+      setTotal(45000 * (arrSeat.length + 1))
     }
   };
   const renderSeatCode = () => {

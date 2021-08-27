@@ -101,7 +101,7 @@ const DialogBookingScreen = ({ openformLogin, BackOpenformLogin, movie, movies }
                   <p className="texture">{Moment(item[0].date).date()}</p>
                 </div>
                 <div className="month">
-                  <p>{Moment(item[0].date).month() + " - " + Moment(item[0].date).year()}</p>
+                  <p>{1 + Moment(item[0].date).month() + " - " + Moment(item[0].date).year()}</p>
                 </div>
               </button>
             ))
